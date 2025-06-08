@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -664,7 +665,7 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
         }
     }
 
-    private String evaluateParameter(float deviation, String parameterName) {
+    private String evaluateParameter(float deviation, String parameterName) { //الانحراف
         if (deviation > 1.0f) {
             return parameterName + " خارج المدى المسموح";
         } else if (deviation > 0.7f) {
@@ -678,15 +679,19 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 
     private void fetchWeatherData() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/data/2.5/")
+                .baseUrl("https://api.openweathermap.org/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         WeatherApi service = retrofit.create(WeatherApi.class);
-        Call<WeatherResponse> call = service.getCurrentWeather(LAT, LON, API_KEY, "metric", "ar");
+        double latitude= farmerCropM.getLatitude();
+        double longitude= farmerCropM.getLongitude();
 
 
-        call.enqueue(new Callback<WeatherResponse>() {/*تنفيذ الطلب بشكل غير متزامن*/
+        Call<WeatherResponse> call = service.getCurrentWeather(latitude, longitude, API_KEY, "metric", "ar");
+
+
+        call.enqueue(new Callback<WeatherResponse>() {//تنفيذ الطلب
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {/*لو نجح الاتصال*/
                 if (response.isSuccessful()) {
@@ -694,6 +699,7 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
                     List<DailyWeather> dailyList = new ArrayList<>();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
                     for (ForecastItem item : forecastItems) {
                         try {
                             Date date = sdf.parse(item.getDateText());//التاريخ
@@ -708,6 +714,7 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 
                     WeatherForecast forecast = new WeatherForecast(dailyList);
                     String result = calculatePlantingTimeWithForecast(cropM, farmerCropM, forecast);
+                    Toast.makeText(requireContext(),result , Toast.LENGTH_SHORT).show();
                     fetchWeatherData.setText(result);
                     // اعرض النتيجة أو خزنها
                 }
@@ -716,6 +723,7 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {/*لو فشل الاتصال*/
                 Log.e("WeatherAPI", "فشل الاتصال: " + t.getMessage());
+                Toast.makeText(requireContext(), "فشل الاتصال: ", Toast.LENGTH_SHORT).show();
             }
         });
 

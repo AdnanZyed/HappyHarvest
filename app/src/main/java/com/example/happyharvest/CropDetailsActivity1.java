@@ -199,15 +199,16 @@ public class CropDetailsActivity1 extends AppCompatActivity {
     private void fetchWeatherData() {
         if (farmerCrop == null || farmerCrop.isEmpty()) return;
 
-        String location = farmerCrop.get(0).getLocation();
-        if (location == null) return;
+        String longitude = String.valueOf(farmerCrop.get(0).getLongitude());
+        String latitude = String.valueOf(farmerCrop.get(0).getLatitude());
+       if (longitude==null || latitude==null) return;
 
-        String[] locationParts = location.split(",");
-        if (locationParts.length != 2) return;
+
+        if (longitude.length() != 2||latitude.length() != 2) return;
 
         try {
-            double lat = Double.parseDouble(locationParts[0]);
-            double lon = Double.parseDouble(locationParts[1]);
+            double lat = Double.parseDouble(latitude);
+            double lon = Double.parseDouble(longitude);
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.openweathermap.org/")
@@ -215,7 +216,7 @@ public class CropDetailsActivity1 extends AppCompatActivity {
                     .build();
 
             WeatherApi weatherApi = retrofit.create(WeatherApi.class);
-            Call<WeatherResponse> call = weatherApi.getCurrentWeather(31.5, 34.47, "9e269c7c20355e9e8bba48b0ad2cd52c", "metric", "ar");
+            Call<WeatherResponse> call = weatherApi.getCurrentWeather(lat, lon, "9e269c7c20355e9e8bba48b0ad2cd52c", "metric", "ar");
 
             call.enqueue(new Callback<WeatherResponse>() {
                 @Override

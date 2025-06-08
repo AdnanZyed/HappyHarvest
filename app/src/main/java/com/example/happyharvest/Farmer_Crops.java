@@ -33,8 +33,10 @@ public class Farmer_Crops {
     private double Average_humidity;
     private boolean Paid_subscription; //هل هو مشترك بالنسخة المدفوعة
     private String season;//____________________________للبيت البلاستيكي
-    private String location;///////////لما جيب الاي بي اي وافعل الاشعارات بصير اجيب الامطار الرياح الرطوبة الحرارة...وبعدل ع هيك في البيت والبور
-    ///
+    private double Latitude;///////////لما جيب الاي بي اي وافعل الاشعارات بصير اجيب الامطار الرياح الرطوبة الحرارة...وبعدل ع هيك في البيت والبور
+    private double Longitude;///////////لما جيب الاي بي اي وافعل الاشعارات بصير اجيب الامطار الرياح الرطوبة الحرارة...وبعدل ع هيك في البيت والبور
+
+
     private float averageTemperature;
     private boolean isAddCart;
     private int rating;
@@ -65,7 +67,8 @@ public class Farmer_Crops {
 //        fertilizationHistory.add(new FertilizationRecord(date, type, amount));
 //    }
 
-    public Farmer_Crops(@NonNull String farmer_user_name, int crop_ID, boolean isBookmark, boolean isRegister, String startDate, int successRate, boolean isAccepted, String soilType, String irrigationType, String waterAvailability, double land_area, String previous_crop, double average_humidity, boolean paid_subscription, String season, String location, float averageTemperature, boolean isAddCart, int rating, String lastFertilizerDate, String lastWaterDate, String greenhouseType, String ventilation, boolean hasLighting, boolean hasHeating, boolean hasCooling, boolean hasCO2, boolean hasAutomation, String organicFertilizer, String chemicalFertilizer, float humidity, float windSpeed, String selecting_seeds_or_seedlings, String priority_previous_crop) {
+
+    public Farmer_Crops(@NonNull String farmer_user_name, int crop_ID, boolean isBookmark, boolean isRegister, String startDate, int successRate, boolean isAccepted, String soilType, String irrigationType, String waterAvailability, double land_area, String previous_crop, double average_humidity, boolean paid_subscription, String season, double latitude, double longitude, float averageTemperature, boolean isAddCart, int rating, String lastFertilizerDate, String lastWaterDate, String greenhouseType, String ventilation, boolean hasLighting, boolean hasHeating, boolean hasCooling, boolean hasCO2, boolean hasAutomation, String organicFertilizer, String chemicalFertilizer, float humidity, float windSpeed, String selecting_seeds_or_seedlings, String priority_previous_crop, int wateringFrequencyDays_F, int fertilizingFrequencyDays_F) {
         Farmer_user_name = farmer_user_name;
         Crop_ID = crop_ID;
         this.isBookmark = isBookmark;
@@ -81,7 +84,8 @@ public class Farmer_Crops {
         Average_humidity = average_humidity;
         Paid_subscription = paid_subscription;
         this.season = season;
-        this.location = location;
+        Latitude = latitude;
+        Longitude = longitude;
         this.averageTemperature = averageTemperature;
         this.isAddCart = isAddCart;
         this.rating = rating;
@@ -100,6 +104,8 @@ public class Farmer_Crops {
         this.windSpeed = windSpeed;
         Selecting_seeds_or_seedlings = selecting_seeds_or_seedlings;
         Priority_previous_crop = priority_previous_crop;
+        this.wateringFrequencyDays_F = wateringFrequencyDays_F;
+        this.fertilizingFrequencyDays_F = fertilizingFrequencyDays_F;
     }
 
     public Farmer_Crops() {
@@ -259,12 +265,20 @@ public class Farmer_Crops {
         this.season = season;
     }
 
-    public String getLocation() {
-        return location;
+    public double getLatitude() {
+        return Latitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
     }
 
     public float getAverageTemperature() {
@@ -395,43 +409,5 @@ public class Farmer_Crops {
         this.windSpeed = windSpeed;
     }
 
-    @Override
-    public String toString() {
-        return "Farmer_Crops{" +
-                "Farmer_user_name='" + Farmer_user_name + '\'' +
-                ", Crop_ID=" + Crop_ID +
-                ", isBookmark=" + isBookmark +
-                ", isRegister=" + isRegister +
-                ", startDate='" + startDate + '\'' +
-                ", successRate=" + successRate +
-                ", isAccepted=" + isAccepted +
-                ", soilType='" + soilType + '\'' +
-                ", irrigationType='" + irrigationType + '\'' +
-                ", waterAvailability='" + waterAvailability + '\'' +
-                ", Land_area=" + Land_area +
-                ", Previous_crop='" + Previous_crop + '\'' +
-                ", Average_humidity=" + Average_humidity +
-                ", Paid_subscription=" + Paid_subscription +
-                ", season='" + season + '\'' +
-                ", location='" + location + '\'' +
-                ", averageTemperature=" + averageTemperature +
-                ", isAddCart=" + isAddCart +
-                ", rating=" + rating +
-                ", lastFertilizerDate='" + lastFertilizerDate + '\'' +
-                ", lastWaterDate='" + lastWaterDate + '\'' +
-                ", greenhouseType='" + greenhouseType + '\'' +
-                ", ventilation='" + ventilation + '\'' +
-                ", hasLighting=" + hasLighting +
-                ", hasHeating=" + hasHeating +
-                ", hasCooling=" + hasCooling +
-                ", hasCO2=" + hasCO2 +
-                ", hasAutomation=" + hasAutomation +
-                ", OrganicFertilizer='" + OrganicFertilizer + '\'' +
-                ", ChemicalFertilizer='" + ChemicalFertilizer + '\'' +
-                ", humidity=" + humidity +
-                ", windSpeed=" + windSpeed +
-                ", Selecting_seeds_or_seedlings='" + Selecting_seeds_or_seedlings + '\'' +
-                ", Priority_previous_crop='" + Priority_previous_crop + '\'' +
-                '}';
-    }
+
 }

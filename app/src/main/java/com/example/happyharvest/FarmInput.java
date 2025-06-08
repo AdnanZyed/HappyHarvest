@@ -454,7 +454,8 @@ public class FarmInput extends AppCompatActivity {
                         record.setFarmer_user_name(farmerUserName);
                         record.setCrop_ID(CropId);
                         record.setStartDate(currentDate);
-                        record.setLocation(lat + "," + lon);
+                        record.setLongitude(lon);
+                        record.setLatitude(lat);
                         record.setSeason(season);
                         record.setAverage_humidity(Double.parseDouble(moistureStr));
                         record.setPrevious_crop(spinner_previous_crop.getSelectedItem().toString());
@@ -1145,7 +1146,8 @@ public class FarmInput extends AppCompatActivity {
         values.setFarmer_user_name(farmerUserName);
         values.setCrop_ID(selectedCrop.get(0).getCrop_ID());
         values.setStartDate(currentDate);
-        values.setLocation(currentLocation.getLatitude() + "," + currentLocation.getLongitude());
+        values.setLatitude(currentLocation.getLatitude());
+        values.setLongitude(currentLocation.getLongitude());
         values.setVentilation(spinnerVentilation.getSelectedItem().toString());
         values.setHasHeating(checkboxHeating.isChecked());
         values.setHasCooling(checkboxCooling.isChecked());
