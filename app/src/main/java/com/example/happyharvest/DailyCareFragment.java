@@ -74,9 +74,6 @@ public class DailyCareFragment extends Fragment {
     private CheckBox fertCheckbox;
     private TextView textCountdown; // إضافة TextView للعداد التنازلي
     private CountDownTimer countDownTimer; // لإدارة العداد التنازلي
-    RecyclerView stepper;
-    StepAdapter adapter;
-    List<Step> steps;
     public static DailyCareFragment newInstance(int cropId, String farmerUsername) {
         DailyCareFragment fragment = new DailyCareFragment();
         Bundle args = new Bundle();
@@ -100,7 +97,6 @@ public class DailyCareFragment extends Fragment {
         }
 
         createNotificationChannel();
-
         alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         notificationManager = NotificationManagerCompat.from(requireContext());
     }
@@ -110,18 +106,6 @@ public class DailyCareFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily_care, container, false);
 
-        stepper = view.findViewById(R.id.stepper_recycler);
-        stepper.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        steps = new ArrayList<>();
-        steps.add(new Step("Sign In", R.drawable.unnamed, true));
-        steps.add(new Step("User Info", R.drawable.unnamed, false));
-        steps.add(new Step("Account Info", R.drawable.unnamed, false));
-        steps.add(new Step("Settings", R.drawable.unnamed, false));
-        steps.add(new Step("Check", R.drawable.unnamed, false));
-
-        adapter = new StepAdapter(steps);
-        stepper.setAdapter(adapter);
 
 
 
@@ -135,7 +119,7 @@ public class DailyCareFragment extends Fragment {
         textSeedlingsCount = view.findViewById(R.id.text_seedlings_count);
         textFertilizerInfo = view.findViewById(R.id.text_fertilizer_info);
         //Button btnSchedule = view.findViewById(R.id.btn_schedule);
-      //   fertCheckbox = view.findViewById(R.id.checkbox_fert_done);
+       fertCheckbox = view.findViewById(R.id.checkbox_fert_done);
         textCountdown = view.findViewById(R.id.text_countdown); // يجب إضافته في الـ layout
 
         fertCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -219,9 +203,12 @@ public class DailyCareFragment extends Fragment {
 
     private void updateUI(Crop crop, Farmer_Crops farmerCrop) {
         // Update all UI elements based on crop and farmer data
+
         updateSoilComparison(crop, farmerCrop);//بعد الانتهاء من هذه المهمة يحدد يوم للزراعة بناءا على ايام الطقس والتي تؤثر في متغير لعدد الايام بعد تحضير التربة لسا ما عرفت هالمتغير
         /*العرض مع التربة*/ updateSeedlingsCount(crop, farmerCrop);//تحديد بذور او شتل وتحديد موعد الزراعة بناءا على الطقس
         /*لعرض اليوم المناسب للزراعة */fetchWeatherData();// تحديد موعد الزراعة بناءا على بيانات الطقس اول مرة بس بستدعيها بعد م يحدد خيار التربة
+
+
         updateWateringInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
      //   updateFertilizingInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
      //   /*العرض مع التسميد*/ updateFertilizerInfo(crop, farmerCrop);//معلومات التسميد الثابتة
@@ -477,10 +464,20 @@ public class DailyCareFragment extends Fragment {
     private void updateSeedlingsCount(Crop crop, Farmer_Crops farmerCrop) {
         if (farmerCrop.getSelecting_seeds_or_seedlings().toString().equals("شتل")) {
             double count = crop.getNumber_Plant_per_dunum() * (farmerCrop.getLand_area() / 1000);
+            String IrrigationType="";
+           if(farmerCrop.getIrrigationType().toString().equals(crop.getPreferredIrrigation().toString())){
+               IrrigationType=crop.getPreparing_irrigation_tools_P().toString();
 
+           }else if(farmerCrop.getIrrigationType().toString().equals(crop.getAllowedIrrigation().toString())){
+
+               IrrigationType=crop.getPreparing_irrigation_tools_A().toString();
+           }else if(farmerCrop.getIrrigationType().toString().equals(crop.getForbiddenIrrigation().toString())){
+               IrrigationType=crop.getPreparing_irrigation_tools_F().toString();
+
+           }
             textSeedlingsCount.setText(String.format(Locale.getDefault(),
                     "عدد الشتلات الكلي: %.0f شتلة (%.1f دونم)",
-                    count, farmerCrop.getLand_area()) + getCultivationGuide(farmerCrop, crop).toString());
+                    count, farmerCrop.getLand_area()) +getCultivationGuide(farmerCrop, crop).toString()+IrrigationType);
 
         }
         if (farmerCrop.getSelecting_seeds_or_seedlings().toString().equals("بذور")) {

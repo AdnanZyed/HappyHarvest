@@ -58,12 +58,14 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="معلومات الزراعة" />
+                android:text="الرعاية اليومية" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="الرعاية اليومية" />
+                android:text="معلومات الزراعة" />
+
+
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

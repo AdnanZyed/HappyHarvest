@@ -1,215 +1,302 @@
-<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:divider="@drawable/divider"
+        android:orientation="vertical"
         android:showDividers="middle">
 
-        <TextView
-            android:id="@+id/text_countdown"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/info_background"/>
-
-        <!-- Soil Comparison -->
-        <TextView
-            android:id="@+id/fetchWeatherData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/info_background"/>
-        <!-- Seedlings Count -->
-        <TextView
-            android:id="@+id/text_soil_comparison"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/info_background"/>
-        <!-- Seedlings Count -->
-        <TextView
-            android:id="@+id/text_seedlings_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/info_background"/>
-
-        <!-- Previous Crop -->
-        <TextView
-            android:id="@+id/text_previous_crop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/info_background"/>
+            android:layout_height="200dp"
 
 
-        <!-- Fertilizer Info -->
-        <TextView
-            android:id="@+id/text_fertilizer_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/info_background"/>
+            >
 
-        <!-- Watering -->
-        <TextView
-            android:id="@+id/text_watering"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/care_background"/>
-
-        <!-- Fertilizing -->
-        <TextView
-            android:id="@+id/text_fertilizing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/care_background"/>
-
-        <!-- Pruning -->
-        <TextView
-            android:id="@+id/text_pruning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/care_background"/>
-
-        <!-- Pest Control -->
-        <TextView
-            android:id="@+id/text_pest_control"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:background="@drawable/care_background"/>
-
-        <Button
-            android:id="@+id/btn_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="جدولة جميع مواعيد التسميد"
-            android:layout_marginBottom="16dp"/>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!-- الخط الممتد بين التشيكات -->
-            <View
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_gravity="center_vertical"
-                android:background="#888888"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"/>
+                android:layout_height="match_parent"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="15dp"
 
-            <!-- التشيكات فوق الخط -->
-            <LinearLayout
+                android:layout_weight="2">
+                <!-- Watering -->
+                <TextView
+                    android:id="@+id/text_watering"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/care_background"
+                    android:padding="8dp"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:layout_marginBottom="15dp"
 
-                <CheckBox
-                    android:id="@+id/checkbox1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:button="@drawable/shovel"
-                    android:background="@drawable/custom_checkbox"
-                    android:buttonTint="@drawable/custom_checkmark"
-                    android:gravity="center"
-                    android:padding="8dp" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:backgroundTint="@color/green"
-                    android:layout_weight="1"/>
+                android:layout_weight="2">
 
-                <CheckBox
-                    android:id="@+id/checkbox2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:button="@null"
-                    android:background="@drawable/custom_checkbox"
-                    android:buttonTint="@drawable/custom_checkmark"
-                    android:gravity="center"
-                    android:padding="8dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/green"
-                    android:layout_weight="1" />
+                    >
 
-                <CheckBox
-                    android:id="@+id/checkbox3"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:button="@null"
-                    android:background="@drawable/custom_checkbox"
-                    android:buttonTint="@drawable/custom_checkmark"
-                    android:gravity="center"
-                    android:padding="8dp" />
+                    <TextView
+                        android:id="@+id/text_countdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:backgroundTint="@color/green"
+                        android:background="@drawable/info_background"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    android:layout_weight="1"/>
+                    <!-- Fertilizing -->
+                    <TextView
+                        android:id="@+id/text_fertilizing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/care_background"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@+id/text_countdown" />
 
-                <CheckBox
-                    android:id="@+id/checkbox4"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:button="@null"
-                    android:background="@drawable/custom_checkbox"
-                    android:buttonTint="@drawable/custom_checkmark"
-                    android:gravity="center"
-                    android:padding="8dp" />
-            </LinearLayout>
-        </FrameLayout>
-        <!-- res/layout/activity_main.xml -->
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+                    <!-- Fertilizer Info -->
+                    <TextView
+                        android:id="@+id/text_fertilizer_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@+id/text_fertilizing" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/stepper_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                    <CheckBox
+                        android:id="@+id/checkbox_fert_done"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_fertilizer_info" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="15dp"
+
+                android:layout_weight="2">
+                <!-- Previous Crop -->
+                <TextView
+                    android:id="@+id/text_previous_crop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/info_background"
+                    android:padding="8dp"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:layout_marginBottom="15dp"
+
+                android:layout_weight="2">
+                <!-- Pruning -->
+                <TextView
+                    android:id="@+id/text_pruning"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/care_background"
+                    android:padding="8dp"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="2"
+            android:visibility="gone">
+            <!-- Pest Control -->
+            <TextView
+                android:id="@+id/text_pest_control"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/care_background"
+                android:padding="8dp"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="true"
+                android:text="✅" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/gray" />
+
+            <Button
+                android:id="@+id/checkbox2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
+
+                android:text="✅" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/gray" />
+
+            <Button
+                android:id="@+id/checkbox3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
+
+                android:text="✅" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/gray"
+
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/checkbox4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
+
+                android:text="✅" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- Soil Comparison -->
+            <TextView
+                android:id="@+id/fetchWeatherData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/info_background"
+                android:padding="8dp"
+                android:text="text"
+                android:textSize="16sp" />
+            <!-- Seedlings Count -->
+            <TextView
+                android:id="@+id/text_soil_comparison"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/info_background"
+                android:padding="8dp"
+                android:text="text"
+
+                android:textSize="16sp" />
+            <!-- Seedlings Count -->
+            <TextView
+                android:id="@+id/text_seedlings_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/info_background"
+                android:padding="8dp"
+                android:text="text"
+
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+
+
+    <!--    &lt;!&ndash;        <Button&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:id="@+id/btn_schedule"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:layout_marginBottom="16dp"&ndash;&gt;-->
+    <!--    &lt;!&ndash;            android:text="جدولة جميع مواعيد التسميد" />&ndash;&gt;-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--&lt;!&ndash; الخط الممتد بين التشيكات &ndash;&gt;-->
+    <!--<View-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="2dp"-->
+    <!--    android:layout_gravity="center_vertical"-->
+    <!--    android:layout_marginStart="32dp"-->
+    <!--    android:layout_marginEnd="32dp"-->
+    <!--    android:background="#888888" />-->
+
+    <!--&lt;!&ndash; التشيكات فوق الخط &ndash;&gt;-->
+
+    <!--</FrameLayout>-->
+    <!--    &lt;!&ndash; res/layout/activity_main.xml &ndash;&gt;-->
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="16dp">-->
+
+    <!--<androidx.recyclerview.widget.RecyclerView-->
+    <!--    android:id="@+id/stepper_recycler"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:overScrollMode="never" />-->
+    <!--</LinearLayout>-->

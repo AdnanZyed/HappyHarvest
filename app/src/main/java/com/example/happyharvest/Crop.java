@@ -87,7 +87,11 @@ public class Crop {
     private String Previous_crop_allowed;
     private String Previous_crop_forbidden;
     private String soil_preparation_Favorite;
+    private String Preparing_irrigation_tools_F;
+    private String Preparing_irrigation_tools_P;
     private String soil_preparation_allowed;
+    private String Preparing_irrigation_tools_A;
+
     private int weight_seeds_per_dunum; //زون البذور لكل دونوم بالقرام
     private String seedSpecifications;//مواصفات البذور
     private String seedlingPreparation;//تحضير الشتلات
@@ -101,7 +105,7 @@ public class Crop {
     private float TemperatureTolerance;
     private float HumidityTolerance;
 
-    public Crop(int crop_ID, String crop_NAME, String categorie, String description, String expert_USER_Name, double rating, String preferredSoil, String allowedSoil, String forbiddenSoil, String preferredIrrigation, String allowedIrrigation, String forbiddenIrrigation, double minArea, String season, String preferredHumidity, String allowedHumidity, String forbiddenHumidity, String preferredTemp, String allowedTemp, String forbiddenTemp, int reviews, int wateringFrequencyDays, int fertilizingFrequencyDays, String wateringInstructions, String fertilizingInstructions, String plantingMethod, String cropProblems, String pruning_and_guidance, String preferredAbundance, String allowedAbundance, String forbiddenAbundance, String learnMore, float optimalTemperature, float optimalHumidity, int lightRequirements, int number_Plant_per_dunum, String organicFertilizer, double organicPerPlant, String chemicalFertilizer, double chemicalPerPlant, String previous_crop_preferred, String previous_crop_allowed, String previous_crop_forbidden, String soil_preparation_Favorite, String soil_preparation_allowed, int weight_seeds_per_dunum, String seedSpecifications, String seedlingPreparation, String plantingDistance, String plantingDepth, String initialIrrigation, int daysToMaturity, String high, String mid, String low, float temperatureTolerance, float humidityTolerance) {
+    public Crop(int crop_ID, String crop_NAME, String categorie, String description, String expert_USER_Name, double rating, String preferredSoil, String allowedSoil, String forbiddenSoil, String preferredIrrigation, String allowedIrrigation, String forbiddenIrrigation, double minArea, String season, String preferredHumidity, String allowedHumidity, String forbiddenHumidity, String preferredTemp, String allowedTemp, String forbiddenTemp, int reviews, int wateringFrequencyDays, int fertilizingFrequencyDays, String wateringInstructions, String fertilizingInstructions, String plantingMethod, String cropProblems, String pruning_and_guidance, String preferredAbundance, String allowedAbundance, String forbiddenAbundance, String learnMore, float optimalTemperature, float optimalHumidity, int lightRequirements, int number_Plant_per_dunum, String organicFertilizer, double organicPerPlant, String chemicalFertilizer, double chemicalPerPlant, String previous_crop_preferred, String previous_crop_allowed, String previous_crop_forbidden, String soil_preparation_Favorite, String preparing_irrigation_tools_F, String preparing_irrigation_tools_P, String soil_preparation_allowed, String preparing_irrigation_tools_A, int weight_seeds_per_dunum, String seedSpecifications, String seedlingPreparation, String plantingDistance, String plantingDepth, String initialIrrigation, int daysToMaturity, String high, String mid, String low, float temperatureTolerance, float humidityTolerance) {
         Crop_ID = crop_ID;
         Crop_NAME = crop_NAME;
         Categorie = categorie;
@@ -146,7 +150,10 @@ public class Crop {
         Previous_crop_allowed = previous_crop_allowed;
         Previous_crop_forbidden = previous_crop_forbidden;
         this.soil_preparation_Favorite = soil_preparation_Favorite;
+        Preparing_irrigation_tools_F = preparing_irrigation_tools_F;
+        Preparing_irrigation_tools_P = preparing_irrigation_tools_P;
         this.soil_preparation_allowed = soil_preparation_allowed;
+        Preparing_irrigation_tools_A = preparing_irrigation_tools_A;
         this.weight_seeds_per_dunum = weight_seeds_per_dunum;
         this.seedSpecifications = seedSpecifications;
         this.seedlingPreparation = seedlingPreparation;
@@ -164,132 +171,14 @@ public class Crop {
     public Crop() {
     }
 
-    public float getTemperatureTolerance() {
-        return TemperatureTolerance;
+    public String getPreparing_irrigation_tools_P() {
+        return Preparing_irrigation_tools_P;
     }
 
-    public void setTemperatureTolerance(float temperatureTolerance) {
-        TemperatureTolerance = temperatureTolerance;
+    public void setPreparing_irrigation_tools_P(String preparing_irrigation_tools_P) {
+        Preparing_irrigation_tools_P = preparing_irrigation_tools_P;
     }
 
-    public float getHumidityTolerance() {
-        return HumidityTolerance;
-    }
-
-    public void setHumidityTolerance(float humidityTolerance) {
-        HumidityTolerance = humidityTolerance;
-    }
-
-    public float getOptimalHumidity() {
-        return OptimalHumidity;
-    }
-
-    public void setOptimalHumidity(float optimalHumidity) {
-        OptimalHumidity = optimalHumidity;
-    }
-
-    public int getDaysToMaturity() {
-        return daysToMaturity;
-    }
-
-    public void setDaysToMaturity(int daysToMaturity) {
-        this.daysToMaturity = daysToMaturity;
-    }
-
-    public String getHigh() {
-        return high;
-    }
-
-    public void setHigh(String high) {
-        this.high = high;
-    }
-
-    public String getMid() {
-        return mid;
-    }
-
-    public void setMid(String mid) {
-        this.mid = mid;
-    }
-
-    public String getLow() {
-        return low;
-    }
-
-    public void setLow(String low) {
-        this.low = low;
-    }
-
-    public String getSeedSpecifications() {
-        return seedSpecifications;
-    }
-
-    public void setSeedSpecifications(String seedSpecifications) {
-        this.seedSpecifications = seedSpecifications;
-    }
-
-    public String getSeedlingPreparation() {
-        return seedlingPreparation;
-    }
-
-    public void setSeedlingPreparation(String seedlingPreparation) {
-        this.seedlingPreparation = seedlingPreparation;
-    }
-
-    public String getPlantingDistance() {
-        return plantingDistance;
-    }
-
-    public void setPlantingDistance(String plantingDistance) {
-        this.plantingDistance = plantingDistance;
-    }
-
-    public String getPlantingDepth() {
-        return plantingDepth;
-    }
-
-    public void setPlantingDepth(String plantingDepth) {
-        this.plantingDepth = plantingDepth;
-    }
-
-    public String getInitialIrrigation() {
-        return initialIrrigation;
-    }
-
-    public void setInitialIrrigation(String initialIrrigation) {
-        this.initialIrrigation = initialIrrigation;
-    }
-
-    public String getSoil_preparation_Favorite() {
-        return soil_preparation_Favorite;
-    }
-
-    public void setSoil_preparation_Favorite(String soil_preparation_Favorite) {
-        this.soil_preparation_Favorite = soil_preparation_Favorite;
-    }
-
-    public String getSoil_preparation_allowed() {
-        return soil_preparation_allowed;
-    }
-
-    public void setSoil_preparation_allowed(String soil_preparation_allowed) {
-        this.soil_preparation_allowed = soil_preparation_allowed;
-    }
-
-    public int getNumber_Plant_per_dunum() {
-        return Number_Plant_per_dunum;
-    }
-
-    public void setNumber_Plant_per_dunum(int number_Plant_per_dunum) {
-        Number_Plant_per_dunum = number_Plant_per_dunum;
-    }
-
-    public int getWeight_seeds_per_dunum() {
-        return weight_seeds_per_dunum;
-    }
-    public void setWeight_seeds_per_dunum(int weight_seeds_per_dunum) {
-        this.weight_seeds_per_dunum = weight_seeds_per_dunum;
-    }
     public int getCrop_ID() {
         return Crop_ID;
     }
@@ -409,6 +298,7 @@ public class Crop {
     public void setPreferredHumidity(String preferredHumidity) {
         this.preferredHumidity = preferredHumidity;
     }
+
     public String getAllowedHumidity() {
         return allowedHumidity;
     }
@@ -553,6 +443,14 @@ public class Crop {
         OptimalTemperature = optimalTemperature;
     }
 
+    public float getOptimalHumidity() {
+        return OptimalHumidity;
+    }
+
+    public void setOptimalHumidity(float optimalHumidity) {
+        OptimalHumidity = optimalHumidity;
+    }
+
     public int getLightRequirements() {
         return LightRequirements;
     }
@@ -561,6 +459,13 @@ public class Crop {
         LightRequirements = lightRequirements;
     }
 
+    public int getNumber_Plant_per_dunum() {
+        return Number_Plant_per_dunum;
+    }
+
+    public void setNumber_Plant_per_dunum(int number_Plant_per_dunum) {
+        Number_Plant_per_dunum = number_Plant_per_dunum;
+    }
 
     public String getOrganicFertilizer() {
         return organicFertilizer;
@@ -618,55 +523,133 @@ public class Crop {
         Previous_crop_forbidden = previous_crop_forbidden;
     }
 
-    @Override
-    public String toString() {
-        return "Crop{" +
-                "Crop_ID=" + Crop_ID +
-                ", Crop_NAME='" + Crop_NAME + '\'' +
-                ", Categorie='" + Categorie + '\'' +
-                ", Description='" + Description + '\'' +
-                ", Expert_USER_Name='" + Expert_USER_Name + '\'' +
-                ", rating=" + rating +
-                ", preferredSoil='" + preferredSoil + '\'' +
-                ", allowedSoil='" + allowedSoil + '\'' +
-                ", forbiddenSoil='" + forbiddenSoil + '\'' +
-                ", preferredIrrigation='" + preferredIrrigation + '\'' +
-                ", allowedIrrigation='" + allowedIrrigation + '\'' +
-                ", forbiddenIrrigation='" + forbiddenIrrigation + '\'' +
-                ", minArea=" + minArea +
-                ", season='" + season + '\'' +
-                ", preferredHumidity='" + preferredHumidity + '\'' +
-                ", allowedHumidity='" + allowedHumidity + '\'' +
-                ", forbiddenHumidity='" + forbiddenHumidity + '\'' +
-                ", preferredTemp='" + preferredTemp + '\'' +
-                ", allowedTemp='" + allowedTemp + '\'' +
-                ", forbiddenTemp='" + forbiddenTemp + '\'' +
-                ", reviews=" + reviews +
-                ", wateringFrequencyDays=" + wateringFrequencyDays +
-                ", fertilizingFrequencyDays=" + fertilizingFrequencyDays +
-                ", wateringInstructions='" + wateringInstructions + '\'' +
-                ", fertilizingInstructions='" + fertilizingInstructions + '\'' +
-                ", plantingMethod='" + plantingMethod + '\'' +
-                ", CropProblems='" + CropProblems + '\'' +
-                ", Pruning_and_guidance='" + Pruning_and_guidance + '\'' +
-                ", preferredAbundance='" + preferredAbundance + '\'' +
-                ", allowedAbundance='" + allowedAbundance + '\'' +
-                ", forbiddenAbundance='" + forbiddenAbundance + '\'' +
-                ", LearnMore='" + LearnMore + '\'' +
-                ", OptimalTemperature=" + OptimalTemperature +
-                ", LightRequirements=" + LightRequirements +
-                ", Number_Plant_per_dunum=" + Number_Plant_per_dunum +
-                ", organicFertilizer='" + organicFertilizer + '\'' +
-                ", organicPerPlant=" + organicPerPlant +
-                ", chemicalFertilizer='" + chemicalFertilizer + '\'' +
-                ", chemicalPerPlant=" + chemicalPerPlant +
-                ", Previous_crop_preferred='" + Previous_crop_preferred + '\'' +
-                ", Previous_crop_allowed='" + Previous_crop_allowed + '\'' +
-                ", Previous_crop_forbidden='" + Previous_crop_forbidden + '\'' +
-                ", soil_preparation_Favorite='" + soil_preparation_Favorite + '\'' +
-                ", soil_preparation_allowed='" + soil_preparation_allowed + '\'' +
-                ", weight_seeds_per_dunum=" + weight_seeds_per_dunum +
-                '}';
+    public String getSoil_preparation_Favorite() {
+        return soil_preparation_Favorite;
     }
+
+    public void setSoil_preparation_Favorite(String soil_preparation_Favorite) {
+        this.soil_preparation_Favorite = soil_preparation_Favorite;
+    }
+
+    public String getPreparing_irrigation_tools_F() {
+        return Preparing_irrigation_tools_F;
+    }
+
+    public void setPreparing_irrigation_tools_F(String preparing_irrigation_tools_F) {
+        Preparing_irrigation_tools_F = preparing_irrigation_tools_F;
+    }
+
+    public String getSoil_preparation_allowed() {
+        return soil_preparation_allowed;
+    }
+
+    public void setSoil_preparation_allowed(String soil_preparation_allowed) {
+        this.soil_preparation_allowed = soil_preparation_allowed;
+    }
+
+    public String getPreparing_irrigation_tools_A() {
+        return Preparing_irrigation_tools_A;
+    }
+
+    public void setPreparing_irrigation_tools_A(String preparing_irrigation_tools_A) {
+        Preparing_irrigation_tools_A = preparing_irrigation_tools_A;
+    }
+
+    public int getWeight_seeds_per_dunum() {
+        return weight_seeds_per_dunum;
+    }
+
+    public void setWeight_seeds_per_dunum(int weight_seeds_per_dunum) {
+        this.weight_seeds_per_dunum = weight_seeds_per_dunum;
+    }
+
+    public String getSeedSpecifications() {
+        return seedSpecifications;
+    }
+
+    public void setSeedSpecifications(String seedSpecifications) {
+        this.seedSpecifications = seedSpecifications;
+    }
+
+    public String getSeedlingPreparation() {
+        return seedlingPreparation;
+    }
+
+    public void setSeedlingPreparation(String seedlingPreparation) {
+        this.seedlingPreparation = seedlingPreparation;
+    }
+
+    public String getPlantingDistance() {
+        return plantingDistance;
+    }
+
+    public void setPlantingDistance(String plantingDistance) {
+        this.plantingDistance = plantingDistance;
+    }
+
+    public String getPlantingDepth() {
+        return plantingDepth;
+    }
+
+    public void setPlantingDepth(String plantingDepth) {
+        this.plantingDepth = plantingDepth;
+    }
+
+    public String getInitialIrrigation() {
+        return initialIrrigation;
+    }
+
+    public void setInitialIrrigation(String initialIrrigation) {
+        this.initialIrrigation = initialIrrigation;
+    }
+
+    public int getDaysToMaturity() {
+        return daysToMaturity;
+    }
+
+    public void setDaysToMaturity(int daysToMaturity) {
+        this.daysToMaturity = daysToMaturity;
+    }
+
+    public String getHigh() {
+        return high;
+    }
+
+    public void setHigh(String high) {
+        this.high = high;
+    }
+
+    public String getMid() {
+        return mid;
+    }
+
+    public void setMid(String mid) {
+        this.mid = mid;
+    }
+
+    public String getLow() {
+        return low;
+    }
+
+    public void setLow(String low) {
+        this.low = low;
+    }
+
+    public float getTemperatureTolerance() {
+        return TemperatureTolerance;
+    }
+
+    public void setTemperatureTolerance(float temperatureTolerance) {
+        TemperatureTolerance = temperatureTolerance;
+    }
+
+    public float getHumidityTolerance() {
+        return HumidityTolerance;
+    }
+
+    public void setHumidityTolerance(float humidityTolerance) {
+        HumidityTolerance = humidityTolerance;
+    }
+
 
 }
