@@ -1,0 +1,150 @@
+<resources>
+    <string name="app_name">Happy Harvest</string>
+    <string name="logo_description"></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_farming_method">اختر طريقة الزراعة</string>
+    <string name="greenhouse">بيت بلاستيكي</string>
+    <string name="greenhouse_desc">زراعة في بيت بلاستيكي</string>
+    <string name="open_field">زراعة مكشوفة</string>
+    <string name="open_field_desc">زراعة في الحقل المكشوف</string>
+    <string name="hydroponic">بدون تربة</string>
+    <string name="hydroponic_desc">زراعة بدون تربة</string>
+    <string name="organic">زراعة عضوية</string>
+    <string name="loading_text">Loading%s</string>
+
+    <string name="organic_desc">زراعة عضوية</string>
+    <string name="notification_title">موعد تسميد %s</string>
+    <string name="notification_content">نوع السماد: %s</string>
+    <string name="notification_details">تفاصيل التسميد:\n• المحصول: %s\n• النوع: %s\n• السماد: %s\n• الكمية: %s غم</string>
+    <string-array name="categories_array">
+        <item>Programming</item>
+        <item>Web</item>
+        <item>Mobile</item>
+        <item>Design</item>
+        <item>AI</item>
+        <item>Data</item>
+    </string-array>
+
+
+    <string-array name="soil_types">
+
+        <item>muddy</item>
+        <item>sandy</item>
+        <item>rocky</item>
+    </string-array>
+
+    <string-array name="Germination_method">
+        <item>بذور</item>
+        <item>شتل</item>
+    </string-array>
+
+    <string-array name="soil_types1">
+
+        <item>loamy</item>
+        <item>sandy</item>
+        <item>clay</item>
+    </string-array>
+
+
+    <!-- القيم الحالية -->
+    <string name="channel_name">Channel Notifications</string>
+    <string name="channel_description">Notifications related to the app updates and alerts.</string>
+
+
+    <string-array name="greenhouse_types">
+        <item>زجاجي</item>
+        <item>بلاستيكي عادي</item>
+        <item>بلاستيكي مزدوج</item>
+        <item>بولي كربونيت</item>
+    </string-array>
+
+    <string-array name="ventilation_types">
+        <item>طبيعي (نوافذ)</item>
+        <item>ميكانيكي (مراوح)</item>
+        <item>مختلط</item>
+    </string-array>
+
+
+    <string-array name="organic_fertilizers">
+        <item>سماد حيواني</item>
+        <item>كمبوست</item>
+        <item>سماد أخضر</item>
+        <item>سماد دودي</item>
+        <item>لا شيئ</item>
+    </string-array>
+
+    <string-array name="irrigation_types">
+        <item>drip</item>
+        <item>sprinkler</item>
+        <item>immersion</item>
+    </string-array>
+
+    <string-array name="water_availability">
+        <item>Available</item>
+        <item>limited</item>
+        <item>unavailable</item>
+
+    </string-array>
+    <string-array name="fertilizer_types">
+        <item>عضوي</item>
+        <item>كيماوي</item>
+    </string-array>
+
+
+    <string-array name="crop_array">
+        <item>Crop 1</item>
+        <item>Crop 2</item>
+        <item>Crop 3</item>
+    </string-array>
+
+    <string-array name="Organic_fertilizer_array">
+        <item>أسمدة حيوانية المصدر</item>
+        <item>أسمدة نباتية المصدر</item>
+        <item>أسمدة مخمرة/معالجة</item>
+        <item>لا شيئ</item>
+    </string-array>
+    <string-array name="Chemical_fertilizer_array">
+        <item>أسمدة النيتروجين (N)</item>
+        <item>أسمدة الفوسفور (P)</item>
+        <item>أسمدة البوتاسيوم (K)</item>
+        <item> الأسمدة المركبة (NPK)</item>
+        <item>أسمدة العناصر الصغرى</item>
+        <item>لا شيئ</item>
+    </string-array>
+    <string-array name="hydroponic_systems">
+        <item>NFT (فيلم مغذي رقيق)</item>
+        <item>DWC (ثقافة المياه العميقة)</item>
+        <item>الطبقة المائية</item>
+        <item>الفتيل</item>
+    </string-array>
+    <!--    <string-array name="previous_crops">-->
+    <!--        <item>لا يوجد</item>-->
+    <!--        <item>قمح</item>-->
+    <!--        <item>شعير</item>-->
+    <!--        <item>ذرة</item>-->
+    <!--        <item>خضروات</item>-->
+    <!--    </string-array>-->
+
+    <!--    <string-array name="soil_types">-->
+    <!--        <item>Clay</item>-->
+    <!--        <item>Sand</item>-->
+    <!--        <item>Loam</item>-->
+    <!--    </string-array>-->
+    <string-array name="rating_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+
+    <!--        <string-array name="seasons">-->
+    <!--            <item>الشتاء</item>-->
+    <!--            <item>الربيع</item>-->
+    <!--            <item>الصيف</item>-->
+    <!--            <item>الخريف</item>-->
+    <!--        </string-array>-->
+
+</resources>

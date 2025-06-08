@@ -1,0 +1,139 @@
+<!-- dialog_result.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- نتيجة التقييم -->
+
+        <!-- بيانات يتم توليدها تلقائيا -->
+        <TextView
+            android:id="@+id/text_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:text="الموقع: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="تاريخ الزراعة: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_season"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="الموسم: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_weather_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="وصف الطقس" />
+
+        <TextView
+            android:id="@+id/text_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="درجة الحرارة: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_moisture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="مستوى الرطوبة: "
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/text_acceptance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="القبول: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_previuse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="المحصول السابق: "
+            android:textSize="14sp" />
+  <TextView
+            android:id="@+id/text_success"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="نسبة النجاح: "
+            android:textSize="14sp" />
+
+        <!-- إضافة ProgressBar أثناء التقييم -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+            />
+
+        <!-- أضف هذه السمات للزر الأخضر -->
+        <Button
+            android:id="@+id/btn_Plant_now"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#4CAF50"
+            android:padding="12dp"
+            android:text="قيّم الزراعة"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:visibility="gone"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+
+        <!-- أضف هذه السمات لزر الإغلاق -->
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#F44336"
+            android:text="إغلاق"
+            android:textColor="#fff"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+    </LinearLayout>
+</ScrollView>

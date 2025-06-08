@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F6F8"
+    tools:context=".FarmInput">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:elevation="4dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- عنوان -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:text="إدخال بيانات الزراعة"
+                android:textColor="#333"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- نوع التربة -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="نوع التربة" />
+
+            <Spinner
+                android:id="@+id/spinner_soil_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:entries="@array/soil_types"
+                android:hint="اختر نوع التربة" />
+
+            <TextView
+                android:id="@+id/SoilType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="ليس لدي فكرة عن نوع التربة"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <!-- نظام الري -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="نوع نظام الري" />
+
+            <Spinner
+                android:id="@+id/spinner_irrigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:entries="@array/irrigation_types"
+                android:hint="اختر نظام الري"
+
+                />
+
+            <!-- وفرة المياه -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="وفرة المياه" />
+
+            <Spinner
+                android:id="@+id/spinner_water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/water_availability"
+
+
+                />
+            <!-- وفرة المياه -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="نوع السماد" />
+
+            <Spinner
+                android:id="@+id/spinnerFertilizerType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/fertilizer_types" />
+
+            <Spinner
+                android:id="@+id/germination_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/Germination_method" />
+
+            <EditText
+                android:id="@+id/space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="ادخل المساحة بالمتر || الدونوم =1000 متر" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="نوع البيت" />
+
+            <Spinner
+                android:id="@+id/spinner_house_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/greenhouse_types" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="نوع التهوية" />
+            <!-- نظام التهوية -->
+            <Spinner
+                android:id="@+id/edit_ventilation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/ventilation_types"
+
+                />
+            <!--             إضاءة صناعية -->
+
+            <!--             تدفئة -->
+            <CheckBox
+                android:id="@+id/checkbox_lighting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="20dp"
+                android:text="هل توجد إضاءة صناعية؟" />
+
+            <CheckBox
+                android:id="@+id/checkbox_heating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+
+
+                android:text="هل توجد تدفئة؟" />
+            <!-- قسم الزراعة المكشوفة -->
+            <LinearLayout
+                android:id="@+id/open_field_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="نوع المحصول السابق" />
+
+                <TextView
+                    android:id="@+id/tv_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="المحصول السابق وتأثيره على المحصول الحالي: "
+                    android:textSize="14sp" />
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/spinner_previous_crop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/searchIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/search"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!-- قسم الزراعة بدون تربة -->
+            <LinearLayout
+                android:id="@+id/hydroponic_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/spinner_hydroponic_system_TV"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="نظام الزراعة بدون تربة" />
+
+                <Spinner
+                    android:id="@+id/spinner_hydroponic_system"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/hydroponic_systems" />
+
+                <TextView
+                    android:id="@+id/edit_nutrient_solution_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="نوع محلول التغذية" />
+
+                <EditText
+                    android:id="@+id/edit_nutrient_solution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- قسم الزراعة العضوية -->
+
+            <TextView
+                android:id="@+id/Type_of_organic_fertilizer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="نوع السماد العضوي" />
+
+            <Spinner
+                android:id="@+id/spinner_organic_fertilizer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/organic_fertilizers" />
+
+            <TextView
+                android:id="@+id/Type_of_chemical_fertilizer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="نوع السماد الكيميائي" />
+
+            <Spinner
+                android:id="@+id/spinner_chemical_fertilizer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/Chemical_fertilizer_array" />
+
+            <CheckBox
+                android:id="@+id/checkbox_organic_certified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="هل المنتج معتمد عضويًا؟" />
+
+
+            <!-- قسم خاص بالبيوت المحمية (يظهر عند الحاجة فقط) -->
+            <LinearLayout
+                android:id="@+id/greenhouse_section1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <CheckBox
+                    android:id="@+id/checkbox_cooling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="هل توجد أنظمة تبريد؟" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_co2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="هل توجد أنظمة CO2؟" />
+
+                <Switch
+                    android:id="@+id/switch_automation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="أتمتة الأنظمة" />
+            </LinearLayout>
+
+            <!-- قسم بيانات الطقس -->
+            <LinearLayout
+                android:id="@+id/weather_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/weather_icon_i"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/weather_icon" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_temp"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginEnd="16dp"-->
+                <!--                    android:text="25°C" />-->
+
+                <TextView
+                    android:id="@+id/text_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="رطوبة: 60%" />
+            </LinearLayout>
+
+            <!-- زر التقييم -->
+            <Button
+                android:id="@+id/btn_evaluate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="#4CAF50"
+                android:padding="12dp"
+                android:text="قيّم الزراعة"
+                android:textAllCaps="false"
+                android:textColor="#fff" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

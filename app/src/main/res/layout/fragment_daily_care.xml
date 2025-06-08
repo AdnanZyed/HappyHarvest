@@ -1,0 +1,215 @@
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:divider="@drawable/divider"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/text_countdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/info_background"/>
+
+        <!-- Soil Comparison -->
+        <TextView
+            android:id="@+id/fetchWeatherData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/info_background"/>
+        <!-- Seedlings Count -->
+        <TextView
+            android:id="@+id/text_soil_comparison"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/info_background"/>
+        <!-- Seedlings Count -->
+        <TextView
+            android:id="@+id/text_seedlings_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/info_background"/>
+
+        <!-- Previous Crop -->
+        <TextView
+            android:id="@+id/text_previous_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/info_background"/>
+
+
+        <!-- Fertilizer Info -->
+        <TextView
+            android:id="@+id/text_fertilizer_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/info_background"/>
+
+        <!-- Watering -->
+        <TextView
+            android:id="@+id/text_watering"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/care_background"/>
+
+        <!-- Fertilizing -->
+        <TextView
+            android:id="@+id/text_fertilizing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/care_background"/>
+
+        <!-- Pruning -->
+        <TextView
+            android:id="@+id/text_pruning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/care_background"/>
+
+        <!-- Pest Control -->
+        <TextView
+            android:id="@+id/text_pest_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:background="@drawable/care_background"/>
+
+        <Button
+            android:id="@+id/btn_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="جدولة جميع مواعيد التسميد"
+            android:layout_marginBottom="16dp"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- الخط الممتد بين التشيكات -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_vertical"
+                android:background="#888888"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"/>
+
+            <!-- التشيكات فوق الخط -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <CheckBox
+                    android:id="@+id/checkbox1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:button="@drawable/shovel"
+                    android:background="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkmark"
+                    android:gravity="center"
+                    android:padding="8dp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/green"
+                    android:layout_weight="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:button="@null"
+                    android:background="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkmark"
+                    android:gravity="center"
+                    android:padding="8dp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/green"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/checkbox3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:button="@null"
+                    android:background="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkmark"
+                    android:gravity="center"
+                    android:padding="8dp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/green"
+
+                    android:layout_weight="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:button="@null"
+                    android:background="@drawable/custom_checkbox"
+                    android:buttonTint="@drawable/custom_checkmark"
+                    android:gravity="center"
+                    android:padding="8dp" />
+            </LinearLayout>
+        </FrameLayout>
+        <!-- res/layout/activity_main.xml -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stepper_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

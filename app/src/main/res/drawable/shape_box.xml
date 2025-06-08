@@ -1,0 +1,19 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- حالة عندما يكون الـ CheckBox محددًا -->
+    <item android:state_checked="true">
+        <shape>
+            <solid android:color="@color/blue" />  <!-- لون الصندوق عند التحديد -->
+            <corners android:radius="10dp" /> <!-- الزوايا مستديرة -->
+            <size android:width="30dp" android:height="30dp" /> <!-- حجم الصندوق -->
+        </shape>
+    </item>
+
+    <!-- حالة عندما يكون الـ CheckBox غير محدد -->
+    <item>
+        <shape>
+            <solid android:color="#e0e0e0" />  <!-- لون الصندوق عند عدم التحديد -->
+            <corners android:radius="10dp" />  <!-- الزوايا مستديرة -->
+            <size android:width="30dp" android:height="30dp" /> <!-- حجم الصندوق -->
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,29 @@
+<!-- res/layout/step_item.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/step_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_bg"
+        android:padding="8dp"
+        android:src="@drawable/unnamed"
+        app:tint="@android:color/white"
+        tools:ignore="UseAppTint" />
+
+    <TextView
+        android:id="@+id/step_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@android:color/black" />
+</LinearLayout>

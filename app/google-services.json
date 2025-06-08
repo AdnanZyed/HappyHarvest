@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457666523798",
+    "project_id": "happy-harvest-2271a",
+    "storage_bucket": "happy-harvest-2271a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457666523798:android:f7655d6e8397bdb128c8b7",
+        "android_client_info": {
+          "package_name": "com.example.happyharvest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgDa-e-4HiehLhNFOm6CWXFA1hWRJgqns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Add_New_Crop">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_Crop_nameA"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Enter Crop Name"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:id="@+id/et_Crop_descriptionA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:gravity="top"
+                android:hint="Write a Detailed Crop Description"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray" />
+
+            <Spinner
+                android:id="@+id/sp_categoryA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/spinner_background"
+                android:entries="@array/categories_array"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/et_priceA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Crop Pric"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:id="@+id/et_expert_usernameA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Expert's Username"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:id="@+id/et_image_urlA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Enter Image URL For Crop"
+                android:inputType="textUri"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray" />
+
+            <Button
+                android:id="@+id/btn_load_image_from_urlA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_add"
+                android:text="Load Image from URL"
+                android:textColor="@color/blue" />
+
+            <ImageView
+                android:id="@+id/iv_Crop_imageA"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/image_background"
+                android:contentDescription="Crop Image"
+                android:scaleType="centerCrop" />
+
+            <Button
+                android:id="@+id/btn_select_imageA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_add"
+                android:text="Choose Image from Gallery"
+                android:textColor="@color/blue" />
+
+            <EditText
+                android:id="@+id/et_image_urlC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Enter Image URL For Certificate"
+                android:inputType="textUri"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray" />
+
+            <Button
+                android:id="@+id/btn_load_image_from_urlC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_add"
+                android:text="Load Image from URL"
+                android:textColor="@color/blue" />
+
+            <ImageView
+                android:id="@+id/iv_Crop_imageC"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/image_background"
+                android:contentDescription="Crop Image"
+                android:scaleType="centerCrop" />
+
+
+            <Button
+                android:id="@+id/btn_select_imageC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_add"
+                android:text="Choose Image from Gallery"
+                android:textColor="@color/blue" />
+
+            <Button
+                android:id="@+id/btn_save_CropA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_background"
+                android:text="Save Crop"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Happy_Harvest"
+        tools:targetApi="31" >
+        <activity
+            android:name=".StepFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Soil"
+            android:exported="false" />
+        <activity
+            android:name=".AISearchActivity"
+            android:label="بحث بالذكاء الاصطناعي" />
+        <activity
+            android:name=".ImageAnalysisResultActivity"
+            android:label="نتائج تحليل الصورة" />
+        <activity
+            android:name=".CropDetailsActivity1"
+            android:exported="false" />
+        <activity
+            android:name=".FarmInput"
+            android:exported="false" />
+        <activity
+            android:name=".CallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgetPassword1"
+            android:exported="false" />
+        <activity
+            android:name=".NewPassword"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".Most_Popular"
+            android:exported="false" />
+        <activity
+            android:name=".ChatMessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateCrop"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateCrop1"
+            android:exported="false" />
+        <activity
+            android:name=".StepsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnrollCodeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".EnrollCropActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExpertProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CropDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookmarkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TopMentors"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Delete_Crop"
+            android:exported="false" />
+        <activity
+            android:name=".Add_New_Crop"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity_Admin"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity_Main"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity_Forgot"
+            android:exported="false" />
+        <activity
+            android:name=".Welcome_screen"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Main_Activity_part"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity_sign"
+            android:exported="false" />
+        <activity
+            android:name=".Sign_up"
+            android:exported="false" />
+        <activity android:name=".ActivityMainSignIn" />
+    </application>
+
+</manifest>
