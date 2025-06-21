@@ -1,5 +1,6 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -19,247 +20,972 @@
             >
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_irrigation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="15dp"
+                android:layout_margin="5dp"
 
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:backgroundTint="#94ddf9"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <!-- Watering -->
-                <TextView
-                    android:id="@+id/text_watering"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/care_background"
-                    android:padding="8dp"
-                    android:textSize="16sp" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/text_watering"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Irrigation"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_fert_done_W"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="حان وقت التسميد"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_watering" />
+
+                    <ImageView
+                        android:id="@+id/clock_w"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/clock"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_watering" />
+
+                    <ImageView
+                        android:id="@+id/icon_w"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/clock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/text_watering"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_counter_w"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="6:30"
+                        android:textColor="@color/black"
+
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/clock_w"
+                        app:layout_constraintTop_toTopOf="@+id/clock_w" />
+
+                    <ProgressBar
+                        android:id="@+id/circularProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_counter_w" />
+
+                    <TextView
+                        android:id="@+id/text_detail_w"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detail"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/circularProgressBar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clock_w" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </androidx.cardview.widget.CardView>
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_fertilizing"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="7dp"
-                android:layout_marginBottom="15dp"
+                android:layout_margin="5dp"
 
+                android:layout_weight="2"
+                android:backgroundTint="#fe9d63"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                android:layout_weight="2">
-
+                <!-- Watering -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    tools:layout_editor_absoluteX="-23dp"
+                    tools:layout_editor_absoluteY="39dp">
 
-                    >
-
-                    <TextView
-                        android:id="@+id/text_countdown"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:background="@drawable/info_background"
-                        android:padding="8dp"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <!-- Fertilizing -->
-                    <TextView
-                        android:id="@+id/text_fertilizing"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/care_background"
-                        android:padding="8dp"
-                        android:textSize="16sp"
-                        app:layout_constraintTop_toBottomOf="@+id/text_countdown" />
+
 
                     <!-- Fertilizer Info -->
                     <TextView
                         android:id="@+id/text_fertilizer_info"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/info_background"
                         android:padding="8dp"
                         android:textSize="16sp"
-                        app:layout_constraintTop_toBottomOf="@+id/text_fertilizing" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent" />
 
                     <CheckBox
-                        android:id="@+id/checkbox_fert_done"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/checkbox_fert_done_f"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="حان وقت التسميد"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_fertilizer_info" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_fertilizing" />
+
+
+                    <TextView
+                        android:id="@+id/text_fertilizing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Fertilizing"
+                        android:textColor="@color/black"
+
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/clock_f"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/clock"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_fertilizing" />
+
+                    <ImageView
+                        android:id="@+id/icon_f"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/clock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/text_fertilizing"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_counter_f"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="6:30"
+                        android:textColor="@color/black"
+
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/clock_f"
+                        app:layout_constraintTop_toTopOf="@+id/clock_f" />
+
+                    <ProgressBar
+                        android:id="@+id/circularProgressBarF"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_counter_f" />
+
+                    <TextView
+                        android:id="@+id/text_detail_f"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detail"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/circularProgressBarF"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clock_f" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-
-
-            >
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="15dp"
-
-                android:layout_weight="2">
-                <!-- Previous Crop -->
-                <TextView
-                    android:id="@+id/text_previous_crop"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/info_background"
-                    android:padding="8dp"
-                    android:textSize="16sp" />
-
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="7dp"
-                android:layout_marginBottom="15dp"
-
-                android:layout_weight="2">
-                <!-- Pruning -->
-                <TextView
-                    android:id="@+id/text_pruning"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/care_background"
-                    android:padding="8dp"
-                    android:textSize="16sp" />
-
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_weight="2"
-            android:visibility="gone">
-            <!-- Pest Control -->
-            <TextView
-                android:id="@+id/text_pest_control"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/care_background"
-                android:padding="8dp"
-                android:textSize="16sp" />
-
-        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:enabled="true"
-                android:text="✅" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                android:background="@color/gray" />
 
-            <Button
-                android:id="@+id/checkbox2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:enabled="false"
+                >
 
-                android:text="✅" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_elements"
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                android:background="@color/gray" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
 
-            <Button
-                android:id="@+id/checkbox3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:enabled="false"
+                    android:layout_weight="2"
+                    android:backgroundTint="#fadf67"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                android:text="✅" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                android:background="@color/gray"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                android:enabled="false" />
+                        <TextView
+                            android:id="@+id/text_previous_crop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Elements"
+                            android:textColor="@color/black"
 
-            <Button
-                android:id="@+id/checkbox4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:enabled="false"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                android:text="✅" />
+                        <CheckBox
+                            android:id="@+id/checkbox_fert_done_ps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="حان وقت التسميد"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_previous_crop" />
+
+                        <ImageView
+                            android:id="@+id/clock_ps"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/clock"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_previous_crop" />
+
+                        <ImageView
+                            android:id="@+id/icon_ps"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/clock"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/text_previous_crop"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_counter_ps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="6:30"
+                            android:textColor="@color/black"
+
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/clock_ps"
+                            app:layout_constraintTop_toTopOf="@+id/clock_ps" />
+
+                        <ProgressBar
+                            android:id="@+id/circularProgressBar_ps"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/circular_progress_bar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_counter_ps" />
+
+                        <TextView
+                            android:id="@+id/text_detail_ps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBar_ps"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clock_ps" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_pruning"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="2"
+                    android:backgroundTint="#b6f36b"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Watering -->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/text_Pruning_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/info_background"
+                            android:padding="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="parent" />
+
+                        <CheckBox
+                            android:id="@+id/checkbox_fert_done_pg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="حان وقت التسميد"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_pruning" />
+
+
+                        <TextView
+                            android:id="@+id/text_pruning"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Pruning"
+                            android:textColor="@color/black"
+
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/clock_pg"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/clock"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_pruning" />
+
+                        <ImageView
+                            android:id="@+id/icon_pg"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/clock"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/text_pruning"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_counter_pg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="6:30"
+                            android:textColor="@color/black"
+
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/clock_pg"
+                            app:layout_constraintTop_toTopOf="@+id/clock_pg" />
+
+                        <ProgressBar
+                            android:id="@+id/circularProgressBarpg"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/circular_progress_bar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_counter_pg" />
+
+                        <TextView
+                            android:id="@+id/text_detail_pg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBarpg"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clock_pg" />
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+
+
+<!--                >-->
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="5dp"-->
+
+<!--                    android:layout_weight="2"-->
+<!--                    android:backgroundTint="#eff3ff-->
+<!--"-->
+<!--                    app:cardCornerRadius="15dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/previous_crop"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:text="Elements"-->
+<!--                            android:textColor="@color/black"-->
+
+<!--                            android:textSize="22sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/checkbox_fert_done_ps"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:text="حان وقت التسميد"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="20dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:visibility="gone"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/previous_crop" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/clock_ps"-->
+<!--                            android:layout_width="35dp"-->
+<!--                            android:layout_height="35dp"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:background="@drawable/clock"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@id/previous_crop" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/icon_ps"-->
+<!--                            android:layout_width="45dp"-->
+<!--                            android:layout_height="45dp"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:background="@drawable/clock"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/previous_crop"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_counter_ps"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:text="6:30"-->
+<!--                            android:textColor="@color/black"-->
+
+<!--                            android:textSize="22sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/clock_ps"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/clock_ps" />-->
+
+<!--                        <ProgressBar-->
+<!--                            android:id="@+id/circularProgressBar_ps"-->
+<!--                            style="?android:attr/progressBarStyleHorizontal"-->
+<!--                            android:layout_width="80dp"-->
+<!--                            android:layout_height="80dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:indeterminate="false"-->
+<!--                            android:max="100"-->
+<!--                            android:progress="0"-->
+<!--                            android:progressDrawable="@drawable/circular_progress_bar"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/text_counter_ps" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_detail_ps"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Detail"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="22sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBar_ps"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/clock_ps" />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="5dp"-->
+
+<!--                    android:layout_weight="2"-->
+<!--                    android:backgroundTint="#c8a0fd"-->
+<!--                    app:cardCornerRadius="15dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    &lt;!&ndash; Watering &ndash;&gt;-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent">-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_Pruning_info"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/info_background"-->
+<!--                            android:padding="8dp"-->
+<!--                            android:textSize="16sp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="parent" />-->
+
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/checkbox_fert_done_pg"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:text="حان وقت التسميد"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="20dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:visibility="gone"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/text_Pruning" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_Pruning"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:text="Pruning"-->
+<!--                            android:textColor="@color/black"-->
+
+<!--                            android:textSize="22sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/clock_pg"-->
+<!--                            android:layout_width="35dp"-->
+<!--                            android:layout_height="35dp"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:background="@drawable/clock"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@id/text_Pruning" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/icon_pg"-->
+<!--                            android:layout_width="45dp"-->
+<!--                            android:layout_height="45dp"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:background="@drawable/clock"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/text_Pruning"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_counter_pg"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:text="6:30"-->
+<!--                            android:textColor="@color/black"-->
+
+<!--                            android:textSize="22sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/clock_pg"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/clock_pg" />-->
+
+<!--                        <ProgressBar-->
+<!--                            android:id="@+id/circularProgressBarpg"-->
+<!--                            style="?android:attr/progressBarStyleHorizontal"-->
+<!--                            android:layout_width="80dp"-->
+<!--                            android:layout_height="80dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:indeterminate="false"-->
+<!--                            android:max="100"-->
+<!--                            android:progress="0"-->
+<!--                            android:progressDrawable="@drawable/circular_progress_bar"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/text_counter_pg" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_detail_pg"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Detail"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="22sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBarpg"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/clock_pg" />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+
+<!--            </LinearLayout>-->
+
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_weight="2"-->
+<!--                android:visibility="gone">-->
+<!--                &lt;!&ndash; Pest Control &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/text_pest_control"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    android:background="@drawable/care_background"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:textSize="16sp" />-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- STEP 1 -->
+                <ImageView
+                    android:id="@+id/icon1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/circle_1"
+                    app:layout_constraintEnd_toStartOf="@id/line1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iconS"
+                    app:tint="@color/green" />
+
+                <ImageView
+                    android:id="@+id/iconS"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/unnamed"
+                    app:layout_constraintEnd_toEndOf="@+id/icon1"
+                    app:layout_constraintStart_toStartOf="@+id/icon1"
+                    app:layout_constraintTop_toTopOf="parent"
+                     />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="#ddd"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/icon1"
+                    app:layout_constraintEnd_toStartOf="@id/icon2"
+                    app:layout_constraintStart_toEndOf="@id/icon1"
+                    app:layout_constraintTop_toTopOf="@+id/icon1"
+                    app:layout_constraintWidth_percent="0.2" />
+
+                <!-- STEP 2 -->
+                <ImageView
+                    android:id="@+id/icon2"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/circle_2"
+                    app:layout_constraintEnd_toStartOf="@id/line2"
+                    app:layout_constraintStart_toEndOf="@id/line1"
+                    app:layout_constraintTop_toBottomOf="@+id/iconA"
+                    app:tint="@color/gray" />
+                <ImageView
+                    android:id="@+id/iconA"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/unnamed"
+                    app:layout_constraintEnd_toEndOf="@+id/icon2"
+                    app:layout_constraintStart_toStartOf="@+id/icon2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="#ddd"
+                    app:layout_constraintBottom_toBottomOf="@id/icon2"
+                    app:layout_constraintEnd_toStartOf="@id/icon3"
+                    app:layout_constraintStart_toEndOf="@id/icon2"
+                    app:layout_constraintTop_toTopOf="@id/icon2"
+                    app:layout_constraintWidth_percent="0.2" />
+
+                <!-- STEP 3 -->
+                <ImageView
+                    android:id="@+id/icon3"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/circle_3"
+                    app:layout_constraintEnd_toStartOf="@id/line3"
+                    app:layout_constraintStart_toEndOf="@id/line2"
+                    app:layout_constraintTop_toBottomOf="@+id/iconC"
+                    app:tint="@color/gray" />
+                <ImageView
+                    android:id="@+id/iconC"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/unnamed"
+                    app:layout_constraintEnd_toEndOf="@+id/icon3"
+                    app:layout_constraintStart_toStartOf="@+id/icon3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="#ddd"
+                    app:layout_constraintBottom_toBottomOf="@id/icon3"
+                    app:layout_constraintEnd_toStartOf="@id/icon4"
+                    app:layout_constraintStart_toEndOf="@id/icon3"
+                    app:layout_constraintTop_toTopOf="@id/icon3"
+                    app:layout_constraintWidth_percent="0.2" />
+
+                <!-- STEP 4 -->
+                <ImageView
+                    android:id="@+id/icon4"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:src="@drawable/circle_4"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/line3"
+                    app:layout_constraintTop_toBottomOf="@+id/iconD"
+                    app:tint="@color/gray" />
+
+                <ImageView
+                    android:id="@+id/iconD"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/unnamed"
+                    app:layout_constraintEnd_toEndOf="@+id/icon4"
+                    app:layout_constraintStart_toStartOf="@+id/icon4"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!-- LABELS -->
+                <TextView
+                    android:id="@+id/label1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Soil"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/icon1"
+                    app:layout_constraintStart_toStartOf="@id/icon1"
+                    app:layout_constraintTop_toBottomOf="@id/icon1" />
+
+                <TextView
+                    android:id="@+id/label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Agriculture"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/icon2"
+                    app:layout_constraintStart_toStartOf="@id/icon2"
+                    app:layout_constraintTop_toBottomOf="@id/icon2"
+                     />
+
+                <TextView
+                    android:id="@+id/label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Care"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/icon3"
+                    app:layout_constraintStart_toStartOf="@id/icon3"
+                    app:layout_constraintTop_toBottomOf="@id/icon3" />
+
+                <TextView
+                    android:id="@+id/label4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Done"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/icon4"
+                    app:layout_constraintStart_toStartOf="@id/icon4"
+                    app:layout_constraintTop_toBottomOf="@id/icon4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!-- Soil Comparison -->
+                <TextView
+                    android:id="@+id/fetchWeatherData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/info_background"
+
+                    android:padding="8dp"
+                    android:text="text"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+                <!-- Seedlings Count -->
+                <!-- Seedlings Count -->
+                <TextView
+                    android:id="@+id/text_soil_comparison"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/info_background"
+                    android:padding="8dp"
+                    android:text="text"
+
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_seedlings_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/info_background"
+
+                    android:padding="8dp"
+                    android:text="text"
+                    android:textSize="16sp"
+
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!-- Soil Comparison -->
-            <TextView
-                android:id="@+id/fetchWeatherData"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/info_background"
-                android:padding="8dp"
-                android:text="text"
-                android:textSize="16sp" />
-            <!-- Seedlings Count -->
-            <TextView
-                android:id="@+id/text_soil_comparison"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/info_background"
-                android:padding="8dp"
-                android:text="text"
-
-                android:textSize="16sp" />
-            <!-- Seedlings Count -->
-            <TextView
-                android:id="@+id/text_seedlings_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/info_background"
-                android:padding="8dp"
-                android:text="text"
-
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 

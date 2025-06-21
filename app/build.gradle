@@ -60,6 +60,8 @@ dependencies {
     implementation libs.appcompat
     implementation libs.lifecycle.livedata.ktx
     implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.firebase.ai
+    implementation libs.activity
     annotationProcessor "androidx.room:room-compiler:2.6.0"
     androidTestImplementation "androidx.room:room-testing:2.6.0"
 

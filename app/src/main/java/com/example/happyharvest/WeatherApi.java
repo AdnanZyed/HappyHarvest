@@ -10,6 +10,15 @@ import retrofit2.http.Query;
  */
 public interface WeatherApi {
 
+    @GET("data/3.0/onecall")
+    Call<WeatherResponseOneCall> getSevenDayForecast(
+            @Query("lat") double lat,
+            @Query("lon") double lon,
+            @Query("exclude") String exclude,
+            @Query("units") String units,
+            @Query("lang") String lang,
+            @Query("appid") String apiKey
+    );
     /**
      * جلب بيانات الطقس الحالي
      * يستخدم نفس الكلاس WeatherResponse لسهولة التعامل

@@ -112,7 +112,9 @@ public class MainActivity_sign extends AppCompatActivity {
 //                Log.e("FirebaseError", "فشل في تحميل المحاصيل: ", error.toException());
 //            }
 //        });
-
+//        GenerativeModel ai = FirebaseAI.getInstance(GenerativeBackend.googleAI())
+//                .generativeModel("gemini-2.0-flash");
+//        GenerativeModelFutures model = GenerativeModelFutures.from(ai);
         database = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/");
         dbRef = database.getReference("crops"); // لازم تعملها قبل push()
         //  Crop onion = new Crop();
@@ -618,15 +620,15 @@ public class MainActivity_sign extends AppCompatActivity {
 //                أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.
 //
 //        إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها. بدي الكلام هذا اطبقو في الجافا في مشروع اندرويد تطبيق بس بدي البيانات هذي تتغير بشكل ذكي يعني تكون عبارة عن نص مخزن في ابجكت الطماطم لكن لما بستدعي هذا النص يتم التغيير عليه بناءا على عدة امور منها اضافة السماد الي تم تحديدو اصلا من قبل المزارع في جدول وسيط اس  ويكون ذلك مناسب لاي محصول مش بس الطماطم
-          //addSampleExperts();
-         // myViewModel.insertCrop(onion);
-          List<Crop> cropsList = new ArrayList<Crop>();
+      //  addSampleExperts();
+        //myViewModel.insertCrop(onion);
+        List<Crop> cropsList = new ArrayList<Crop>();
 //        cropsList.add(wheat);
 //        cropsList.add(saffron);
 //        cropsList.add(lentils);
 //        cropsList.add(barley);
 //        cropsList.add(carrot)
-        //  cropsList.add(onion);
+        //cropsList.add(onion);
 //        cropsList.add(pumpkin);
 //        cropsList.add(sunflower);
 //        cropsList.add(broccoli);

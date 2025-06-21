@@ -1,4 +1,8 @@
 package com.example.happyharvest;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -9,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -21,11 +26,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -36,7 +45,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+
+import com.example.happyharvest.Crop;
+import com.example.happyharvest.My_View_Model;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -61,13 +74,24 @@ public class DailyCareFragment extends Fragment {
     private static final String ARG_FARMER_USERNAME = "farmer_username";
     private static final String CHANNEL_ID = "fertilizer_channel";
     private TextView textWatering, textFertilizing, textPruning, textPestControl;
-    private TextView textSoilComparison, textPreviousCrop, textSeedlingsCount, textFertilizerInfo,fetchWeatherData;
+    private TextView textSoilComparison, textPreviousCrop, textSeedlingsCount, textFertilizerInfo, fetchWeatherData;
     private My_View_Model myViewModel;
     private int cropId;
     private Crop cropM;
-    private final double LAT = 31.5;
-    private final double LON = 34.47;
-    private final String API_KEY = "9e269c7c20355e9e8bba48b0ad2cd52c";
+    private ImageView icon1;
+    private ImageView icon2;
+    private ImageView icon3;
+    private ImageView icon4;
+    private View line1;
+    private View line2;
+    private View line3;
+    private CardView card_elements;
+    private CardView card_irrigation;
+    private CardView card_fertilizing;
+    private CardView card_pruning;
+
+
+    private final String API_KEY = "001bfc6226ca41a7c7b095524a7cf212";
     private Farmer_Crops farmerCropM;
     private NotificationManagerCompat notificationManager;
     private String farmerUsername;
@@ -75,6 +99,7 @@ public class DailyCareFragment extends Fragment {
     private CheckBox fertCheckbox;
     private TextView textCountdown; // إضافة TextView للعداد التنازلي
     private CountDownTimer countDownTimer; // لإدارة العداد التنازلي
+
     public static DailyCareFragment newInstance(int cropId, String farmerUsername) {
         DailyCareFragment fragment = new DailyCareFragment();
         Bundle args = new Bundle();
@@ -88,10 +113,6 @@ public class DailyCareFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-
         if (getArguments() != null) {
             cropId = getArguments().getInt(ARG_CROP_ID);
             farmerUsername = getArguments().getString(ARG_FARMER_USERNAME);
@@ -100,62 +121,81 @@ public class DailyCareFragment extends Fragment {
         createNotificationChannel();
         alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         notificationManager = NotificationManagerCompat.from(requireContext());
+
     }
 
+    @SuppressLint("WrongViewCast")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily_care, container, false);
 
-
-
-
         textWatering = view.findViewById(R.id.text_watering);
         textFertilizing = view.findViewById(R.id.text_fertilizing);
         textPruning = view.findViewById(R.id.text_pruning);
         fetchWeatherData = view.findViewById(R.id.fetchWeatherData);
-        textPestControl = view.findViewById(R.id.text_pest_control);
+        // textPestControl = view.findViewById(R.id.text_pest_control);
         textSoilComparison = view.findViewById(R.id.text_soil_comparison);
         textPreviousCrop = view.findViewById(R.id.text_previous_crop);
         textSeedlingsCount = view.findViewById(R.id.text_seedlings_count);
         textFertilizerInfo = view.findViewById(R.id.text_fertilizer_info);
         //Button btnSchedule = view.findViewById(R.id.btn_schedule);
-       fertCheckbox = view.findViewById(R.id.checkbox_fert_done);
-        textCountdown = view.findViewById(R.id.text_countdown); // يجب إضافته في الـ layout
+        fertCheckbox = view.findViewById(R.id.checkbox_fert_done_f);
+        textCountdown = view.findViewById(R.id.text_counter_f); // يجب إضافته في الـ layout
+        line1 = view.findViewById(R.id.line1); // يجب إضافته في الـ layout
+        line2 = view.findViewById(R.id.line2); // يجب إضافته في الـ layout
+        line3 = view.findViewById(R.id.line3); // يجب إضافته في الـ layout
+        ProgressBar progressBar = view.findViewById(R.id.circularProgressBar);
+        progressBar.setProgress(70); // مثلًا 70 من 100
+        icon1 = view.findViewById(R.id.icon1);
+        icon2 = view.findViewById(R.id.icon2);
+        icon3 = view.findViewById(R.id.icon3);
+        icon4 = view.findViewById(R.id.icon4);
+
+        card_elements = view.findViewById(R.id.card_elements);
+        card_irrigation = view.findViewById(R.id.card_irrigation);
+        card_fertilizing = view.findViewById(R.id.card_fertilizing);
+        card_pruning = view.findViewById(R.id.card_pruning);
+
+
+// الحالة الأولى - فقط Soil مفعلة
+        icon1.setEnabled(true);
+        icon1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+
+        icon2.setEnabled(false);
+        //icon2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+
+        icon3.setEnabled(false);
+        // icon2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+
+        icon4.setEnabled(false);
+        //  icon3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+
 
         fertCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                handleFertilizationCompleted();
+                //handleFertilizationCompleted();
+
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                farmerCropM.setLastFertilizerDate(currentDate);
+                myViewModel.updateCropFarmer(farmerCropM);
+                updateFertilizerInfo(cropM, farmerCropM);
+
+                updateFertilizingInfo(cropM, farmerCropM);
+                scheduleNextFertilization(cropM, farmerCropM);
             }
         });
 
+        card_fertilizing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(requireContext(),Pruning.class);
+                intent.putExtra("USER",farmerCropM.getFarmer_user_name());
+                intent.putExtra("ID",cropM.getCrop_ID());
 
-//        btnSchedule.setOnClickListener(v -> scheduleFertilizingForAllCrops());
-
-//        fertCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            if (isChecked) {
-//                Snackbar.make(requireView(),
-//                        "تم تسجيل التسميد بنجاح",
-//                        Snackbar.LENGTH_SHORT
-//                ).show();
-//                myViewModel.getFarmersByCropAndFarmer(farmerUsername, cropId).observe(getViewLifecycleOwner(), farmerCrops -> {
-//
-//                    farmerCrops.get(0).setLastFertilizerDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-//                    myViewModel.updateCropFarmer(farmerCrops.get(0)); // حفظ في قاعدة البيانات
-//                   // scheduleFertilizingForAllCrops();
-//                    updateFertilizingInfo(cropM, farmerCrops.get(0));
-//                  //  updateUI(cropM, farmerCrops.get(0)); // إضافة هذه السطر
-//
-//                });
-//            }
-//        });
-
-//        btnConfirmFertilizing.setOnClickListener(v -> {
-//            farmerCrop.setLastFertilizerDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-//            myViewModel.updateFarmerCrop(farmerCrop); // حفظ التاريخ في قاعدة البيانات
-//            scheduleFertilizingNotifications(crop, farmerCrop); // إعادة الجدولة
-//        });
-        // في onCreateView():
+                startActivity(intent);
+            }
+        });
 
         PeriodicWorkRequest fertilizerWork =
                 new PeriodicWorkRequest.Builder(
@@ -165,40 +205,139 @@ public class DailyCareFragment extends Fragment {
                         1, TimeUnit.HOURS
                 ).build();
 
+
+
+
 // يجب استخدام WorkManager.getInstance(context) بدلاً من getInstance()
         WorkManager.getInstance(requireContext()).enqueue(fertilizerWork);
         return view;
     }
 
+    private void setStepDone(ImageView icon) {
+        icon.setImageResource(R.drawable.check1);
+        icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+        icon.setEnabled(false);
+    }
+
+
+    //    private void markAsDone(ImageView icon) {
+//        icon.setEnabled(false);
+//        icon.setImageResource(R.drawable.check1);
+//        icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+//    }
+    private void updateRoom(String step, boolean value) {
+        switch (step) {
+            case "Soil":
+                farmerCropM.setSoil(value);
+                break;
+            case "Agriculture":
+                farmerCropM.setAgriculture(value);
+                break;
+            case "Care":
+                farmerCropM.setCare(value);
+                break;
+            case "Done":
+                farmerCropM.setDone(value);
+                break;
+        }
+
+
+        // ثمّ تحديث الـ Room عبر DAO
+        new Thread(() -> {
+            myViewModel.updateCropFarmer(farmerCropM);
+        }).start();
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         myViewModel = new ViewModelProvider(requireActivity()).get(My_View_Model.class);
+
         myViewModel.getAllCropsById(cropId).observe(getViewLifecycleOwner(), crops -> {
-          //  Log.e("getAllCropsById1", "فشل في جلب البيانات: " + crops + farmerUsername + cropId);
-
             if (crops != null && !crops.isEmpty()) {
-                 cropM = crops.get(0);
+                cropM = crops.get(0);
+
                 myViewModel.getFarmersByCropAndFarmer(farmerUsername, cropId).observe(getViewLifecycleOwner(), farmerCrops -> {
-                //    Log.e("getFarmersByCropAndFarmer1", "فشل في جلب البيانات: " + farmerCrops);
-
                     if (farmerCrops != null && !farmerCrops.isEmpty()) {
-                         farmerCropM = (Farmer_Crops) farmerCrops.get(0);
-                        updateUI(cropM, farmerCropM);
+                        farmerCropM = (Farmer_Crops) farmerCrops.get(0);
+
+                        // الآن نبدأ تنفيذ العمليات بعد التأكد من جاهزية البيانات
+                        requireActivity().runOnUiThread(() -> {
+                            if (farmerCropM.isSoil()) {
+                                setStepDone(icon1);
+                                icon2.setEnabled(true);
+                                icon2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+                                textSoilComparison.setVisibility(VISIBLE);
+                                textSeedlingsCount.setVisibility(GONE);
+                                textSeedlingsCount.setVisibility(GONE);
+                            }
+                            if (farmerCropM.isAgriculture()) {
+                                setStepDone(icon2);
+                                icon3.setEnabled(true);
+                                icon3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+                                textSoilComparison.setVisibility(GONE);
+                                textSeedlingsCount.setVisibility(VISIBLE);
+                                textSeedlingsCount.setVisibility(VISIBLE);
+                            }
+                            if (farmerCropM.isCare()) {
+                                setStepDone(icon3);
+                                icon4.setEnabled(true);
+                                icon4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
 
 
-                        handleFertilizationCompleted();// بدي اعتبر انو هذي اول مرة بستدعي فيها العدادا انو يبدا هو الصح بعد الزراعة بعد هو الاصح اني استدعي دالة handleFertilizationCompleted
+                            }
+                            if (farmerCropM.isDone()) {
+                                setStepDone(icon4);
+                            }
 
+                            icon1.setOnClickListener(v -> {
+                                setStepDone(icon1);
+                                icon2.setEnabled(true);
+                                line1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green));
+                                icon2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+                                updateRoom("Soil", true);
+                            });
 
+                            icon2.setOnClickListener(v -> {
+                                setStepDone(icon2);
+                                icon3.setEnabled(true);
+                                line2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green));
+                                icon3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+                                updateRoom("Agriculture", true);
+                            });
 
+                            icon3.setOnClickListener(v -> {
+                                setStepDone(icon3);
+                                icon4.setEnabled(true);
+                                line3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green));
+                                icon4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
+                                updateRoom("Care", true);
+                            });
 
-                 //       setupFertilizingSchedule(cropM, farmerCropM);
+                            icon4.setOnClickListener(v -> {
+                                setStepDone(icon4);
+                                updateRoom("Done", true);
+                            });
+
+//                            if (farmerCropM.getSoil()) {
+//                                Toast.makeText(requireContext(), "true", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(requireContext(), "false", Toast.LENGTH_SHORT).show();
+//                            }
+
+                            updateUI(cropM, farmerCropM);
+
+                            updateFertilizerInfo(cropM, farmerCropM);
+                            updateFertilizingInfo(cropM, farmerCropM);
+                            scheduleNextFertilization(cropM, farmerCropM);
+                        });
                     }
                 });
             }
         });
+
+
     }
 
 
@@ -206,16 +345,18 @@ public class DailyCareFragment extends Fragment {
         // Update all UI elements based on crop and farmer data
 
         updateSoilComparison(crop, farmerCrop);//بعد الانتهاء من هذه المهمة يحدد يوم للزراعة بناءا على ايام الطقس والتي تؤثر في متغير لعدد الايام بعد تحضير التربة لسا ما عرفت هالمتغير
-        /*العرض مع التربة*/ updateSeedlingsCount(crop, farmerCrop);//تحديد بذور او شتل وتحديد موعد الزراعة بناءا على الطقس
-        /*لعرض اليوم المناسب للزراعة */fetchWeatherData();// تحديد موعد الزراعة بناءا على بيانات الطقس اول مرة بس بستدعيها بعد م يحدد خيار التربة
-
+        /*العرض مع التربة*/
+        updateSeedlingsCount(crop, farmerCrop);//تحديد بذور او شتل وتحديد موعد الزراعة بناءا على الطقس
+        /*لعرض اليوم المناسب للزراعة */
+        fetchWeatherData();// تحديد موعد الزراعة بناءا على بيانات الطقس اول مرة بس بستدعيها بعد م يحدد خيار التربة
 
         updateWateringInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
-     //   updateFertilizingInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
-     //   /*العرض مع التسميد*/ updateFertilizerInfo(crop, farmerCrop);//معلومات التسميد الثابتة
+
         updatePruningInfo(crop);//جدولة اشعارات في الخلفية لاضافة العناصر وذلك بالتعامل مع عدد مرات تقسم على عدد الايام حتى النضج عدد المرات تختلف من محصول لاخر وتوضيح الطريقة ايضا
         updatePestControlInfo(crop);// ايش بي اي يوضح الافة القادمة وبناءا على هيك بنقلو ايش يعمل
-            updatePreviousCropInfo(crop, farmerCrop);//جدولة اشعارات في الخلفية لاضافة العناصر وذلك بالتعامل مع عدد مرات تقسم على عدد الايام حتى النضج عدد المرات تختلف من محصول لاخر وكذلك بنضيف متغير يشرح الكمية والنوع اي   ا يختلف من محصول لاخر
+        updatePreviousCropInfo(crop, farmerCrop);//جدولة اشعارات في الخلفية لاضافة العناصر وذلك بالتعامل مع عدد مرات تقسم على عدد الايام حتى النضج عدد المرات تختلف من محصول لاخر وكذلك بنضيف متغير يشرح الكمية والنوع اي   ا يختلف من محصول لاخر
+        //   updateFertilizingInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
+        //   /*العرض مع التسميد*/ updateFertilizerInfo(crop, farmerCrop);//معلومات التسميد الثابتة
     }
 
     private void updateWateringInfo(Crop crop, Farmer_Crops farmerCrop) {
@@ -227,7 +368,7 @@ public class DailyCareFragment extends Fragment {
                 crop.getWateringInstructions(), adjustedDays, nextDate);
 
         textWatering.setText(text);
-        Farmer_Crops farmerCrops1=new Farmer_Crops();
+        Farmer_Crops farmerCrops1 = new Farmer_Crops();
         farmerCrops1.setWateringFrequencyDays_F(adjustedDays);
         myViewModel.updateCropFarmer(farmerCrops1);
     }
@@ -314,20 +455,7 @@ public class DailyCareFragment extends Fragment {
         return "غير محدد";
     }
 
-//    private void updateFertilizingInfo(Crop crop, Farmer_Crops farmerCrop) {
-//        int adjustedDays = getAdjustedFertilizingDays(crop, farmerCrop);// عدد الايام بعد العوامل المؤثرة بس المقارنة لسبع ايام المفترض بدي اعمل عداد تنازلي ينقص بالثواني والدقائق والساعاتو والايام يبدأ ينقص من الايام المتبقية وكسورها
-//        String nextDate = getNextActionDate(farmerCrop.getLastFertilizerDate(), adjustedDays);
-//
-//        String text = String.format(Locale.getDefault(),
-//                "تعليمات التسميد:\n%s\n\nالتكرار: كل %d يوم\nالموعد التالي: %s",
-//                crop.getFertilizingInstructions(), adjustedDays, nextDate);
-//
-//        textFertilizing.setText(text);//مش متأكد اذا يبدأ العد من القيمة للتردد بعد الحساب ولا الاصلية
-////        Farmer_Crops farmerCrops1=new Farmer_Crops();
-////        farmerCrops1.setWateringFrequencyDays_F(adjustedDays);
-////        myViewModel.updateCropFarmer(farmerCrops1);
-//    }
-
+    //
     private int getAdjustedFertilizingDays(Crop crop, Farmer_Crops farmerCrop) {
         int baseDays = crop.getFertilizingFrequencyDays();
 
@@ -465,20 +593,20 @@ public class DailyCareFragment extends Fragment {
     private void updateSeedlingsCount(Crop crop, Farmer_Crops farmerCrop) {
         if (farmerCrop.getSelecting_seeds_or_seedlings().toString().equals("شتل")) {
             double count = crop.getNumber_Plant_per_dunum() * (farmerCrop.getLand_area() / 1000);
-            String IrrigationType="";
-           if(farmerCrop.getIrrigationType().toString().equals(crop.getPreferredIrrigation().toString())){
-               IrrigationType=crop.getPreparing_irrigation_tools_P().toString();
+            String IrrigationType = "";
+            if (farmerCrop.getIrrigationType().toString().equals(crop.getPreferredIrrigation().toString())) {
+                IrrigationType = crop.getPreparing_irrigation_tools_P().toString();
 
-           }else if(farmerCrop.getIrrigationType().toString().equals(crop.getAllowedIrrigation().toString())){
+            } else if (farmerCrop.getIrrigationType().toString().equals(crop.getAllowedIrrigation().toString())) {
 
-               IrrigationType=crop.getPreparing_irrigation_tools_A().toString();
-           }else if(farmerCrop.getIrrigationType().toString().equals(crop.getForbiddenIrrigation().toString())){
-               IrrigationType=crop.getPreparing_irrigation_tools_F().toString();
+                IrrigationType = crop.getPreparing_irrigation_tools_A().toString();
+            } else if (farmerCrop.getIrrigationType().toString().equals(crop.getForbiddenIrrigation().toString())) {
+                IrrigationType = crop.getPreparing_irrigation_tools_F().toString();
 
-           }
+            }
             textSeedlingsCount.setText(String.format(Locale.getDefault(),
                     "عدد الشتلات الكلي: %.0f شتلة (%.1f دونم)",
-                    count, farmerCrop.getLand_area()) +getCultivationGuide(farmerCrop, crop).toString()+IrrigationType);
+                    count, farmerCrop.getLand_area()) + getCultivationGuide(farmerCrop, crop).toString() + IrrigationType);
 
         }
         if (farmerCrop.getSelecting_seeds_or_seedlings().toString().equals("بذور")) {
@@ -529,9 +657,9 @@ public class DailyCareFragment extends Fragment {
         String cultivationDetails = getCultivationDetails(crop, selectedVariety);
 
         // 3. تحديد موعد الزراعة بناءً على الطقس
-        String plantingTime = calculatePlantingTime(crop,farmerCrop);
+        //  String plantingTime = calculatePlantingTime(crop, farmerCrop);
 
-   //     double totalAmount = calculateFertilizerAmount(crop, farmerCrop);
+        //     double totalAmount = calculateFertilizerAmount(crop, farmerCrop);
 
         // دمج النتائج في تقرير متكامل
         //  createFinalGuide(selectedVariety, cultivationDetails, plantingTime);
@@ -591,62 +719,24 @@ public class DailyCareFragment extends Fragment {
     private float calculateDeviationRatio(float current, float optimal, float tolerance) {
         return Math.abs(current - optimal) / tolerance;
     }
-    private double calculateFertilizerAmount(double amountPerPlant, double totalPlants) {
-        return amountPerPlant * totalPlants;
+
+
+    //في مكان واحد فقط مش اثنين استخدامها
+    private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//ازالتها من سطر 490
+        float currentTemp = farmerCrop.getAverageTemperature();
+        float currentHumidity = (float) farmerCrop.getAverage_humidity();
+        float optimalTemp = crop.getOptimalTemperature();
+        float optimalHumidity = crop.getOptimalHumidity();
+        float tempTolerance = crop.getTemperatureTolerance();
+        float humidityTolerance = crop.getHumidityTolerance();
+
+        // حساب نسب الانحراف
+        float tempDeviation = calculateDeviationRatio(currentTemp, optimalTemp, tempTolerance);
+        float humidityDeviation = calculateDeviationRatio(currentHumidity, optimalHumidity, humidityTolerance);
+
+        // تقييم الظروف
+        return evaluateConditions(tempDeviation, humidityDeviation);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//في مكان واحد فقط مش اثنين استخدامها
-private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//ازالتها من سطر 490
-    float currentTemp = farmerCrop.getAverageTemperature();
-    float currentHumidity = (float) farmerCrop.getAverage_humidity();
-    float optimalTemp = crop.getOptimalTemperature();
-    float optimalHumidity = crop.getOptimalHumidity();
-    float tempTolerance = crop.getTemperatureTolerance();
-    float humidityTolerance = crop.getHumidityTolerance();
-
-    // حساب نسب الانحراف
-    float tempDeviation = calculateDeviationRatio(currentTemp, optimalTemp, tempTolerance);
-    float humidityDeviation = calculateDeviationRatio(currentHumidity, optimalHumidity, humidityTolerance);
-
-    // تقييم الظروف
-    return evaluateConditions(tempDeviation, humidityDeviation);
-}
 
     private String evaluateConditions(float tempDeviation, float humidityDeviation) {
         // تقييم الحرارة
@@ -679,55 +769,57 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 
     private void fetchWeatherData() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/")
+                .baseUrl("https://api.openweathermap.org/") // لازم ينتهي بـ /
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         WeatherApi service = retrofit.create(WeatherApi.class);
-        double latitude= farmerCropM.getLatitude();
-        double longitude= farmerCropM.getLongitude();
+        double latitude = farmerCropM.getLatitude();
+        double longitude = farmerCropM.getLongitude();
 
+        Call<WeatherResponseOneCall> call = service.getSevenDayForecast(
+                latitude,
+                longitude,
+                "minutely,hourly,current,alerts", // استثني التفاصيل اللي مش محتاجها
+                "metric",
+                "ar",
+                API_KEY
+        );
 
-        Call<WeatherResponse> call = service.getCurrentWeather(latitude, longitude, API_KEY, "metric", "ar");
-
-
-        call.enqueue(new Callback<WeatherResponse>() {//تنفيذ الطلب
+        call.enqueue(new Callback<WeatherResponseOneCall>() {
             @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {/*لو نجح الاتصال*/
+            public void onResponse(Call<WeatherResponseOneCall> call, Response<WeatherResponseOneCall> response) {
                 if (response.isSuccessful()) {
-                    List<ForecastItem> forecastItems = response.body().getForecastList();//بخزن البيانات في كلاس فيه متغيرات رطوبة وحرارة
-                    List<DailyWeather> dailyList = new ArrayList<>();
+                    List<WeatherResponseOneCall.Daily> dailyList = response.body().getDaily();
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                    List<DailyWeather> sevenDaysList = new ArrayList<>();
 
-                    for (ForecastItem item : forecastItems) {
-                        try {
-                            Date date = sdf.parse(item.getDateText());//التاريخ
-                            float temp = item.getMain().getTemperature();
-                            float humidity = item.getMain().getHumidity();
-                            dailyList.add(new DailyWeather(date, temp, humidity));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                    for (int i = 0; i < 7 && i < dailyList.size(); i++) {
+                        WeatherResponseOneCall.Daily day = dailyList.get(i);
+                        float temp = day.getTemp().getDay();
+                        float humidity = day.getHumidity();
+                        Date date = new Date(day.getDt() * 1000L); // تحويل من Unix Time
+                        sevenDaysList.add(new DailyWeather(date, temp, humidity));
                     }
 
-
-                    WeatherForecast forecast = new WeatherForecast(dailyList);
+                    WeatherForecast forecast = new WeatherForecast(sevenDaysList);
                     String result = calculatePlantingTimeWithForecast(cropM, farmerCropM, forecast);
-                    Toast.makeText(requireContext(),result , Toast.LENGTH_SHORT).show();
-                    fetchWeatherData.setText(result);
-                    // اعرض النتيجة أو خزنها
+
+                    Toast.makeText(requireContext(), result, Toast.LENGTH_LONG).show();
+                    fetchWeatherData.setText(result); // عرض النتيجة في TextView
+                } else {
+                    Toast.makeText(requireContext(), "فشل في جلب البيانات: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {/*لو فشل الاتصال*/
+            public void onFailure(Call<WeatherResponseOneCall> call, Throwable t) {
                 Log.e("WeatherAPI", "فشل الاتصال: " + t.getMessage());
-                Toast.makeText(requireContext(), "فشل الاتصال: ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "فشل الاتصال: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
     private String calculatePlantingTimeWithForecast(Crop crop, Farmer_Crops farmerCrop, WeatherForecast forecast) {
         StringBuilder advice = new StringBuilder(calculatePlantingTime(crop, farmerCrop));
 
@@ -781,38 +873,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
@@ -824,43 +884,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
-//    private void scheduleFertilizingForAllCrops() {
-//        myViewModel.getCropsByFarmer(farmerUsername).observe(getViewLifecycleOwner(), farmerCrops -> {
-//            for (Farmer_Crops farmerCrop : farmerCrops) {
-//                myViewModel.getAllCropsById(farmerCrop.getCrop_ID()).observe(getViewLifecycleOwner(), crops -> {
-//                    if (crops != null && !crops.isEmpty()) {
-//                        Crop crop = crops.get(0);
-//                        scheduleFertilizingNotifications(crop, farmerCrop);
-//                    }
-//                });
-//            }
-//            showScheduleConfirmation();
-//        });
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private void scheduleFertilizingNotifications(Crop crop, Farmer_Crops farmerCrop) {/*حساب كل ايام التسميد معالجة التأخير التناوب*/
@@ -889,7 +912,7 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
                 baseCalendar.setTime(new Date()); // نبدأ من اليوم اذا اليوم اخر يوم تسميد
             }
 
-            for (int i = 0; i < crop.getDaysToMaturity()/ crop.getFertilizingFrequencyDays(); i++) {/* عمل لوب على ايام التسميد ككل بناءا على الفترة الكلية حتى النضج ومعرفة تاريخ كل عملية تسميد لارسال اشعار*/
+            for (int i = 0; i < crop.getDaysToMaturity() / crop.getFertilizingFrequencyDays(); i++) {/* عمل لوب على ايام التسميد ككل بناءا على الفترة الكلية حتى النضج ومعرفة تاريخ كل عملية تسميد لارسال اشعار*/
                 Calendar eventCalendar = (Calendar) baseCalendar.clone();
                 eventCalendar.add(Calendar.DAY_OF_YEAR, AdjustedFertilizingDays * (i + 1));
 
@@ -918,15 +941,14 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
     }
 
 
-
     private boolean isFertilizationDone(Farmer_Crops farmerCrop) {//التاريخ الحالي هل يساوي اخر يوم تسميد يعني اليوم سمد؟
         if (farmerCrop == null) return false;
 
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date lastFertDate = sdf.parse(farmerCrop.getLastFertilizerDate());
-            if(lastFertDate==null){
-                lastFertDate=sdf.parse(farmerCrop.getStartDate());
+            if (lastFertDate == null) {
+                lastFertDate = sdf.parse(farmerCrop.getStartDate());
             }
 
             Calendar cal1 = Calendar.getInstance();
@@ -948,7 +970,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
             return false;
         }
     }
-
 
 
     @SuppressLint("MissingPermission")
@@ -977,77 +998,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 
         NotificationManagerCompat.from(requireContext()).notify(100, builder.build());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void showScheduleConfirmation() {/*ببعث اشعار لما بضغط جدولة*/
-        Context context = requireContext();
-
-        // تحقق من صلاحية الإشعارات (Android 13+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
-                        != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
-                    new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1002);
-            return;
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.unnamed)
-                .setContentTitle("تم جدولة التسميد")
-                .setContentText("تم جدولة جميع مواعيد التسميد للمحاصيل")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat.from(context).notify(0, builder.build());
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private void scheduleNotification(String cropName, String fertilizerName,
@@ -1119,46 +1069,42 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
     }
 
 
-//    private void scheduleFallbackNotification(long triggerTime) {
-//        // بديل عند عدم وجود صلاحية: استخدام AlarmManager غير الدقيق
-//        AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+    // private void handleFertilizationCompleted() {
+    // 1. عرض تأكيد للمستخدم
+//        if (farmerCropM.getFertilizingFrequencyDays_F() == 0 || (farmerCropM.getFertilizingFrequencyDays_F() + "").isEmpty()) {
+//            Snackbar.make(requireView(), "لقد تم ضبط مواعيد التسميد بنجاح", Snackbar.LENGTH_SHORT).show();
+//        } else {
+//            Snackbar.make(requireView(), "تم تسجيل التسميد بنجاح", Snackbar.LENGTH_SHORT).show();
+//        }
+//        // 2. تحديث تاريخ التسميد الأخير
+//        myViewModel.getFarmersByCropAndFarmer(farmerUsername, cropId).observe(getViewLifecycleOwner(), farmerCrops -> {
+//            if (farmerCrops != null && !farmerCrops.isEmpty()) {
+//                Farmer_Crops currentFarmerCrop = farmerCrops.get(0);
 //
-//        // أو استخدام WorkManager كبديل
-//        PeriodicWorkRequest fertilizerWork = new PeriodicWorkRequest.Builder(
-//                FertilizerWorker.class,
-//                adjustedDays, TimeUnit.DAYS)
-//                .build();
-//        WorkManager.getInstance(requireContext()).enqueue(fertilizerWork);
-//    }
+//                // تحديث تاريخ التسميد
+//                String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//                currentFarmerCrop.setLastFertilizerDate(currentDate);
+//                myViewModel.updateCropFarmer(currentFarmerCrop);
+//                updateFertilizerInfo(cropM, farmerCropM);
+//                // 3. جدولة الإشعارات للتسميد القادم
+//                scheduleNextFertilization(cropM, currentFarmerCrop);
+//
+//                // 4. تحديث واجهة المستخدم
+//                updateFertilizingInfo(cropM, currentFarmerCrop);
+//
+//            }
+//        });
+//        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//        farmerCropM.setLastFertilizerDate(currentDate);
+//        myViewModel.updateCropFarmer(farmerCropM);
+    //  updateFertilizerInfo(cropM, farmerCropM);
+    // 3. جدولة الإشعارات للتسميد القادم
+    //scheduleNextFertilization(cropM, farmerCropM);
 
+    // 4. تحديث واجهة المستخدم
+    // updateFertilizingInfo(cropM, farmerCropM);
+    //  }
 
-    private void handleFertilizationCompleted() {
-        // 1. عرض تأكيد للمستخدم
-        if(farmerCropM.getFertilizingFrequencyDays_F()==0||(farmerCropM.getFertilizingFrequencyDays_F()+"").isEmpty()){
-        Snackbar.make(requireView(), "لقد تم ضبط مواعيد التسميد بنجاح", Snackbar.LENGTH_SHORT).show();
-        }else {
-            Snackbar.make(requireView(), "تم تسجيل التسميد بنجاح", Snackbar.LENGTH_SHORT).show();
-        }
-        // 2. تحديث تاريخ التسميد الأخير
-        myViewModel.getFarmersByCropAndFarmer(farmerUsername, cropId).observe(getViewLifecycleOwner(), farmerCrops -> {
-            if (farmerCrops != null && !farmerCrops.isEmpty()) {
-                Farmer_Crops currentFarmerCrop = farmerCrops.get(0);
-
-                // تحديث تاريخ التسميد
-                String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                currentFarmerCrop.setLastFertilizerDate(currentDate);
-                myViewModel.updateCropFarmer(currentFarmerCrop);
-                updateFertilizerInfo(cropM, farmerCropM);
-                // 3. جدولة الإشعارات للتسميد القادم
-                scheduleNextFertilization(cropM, currentFarmerCrop);
-
-                // 4. تحديث واجهة المستخدم
-                updateFertilizingInfo(cropM, currentFarmerCrop);
-
-            }
-        });
-    }
 
     private void scheduleNextFertilization(Crop crop, Farmer_Crops farmerCrop) {
         if (crop == null || farmerCrop == null) {
@@ -1200,6 +1146,7 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
             Log.e("Fertilization", "Error parsing date: " + lastFertDateStr, e);
         }
     }
+
     private void cancelAllFertilizationNotifications() {
         // إلغاء جميع الإشعارات السابقة
         NotificationManagerCompat.from(requireContext()).cancelAll();
@@ -1250,32 +1197,48 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
     }
 
     private void startCountdown(long millisInFuture) {
-        // إيقاف العداد السابق إذا كان يعمل
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
+        cancelCountdown();
 
         countDownTimer = new CountDownTimer(millisInFuture, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 updateCountdownText(millisUntilFinished);
+
             }
 
             @Override
             public void onFinish() {
                 textCountdown.setText("حان وقت التسميد!");
                 fertCheckbox.setEnabled(true);
+                fertCheckbox.setVisibility(VISIBLE);
             }
+
+            // التنفيذ
         }.start();
 
         // تفعيل/تعطيل CheckBox بناءً على الوقت المتبقي
         fertCheckbox.setEnabled(millisInFuture <= 0);
     }
 
+    private void cancelCountdown() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        cancelCountdown();
+    }
+
     private void updateCountdownText(long millisUntilFinished) {
+
         if (millisUntilFinished <= 0) {
             textCountdown.setText("حان وقت التسميد!");
             fertCheckbox.setEnabled(true);
+            fertCheckbox.setVisibility(VISIBLE);
             return;
         }
 
@@ -1285,16 +1248,132 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
         long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60;
 
         String countdownText = String.format(Locale.getDefault(),
-                "الوقت المتبقي: %d يوم %02d:%02d:%02d",
+                "%d يوم %02d:%02d:%02d",
                 days, hours, minutes, seconds);
 
         textCountdown.setText(countdownText);
         fertCheckbox.setEnabled(false);
+        fertCheckbox.setVisibility(GONE);
+
 
     }
+    //        btnSchedule.setOnClickListener(v -> scheduleFertilizingForAllCrops());
+
+//        fertCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//                Snackbar.make(requireView(),
+//                        "تم تسجيل التسميد بنجاح",
+//                        Snackbar.LENGTH_SHORT
+//                ).show();
+//                myViewModel.getFarmersByCropAndFarmer(farmerUsername, cropId).observe(getViewLifecycleOwner(), farmerCrops -> {
+//
+//                    farmerCrops.get(0).setLastFertilizerDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+//                    myViewModel.updateCropFarmer(farmerCrops.get(0)); // حفظ في قاعدة البيانات
+//                   // scheduleFertilizingForAllCrops();
+//                    updateFertilizingInfo(cropM, farmerCrops.get(0));
+//                  //  updateUI(cropM, farmerCrops.get(0)); // إضافة هذه السطر
+//
+//                });
+//            }
+//        });
+
+//        btnConfirmFertilizing.setOnClickListener(v -> {
+//            farmerCrop.setLastFertilizerDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+//            myViewModel.updateFarmerCrop(farmerCrop); // حفظ التاريخ في قاعدة البيانات
+//            scheduleFertilizingNotifications(crop, farmerCrop); // إعادة الجدولة
+//        });
+    // في onCreateView():
+
+    //        progressBar.setProgress(70);
+//        progressBar.setMax(100);
 
 
+//        if (farmerCropM.getSoil()==true){
+//
+//            icon1.setEnabled(false);
+//            icon1.setImageResource(R.drawable.check1);
+//        }
+//        if (farmerCropM.getSoil()==true){
+//
+//            icon1.setEnabled(false);
+//            icon1.setImageResource(R.drawable.check1);
+//        }
+//
+//
+//        icon1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                icon1.setEnabled(false);
+//                icon1.setImageResource(R.drawable.check1);
+//           //     icon1.setBackgroundColor(Color.GRAY);
+//                farmerCropM.setSoil(true);
+//                myViewModel.updateCropFarmer(farmerCropM);
+//            }
+//        });
+    //  private void updateFertilizingInfo(Crop crop, Farmer_Crops farmerCrop) {
+//        int adjustedDays = getAdjustedFertilizingDays(crop, farmerCrop);// عدد الايام بعد العوامل المؤثرة بس المقارنة لسبع ايام المفترض بدي اعمل عداد تنازلي ينقص بالثواني والدقائق والساعاتو والايام يبدأ ينقص من الايام المتبقية وكسورها
+//        String nextDate = getNextActionDate(farmerCrop.getLastFertilizerDate(), adjustedDays);
+//
+//        String text = String.format(Locale.getDefault(),
+//                "تعليمات التسميد:\n%s\n\nالتكرار: كل %d يوم\nالموعد التالي: %s",
+//                crop.getFertilizingInstructions(), adjustedDays, nextDate);
+//
+//        textFertilizing.setText(text);//مش متأكد اذا يبدأ العد من القيمة للتردد بعد الحساب ولا الاصلية
+//
+//    / /        Farmer_Crops farmerCrops1=new Farmer_Crops();
+//    / /        farmerCrops1.setWateringFrequencyDays_F(adjustedDays);
+//    / /        myViewModel.updateCropFarmer(farmerCrops1);
+//    }
+//    private void showScheduleConfirmation() {/*ببعث اشعار لما بضغط جدولة*/
+//        Context context = requireContext();
+//
+//        // تحقق من صلاحية الإشعارات (Android 13+)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+//                ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(requireActivity(),
+//                    new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1002);
+//            return;
+//        }
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.unnamed)
+//                .setContentTitle("تم جدولة التسميد")
+//                .setContentText("تم جدولة جميع مواعيد التسميد للمحاصيل")
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//
+//        NotificationManagerCompat.from(context).notify(0, builder.build());
+//    }
+    //    private void scheduleFertilizingForAllCrops() {
+//        myViewModel.getCropsByFarmer(farmerUsername).observe(getViewLifecycleOwner(), farmerCrops -> {
+//            for (Farmer_Crops farmerCrop : farmerCrops) {
+//                myViewModel.getAllCropsById(farmerCrop.getCrop_ID()).observe(getViewLifecycleOwner(), crops -> {
+//                    if (crops != null && !crops.isEmpty()) {
+//                        Crop crop = crops.get(0);
+//                        scheduleFertilizingNotifications(crop, farmerCrop);
+//                    }
+//                });
+//            }
+//            showScheduleConfirmation();
+//        });
+//    }
 
+//    private void scheduleFallbackNotification(long triggerTime) {
+//        // بديل عند عدم وجود صلاحية: استخدام AlarmManager غير الدقيق
+//        AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+//
+//        // أو استخدام WorkManager كبديل
+//        PeriodicWorkRequest fertilizerWork = new PeriodicWorkRequest.Builder(
+//                FertilizerWorker.class,
+//                adjustedDays, TimeUnit.DAYS)
+//                .build();
+//        WorkManager.getInstance(requireContext()).enqueue(fertilizerWork);
+//    }
+
+//    private double calculateFertilizerAmount(double amountPerPlant, double totalPlants) {
+//        return amountPerPlant * totalPlants;
+//    }
     //    private void setupFertilizingSchedule(Crop crop, Farmer_Crops farmerCrop) {
 //        // التحقق من صحة المدخلات
 //        if (crop == null || farmerCrop == null) {
@@ -1368,9 +1447,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 //
 
 
-
-
-
 //
 //
 //    @RequiresApi(api = Build.VERSION_CODES.O)
@@ -1433,15 +1509,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 //
 
 
-
-
-
-
-
-
-
-
-
 //    private void sendFertilizerNotification(FertilizingEvent event) {//تشغيل الدالة في On Create
 //        Context context = requireContext();
 //
@@ -1502,29 +1569,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 //
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //    private void checkNotificationPermission() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
 //                ContextCompat.checkSelfPermission(requireContext(),
@@ -1543,20 +1587,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 //
 //
 //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //    private void scheduleFertilizingNotifications(Crop crop, Farmer_Crops farmerCrop) {
@@ -1606,19 +1636,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 //            Log.e("Notification", "Error scheduling", e);
 //        }
 //    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //
@@ -1692,11 +1709,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 //    }
 
 
-
-
-
-
-
 //    @Test
 //    public void testFertilizingSchedule() {
 //        Crop testCrop = new Crop(...);
@@ -1708,8 +1720,6 @@ private String calculatePlantingTime(Crop crop, Farmer_Crops farmerCrop) {//از
 //        assertFalse(schedule.isEmpty());
 //        assertEquals(12, schedule.size());
 //    }
-
-
 
 
 //    private void handleDelay(Crop crop, Farmer_Crops farmerCrop) {

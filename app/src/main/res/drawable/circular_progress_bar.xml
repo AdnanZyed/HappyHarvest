@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- الخلفية -->
+    <item android:id="@android:id/background">
+        <shape android:shape="ring" android:useLevel="false">
+            <solid android:color="#CCCCCC" />
+            <size
+                android:width="100dp"
+                android:height="100dp" />
+        </shape>
+    </item>
+
+    <!-- التقدم -->
+    <item android:id="@android:id/progress">
+        <shape android:shape="ring">
+            <size
+                android:width="100dp"
+                android:height="100dp" />
+            <solid android:color="@color/green" /> <!-- أزرق -->
+        </shape>
+    </item>
+</layer-list>

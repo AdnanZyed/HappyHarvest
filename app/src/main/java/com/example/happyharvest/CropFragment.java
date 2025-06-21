@@ -32,6 +32,7 @@ public class CropFragment extends Fragment {
     private My_View_Model myViewModel;
     private CropAdapter cropAdapter;
     private String user;
+    RecyclerView recyclerView;
     private DatabaseReference dbRef;
 
     @Nullable
@@ -43,10 +44,9 @@ public class CropFragment extends Fragment {
         // تهيئة Adapter أولاً
         user = getArguments() != null ? getArguments().getString("USER_NAME_R") : "default_user";
         cropAdapter = new CropAdapter(requireContext(), new ArrayList<>(), user);
-
-        RecyclerView recyclerView = view.findViewById(R.id.rv_Crops);
+         recyclerView = view.findViewById(R.id.rv_Crops);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(cropAdapter); // يجب تعيين Adapter هنا قبل loadCrops()
+
 
         // ثم تحميل البيانات
         loadCrops();
@@ -190,7 +190,7 @@ public class CropFragment extends Fragment {
                 if (!isAdded()) return; // التأكد من أن Fragment لا يزال مضافًا
 
                 if (!dataSnapshot.exists()) {
-                    Toast.makeText(getContext(), "لا توجد محاصيل متاحة", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "مشكلة في الاتصال بالخادم", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -202,8 +202,8 @@ public class CropFragment extends Fragment {
                         if (crop != null) {
 
                             cropList.add(crop);
-                           // myViewModel.insertAllCrops(cropList);
-                            Toast.makeText(requireContext(), "cropList"+cropList, Toast.LENGTH_SHORT).show();
+                            myViewModel.insertAllCrops(cropList);
+                            //Toast.makeText(requireContext(), "cropList"+cropList, Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -219,6 +219,8 @@ public class CropFragment extends Fragment {
 //                    getActivity().runOnUiThread(() -> {
                         myViewModel.getAllCrop().observe(getViewLifecycleOwner(), crops -> {
                             cropAdapter.setCropList(crops);
+                            recyclerView.setAdapter(cropAdapter); // يجب تعيين Adapter هنا قبل loadCrops()
+
                         });
                         if (cropAdapter != null) {
 

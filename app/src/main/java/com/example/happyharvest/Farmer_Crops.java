@@ -60,6 +60,10 @@ public class Farmer_Crops {
     private int wateringFrequencyDays_F;//بتتعدل باستمرار
     private int fertilizingFrequencyDays_F;//بتتعدل باستمرار
 
+    private boolean Soil;
+    private boolean Agriculture;
+    private boolean Care;
+    private boolean Done;
     // في Farmer_Crops.java
 //    private List<FertilizationRecord> fertilizationHistory;
 //
@@ -68,7 +72,7 @@ public class Farmer_Crops {
 //    }
 
 
-    public Farmer_Crops(@NonNull String farmer_user_name, int crop_ID, boolean isBookmark, boolean isRegister, String startDate, int successRate, boolean isAccepted, String soilType, String irrigationType, String waterAvailability, double land_area, String previous_crop, double average_humidity, boolean paid_subscription, String season, double latitude, double longitude, float averageTemperature, boolean isAddCart, int rating, String lastFertilizerDate, String lastWaterDate, String greenhouseType, String ventilation, boolean hasLighting, boolean hasHeating, boolean hasCooling, boolean hasCO2, boolean hasAutomation, String organicFertilizer, String chemicalFertilizer, float humidity, float windSpeed, String selecting_seeds_or_seedlings, String priority_previous_crop, int wateringFrequencyDays_F, int fertilizingFrequencyDays_F) {
+    public Farmer_Crops(@NonNull String farmer_user_name, int crop_ID, boolean isBookmark, boolean isRegister, String startDate, int successRate, boolean isAccepted, String soilType, String irrigationType, String waterAvailability, double land_area, String previous_crop, double average_humidity, boolean paid_subscription, String season, double latitude, double longitude, float averageTemperature, boolean isAddCart, int rating, String lastFertilizerDate, String lastWaterDate, String greenhouseType, String ventilation, boolean hasLighting, boolean hasHeating, boolean hasCooling, boolean hasCO2, boolean hasAutomation, String organicFertilizer, String chemicalFertilizer, float humidity, float windSpeed, String selecting_seeds_or_seedlings, String priority_previous_crop, int wateringFrequencyDays_F, int fertilizingFrequencyDays_F, boolean soil, boolean agriculture, boolean care, boolean done) {
         Farmer_user_name = farmer_user_name;
         Crop_ID = crop_ID;
         this.isBookmark = isBookmark;
@@ -106,11 +110,46 @@ public class Farmer_Crops {
         Priority_previous_crop = priority_previous_crop;
         this.wateringFrequencyDays_F = wateringFrequencyDays_F;
         this.fertilizingFrequencyDays_F = fertilizingFrequencyDays_F;
+        Soil = soil;
+        Agriculture = agriculture;
+        Care = care;
+        Done = done;
     }
 
     public Farmer_Crops() {
     }
 
+    public boolean isSoil() {
+        return Soil;
+    }
+
+    public void setSoil(boolean soil) {
+        Soil = soil;
+    }
+
+    public boolean isAgriculture() {
+        return Agriculture;
+    }
+
+    public void setAgriculture(boolean agriculture) {
+        Agriculture = agriculture;
+    }
+
+    public boolean isCare() {
+        return Care;
+    }
+
+    public void setCare(boolean care) {
+        Care = care;
+    }
+
+    public boolean isDone() {
+        return Done;
+    }
+
+    public void setDone(boolean done) {
+        Done = done;
+    }
 
     public int getWateringFrequencyDays_F() {
         return wateringFrequencyDays_F;

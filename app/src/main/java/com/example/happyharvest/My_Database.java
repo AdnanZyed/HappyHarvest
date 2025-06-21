@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {Farmer.class, Crop.class, Expert.class, Farmer_Crops.class,
         Farmer_Expert.class, Crop_Reviews.class, CropStep.class, Message.class,
-        Expert_Reviews.class, FarmerStep.class, Notification.class,CropProblem.class}, version = 1, exportSchema = false)
+        Expert_Reviews.class, FarmerStep.class, Notification.class,CropProblem.class}, version = 3, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class My_Database extends RoomDatabase {
     public abstract FarmerStepDao farmerStepDao();
