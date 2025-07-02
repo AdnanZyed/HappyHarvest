@@ -1,7 +1,6 @@
-// Top-level build file
 buildscript {
     repositories {
-        google()  // تأكد من وجود هذا
+        google()
         mavenCentral()
     }
     dependencies {
@@ -23,9 +22,7 @@ ext {
     lifecycleVersion = '2.6.2'
     materialVersion = '1.9.0'
     roomVersion = '2.5.2'
-    // إصدارات Firebase
     firebaseBomVersion = '32.7.0'
-    // testing
     junitVersion = '4.13.2'
     espressoVersion = '3.5.1'
     androidxJunitVersion = '1.1.5'

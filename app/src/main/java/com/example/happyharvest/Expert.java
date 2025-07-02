@@ -12,10 +12,10 @@ public class Expert {
     private String Education;
     private String Expert_PASSWORD;
     private byte[] Image_expert;
-    public String location; // ممكن نخزنها كنص أو نحط Latitude و Longitude منفصلين
-    public String soilType;
-    public String irrigationType;
-    public double area;
+    private String location; // ممكن نخزنها كنص أو نحط Latitude و Longitude منفصلين
+    private String soilType;
+    private String irrigationType;
+    private double area;
 
     public Expert(@NonNull String expert_USER_Name, String expert_name, String education, String expert_PASSWORD, byte[] image_expert, String location, String soilType, String irrigationType, double area) {
         Expert_USER_Name = expert_USER_Name;

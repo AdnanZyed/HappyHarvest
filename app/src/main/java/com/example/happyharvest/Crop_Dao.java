@@ -14,7 +14,8 @@ import java.util.List;
 public interface Crop_Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Crop> crops);
-
+    @Query("SELECT * FROM Crop")
+    List<Crop> getAllCropSync();
     @Query("SELECT * FROM Crop ")
     LiveData<List<Crop>> getAllCrops();
 //    @Query("SELECT * FROM Crop")

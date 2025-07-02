@@ -18,6 +18,8 @@ public class Farmer {
     private String S_name;
     private byte[] s_Image;
     private String bio;
+    private double Latitude;
+    private double Longitude;
 
     public Farmer(@NonNull String farmer_user_name, String farmer_Password, int phone_nomber, int card_Number, String s_name, byte[] s_Image, String bio) {
         Farmer_user_name = farmer_user_name;
@@ -27,8 +29,26 @@ public class Farmer {
         S_name = s_name;
         this.s_Image = s_Image;
         this.bio = bio;
+
     }
+
     public Farmer() {
+    }
+
+    public double getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
     }
 
     @NonNull

@@ -89,8 +89,6 @@ public class DailyCareFragment extends Fragment {
     private CardView card_irrigation;
     private CardView card_fertilizing;
     private CardView card_pruning;
-
-
     private final String API_KEY = "001bfc6226ca41a7c7b095524a7cf212";
     private Farmer_Crops farmerCropM;
     private NotificationManagerCompat notificationManager;
@@ -134,9 +132,9 @@ public class DailyCareFragment extends Fragment {
         textFertilizing = view.findViewById(R.id.text_fertilizing);
         textPruning = view.findViewById(R.id.text_pruning);
         fetchWeatherData = view.findViewById(R.id.fetchWeatherData);
-        // textPestControl = view.findViewById(R.id.text_pest_control);
+        textPestControl = view.findViewById(R.id.text_pest_control);
         textSoilComparison = view.findViewById(R.id.text_soil_comparison);
-        textPreviousCrop = view.findViewById(R.id.text_previous_crop);
+        textPreviousCrop = view.findViewById(R.id.text_elements_crop);
         textSeedlingsCount = view.findViewById(R.id.text_seedlings_count);
         textFertilizerInfo = view.findViewById(R.id.text_fertilizer_info);
         //Button btnSchedule = view.findViewById(R.id.btn_schedule);

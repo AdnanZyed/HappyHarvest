@@ -60,7 +60,8 @@ public class CropFragment extends Fragment {
 //        if (!isAdded() || getContext() == null) {
 //            Log.w("CropFragment", "Fragment not attached to activity");
 //            return;
-//        }
+//        }        dbRef = database.getReference("crops"); // لازم تعملها قبل push()
+
 //
 //        // 2. الحصول على مرجع قاعدة البيانات
 //        dbRef = FirebaseDatabase.getInstance().getReference("crops");

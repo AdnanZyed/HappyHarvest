@@ -1,7 +1,7 @@
 <resources>
+
     <string name="app_name">Happy Harvest</string>
     <string name="logo_description"></string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_farming_method">اختر طريقة الزراعة</string>
     <string name="greenhouse">بيت بلاستيكي</string>
@@ -17,13 +17,80 @@
     <string name="notification_title">موعد تسميد %s</string>
     <string name="notification_content">نوع السماد: %s</string>
     <string name="notification_details">تفاصيل التسميد:\n• المحصول: %s\n• النوع: %s\n• السماد: %s\n• الكمية: %s غم</string>
+    <!-- From Dialog -->
+    <string name="location">Location:</string>
+    <string name="planting_date">Planting Date:</string>
+    <string name="season">Season:</string>
+    <string name="weather_description">Weather Description</string>
+    <string name="temperature">Temperature:</string>
+    <string name="humidity_level">Humidity Level:</string>
+    <string name="acceptance">Acceptance:</string>
+    <string name="previous_crop">Previous Crop:</string>
+    <string name="success_rate">Success Rate:</string>
+    <string name="evaluate_planting">Evaluate Planting</string>
+    <string name="close">Close</string>
+    <!--  From previous snippet  -->
+    <string name="daily_care">Daily Care</string>
+    <string name="planting_information">Planting Information</string>
+    <string name="problems_and_solutions">Problems and Solutions</string>
+    <string name="valuable_information">Valuable Information</string>
+    <string name="ai_tools">Artificial Intelligence Tools</string>
+    <string name="ai_search">AI Search</string>
+    <string name="image_analysis">Image Analysis</string>
+    <string name="consult_specialist">Consult the Specialist</string>
+    <string name="write_question_hint">Write your question here...</string>
+    <string name="send">Send</string>
+    <string name="upcoming_notifications">Upcoming Notifications</string>
+    <string name="next_watering_time">Next Watering Time: Tomorrow 8 AM</string>
+    <string name="confirm">Confirm</string>
+    <string name="next_fertilization_time">Next Fertilization Time: In 3 Days</string>
+    <!--  From HomeFragment.xml  -->
+    <string name="welcome_message">Welcome Adnan 👋</string>
+    <string name="search_hint">Search</string>
+    <string name="welcome_text">Welcome</string>
+    <string name="name_text">Name</string>
+    <string name="top_mentors">Top Mentors</string>
+    <string name="see_all">See All</string>
+    <string name="crop_category">Crop Category</string>
+    <string name="all">All</string>
+    <string name="vegetable">Vegetable</string>
+    <string name="root">Root</string>
+    <string name="bulb">Bulb</string>
+    <string name="business">Business</string>
+    <string name="three_d_design">3D Design</string>
+    <string name="art">Art</string>
+    <string name="programming">Programming</string>
+    <!--  From FarmInput.xml  -->
+    <string name="enter_planting_data">Enter Planting Data</string>
+    <string name="soil_type">Soil Type</string>
+    <string name="select_soil_type">Select Soil Type</string>
+    <string name="no_idea_soil_type">I have no idea about the soil type</string>
+    <string name="irrigation_system_type">Irrigation System Type</string>
+    <string name="select_irrigation_system">Select Irrigation System</string>
+    <string name="water_availability">Water Availability</string>
+    <string name="fertilizer_type">Fertilizer Type</string>
+    <string name="area_hint">Enter the area in meters || Dunum = 1000 meters</string>
+    <string name="greenhouse_type">Greenhouse Type</string>
+    <string name="ventilation_type">Ventilation Type</string>
+    <string name="artificial_lighting">Is there artificial lighting?</string>
+    <string name="heating">Is there heating?</string>
+    <string name="previous_crop_type">Previous Crop Type</string>
+    <string name="previous_crop_impact">Previous Crop and Its Impact on the Current Crop:</string>
+    <string name="hydroponic_system">Hydroponic System</string>
+    <string name="nutrient_solution_type">Nutrient Solution Type</string>
+    <string name="organic_fertilizer_type">Organic Fertilizer Type</string>
+    <string name="chemical_fertilizer_type">Chemical Fertilizer Type</string>
+    <string name="organically_certified">Is the product organically certified?</string>
+    <string name="cooling_system">Is there a cooling system?</string>
+    <string name="co2_system">Is there a CO2 system?</string>
+    <string name="system_automation">System Automation</string>
+    <string name="humidity">Humidity: 60%</string>
+
     <string-array name="categories_array">
-        <item>Programming</item>
-        <item>Web</item>
-        <item>Mobile</item>
-        <item>Design</item>
-        <item>AI</item>
-        <item>Data</item>
+        <item>Root</item>
+        <item>Vegetable</item>
+        <item>Bulb</item>
+        <item>fruits</item>
     </string-array>
 
 
@@ -39,12 +106,12 @@
         <item>شتل</item>
     </string-array>
 
-    <string-array name="soil_types1">
+<!--    <string-array name="soil_types1">-->
 
-        <item>loamy</item>
-        <item>sandy</item>
-        <item>clay</item>
-    </string-array>
+<!--        <item>loamy</item>-->
+<!--        <item>sandy</item>-->
+<!--        <item>clay</item>-->
+<!--    </string-array>-->
 
 
     <!-- القيم الحالية -->

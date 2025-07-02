@@ -1,5 +1,4 @@
 package com.example.happyharvest;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,7 +32,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class HomeFragment extends Fragment {
     private List<Button> buttons = new ArrayList<>();
     private Button activeButton = null;
@@ -51,6 +49,8 @@ public class HomeFragment extends Fragment {
     Button btnProgramming;
     Button btnBusiness;
     Button btnArt;
+    double lat;
+    double lon;
     TextView tv_Seeall;
     TextView tv_Seeall2;
     TextView tv_Welcom;
@@ -63,13 +63,7 @@ public class HomeFragment extends Fragment {
     ImageView iv_S;
     String bio;
     WeatherResponse weather;
-
     private My_View_Model myViewModel;
-
-    private final double LAT = 31.5;
-    private final double LON = 34.47;
-    private final String API_KEY = "9e269c7c20355e9e8bba48b0ad2cd52c";
-
     private TextView tvLocation, tvTemp, tvCondition, tvHumidity;
     private ImageView weatherIcon;
     private Map<Button, View> buttonUnderlineMap = new HashMap<>();
@@ -86,23 +80,13 @@ public class HomeFragment extends Fragment {
         args = getArguments();
         if (args != null) {
             farmers_u = args.getString("USER_NAME");
-
-
         }
-
-
-
         ViewPager2 viewPager2 = rootView.findViewById(R.id.viewPager2);
-
-
         List<Integer> images = Arrays.asList(R.drawable.vp3, R.drawable.vp2, R.drawable.vp1);
         ImageAdapter adapter = new ImageAdapter(images);
-
         viewPager2.setAdapter(adapter);
-
         bundle = new Bundle();
         bundle.putString("USER_NAME_R", farmers_u);
-
         btnAll = rootView.findViewById(R.id.btn_all);
         Vegetable_Crops = rootView.findViewById(R.id.btn_Vegetable);
         Bulb_Crops = rootView.findViewById(R.id.btn_Bulb);
@@ -444,57 +428,50 @@ public class HomeFragment extends Fragment {
         activeButton = clickedButton;
     }
     private void fetchWeatherData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        myViewModel.getAllFarmerByUser(farmers_u).observe(getViewLifecycleOwner(), farmers -> {
+             lat=farmers.get(0).getLatitude();
+             lon=farmers.get(0).getLongitude();
 
-        WeatherApi service = retrofit.create(WeatherApi.class);
-
-        Call<WeatherResponse> call = service.getCurrentWeather(LAT, LON, API_KEY, "metric", "ar");
-
-        call.enqueue(new Callback<WeatherResponse>() {
+        });
+        WeatherManager.getInstance().fetchWeather(getContext(),lat,lon, new WeatherManager.WeatherCallback() {
             @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                     weather = response.body();
-                    if (weather.getWind() != null) {
-                         speed = (int) (weather.getWind().getSpeed()* 3.6);
-                    }
-                    tvLocation.setText(weather.getName());
-                    tvTemp.setText((int) weather.getMain().getTemp() + "°C");
-                    tvCondition.setText("الرياح: " + speed + "KM");
-                    tvHumidity.setText("الرطوبة: " + weather.getMain().getHumidity() + "%");
-
-                    // أيقونة الطقس
-                    String iconCode = weather.getWeather().get(0).getIcon();
-                    int iconRes;
-                    switch (iconCode) {
-                        case "01d":
-                            iconRes = R.drawable.sun;
-                            break;
-                        case "02d":
-                            iconRes = R.drawable.cloudy;
-                            break;
-                        case "03d":
-                        case "04d":
-                            iconRes = R.drawable.clouds;
-                            break;
-                        case "09d":
-                        case "10d":
-                            iconRes = R.drawable.heavyrain;
-                            break;
-                        default:
-                            iconRes = R.drawable.sun;
-                    }
-                    weatherIcon.setImageResource(iconRes);
+            public void onWeatherLoaded(WeatherResponse response) {
+                weather = response;
+                if (weather.getWind() != null) {
+                    speed = (int) (weather.getWind().getSpeed() * 3.6);
                 }
+                tvLocation.setText(weather.getName());
+                tvTemp.setText((int) weather.getMain().getTemp() + "°C");
+                tvCondition.setText("الرياح: " + speed + "KM");
+                tvHumidity.setText("الرطوبة: " + weather.getMain().getHumidity() + "%");
+
+                String iconCode = weather.getWeather().get(0).getIcon();
+                int iconRes;
+                switch (iconCode) {
+                    case "01d":
+                        iconRes = R.drawable.sun;
+                        break;
+                    case "02d":
+                        iconRes = R.drawable.cloudy;
+                        break;
+                    case "03d":
+                    case "04d":
+                        iconRes = R.drawable.clouds;
+                        break;
+                    case "09d":
+                    case "10d":
+                        iconRes = R.drawable.heavyrain;
+                        break;
+                    default:
+                        iconRes = R.drawable.sun;
+                }
+                weatherIcon.setImageResource(iconRes);
             }
 
             @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+            public void onFailure(Throwable t) {
                 Toast.makeText(requireContext(), "فشل جلب بيانات الطقس", Toast.LENGTH_SHORT).show();
             }
         });
-
-    }}
+    }
+}

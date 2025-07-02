@@ -76,8 +76,10 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/clock"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/watering"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.529"
                         app:layout_constraintStart_toEndOf="@+id/text_watering"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -205,7 +207,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="10dp"
-                        android:background="@drawable/clock"
+                        android:background="@drawable/fertilizer1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/text_fertilizing"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -291,7 +293,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/text_previous_crop"
+                            android:id="@+id/text_elements_crop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -314,29 +316,29 @@
                             android:textStyle="bold"
                             android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_previous_crop" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_elements_crop" />
 
                         <ImageView
-                            android:id="@+id/clock_ps"
+                            android:id="@+id/clock_e"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/clock"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/text_previous_crop" />
+                            app:layout_constraintTop_toBottomOf="@id/text_elements_crop" />
 
                         <ImageView
-                            android:id="@+id/icon_ps"
+                            android:id="@+id/icon_e"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_margin="10dp"
-                            android:background="@drawable/clock"
+                            android:background="@drawable/atom"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/text_previous_crop"
+                            app:layout_constraintStart_toEndOf="@+id/text_elements_crop"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/text_counter_ps"
+                            android:id="@+id/text_counter_e"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -345,11 +347,11 @@
 
                             android:textSize="22sp"
                             android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/clock_ps"
-                            app:layout_constraintTop_toTopOf="@+id/clock_ps" />
+                            app:layout_constraintStart_toEndOf="@+id/clock_e"
+                            app:layout_constraintTop_toTopOf="@+id/clock_e" />
 
                         <ProgressBar
-                            android:id="@+id/circularProgressBar_ps"
+                            android:id="@+id/circularProgressBar_e"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -361,10 +363,10 @@
                             android:progressDrawable="@drawable/circular_progress_bar"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_counter_ps" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_counter_e" />
 
                         <TextView
-                            android:id="@+id/text_detail_ps"
+                            android:id="@+id/text_detail_e"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Detail"
@@ -372,9 +374,9 @@
                             android:textSize="22sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBar_ps"
+                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBar_e"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/clock_ps" />
+                            app:layout_constraintTop_toBottomOf="@+id/clock_e" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -452,7 +454,7 @@
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_margin="10dp"
-                            android:background="@drawable/clock"
+                            android:background="@drawable/pruning"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/text_pruning"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -507,262 +509,262 @@
 
             </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
 
 
-<!--                >-->
+                >
 
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="5dp"-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
 
-<!--                    android:layout_weight="2"-->
-<!--                    android:backgroundTint="#eff3ff-->
-<!--"-->
-<!--                    app:cardCornerRadius="15dp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/previous_crop"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:text="Elements"-->
-<!--                            android:textColor="@color/black"-->
-
-<!--                            android:textSize="22sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <CheckBox-->
-<!--                            android:id="@+id/checkbox_fert_done_ps"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:text="حان وقت التسميد"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:visibility="gone"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/previous_crop" />-->
-
-<!--                        <ImageView-->
-<!--                            android:id="@+id/clock_ps"-->
-<!--                            android:layout_width="35dp"-->
-<!--                            android:layout_height="35dp"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:background="@drawable/clock"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@id/previous_crop" />-->
-
-<!--                        <ImageView-->
-<!--                            android:id="@+id/icon_ps"-->
-<!--                            android:layout_width="45dp"-->
-<!--                            android:layout_height="45dp"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:background="@drawable/clock"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintStart_toEndOf="@+id/previous_crop"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/text_counter_ps"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:text="6:30"-->
-<!--                            android:textColor="@color/black"-->
-
-<!--                            android:textSize="22sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintStart_toEndOf="@+id/clock_ps"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/clock_ps" />-->
-
-<!--                        <ProgressBar-->
-<!--                            android:id="@+id/circularProgressBar_ps"-->
-<!--                            style="?android:attr/progressBarStyleHorizontal"-->
-<!--                            android:layout_width="80dp"-->
-<!--                            android:layout_height="80dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:indeterminate="false"-->
-<!--                            android:max="100"-->
-<!--                            android:progress="0"-->
-<!--                            android:progressDrawable="@drawable/circular_progress_bar"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/text_counter_ps" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/text_detail_ps"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Detail"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textSize="22sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBar_ps"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/clock_ps" />-->
-
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    android:layout_weight="2"
+                    android:backgroundTint="#eff3ff
+"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
-<!--                </androidx.cardview.widget.CardView>-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/Protection_crop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Protection"
+                            android:textColor="@color/black"
+
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <CheckBox
+                            android:id="@+id/checkbox_fert_done_pn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="حان وقت التسميد"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/Protection_crop" />
+
+                        <ImageView
+                            android:id="@+id/clock_pn"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/clock"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/Protection_crop" />
+
+                        <ImageView
+                            android:id="@+id/icon_pn"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/protection"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/Protection_crop"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_counter_pn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="6:30"
+                            android:textColor="@color/black"
+
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/clock_pn"
+                            app:layout_constraintTop_toTopOf="@+id/clock_pn" />
+
+                        <ProgressBar
+                            android:id="@+id/circularProgressBar_pn"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/circular_progress_bar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_counter_pn" />
+
+                        <TextView
+                            android:id="@+id/text_detail_pn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBar_pn"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clock_pn" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="5dp"-->
-
-<!--                    android:layout_weight="2"-->
-<!--                    android:backgroundTint="#c8a0fd"-->
-<!--                    app:cardCornerRadius="15dp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                    &lt;!&ndash; Watering &ndash;&gt;-->
-
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent">-->
+                </androidx.cardview.widget.CardView>
 
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/text_Pruning_info"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:background="@drawable/info_background"-->
-<!--                            android:padding="8dp"-->
-<!--                            android:textSize="16sp"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="parent" />-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
 
-<!--                        <CheckBox-->
-<!--                            android:id="@+id/checkbox_fert_done_pg"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:text="حان وقت التسميد"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:visibility="gone"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/text_Pruning" />-->
+                    android:layout_weight="2"
+                    android:backgroundTint="#c8a0fd"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Watering -->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/text_Pruning"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:text="Pruning"-->
-<!--                            android:textColor="@color/black"-->
+                        <TextView
+                            android:id="@+id/text_Pests_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/info_background"
+                            android:padding="8dp"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="parent" />
 
-<!--                            android:textSize="22sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-
-<!--                        <ImageView-->
-<!--                            android:id="@+id/clock_pg"-->
-<!--                            android:layout_width="35dp"-->
-<!--                            android:layout_height="35dp"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:background="@drawable/clock"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@id/text_Pruning" />-->
-
-<!--                        <ImageView-->
-<!--                            android:id="@+id/icon_pg"-->
-<!--                            android:layout_width="45dp"-->
-<!--                            android:layout_height="45dp"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:background="@drawable/clock"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintStart_toEndOf="@+id/text_Pruning"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/text_counter_pg"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="10dp"-->
-<!--                            android:text="6:30"-->
-<!--                            android:textColor="@color/black"-->
-
-<!--                            android:textSize="22sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintStart_toEndOf="@+id/clock_pg"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/clock_pg" />-->
-
-<!--                        <ProgressBar-->
-<!--                            android:id="@+id/circularProgressBarpg"-->
-<!--                            style="?android:attr/progressBarStyleHorizontal"-->
-<!--                            android:layout_width="80dp"-->
-<!--                            android:layout_height="80dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:indeterminate="false"-->
-<!--                            android:max="100"-->
-<!--                            android:progress="0"-->
-<!--                            android:progressDrawable="@drawable/circular_progress_bar"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/text_counter_pg" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/text_detail_pg"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Detail"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:textSize="22sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBarpg"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/clock_pg" />-->
-
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                </androidx.cardview.widget.CardView>-->
+                        <CheckBox
+                            android:id="@+id/checkbox_fert_done_e"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="حان وقت التسميد"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_Pests" />
 
 
-<!--            </LinearLayout>-->
+                        <TextView
+                            android:id="@+id/text_Pests"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Pests"
+                            android:textColor="@color/black"
+
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:layout_weight="2"-->
-<!--                android:visibility="gone">-->
-<!--                &lt;!&ndash; Pest Control &ndash;&gt;-->
-<!--                <TextView-->
-<!--                    android:id="@+id/text_pest_control"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_marginBottom="16dp"-->
-<!--                    android:background="@drawable/care_background"-->
-<!--                    android:padding="8dp"-->
-<!--                    android:textSize="16sp" />-->
+                        <ImageView
+                            android:id="@+id/clock_ps"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/clock"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_Pests" />
 
-<!--            </androidx.cardview.widget.CardView>-->
+                        <ImageView
+                            android:id="@+id/icon_ps"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/pest"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/text_Pests"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_counter_ps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="6:30"
+                            android:textColor="@color/black"
+
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/clock_ps"
+                            app:layout_constraintTop_toTopOf="@+id/clock_ps" />
+
+                        <ProgressBar
+                            android:id="@+id/circularProgressBarps"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/circular_progress_bar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_counter_ps" />
+
+                        <TextView
+                            android:id="@+id/text_detail_ps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/circularProgressBarps"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clock_ps" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="2"
+                android:visibility="gone">
+                <!-- Pest Control -->
+                <TextView
+                    android:id="@+id/text_pest_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/care_background"
+                    android:padding="8dp"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -785,7 +787,7 @@
                     android:id="@+id/iconS"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/unnamed"
+                    android:src="@drawable/soil1"
                     app:layout_constraintEnd_toEndOf="@+id/icon1"
                     app:layout_constraintStart_toStartOf="@+id/icon1"
                     app:layout_constraintTop_toTopOf="parent"
@@ -817,7 +819,7 @@
                     android:id="@+id/iconA"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/unnamed"
+                    android:src="@drawable/planting"
                     app:layout_constraintEnd_toEndOf="@+id/icon2"
                     app:layout_constraintStart_toStartOf="@+id/icon2"
                     app:layout_constraintTop_toTopOf="parent"
@@ -847,7 +849,7 @@
                     android:id="@+id/iconC"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/unnamed"
+                    android:src="@drawable/care2"
                     app:layout_constraintEnd_toEndOf="@+id/icon3"
                     app:layout_constraintStart_toStartOf="@+id/icon3"
                     app:layout_constraintTop_toTopOf="parent"
@@ -880,7 +882,7 @@
                     android:id="@+id/iconD"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/unnamed"
+                    android:src="@drawable/harvest"
                     app:layout_constraintEnd_toEndOf="@+id/icon4"
                     app:layout_constraintStart_toStartOf="@+id/icon4"
                     app:layout_constraintTop_toTopOf="parent" />

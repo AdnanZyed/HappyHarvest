@@ -39,6 +39,886 @@ public class MainActivity_sign extends AppCompatActivity {
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
 
 
+        database = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/");
+        dbRef = database.getReference("crops"); // لازم تعملها قبل push()
+
+        Crop onion = new Crop();
+        onion.setCrop_NAME("Onion");
+        onion.setCategorie("Seasonal crops - Root crops - High-demand crops");
+        onion.setDescription("البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.");
+        onion.setExpert_USER_Name("jane_smith");
+        onion.setPreferredSoil("sandy");
+        onion.setAllowedSoil("muddy");
+        onion.setAllowedSoil("rocky");
+        onion.setPreferredIrrigation("drip");
+        onion.setAllowedIrrigation("sprinkler");
+        onion.setForbiddenIrrigation("immersion");
+        onion.setMinArea(0.3);
+        onion.setSeason("spring");
+        onion.setPreferredHumidity("High");
+        onion.setAllowedHumidity("Low");
+        onion.setForbiddenHumidity("Moderate");
+        onion.setPreferredTemp("Cool");
+        onion.setAllowedTemp("Mild");
+        onion.setForbiddenTemp("Hot");
+        onion.setWateringFrequencyDays(3);
+        onion.setFertilizingFrequencyDays(14);
+        onion.setWateringInstructions("\uD83D\uDEB0 برنامج الري:\n" +
+                "\n" +
+                "مرحلة النمو: ري كل 3 أيام (تجنب تبليل الأوراق)\n" +
+                "\n" +
+                "مرحلة الإثمار: ري يومي في الصيف (صباحاً)");
+
+        onion.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد:\n" +
+                "\n" +
+                "قبل الزراعة: سماد عضوي + سوبر فوسفات\n" +
+                "\n" +
+                "بعد 3 أسابيع: NPK (19-19-19)\n" +
+                "\n" +
+                "أثناء الإزهار: رش بورون + كالسيوم\n" +
+                "\n" +
+                "⚠\uFE0F تحذير: الإفراط في النيتروجين يقلل الإثمار!\n" +
+                "\n");
+        onion.setPlantingMethod("\uD83C\uDF31 دليل شامل لزراعة الطماطم: من البذور إلى الحصاد\n" +
+                "\uD83D\uDCCC 1. اختيار الصنف المناسب\n" +
+                "\uD83D\uDD39 أصناف محلية: مثل \"هجين ف1 448\" (مقاوم للأمراض)\n" +
+                "\uD83D\uDD39 أصناف عالمية: مثل \"بيف ستيك\" (للعصير) أو \"تشيري\" (للسلطات)\n" +
+                "\uD83D\uDD39 اختيار حسب الغرض:\n" +
+                "\n" +
+                "\uD83E\uDD6B للعصير: أصناف ذات لب كثيف (سان مارزانو)\n" +
+                "\n" +
+
+                "\uD83E\uDD57 للطازج: أصناف حلوة (هجين 023)\n" +
+                "\n" +
+                "\uD83C\uDF3F 2. تحضير التربة\n" +
+                "✅ المواصفات المثالية:\n" +
+                "\n" +
+                "درجة حموضة (pH 6-6.8)\n" +
+                "\n" +
+                "تربة جيدة الصرف (مخلوطة بـ 30% رمل)\n" +
+                "\n" +
+                "غنية بالمادة العضوية (أضف 10 كجم سماد بلدي/م²)\n" +
+                "\n" +
+                "⚠\uFE0F تحذير: تجنب التربة الطينية الثقيلة!\n" +
+                "\n" +
+                "\uD83C\uDF31 3. طرق الزراعة\n" +
+                "الطريقة\tالتفاصيل\tالوقت المناسب\n" +
+                "البذور\tتنقع في ماء دافئ (24 ساعة) ثم تزرع في أصص\tقبل 6-8 أسابيع من الصقيع الأخير\n" +
+                "الشتل\tنقل الشتلات عند طول 15-20 سم\tبعد زوال خطر الصقيع\n" +
+                "الزراعة المباشرة\t3 بذور/جورة بعمق 1 سم\tعندما تصل درجة الحرارة لـ 18°م ليلاً\n" +
+                "\uD83D\uDD39 مسافات الزراعة:\n" +
+                "\n" +
+                "50-60 سم بين النباتات\n" +
+                "\n" +
+                "90-100 سم بين الخطوط\n" +
+                "\n");
+        onion.setCropProblems("\n" +
+                "\uD83C\uDF45 مشاكل زراعة الطماطم وحلولها\n" +
+                "1\uFE0F⃣ مشكلة: تعفن الطرف الزهري (Blossom End Rot)\n" +
+                "الأعراض:\n" +
+                "\n" +
+                "ظهور بقع سوداء أو بنية داكنة عند طرف الثمرة\n" +
+                "\n" +
+                "جفاف المنطقة المصابة وتصلبها\n" +
+                "\n" +
+                "\uD83D\uDEE0\uFE0F الحلول:\n" +
+                "✅ التوازن الكالسيومي: أضف الجير الزراعي أو رش نترات الكالسيوم (5 جم/لتر ماء)\n" +
+                "✅ الري المنتظم: حافظ على رطوبة التربة (لا تجف تمامًا)\n" +
+                "✅ التسميد المتوازن: تجنب الإفراط في الأسمدة النيتروجينية\n" +
+                "\n"
+                + "\uD83D\uDD04 الدورة الزراعية: تغيير المحصول كل موسم\n" +
+                "\n" +
+                "\uD83E\uDDEA تحليل التربة: قبل الزراعة لتحديد الاحتياجات\n" +
+                "\n" +
+                "\uD83D\uDC1D جذب الملقحات: بزراعة نباتات الزينة حول الحقل\n" +
+                "\n" +
+                "\uD83D\uDCC5 الزراعة في موعدها: حسب التقويم الزراعي للمنطقة\n" +
+                "\n" +
+                "\uD83D\uDC69\u200D\uD83C\uDF3E المتابعة اليومية: لاكتشاف المشاكل مبكراً\n" +
+                "\n" +
+                "\uD83D\uDCA1 إحصائية مهمة: 80% من مشاكل المحاصيل تنتج عن سوء إدارة الري والتسميد!");
+
+        onion.setPruning_and_guidance("\uD83D\uDD04  التقليم والتوجيه\n" +
+                "✂\uFE0F تقليم السرطانات: إزالة الفروع الجانبية تحت أول عنقود زهري\n" +
+                "\uD83C\uDF3F التدعيم: استخدام أوتاد خشبية أو شباك تعليق\n" +
+                "\n" +
+                "طريقة التدلي: لف الساق حول الخيط كل أسبوع\n" +
+                "\n");
+
+        onion.setPreferredAbundance("Available");
+        onion.setAllowedAbundance("Limited");
+        onion.setForbiddenAbundance("Unavailable");
+        onion.setLearnMore("\uD83D\uDC1B 5. المكافحة المتكاملة للآفات\n" +
+                "الآفة\tالعلاج\tالوقاية\n" +
+                "الذبابة البيضاء\tرش زيت النيم (2 مل/لتر)\tمصائد صفراء لاصقة\n" +
+                "التعفن البكتيري\tرش نحاس (كوسيد 101)\tتعقيم الأدوات\n" +
+                "ديدان الثمار\tBacillus thuringiensis\tتغطية الثمار بأكياس ورقية\n" +
+                "\uD83C\uDF1E 6. الظروف البيئية المثلى\n" +
+                "☀\uFE0F الحرارة:\n" +
+                "\n" +
+                "النهار: 25-30°م\n" +
+                "\n" +
+                "الليل: 15-18°م\n" +
+                "\n" +
+                "\uD83D\uDCA1 الإضاءة: 8 ساعات ضوء يومياً على الأقل\n" +
+                "\n" +
+                "\uD83C\uDF27\uFE0F الرطوبة: 60-70% (استخدم مراوح في البيوت المحمية إذا زادت)\n" +
+                "\n" +
+                "\uD83D\uDED1 8. المشاكل الشائعة وحلولها\n" +
+                "المشكلة\tالسبب\tالحل\n" +
+                "تساقط الأزهار\tحرارة >35°م أو رطوبة عالية\tرش هرمون عقد الثمار (NAA)\n" +
+                "تشقق الثمار\tري غير منتظم\tالري بانتظام + تغطية التربة\n" +
+                "بقع صفراء على الأوراق\tنقص مغنيسيوم\tرش كبريتات ماغنيسيوم (2 جم/لتر)\n" +
+                "\uD83D\uDCC5 9. مواعيد الزراعة حسب المناطق\n" +
+                "المنطقة\tالموعد المثالي\n" +
+                "المناطق الدافئة\tسبتمبر-أكتوبر\n" +
+                "المناطق المعتدلة\tفبراير-مارس\n" +
+                "البيوت المحمية\tطوال العام (مع تحكم بالمناخ)\n" +
+                "\uD83E\uDDFA 10. الحصاد والتخزين\n" +
+                "\uD83D\uDCC5 موعد الحصاد: بعد 70-90 يوم من الزراعة\n" +
+                "\uD83D\uDD39 علامات النضج:\n" +
+                "\n" +
+                "لون أحمر متجانس\n" +
+                "\n" +
+                "ملمس طري عند الضغط الخفيف\n" +
+                "\n" +
+                "❄\uFE0F التخزين:\n" +
+                "\n" +
+                "الطازجة: 10-12°م (تجنب الثلاجة!)\n" +
+                "\n" +
+                "التجفيف: تقطع شرائح وتجفف بالشمس 3 أيام\n" +
+                "\n" +
+                "\uD83C\uDFAF نصائح الخبراء\n" +
+                "لثمار أكثر حلاوة: أضف ملعقة صغيرة ملح إنجليزي/لتر ماء عند الري\n" +
+                "\n" +
+                "لمكافحة النيماتودا: زراعة القطيفة (Marigold) بين الخطوط\n" +
+                "\n" +
+                "لزيادة العقد: هز النباتات برفق عند الصباح لنقل اللقاح\n" +
+                "\n" +
+                "حقيقة ممتعة: \uD83E\uDDEA الطماطم تنتج هرمون \"الإيثيلين\" الذي يساعد في نضج الفواكه الأخرى!\n" +
+                "\n" +
+                "باستخدام هذا الدليل، يمكنك الحصول على إنتاج وفير بجودة عالية \uD83C\uDF1F\uD83C\uDF45."
+        );
+        onion.setOptimalHumidity(50);
+        onion.setOptimalTemperature(20);
+        onion.setLightRequirements(3);
+        onion.setNumber_Plant_per_dunum(1500);
+        onion.setOrganicFertilizer("ارض مكشوفة_بيت بلاستيكي_زراعة مائية_زراعة عضوية");
+
+        onion.setChemicalPerPlant(12.0);
+        onion.setChemicalFertilizer("Chemical");
+        onion.setOrganicPerPlant(150.0);
+
+        onion.setPrevious_crop_preferred("الخس، السبانخ، الجرجير، البقدونس، الكزبرة، النعناع، البرسيم، الحلبة، الشوفان (كغطاء أخضر)، الذرة الرفيعة، الدخن، عباد الشمس");
+        onion.setPrevious_crop_allowed("الذرة، القمح، الشعير، الشوفان، العدس، الفول، الحمص، الفاصوليا، البازلاء، البطيخ، الشمام، الخيار، الكوسا، الباذنجان، الفلفل، الطماطم");
+
+        onion.setPrevious_crop_forbidden( "الثوم، الكراث، البصل، البطاطا، البطاطس، الفجل، اللفت، الجزر، الشمندر، الكرنب، القرنبيط، البروكلي");
+        onion.setSoil_preparation_Favorite( "حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.\n" +
+                "\n" +
+                "تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.\n" +
+                "\n" +
+                "إضافة السماد العضوي المتحلل (بلدي أو كمبوست) بمعدل 4–5 طن للدونم، وخلطه جيدًا بالتربة.\n" +
+                "\n" +
+                "لو الأرض ثقيلة، يفضل إضافة رمل أو بيتموس لتحسين التصريف.\n" +
+                "\n" +
+                "تأكد إن التربة فيها صرف جيد، لأن الطماطم ما بتحب تجمع المياه.\n" +
+                "\n" +
+                "اضبط حموضة التربة (pH) لتكون بين 6 و6.8، لأنها الأنسب للطماطم.\n" +
+                "\n" +
+                "أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.\n" +
+                "\n" +
+                "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
+        onion.setPreparing_irrigation_tools_F("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
+        onion.setPreparing_irrigation_tools_P("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
+        onion.setPreparing_irrigation_tools_A("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
+
+        onion.setSoil_preparation_allowed( "بذور محسنة ومعتمدة.\n" +
+                "\n" +
+                "مقاومة للأمراض الشائعة.\n" +
+                "\n" +
+                "نسبة إنبات عالية.\n" +
+                "\n" +
+                "شراءها من مصدر موثوق.");
+        onion.setWeight_seeds_per_dunum(3);
+        onion.setSeedSpecifications("اختر بذور بصل عالية الجودة ومعتمدة، خالية من الأمراض، وذات حجم متوسط للحصول على نمو متجانس. \uD83E\uDDC5");
+        onion.setSeedlingPreparation("قم بنقع البذور في ماء فاتر لمدة 12 ساعة قبل الزراعة، ويمكن تجهيز الشتلات في مشتل لمدة 6 أسابيع قبل النقل. \uD83C\uDF31");
+        onion.setPlantingDistance("اترك مسافة 10-15 سم بين كل نبات، و30-40 سم بين الخطوط لضمان التهوية الجيدة ونمو البصل بشكل مناسب. \uD83D\uDCCF");
+        onion.setPlantingDepth("ازرع البذور أو الشتلات على عمق 2-3 سم فقط في التربة لتسهيل الإنبات والنمو. ⛏\uFE0F");
+        onion.setInitialIrrigation("\"بعد الزراعة، اسقِ الأرض مباشرة بريّة غمر خفيفة لتثبيت البذور أو الشتلات في التربة. \uD83D\uDCA7");
+        onion.setDaysToMaturity(100);//عدد الايام حتى النضج
+        onion.setHigh("ابيض");
+        onion.setMid("احمر");
+        onion.setLow("اصفر");
+        onion.setTemperatureTolerance(10);
+        onion.setHumidityTolerance(30);
+//        Crop onion = new Crop(
+//                0,//دائما صفر
+//                "Onion",//اسم المحصول
+//                //   null,
+//                "Seasonal crops - Root crops - High-demand crops",
+//                //التصنيفات الي بيدخل فيها المحصول
+//                "البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.",
+//                //شرح مبسط وموجز للمحصول
+//                //null,
+//
+//                "jane_smith",//اسم الخبير مبدئيا ثابت
+//                // null,
+//                0,//دائما صفر
+//
+//                "sandy",//التربة المفضلة للمحصول
+//                "muddy",//التربة المسموحة للمحصول
+//                "rocky",//التربة المرفوضة للمحصول
+//
+//                "drip",//طريقة الري المفضلة
+//                "sprinkler",//طريقة الري المسوحة
+//                "immersion",//طريقة الري المرفوضة
+//
+//                0.3,//اقل مساحة مسموحة للزراعة
+//                "spring",//الفصل المفضل زراعة المحصول الحالي فيه
+//
+//                "High",//الرطوبة المفضلة
+//                "Low",//الرطوبة المسموحة
+//                "Moderate",//الرطوبة المرفوضة
+//
+//                "Cool",//الحرارة المفضلة
+//                "Mild",//الحرارة المسموحة
+//                "Hot",//الحرارة المرفوضة
+//                //اذا كانت اقل 5 درجات cool
+//                //5_30  Mild
+//                //5_30  Hot
+//
+//                0,//دائما صفر
+//                3,//فترة الري
+//                14,//فترة التسميد
+//
+//                "\uD83D\uDEB0 برنامج الري:\n" +
+//                        "\n" +
+//                        "مرحلة النمو: ري كل 3 أيام (تجنب تبليل الأوراق)\n" +
+//                        "\n" +
+//                        "مرحلة الإثمار: ري يومي في الصيف (صباحاً)",
+//
+//                //الري
+//
+//                "\uD83C\uDF31 برنامج التسميد:\n" +
+//                        "\n" +
+//                        "قبل الزراعة: سماد عضوي + سوبر فوسفات\n" +
+//                        "\n" +
+//                        "بعد 3 أسابيع: NPK (19-19-19)\n" +
+//                        "\n" +
+//                        "أثناء الإزهار: رش بورون + كالسيوم\n" +
+//                        "\n" +
+//                        "⚠\uFE0F تحذير: الإفراط في النيتروجين يقلل الإثمار!\n" +
+//                        "\n",
+//                //التسميد
+//
+//
+//                "\uD83C\uDF31 دليل شامل لزراعة الطماطم: من البذور إلى الحصاد\n" +
+//                        "\uD83D\uDCCC 1. اختيار الصنف المناسب\n" +
+//                        "\uD83D\uDD39 أصناف محلية: مثل \"هجين ف1 448\" (مقاوم للأمراض)\n" +
+//                        "\uD83D\uDD39 أصناف عالمية: مثل \"بيف ستيك\" (للعصير) أو \"تشيري\" (للسلطات)\n" +
+//                        "\uD83D\uDD39 اختيار حسب الغرض:\n" +
+//                        "\n" +
+//                        "\uD83E\uDD6B للعصير: أصناف ذات لب كثيف (سان مارزانو)\n" +
+//                        "\n" +
+//
+//                        "\uD83E\uDD57 للطازج: أصناف حلوة (هجين 023)\n" +
+//                        "\n" +
+//                        "\uD83C\uDF3F 2. تحضير التربة\n" +
+//                        "✅ المواصفات المثالية:\n" +
+//                        "\n" +
+//                        "درجة حموضة (pH 6-6.8)\n" +
+//                        "\n" +
+//                        "تربة جيدة الصرف (مخلوطة بـ 30% رمل)\n" +
+//                        "\n" +
+//                        "غنية بالمادة العضوية (أضف 10 كجم سماد بلدي/م²)\n" +
+//                        "\n" +
+//                        "⚠\uFE0F تحذير: تجنب التربة الطينية الثقيلة!\n" +
+//                        "\n" +
+//                        "\uD83C\uDF31 3. طرق الزراعة\n" +
+//                        "الطريقة\tالتفاصيل\tالوقت المناسب\n" +
+//                        "البذور\tتنقع في ماء دافئ (24 ساعة) ثم تزرع في أصص\tقبل 6-8 أسابيع من الصقيع الأخير\n" +
+//                        "الشتل\tنقل الشتلات عند طول 15-20 سم\tبعد زوال خطر الصقيع\n" +
+//                        "الزراعة المباشرة\t3 بذور/جورة بعمق 1 سم\tعندما تصل درجة الحرارة لـ 18°م ليلاً\n" +
+//                        "\uD83D\uDD39 مسافات الزراعة:\n" +
+//                        "\n" +
+//                        "50-60 سم بين النباتات\n" +
+//                        "\n" +
+//                        "90-100 سم بين الخطوط\n" +
+//                        "\n",
+//
+//
+//                //بيانات اخرى
+//
+//
+//                "\n" +
+//                        "\uD83C\uDF45 مشاكل زراعة الطماطم وحلولها\n" +
+//                        "1\uFE0F⃣ مشكلة: تعفن الطرف الزهري (Blossom End Rot)\n" +
+//                        "الأعراض:\n" +
+//                        "\n" +
+//                        "ظهور بقع سوداء أو بنية داكنة عند طرف الثمرة\n" +
+//                        "\n" +
+//                        "جفاف المنطقة المصابة وتصلبها\n" +
+//                        "\n" +
+//                        "\uD83D\uDEE0\uFE0F الحلول:\n" +
+//                        "✅ التوازن الكالسيومي: أضف الجير الزراعي أو رش نترات الكالسيوم (5 جم/لتر ماء)\n" +
+//                        "✅ الري المنتظم: حافظ على رطوبة التربة (لا تجف تمامًا)\n" +
+//                        "✅ التسميد المتوازن: تجنب الإفراط في الأسمدة النيتروجينية\n" +
+//                        "\n"
+//                        + "\uD83D\uDD04 الدورة الزراعية: تغيير المحصول كل موسم\n" +
+//                        "\n" +
+//                        "\uD83E\uDDEA تحليل التربة: قبل الزراعة لتحديد الاحتياجات\n" +
+//                        "\n" +
+//                        "\uD83D\uDC1D جذب الملقحات: بزراعة نباتات الزينة حول الحقل\n" +
+//                        "\n" +
+//                        "\uD83D\uDCC5 الزراعة في موعدها: حسب التقويم الزراعي للمنطقة\n" +
+//                        "\n" +
+//                        "\uD83D\uDC69\u200D\uD83C\uDF3E المتابعة اليومية: لاكتشاف المشاكل مبكراً\n" +
+//                        "\n" +
+//                        "\uD83D\uDCA1 إحصائية مهمة: 80% من مشاكل المحاصيل تنتج عن سوء إدارة الري والتسميد!",
+//
+//                //  مشاكل وحلول
+//
+//                "\uD83D\uDD04  التقليم والتوجيه\n" +
+//                        "✂\uFE0F تقليم السرطانات: إزالة الفروع الجانبية تحت أول عنقود زهري\n" +
+//                        "\uD83C\uDF3F التدعيم: استخدام أوتاد خشبية أو شباك تعليق\n" +
+//                        "\n" +
+//                        "طريقة التدلي: لف الساق حول الخيط كل أسبوع\n" +
+//                        "\n",
+////طريفة التقليم والتوجيه
+//
+//
+//                "Available",//وفرة المياه المضلة
+//                "Limited",//وفرة المياه المسموحة
+//                "Unavailable",//وفرة المياه المرفوضة
+////null,
+//                "\uD83D\uDC1B 5. المكافحة المتكاملة للآفات\n" +
+//                        "الآفة\tالعلاج\tالوقاية\n" +
+//                        "الذبابة البيضاء\tرش زيت النيم (2 مل/لتر)\tمصائد صفراء لاصقة\n" +
+//                        "التعفن البكتيري\tرش نحاس (كوسيد 101)\tتعقيم الأدوات\n" +
+//                        "ديدان الثمار\tBacillus thuringiensis\tتغطية الثمار بأكياس ورقية\n" +
+//                        "\uD83C\uDF1E 6. الظروف البيئية المثلى\n" +
+//                        "☀\uFE0F الحرارة:\n" +
+//                        "\n" +
+//                        "النهار: 25-30°م\n" +
+//                        "\n" +
+//                        "الليل: 15-18°م\n" +
+//                        "\n" +
+//                        "\uD83D\uDCA1 الإضاءة: 8 ساعات ضوء يومياً على الأقل\n" +
+//                        "\n" +
+//                        "\uD83C\uDF27\uFE0F الرطوبة: 60-70% (استخدم مراوح في البيوت المحمية إذا زادت)\n" +
+//                        "\n" +
+//                        "\uD83D\uDED1 8. المشاكل الشائعة وحلولها\n" +
+//                        "المشكلة\tالسبب\tالحل\n" +
+//                        "تساقط الأزهار\tحرارة >35°م أو رطوبة عالية\tرش هرمون عقد الثمار (NAA)\n" +
+//                        "تشقق الثمار\tري غير منتظم\tالري بانتظام + تغطية التربة\n" +
+//                        "بقع صفراء على الأوراق\tنقص مغنيسيوم\tرش كبريتات ماغنيسيوم (2 جم/لتر)\n" +
+//                        "\uD83D\uDCC5 9. مواعيد الزراعة حسب المناطق\n" +
+//                        "المنطقة\tالموعد المثالي\n" +
+//                        "المناطق الدافئة\tسبتمبر-أكتوبر\n" +
+//                        "المناطق المعتدلة\tفبراير-مارس\n" +
+//                        "البيوت المحمية\tطوال العام (مع تحكم بالمناخ)\n" +
+//                        "\uD83E\uDDFA 10. الحصاد والتخزين\n" +
+//                        "\uD83D\uDCC5 موعد الحصاد: بعد 70-90 يوم من الزراعة\n" +
+//                        "\uD83D\uDD39 علامات النضج:\n" +
+//                        "\n" +
+//                        "لون أحمر متجانس\n" +
+//                        "\n" +
+//                        "ملمس طري عند الضغط الخفيف\n" +
+//                        "\n" +
+//                        "❄\uFE0F التخزين:\n" +
+//                        "\n" +
+//                        "الطازجة: 10-12°م (تجنب الثلاجة!)\n" +
+//                        "\n" +
+//                        "التجفيف: تقطع شرائح وتجفف بالشمس 3 أيام\n" +
+//                        "\n" +
+//                        "\uD83C\uDFAF نصائح الخبراء\n" +
+//                        "لثمار أكثر حلاوة: أضف ملعقة صغيرة ملح إنجليزي/لتر ماء عند الري\n" +
+//                        "\n" +
+//                        "لمكافحة النيماتودا: زراعة القطيفة (Marigold) بين الخطوط\n" +
+//                        "\n" +
+//                        "لزيادة العقد: هز النباتات برفق عند الصباح لنقل اللقاح\n" +
+//                        "\n" +
+//                        "حقيقة ممتعة: \uD83E\uDDEA الطماطم تنتج هرمون \"الإيثيلين\" الذي يساعد في نضج الفواكه الأخرى!\n" +
+//                        "\n" +
+//                        "باستخدام هذا الدليل، يمكنك الحصول على إنتاج وفير بجودة عالية \uD83C\uDF1F\uD83C\uDF45."
+//
+//
+//                , 20//درجة الحرارة المفضلة
+//                , 50// نسبة الرطوبة المفضلة
+//                , 3//متطلبات الضوء
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                ""
+//                , 1500
+//                //عدد الشتلات التي يمكن زراعتها في الدونوم الواحد
+//                , "ارض مكشوفة_بيت بلاستيكي_زراعة مائية_زراعة عضوية"
+//                //طريقة الزراعة ممكن ازرعو باكثر من طريقة حسب نوع المحصول
+//
+//                , 12.0
+//                // كمية السماد الكيميائي بالقرام لكل شتلة
+//                , "Chemical",
+//                //نوع السماد المستحسن للمحصول الحالي ممكن يتم تسميدو باكثر بالطريقتين
+//
+//                150.0
+//                //كمية السماد العضوي بالقرام لكل شتلة
+//                , "الخس، السبانخ، الجرجير، البقدونس، الكزبرة، النعناع، البرسيم، الحلبة، الشوفان (كغطاء أخضر)، الذرة الرفيعة، الدخن، عباد الشمس",
+//                "الذرة، القمح، الشعير، الشوفان، العدس، الفول، الحمص، الفاصوليا، البازلاء، البطيخ، الشمام، الخيار، الكوسا، الباذنجان، الفلفل، الطماطم"
+//
+//                , "الثوم، الكراث، البصل، البطاطا، البطاطس، الفجل، اللفت، الجزر، الشمندر، الكرنب، القرنبيط، البروكلي",
+//                "حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.\n" +
+//                        "\n" +
+//                        "تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.\n" +
+//                        "\n" +
+//                        "إضافة السماد العضوي المتحلل (بلدي أو كمبوست) بمعدل 4–5 طن للدونم، وخلطه جيدًا بالتربة.\n" +
+//                        "\n" +
+//                        "لو الأرض ثقيلة، يفضل إضافة رمل أو بيتموس لتحسين التصريف.\n" +
+//                        "\n" +
+//                        "تأكد إن التربة فيها صرف جيد، لأن الطماطم ما بتحب تجمع المياه.\n" +
+//                        "\n" +
+//                        "اضبط حموضة التربة (pH) لتكون بين 6 و6.8، لأنها الأنسب للطماطم.\n" +
+//                        "\n" +
+//                        "أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.\n" +
+//                        "\n", "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها."
+//
+//                , "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها."
+//                , "بذور محسنة ومعتمدة.\n" +
+//                "\n" +
+//                "مقاومة للأمراض الشائعة.\n" +
+//                "\n" +
+//                "نسبة إنبات عالية.\n" +
+//                "\n" +
+//                "شراءها من مصدر موثوق."
+//                , "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.",
+//
+//                3,
+//                "اختر بذور بصل عالية الجودة ومعتمدة، خالية من الأمراض، وذات حجم متوسط للحصول على نمو متجانس. \uD83E\uDDC5",
+//                "قم بنقع البذور في ماء فاتر لمدة 12 ساعة قبل الزراعة، ويمكن تجهيز الشتلات في مشتل لمدة 6 أسابيع قبل النقل. \uD83C\uDF31",
+//                "اترك مسافة 10-15 سم بين كل نبات، و30-40 سم بين الخطوط لضمان التهوية الجيدة ونمو البصل بشكل مناسب. \uD83D\uDCCF",
+//                "ازرع البذور أو الشتلات على عمق 2-3 سم فقط في التربة لتسهيل الإنبات والنمو. ⛏\uFE0F",
+//                "\"بعد الزراعة، اسقِ الأرض مباشرة بريّة غمر خفيفة لتثبيت البذور أو الشتلات في التربة. \uD83D\uDCA7",
+//                100, "الابيض ",
+//                "الاحمر ",
+//                "الاصفر"
+//                , 10, 30
+//        );
+//       addSampleExperts();
+//        new Thread(() -> {
+//                         myViewModel.insertCrop(onion);
+//                          }).start();
+//
+//        List<Crop> cropsList = new ArrayList<>();
+//        cropsList.add(onion);
+//
+//        for (Crop crop : cropsList) {
+//            String id = dbRef.push().getKey(); // إنشاء ID تلقائي
+//            if (id != null) {
+//                dbRef.child(id).setValue(crop).addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
+//                        Log.d("Firebase", "Crop successfully uploaded");
+//
+//                    } else {
+//                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
+//                        Log.e("Firebase", "Error uploading crop: " + task.getException());
+//
+//                    }
+//                });
+//            }
+//        }
+//
+//        Toast.makeText(MainActivity_sign.this, "جاري رفع " + cropsList.size() + " محاصيل...", Toast.LENGTH_SHORT).show();
+//
+
+
+
+        binding.exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
+        binding.exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+
+            }
+        });
+        binding.SignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity_sign.this, ActivityMainSignIn.class);
+                startActivity(intent);
+            }
+        });
+        binding.signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity_sign.this, Sign_up.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+    }
+
+    private byte[] convertImageToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
+
+
+//        حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.
+//
+//                تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.
+//
+//                إضافة السماد العضوي المتحلل (بلدي أو كمبوست) بمعدل 4–5 طن للدونم، وخلطه جيدًا بالتربة.
+//
+//                لو الأرض ثقيلة، يفضل إضافة رمل أو بيتموس لتحسين التصريف.
+//
+//                تأكد إن التربة فيها صرف جيد، لأن الطماطم ما بتحب تجمع المياه.
+//
+//        اضبط حموضة التربة (pH) لتكون بين 6 و6.8، لأنها الأنسب للطماطم.
+//
+//                أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.
+//
+//        إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها. بدي الكلام هذا اطبقو في الجافا في مشروع اندرويد تطبيق بس بدي البيانات هذي تتغير بشكل ذكي يعني تكون عبارة عن نص مخزن في ابجكت الطماطم لكن لما بستدعي هذا النص يتم التغيير عليه بناءا على عدة امور منها اضافة السماد الي تم تحديدو اصلا من قبل المزارع في جدول وسيط اس  ويكون ذلك مناسب لاي محصول مش بس الطماطم
+
+
+
+
+    private void addSampleExperts() {
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
+        byte[] imageBytes = convertImageToByteArray(bitmap);
+        Expert Expert1 = new Expert("jane_smith", "jane_smith", "asdasdasd", "asdasd", imageBytes, "", "", "", 0);
+        Bitmap bitmap2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.te6);
+        byte[] imageBytes2 = convertImageToByteArray(bitmap2);
+        Expert Expert2 = new Expert("bob_white", "bob_white", "asdasdasd", "asdasd", imageBytes2, "", "", "", 0);
+        Bitmap bitmap3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
+        byte[] imageBytes3 = convertImageToByteArray(bitmap3);
+        Expert Expert3 = new Expert("alice_brown", "alice_brown", "asdasdasd", "asdasd", imageBytes3, "", "", "", 0);
+        Bitmap bitmap4 = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
+        byte[] imageBytes4 = convertImageToByteArray(bitmap4);
+        Expert Expert4 = new Expert("john_doe", "john_doe", "asdasdasd", "asdasd", imageBytes4, "", "", "", 0);
+        myViewModel.insertExpert(Expert1);
+        myViewModel.insertExpert(Expert2);
+        myViewModel.insertExpert(Expert3);
+        myViewModel.insertExpert(Expert4);
+
+
+    }
+
+
+    private void addSampleFarmers() {
+
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
+        byte[] imageBytes = convertImageToByteArray(bitmap);
+        Farmer farmer1 = new Farmer("user_1", "password_1", 1234, 1231231211, "Farmer 1", imageBytes, "");
+        myViewModel.insertFarmer(farmer1);
+
+
+        Farmer_Expert farmerExpert1 = new Farmer_Expert(0, "user_1", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert1);
+
+        Farmer farmer2 = new Farmer("user_2", "password_2", 1235, 1231231212, "Farmer 2", null, "");
+        myViewModel.insertFarmer(farmer2);
+        Farmer_Expert farmerExpert2 = new Farmer_Expert(0, "user_2", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert2);
+
+        Farmer farmer3 = new Farmer("user_3", "password_3", 1236, 1231231213, "Farmer 3", null, "");
+        myViewModel.insertFarmer(farmer3);
+        Farmer_Expert farmerExpert3 = new Farmer_Expert(0, "user_3", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert3);
+
+        Farmer farmer4 = new Farmer("user_4", "password_4", 1237, 1231231214, "Farmer 4", null, "");
+        myViewModel.insertFarmer(farmer4);
+        Farmer_Expert farmerExpert4 = new Farmer_Expert(0, "user_4", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert4);
+
+        Farmer farmer5 = new Farmer("user_5", "password_5", 1238, 1231231215, "Farmer 5", null, "");
+        myViewModel.insertFarmer(farmer5);
+        Farmer_Expert farmerExpert5 = new Farmer_Expert(0, "user_5", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert5);
+
+        Farmer farmer6 = new Farmer("user_6", "password_6", 1239, 1231231216, "Farmer 6", null, "");
+        myViewModel.insertFarmer(farmer6);
+        Farmer_Expert farmerExpert6 = new Farmer_Expert(0, "user_6", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert6);
+
+        Farmer farmer7 = new Farmer("user_7", "password_7", 1240, 1231231217, "Farmer 7", null, "");
+        myViewModel.insertFarmer(farmer7);
+        Farmer_Expert farmerExpert7 = new Farmer_Expert(0, "user_7", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert7);
+
+        Farmer farmer8 = new Farmer("user_8", "password_8", 1241, 1231231218, "Farmer 8", null, "");
+        myViewModel.insertFarmer(farmer8);
+        Farmer_Expert farmerExpert8 = new Farmer_Expert(0, "user_8", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert8);
+
+        Farmer farmer9 = new Farmer("user_9", "password_9", 1242, 1231231219, "Farmer 9", null, "");
+        myViewModel.insertFarmer(farmer9);
+        Farmer_Expert farmerExpert9 = new Farmer_Expert(0, "user_9", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert9);
+
+        Farmer farmer10 = new Farmer("user_10", "password_10", 1243, 1231231220, "Farmer 10", null, "");
+        myViewModel.insertFarmer(farmer10);
+        Farmer_Expert farmerExpert10 = new Farmer_Expert(0, "user_10", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert10);
+
+        Farmer farmer11 = new Farmer("user_11", "password_11", 1244, 1231231221, "Farmer 11", null, "");
+        myViewModel.insertFarmer(farmer11);
+        Farmer_Expert farmerExpert11 = new Farmer_Expert(0, "user_11", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert11);
+
+        Farmer farmer12 = new Farmer("user_12", "password_12", 1245, 1231231222, "Farmer 12", null, "");
+        myViewModel.insertFarmer(farmer12);
+        Farmer_Expert farmerExpert12 = new Farmer_Expert(0, "user_12", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert12);
+
+        Farmer farmer13 = new Farmer("user_13", "password_13", 1246, 1231231223, "Farmer 13", null, "");
+        myViewModel.insertFarmer(farmer13);
+        Farmer_Expert farmerExpert13 = new Farmer_Expert(0, "user_13", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert13);
+
+        Farmer farmer14 = new Farmer("user_14", "password_14", 1247, 1231231224, "Farmer 14", null, "");
+        myViewModel.insertFarmer(farmer14);
+        Farmer_Expert farmerExpert14 = new Farmer_Expert(0, "user_14", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert14);
+
+        Farmer farmer15 = new Farmer("user_15", "password_15", 1248, 1231231225, "Farmer 15", null, "");
+        myViewModel.insertFarmer(farmer15);
+        Farmer_Expert farmerExpert15 = new Farmer_Expert(0, "user_15", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert15);
+
+        Farmer farmer16 = new Farmer("user_16", "password_16", 1249, 1231231226, "Farmer 16", null, "");
+        myViewModel.insertFarmer(farmer16);
+        Farmer_Expert farmerExpert16 = new Farmer_Expert(0, "user_16", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert16);
+
+        Farmer farmer17 = new Farmer("user_17", "password_17", 1250, 1231231227, "Farmer 17", null, "");
+        myViewModel.insertFarmer(farmer17);
+        Farmer_Expert farmerExpert17 = new Farmer_Expert(0, "user_17", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert17);
+
+        Farmer farmer18 = new Farmer("user_18", "password_18", 1251, 1231231228, "Farmer 18", null, "");
+        myViewModel.insertFarmer(farmer18);
+        Farmer_Expert farmerExpert18 = new Farmer_Expert(0, "user_18", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert18);
+
+        Farmer farmer19 = new Farmer("user_19", "password_19", 1252, 1231231229, "Farmer 19", null, "");
+        myViewModel.insertFarmer(farmer19);
+        Farmer_Expert farmerExpert19 = new Farmer_Expert(0, "user_19", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert19);
+
+        Farmer farmer20 = new Farmer("user_20", "password_20", 1253, 1231231230, "Farmer 20", null, "");
+        myViewModel.insertFarmer(farmer20);
+        Farmer_Expert farmerExpert20 = new Farmer_Expert(0, "user_20", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert20);
+
+        Farmer farmer21 = new Farmer("user_21", "password_21", 1254, 1231231231, "Farmer 21", null, "");
+        myViewModel.insertFarmer(farmer21);
+        Farmer_Expert farmerExpert21 = new Farmer_Expert(0, "user_21", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert21);
+
+        Farmer farmer22 = new Farmer("user_22", "password_22", 1255, 1231231232, "Farmer 22", null, "");
+        myViewModel.insertFarmer(farmer22);
+        Farmer_Expert farmerExpert22 = new Farmer_Expert(0, "user_22", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert22);
+
+        Farmer farmer23 = new Farmer("user_23", "password_23", 1256, 1231231233, "Farmer 23", null, "");
+        myViewModel.insertFarmer(farmer23);
+        Farmer_Expert farmerExpert23 = new Farmer_Expert(0, "user_23", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert23);
+
+        Farmer farmer24 = new Farmer("user_24", "password_24", 1257, 1231231234, "Farmer 24", null, "");
+        myViewModel.insertFarmer(farmer24);
+        Farmer_Expert farmerExpert24 = new Farmer_Expert(0, "user_24", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert24);
+
+        Farmer farmer25 = new Farmer("user_25", "password_25", 1258, 1231231235, "Farmer 25", null, "");
+        myViewModel.insertFarmer(farmer25);
+        Farmer_Expert farmerExpert25 = new Farmer_Expert(0, "user_25", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert25);
+
+        Farmer farmer26 = new Farmer("user_26", "password_26", 1259, 1231231236, "Farmer 26", null, "");
+        myViewModel.insertFarmer(farmer26);
+        Farmer_Expert farmerExpert26 = new Farmer_Expert(0, "user_26", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert26);
+
+        Farmer farmer27 = new Farmer("user_27", "password_27", 1260, 1231231237, "Farmer 27", null, "");
+        myViewModel.insertFarmer(farmer27);
+        Farmer_Expert farmerExpert27 = new Farmer_Expert(0, "user_27", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert27);
+
+        Farmer farmer28 = new Farmer("user_28", "password_28", 1261, 1231231238, "Farmer 28", null, "");
+        myViewModel.insertFarmer(farmer28);
+        Farmer_Expert farmerExpert28 = new Farmer_Expert(0, "user_28", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert28);
+
+        Farmer farmer29 = new Farmer("user_29", "password_29", 1262, 1231231239, "Farmer 29", null, "");
+        myViewModel.insertFarmer(farmer29);
+        Farmer_Expert farmerExpert29 = new Farmer_Expert(0, "user_29", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert29);
+
+        Farmer farmer30 = new Farmer("user_30", "password_30", 1263, 1231231240, "Farmer 30", null, "");
+        myViewModel.insertFarmer(farmer30);
+        Farmer_Expert farmerExpert30 = new Farmer_Expert(0, "user_30", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert30);
+
+        Farmer farmer31 = new Farmer("user_31", "password_31", 1264, 1231231241, "Farmer 31", null, "");
+        myViewModel.insertFarmer(farmer31);
+        Farmer_Expert farmerExpert31 = new Farmer_Expert(0, "user_31", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert31);
+
+        Farmer farmer32 = new Farmer("user_32", "password_32", 1265, 1231231242, "Farmer 32", null, "");
+        myViewModel.insertFarmer(farmer32);
+        Farmer_Expert farmerExpert32 = new Farmer_Expert(0, "user_32", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert32);
+
+        Farmer farmer33 = new Farmer("user_33", "password_33", 1266, 1231231243, "Farmer 33", null, "");
+        myViewModel.insertFarmer(farmer33);
+        Farmer_Expert farmerExpert33 = new Farmer_Expert(0, "user_33", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert33);
+
+        Farmer farmer34 = new Farmer("user_34", "password_34", 1267, 1231231244, "Farmer 34", null, "");
+        myViewModel.insertFarmer(farmer34);
+        Farmer_Expert farmerExpert34 = new Farmer_Expert(0, "user_34", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert34);
+
+        Farmer farmer35 = new Farmer("user_35", "password_35", 1268, 1231231245, "Farmer 35", null, "");
+        myViewModel.insertFarmer(farmer35);
+        Farmer_Expert farmerExpert35 = new Farmer_Expert(0, "user_35", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert35);
+
+        Farmer farmer36 = new Farmer("user_36", "password_36", 1269, 1231231246, "Farmer 36", null, "");
+        myViewModel.insertFarmer(farmer36);
+        Farmer_Expert farmerExpert36 = new Farmer_Expert(0, "user_36", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert36);
+
+        Farmer farmer37 = new Farmer("user_37", "password_37", 1270, 1231231247, "Farmer 37", null, "");
+        myViewModel.insertFarmer(farmer37);
+        Farmer_Expert farmerExpert37 = new Farmer_Expert(0, "user_37", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert37);
+
+        Farmer farmer38 = new Farmer("user_38", "password_38", 1271, 1231231248, "Farmer 38", null, "");
+        myViewModel.insertFarmer(farmer38);
+        Farmer_Expert farmerExpert38 = new Farmer_Expert(0, "user_38", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert38);
+
+        Farmer farmer39 = new Farmer("user_39", "password_39", 1272, 1231231249, "Farmer 39", null, "");
+        myViewModel.insertFarmer(farmer39);
+        Farmer_Expert farmerExpert39 = new Farmer_Expert(0, "user_39", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert39);
+
+        Farmer farmer40 = new Farmer("user_40", "password_40", 1273, 1231231250, "Farmer 40", null, "");
+        myViewModel.insertFarmer(farmer40);
+        Farmer_Expert farmerExpert40 = new Farmer_Expert(0, "user_40", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert40);
+
+        Farmer farmer41 = new Farmer("user_41", "password_41", 1274, 1231231251, "Farmer 41", null, "");
+        myViewModel.insertFarmer(farmer41);
+        Farmer_Expert farmerExpert41 = new Farmer_Expert(0, "user_41", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert41);
+
+        Farmer farmer42 = new Farmer("user_42", "password_42", 1275, 1231231252, "Farmer 42", null, "");
+        myViewModel.insertFarmer(farmer42);
+        Farmer_Expert farmerExpert42 = new Farmer_Expert(0, "user_42", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert42);
+
+        Farmer farmer43 = new Farmer("user_43", "password_43", 1276, 1231231253, "Farmer 43", null, "");
+        myViewModel.insertFarmer(farmer43);
+        Farmer_Expert farmerExpert43 = new Farmer_Expert(0, "user_43", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert43);
+
+        Farmer farmer44 = new Farmer("user_44", "password_44", 1277, 1231231254, "Farmer 44", null, "");
+        myViewModel.insertFarmer(farmer44);
+        Farmer_Expert farmerExpert44 = new Farmer_Expert(0, "user_44", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert44);
+
+        Farmer farmer45 = new Farmer("user_45", "password_45", 1278, 1231231255, "Farmer 45", null, "");
+        myViewModel.insertFarmer(farmer45);
+        Farmer_Expert farmerExpert45 = new Farmer_Expert(0, "user_45", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert45);
+
+        Farmer farmer46 = new Farmer("user_46", "password_46", 1279, 1231231256, "Farmer 46", null, "");
+        myViewModel.insertFarmer(farmer46);
+        Farmer_Expert farmerExpert46 = new Farmer_Expert(0, "user_46", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert46);
+
+        Farmer farmer47 = new Farmer("user_47", "password_47", 1280, 1231231257, "Farmer 47", null, "");
+        myViewModel.insertFarmer(farmer47);
+        Farmer_Expert farmerExpert47 = new Farmer_Expert(0, "user_47", "john_doe");
+        myViewModel.insertFarmerExpert(farmerExpert47);
+
+        Farmer farmer48 = new Farmer("user_48", "password_48", 1281, 1231231258, "Farmer 48", null, "");
+        myViewModel.insertFarmer(farmer48);
+        Farmer_Expert farmerExpert48 = new Farmer_Expert(0, "user_48", "alice_brown");
+        myViewModel.insertFarmerExpert(farmerExpert48);
+
+        Farmer farmer49 = new Farmer("user_49", "password_49", 1282, 1231231259, "Farmer 49", null, "");
+        myViewModel.insertFarmer(farmer49);
+        Farmer_Expert farmerExpert49 = new Farmer_Expert(0, "user_49", "bob_white");
+        myViewModel.insertFarmerExpert(farmerExpert49);
+
+        Farmer farmer50 = new Farmer("user_50", "password_50", 1283, 1231231260, "Farmer 50", null, "");
+        myViewModel.insertFarmer(farmer50);
+        Farmer_Expert farmerExpert50 = new Farmer_Expert(0, "user_50", "jane_smith");
+        myViewModel.insertFarmerExpert(farmerExpert50);
+
+    }
+}
+
+//        cropsList.add(wheat);
+//        cropsList.add(saffron);
+//        cropsList.add(lentils);
+//        cropsList.add(barley);
+//        cropsList.add(carrot)
+// cropsList.add(onion);
+//        cropsList.add(pumpkin);
+//        cropsList.add(sunflower);
+//        cropsList.add(broccoli);
+//        cropsList.add(peas);
+//        cropsList.add(alfalfa);
+//        cropsList.add(bellPepper);
+//        cropsList.add(mint);
+//        cropsList.add(cauliflower);
+//        cropsList.add(banana);
+//        cropsList.add(watermelon);
+//        cropsList.add(cucumber);
+//        cropsList.add(garlic);
+//        cropsList.add(potato);
+//        cropsList.add(corn);
+//        cropsList.add(lettuce);
+//        cropsList.add(spinach);
+//        cropsList.add(tomato);
+//        cropsList.add(strawberry);
+//        cropsList.add(eggplant);
+//        cropsList.add(peach);
+//        cropsList.add(zucchini);
+//        cropsList.add(cabbage);
+//        cropsList.add(melon);
+//        cropsList.add(cucumber);
+//        cropsList.add(pumpkin);
+//        cropsList.add(sunflower);
+//        cropsList.add(broccoli);
+//        cropsList.add(peas);
+
 //        dbRef = database.getReference("crops"); // مسار المزروعات
 //        Crop onion = new Crop(
 //                0,
@@ -115,668 +995,17 @@ public class MainActivity_sign extends AppCompatActivity {
 //        GenerativeModel ai = FirebaseAI.getInstance(GenerativeBackend.googleAI())
 //                .generativeModel("gemini-2.0-flash");
 //        GenerativeModelFutures model = GenerativeModelFutures.from(ai);
-        database = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/");
-        dbRef = database.getReference("crops"); // لازم تعملها قبل push()
-        //  Crop onion = new Crop();
-//        onion.setCrop_NAME("Onion");
-//        onion.setCategorie("Seasonal crops - Root crops - High-demand crops");
-//        onion.setDescription("البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.");
-//        onion.setExpert_USER_Name("jane_smith");
-//        onion.setPreferredSoil("sandy");
-//        onion.setAllowedSoil("muddy");
-//        onion.setAllowedSoil("rocky");
-//        onion.setPreferredIrrigation("drip");
-//        onion.setAllowedIrrigation("sprinkler");
-//        onion.setForbiddenIrrigation("immersion");
-//        onion.setMinArea(0.3);
-//        onion.setSeason("spring");
-//        onion.setPreferredHumidity("High");
-//        onion.setAllowedHumidity("Low");
-//        onion.setForbiddenHumidity("Moderate");
-//        onion.setPreferredTemp("Cool");
-//        onion.setAllowedTemp("Mild");
-//        onion.setForbiddenTemp("Hot");
-//        onion.setWateringFrequencyDays(3);
-//        onion.setFertilizingFrequencyDays(14);
-//        onion.setWateringInstructions("\uD83D\uDEB0 برنامج الري:\n" +
-//                "\n" +
-//                "مرحلة النمو: ري كل 3 أيام (تجنب تبليل الأوراق)\n" +
-//                "\n" +
-//                "مرحلة الإثمار: ري يومي في الصيف (صباحاً)");
-//
-//        onion.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد:\n" +
-//                "\n" +
-//                "قبل الزراعة: سماد عضوي + سوبر فوسفات\n" +
-//                "\n" +
-//                "بعد 3 أسابيع: NPK (19-19-19)\n" +
-//                "\n" +
-//                "أثناء الإزهار: رش بورون + كالسيوم\n" +
-//                "\n" +
-//                "⚠\uFE0F تحذير: الإفراط في النيتروجين يقلل الإثمار!\n" +
-//                "\n");
-//        onion.setPlantingMethod("\uD83C\uDF31 دليل شامل لزراعة الطماطم: من البذور إلى الحصاد\n" +
-//                "\uD83D\uDCCC 1. اختيار الصنف المناسب\n" +
-//                "\uD83D\uDD39 أصناف محلية: مثل \"هجين ف1 448\" (مقاوم للأمراض)\n" +
-//                "\uD83D\uDD39 أصناف عالمية: مثل \"بيف ستيك\" (للعصير) أو \"تشيري\" (للسلطات)\n" +
-//                "\uD83D\uDD39 اختيار حسب الغرض:\n" +
-//                "\n" +
-//                "\uD83E\uDD6B للعصير: أصناف ذات لب كثيف (سان مارزانو)\n" +
-//                "\n" +
-//
-//                "\uD83E\uDD57 للطازج: أصناف حلوة (هجين 023)\n" +
-//                "\n" +
-//                "\uD83C\uDF3F 2. تحضير التربة\n" +
-//                "✅ المواصفات المثالية:\n" +
-//                "\n" +
-//                "درجة حموضة (pH 6-6.8)\n" +
-//                "\n" +
-//                "تربة جيدة الصرف (مخلوطة بـ 30% رمل)\n" +
-//                "\n" +
-//                "غنية بالمادة العضوية (أضف 10 كجم سماد بلدي/م²)\n" +
-//                "\n" +
-//                "⚠\uFE0F تحذير: تجنب التربة الطينية الثقيلة!\n" +
-//                "\n" +
-//                "\uD83C\uDF31 3. طرق الزراعة\n" +
-//                "الطريقة\tالتفاصيل\tالوقت المناسب\n" +
-//                "البذور\tتنقع في ماء دافئ (24 ساعة) ثم تزرع في أصص\tقبل 6-8 أسابيع من الصقيع الأخير\n" +
-//                "الشتل\tنقل الشتلات عند طول 15-20 سم\tبعد زوال خطر الصقيع\n" +
-//                "الزراعة المباشرة\t3 بذور/جورة بعمق 1 سم\tعندما تصل درجة الحرارة لـ 18°م ليلاً\n" +
-//                "\uD83D\uDD39 مسافات الزراعة:\n" +
-//                "\n" +
-//                "50-60 سم بين النباتات\n" +
-//                "\n" +
-//                "90-100 سم بين الخطوط\n" +
-//                "\n");
-//        onion.setCropProblems("\n" +
-//                "\uD83C\uDF45 مشاكل زراعة الطماطم وحلولها\n" +
-//                "1\uFE0F⃣ مشكلة: تعفن الطرف الزهري (Blossom End Rot)\n" +
-//                "الأعراض:\n" +
-//                "\n" +
-//                "ظهور بقع سوداء أو بنية داكنة عند طرف الثمرة\n" +
-//                "\n" +
-//                "جفاف المنطقة المصابة وتصلبها\n" +
-//                "\n" +
-//                "\uD83D\uDEE0\uFE0F الحلول:\n" +
-//                "✅ التوازن الكالسيومي: أضف الجير الزراعي أو رش نترات الكالسيوم (5 جم/لتر ماء)\n" +
-//                "✅ الري المنتظم: حافظ على رطوبة التربة (لا تجف تمامًا)\n" +
-//                "✅ التسميد المتوازن: تجنب الإفراط في الأسمدة النيتروجينية\n" +
-//                "\n"
-//                + "\uD83D\uDD04 الدورة الزراعية: تغيير المحصول كل موسم\n" +
-//                "\n" +
-//                "\uD83E\uDDEA تحليل التربة: قبل الزراعة لتحديد الاحتياجات\n" +
-//                "\n" +
-//                "\uD83D\uDC1D جذب الملقحات: بزراعة نباتات الزينة حول الحقل\n" +
-//                "\n" +
-//                "\uD83D\uDCC5 الزراعة في موعدها: حسب التقويم الزراعي للمنطقة\n" +
-//                "\n" +
-//                "\uD83D\uDC69\u200D\uD83C\uDF3E المتابعة اليومية: لاكتشاف المشاكل مبكراً\n" +
-//                "\n" +
-//                "\uD83D\uDCA1 إحصائية مهمة: 80% من مشاكل المحاصيل تنتج عن سوء إدارة الري والتسميد!");
-//
-//        onion.setPruning_and_guidance("\uD83D\uDD04  التقليم والتوجيه\n" +
-//                "✂\uFE0F تقليم السرطانات: إزالة الفروع الجانبية تحت أول عنقود زهري\n" +
-//                "\uD83C\uDF3F التدعيم: استخدام أوتاد خشبية أو شباك تعليق\n" +
-//                "\n" +
-//                "طريقة التدلي: لف الساق حول الخيط كل أسبوع\n" +
-//                "\n");
-//
-//        onion.setPreferredAbundance("Available");
-//        onion.setAllowedAbundance("Limited");
-//        onion.setForbiddenAbundance("Unavailable");
-//        onion.setLearnMore("\uD83D\uDC1B 5. المكافحة المتكاملة للآفات\n" +
-//                "الآفة\tالعلاج\tالوقاية\n" +
-//                "الذبابة البيضاء\tرش زيت النيم (2 مل/لتر)\tمصائد صفراء لاصقة\n" +
-//                "التعفن البكتيري\tرش نحاس (كوسيد 101)\tتعقيم الأدوات\n" +
-//                "ديدان الثمار\tBacillus thuringiensis\tتغطية الثمار بأكياس ورقية\n" +
-//                "\uD83C\uDF1E 6. الظروف البيئية المثلى\n" +
-//                "☀\uFE0F الحرارة:\n" +
-//                "\n" +
-//                "النهار: 25-30°م\n" +
-//                "\n" +
-//                "الليل: 15-18°م\n" +
-//                "\n" +
-//                "\uD83D\uDCA1 الإضاءة: 8 ساعات ضوء يومياً على الأقل\n" +
-//                "\n" +
-//                "\uD83C\uDF27\uFE0F الرطوبة: 60-70% (استخدم مراوح في البيوت المحمية إذا زادت)\n" +
-//                "\n" +
-//                "\uD83D\uDED1 8. المشاكل الشائعة وحلولها\n" +
-//                "المشكلة\tالسبب\tالحل\n" +
-//                "تساقط الأزهار\tحرارة >35°م أو رطوبة عالية\tرش هرمون عقد الثمار (NAA)\n" +
-//                "تشقق الثمار\tري غير منتظم\tالري بانتظام + تغطية التربة\n" +
-//                "بقع صفراء على الأوراق\tنقص مغنيسيوم\tرش كبريتات ماغنيسيوم (2 جم/لتر)\n" +
-//                "\uD83D\uDCC5 9. مواعيد الزراعة حسب المناطق\n" +
-//                "المنطقة\tالموعد المثالي\n" +
-//                "المناطق الدافئة\tسبتمبر-أكتوبر\n" +
-//                "المناطق المعتدلة\tفبراير-مارس\n" +
-//                "البيوت المحمية\tطوال العام (مع تحكم بالمناخ)\n" +
-//                "\uD83E\uDDFA 10. الحصاد والتخزين\n" +
-//                "\uD83D\uDCC5 موعد الحصاد: بعد 70-90 يوم من الزراعة\n" +
-//                "\uD83D\uDD39 علامات النضج:\n" +
-//                "\n" +
-//                "لون أحمر متجانس\n" +
-//                "\n" +
-//                "ملمس طري عند الضغط الخفيف\n" +
-//                "\n" +
-//                "❄\uFE0F التخزين:\n" +
-//                "\n" +
-//                "الطازجة: 10-12°م (تجنب الثلاجة!)\n" +
-//                "\n" +
-//                "التجفيف: تقطع شرائح وتجفف بالشمس 3 أيام\n" +
-//                "\n" +
-//                "\uD83C\uDFAF نصائح الخبراء\n" +
-//                "لثمار أكثر حلاوة: أضف ملعقة صغيرة ملح إنجليزي/لتر ماء عند الري\n" +
-//                "\n" +
-//                "لمكافحة النيماتودا: زراعة القطيفة (Marigold) بين الخطوط\n" +
-//                "\n" +
-//                "لزيادة العقد: هز النباتات برفق عند الصباح لنقل اللقاح\n" +
-//                "\n" +
-//                "حقيقة ممتعة: \uD83E\uDDEA الطماطم تنتج هرمون \"الإيثيلين\" الذي يساعد في نضج الفواكه الأخرى!\n" +
-//                "\n" +
-//                "باستخدام هذا الدليل، يمكنك الحصول على إنتاج وفير بجودة عالية \uD83C\uDF1F\uD83C\uDF45."
-//        );
-//        onion.setOptimalHumidity(50);
-//        onion.setOptimalTemperature(20);
-//        onion.setLightRequirements(3);
-//        onion.setNumber_Plant_per_dunum(1500);
-//        onion.setOrganicFertilizer("ارض مكشوفة_بيت بلاستيكي_زراعة مائية_زراعة عضوية");
-//        onion.setOrganicPerPlant(150.0);
-//        onion.setChemicalFertilizer( "حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.\n" +
-//                "\n" +
-//                        "تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.\n" +
-//                        "\n" +
-//                        "إضافة السماد العضوي المتحلل (بلدي أو كمبوست) بمعدل 4–5 طن للدونم، وخلطه جيدًا بالتربة.\n" +
-//                        "\n" +
-//                        "لو الأرض ثقيلة، يفضل إضافة رمل أو بيتموس لتحسين التصريف.\n" +
-//                        "\n" +
-//                        "تأكد إن التربة فيها صرف جيد، لأن الطماطم ما بتحب تجمع المياه.\n" +
-//                        "\n" +
-//                        "اضبط حموضة التربة (pH) لتكون بين 6 و6.8، لأنها الأنسب للطماطم.\n" +
-//                        "\n" +
-//                        "أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.\n" +
-//                        "\n" +
-//                        "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
-//        onion.setChemicalPerPlant(12.0);
-//        onion.setPrevious_crop_preferred("الخس، السبانخ، الجرجير، البقدونس، الكزبرة، النعناع، البرسيم، الحلبة، الشوفان (كغطاء أخضر)، الذرة الرفيعة، الدخن، عباد الشمس");
-//        onion.setPrevious_crop_allowed("الذرة، القمح، الشعير، الشوفان، العدس، الفول، الحمص، الفاصوليا، البازلاء، البطيخ، الشمام، الخيار، الكوسا، الباذنجان، الفلفل، الطماطم");
-//
-//        onion.setPrevious_crop_forbidden( "الثوم، الكراث، البصل، البطاطا، البطاطس، الفجل، اللفت، الجزر، الشمندر، الكرنب، القرنبيط، البروكلي");
-//        onion.setChemicalFertilizer("Chemical");
-//        onion.setSoil_preparation_allowed( "بذور محسنة ومعتمدة.\n" +
-//                "\n" +
-//                "مقاومة للأمراض الشائعة.\n" +
-//                "\n" +
-//                "نسبة إنبات عالية.\n" +
-//                "\n" +
-//                "شراءها من مصدر موثوق.");
-//        onion.setWeight_seeds_per_dunum(3);
-//        onion.setSeedSpecifications("اختر بذور بصل عالية الجودة ومعتمدة، خالية من الأمراض، وذات حجم متوسط للحصول على نمو متجانس. \uD83E\uDDC5");
-//        onion.setSeedlingPreparation("قم بنقع البذور في ماء فاتر لمدة 12 ساعة قبل الزراعة، ويمكن تجهيز الشتلات في مشتل لمدة 6 أسابيع قبل النقل. \uD83C\uDF31");
-//        onion.setPlantingDistance("اترك مسافة 10-15 سم بين كل نبات، و30-40 سم بين الخطوط لضمان التهوية الجيدة ونمو البصل بشكل مناسب. \uD83D\uDCCF");
-//        onion.setPlantingDepth("ازرع البذور أو الشتلات على عمق 2-3 سم فقط في التربة لتسهيل الإنبات والنمو. ⛏\uFE0F");
-//        onion.setInitialIrrigation("\"بعد الزراعة، اسقِ الأرض مباشرة بريّة غمر خفيفة لتثبيت البذور أو الشتلات في التربة. \uD83D\uDCA7");
-//        onion.setDaysToMaturity(100);//عدد الايام حتى النضج
-//        onion.setHigh("ابيض");
-//        onion.setMid("احمر");
-//        onion.setLow("اصفر");
-//        onion.setTemperatureTolerance(10);
-//        onion.setHumidityTolerance(30);
 
 
-//
-//
-        Crop onion = new Crop(
-                0,//دائما صفر
-                "Onion",//اسم المحصول
-                //   null,
-                "Seasonal crops - Root crops - High-demand crops",
-                //التصنيفات الي بيدخل فيها المحصول
-                "البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.",
-                //شرح مبسط وموجز للمحصول
-                //null,
-
-                "jane_smith",//اسم الخبير مبدئيا ثابت
-                // null,
-                0,//دائما صفر
-
-                "sandy",//التربة المفضلة للمحصول
-                "muddy",//التربة المسموحة للمحصول
-                "rocky",//التربة المرفوضة للمحصول
-
-                "drip",//طريقة الري المفضلة
-                "sprinkler",//طريقة الري المسوحة
-                "immersion",//طريقة الري المرفوضة
-
-                0.3,//اقل مساحة مسموحة للزراعة
-                "spring",//الفصل المفضل زراعة المحصول الحالي فيه
-
-                "High",//الرطوبة المفضلة
-                "Low",//الرطوبة المسموحة
-                "Moderate",//الرطوبة المرفوضة
-
-                "Cool",//الحرارة المفضلة
-                "Mild",//الحرارة المسموحة
-                "Hot",//الحرارة المرفوضة
-                //اذا كانت اقل 5 درجات cool
-                //5_30  Mild
-                //5_30  Hot
-
-                0,//دائما صفر
-                3,//فترة الري
-                14,//فترة التسميد
-
-                "\uD83D\uDEB0 برنامج الري:\n" +
-                        "\n" +
-                        "مرحلة النمو: ري كل 3 أيام (تجنب تبليل الأوراق)\n" +
-                        "\n" +
-                        "مرحلة الإثمار: ري يومي في الصيف (صباحاً)",
-
-                //الري
-
-                "\uD83C\uDF31 برنامج التسميد:\n" +
-                        "\n" +
-                        "قبل الزراعة: سماد عضوي + سوبر فوسفات\n" +
-                        "\n" +
-                        "بعد 3 أسابيع: NPK (19-19-19)\n" +
-                        "\n" +
-                        "أثناء الإزهار: رش بورون + كالسيوم\n" +
-                        "\n" +
-                        "⚠\uFE0F تحذير: الإفراط في النيتروجين يقلل الإثمار!\n" +
-                        "\n",
-                //التسميد
 
 
-                "\uD83C\uDF31 دليل شامل لزراعة الطماطم: من البذور إلى الحصاد\n" +
-                        "\uD83D\uDCCC 1. اختيار الصنف المناسب\n" +
-                        "\uD83D\uDD39 أصناف محلية: مثل \"هجين ف1 448\" (مقاوم للأمراض)\n" +
-                        "\uD83D\uDD39 أصناف عالمية: مثل \"بيف ستيك\" (للعصير) أو \"تشيري\" (للسلطات)\n" +
-                        "\uD83D\uDD39 اختيار حسب الغرض:\n" +
-                        "\n" +
-                        "\uD83E\uDD6B للعصير: أصناف ذات لب كثيف (سان مارزانو)\n" +
-                        "\n" +
-
-                        "\uD83E\uDD57 للطازج: أصناف حلوة (هجين 023)\n" +
-                        "\n" +
-                        "\uD83C\uDF3F 2. تحضير التربة\n" +
-                        "✅ المواصفات المثالية:\n" +
-                        "\n" +
-                        "درجة حموضة (pH 6-6.8)\n" +
-                        "\n" +
-                        "تربة جيدة الصرف (مخلوطة بـ 30% رمل)\n" +
-                        "\n" +
-                        "غنية بالمادة العضوية (أضف 10 كجم سماد بلدي/م²)\n" +
-                        "\n" +
-                        "⚠\uFE0F تحذير: تجنب التربة الطينية الثقيلة!\n" +
-                        "\n" +
-                        "\uD83C\uDF31 3. طرق الزراعة\n" +
-                        "الطريقة\tالتفاصيل\tالوقت المناسب\n" +
-                        "البذور\tتنقع في ماء دافئ (24 ساعة) ثم تزرع في أصص\tقبل 6-8 أسابيع من الصقيع الأخير\n" +
-                        "الشتل\tنقل الشتلات عند طول 15-20 سم\tبعد زوال خطر الصقيع\n" +
-                        "الزراعة المباشرة\t3 بذور/جورة بعمق 1 سم\tعندما تصل درجة الحرارة لـ 18°م ليلاً\n" +
-                        "\uD83D\uDD39 مسافات الزراعة:\n" +
-                        "\n" +
-                        "50-60 سم بين النباتات\n" +
-                        "\n" +
-                        "90-100 سم بين الخطوط\n" +
-                        "\n",
 
 
-                //بيانات اخرى
 
 
-                "\n" +
-                        "\uD83C\uDF45 مشاكل زراعة الطماطم وحلولها\n" +
-                        "1\uFE0F⃣ مشكلة: تعفن الطرف الزهري (Blossom End Rot)\n" +
-                        "الأعراض:\n" +
-                        "\n" +
-                        "ظهور بقع سوداء أو بنية داكنة عند طرف الثمرة\n" +
-                        "\n" +
-                        "جفاف المنطقة المصابة وتصلبها\n" +
-                        "\n" +
-                        "\uD83D\uDEE0\uFE0F الحلول:\n" +
-                        "✅ التوازن الكالسيومي: أضف الجير الزراعي أو رش نترات الكالسيوم (5 جم/لتر ماء)\n" +
-                        "✅ الري المنتظم: حافظ على رطوبة التربة (لا تجف تمامًا)\n" +
-                        "✅ التسميد المتوازن: تجنب الإفراط في الأسمدة النيتروجينية\n" +
-                        "\n"
-                        + "\uD83D\uDD04 الدورة الزراعية: تغيير المحصول كل موسم\n" +
-                        "\n" +
-                        "\uD83E\uDDEA تحليل التربة: قبل الزراعة لتحديد الاحتياجات\n" +
-                        "\n" +
-                        "\uD83D\uDC1D جذب الملقحات: بزراعة نباتات الزينة حول الحقل\n" +
-                        "\n" +
-                        "\uD83D\uDCC5 الزراعة في موعدها: حسب التقويم الزراعي للمنطقة\n" +
-                        "\n" +
-                        "\uD83D\uDC69\u200D\uD83C\uDF3E المتابعة اليومية: لاكتشاف المشاكل مبكراً\n" +
-                        "\n" +
-                        "\uD83D\uDCA1 إحصائية مهمة: 80% من مشاكل المحاصيل تنتج عن سوء إدارة الري والتسميد!",
-
-                //  مشاكل وحلول
-
-                "\uD83D\uDD04  التقليم والتوجيه\n" +
-                        "✂\uFE0F تقليم السرطانات: إزالة الفروع الجانبية تحت أول عنقود زهري\n" +
-                        "\uD83C\uDF3F التدعيم: استخدام أوتاد خشبية أو شباك تعليق\n" +
-                        "\n" +
-                        "طريقة التدلي: لف الساق حول الخيط كل أسبوع\n" +
-                        "\n",
-//طريفة التقليم والتوجيه
 
 
-                "Available",//وفرة المياه المضلة
-                "Limited",//وفرة المياه المسموحة
-                "Unavailable",//وفرة المياه المرفوضة
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-//null,
-
-                "\uD83D\uDC1B 5. المكافحة المتكاملة للآفات\n" +
-                        "الآفة\tالعلاج\tالوقاية\n" +
-                        "الذبابة البيضاء\tرش زيت النيم (2 مل/لتر)\tمصائد صفراء لاصقة\n" +
-                        "التعفن البكتيري\tرش نحاس (كوسيد 101)\tتعقيم الأدوات\n" +
-                        "ديدان الثمار\tBacillus thuringiensis\tتغطية الثمار بأكياس ورقية\n" +
-                        "\uD83C\uDF1E 6. الظروف البيئية المثلى\n" +
-                        "☀\uFE0F الحرارة:\n" +
-                        "\n" +
-                        "النهار: 25-30°م\n" +
-                        "\n" +
-                        "الليل: 15-18°م\n" +
-                        "\n" +
-                        "\uD83D\uDCA1 الإضاءة: 8 ساعات ضوء يومياً على الأقل\n" +
-                        "\n" +
-                        "\uD83C\uDF27\uFE0F الرطوبة: 60-70% (استخدم مراوح في البيوت المحمية إذا زادت)\n" +
-                        "\n" +
-                        "\uD83D\uDED1 8. المشاكل الشائعة وحلولها\n" +
-                        "المشكلة\tالسبب\tالحل\n" +
-                        "تساقط الأزهار\tحرارة >35°م أو رطوبة عالية\tرش هرمون عقد الثمار (NAA)\n" +
-                        "تشقق الثمار\tري غير منتظم\tالري بانتظام + تغطية التربة\n" +
-                        "بقع صفراء على الأوراق\tنقص مغنيسيوم\tرش كبريتات ماغنيسيوم (2 جم/لتر)\n" +
-                        "\uD83D\uDCC5 9. مواعيد الزراعة حسب المناطق\n" +
-                        "المنطقة\tالموعد المثالي\n" +
-                        "المناطق الدافئة\tسبتمبر-أكتوبر\n" +
-                        "المناطق المعتدلة\tفبراير-مارس\n" +
-                        "البيوت المحمية\tطوال العام (مع تحكم بالمناخ)\n" +
-                        "\uD83E\uDDFA 10. الحصاد والتخزين\n" +
-                        "\uD83D\uDCC5 موعد الحصاد: بعد 70-90 يوم من الزراعة\n" +
-                        "\uD83D\uDD39 علامات النضج:\n" +
-                        "\n" +
-                        "لون أحمر متجانس\n" +
-                        "\n" +
-                        "ملمس طري عند الضغط الخفيف\n" +
-                        "\n" +
-                        "❄\uFE0F التخزين:\n" +
-                        "\n" +
-                        "الطازجة: 10-12°م (تجنب الثلاجة!)\n" +
-                        "\n" +
-                        "التجفيف: تقطع شرائح وتجفف بالشمس 3 أيام\n" +
-                        "\n" +
-                        "\uD83C\uDFAF نصائح الخبراء\n" +
-                        "لثمار أكثر حلاوة: أضف ملعقة صغيرة ملح إنجليزي/لتر ماء عند الري\n" +
-                        "\n" +
-                        "لمكافحة النيماتودا: زراعة القطيفة (Marigold) بين الخطوط\n" +
-                        "\n" +
-                        "لزيادة العقد: هز النباتات برفق عند الصباح لنقل اللقاح\n" +
-                        "\n" +
-                        "حقيقة ممتعة: \uD83E\uDDEA الطماطم تنتج هرمون \"الإيثيلين\" الذي يساعد في نضج الفواكه الأخرى!\n" +
-                        "\n" +
-                        "باستخدام هذا الدليل، يمكنك الحصول على إنتاج وفير بجودة عالية \uD83C\uDF1F\uD83C\uDF45."
-
-
-                , 20//درجة الحرارة المفضلة
-                , 50// نسبة الرطوبة المفضلة
-                , 3//متطلبات الضوء
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                ""
-                , 1500
-                //عدد الشتلات التي يمكن زراعتها في الدونوم الواحد
-                , "ارض مكشوفة_بيت بلاستيكي_زراعة مائية_زراعة عضوية"
-                //طريقة الزراعة ممكن ازرعو باكثر من طريقة حسب نوع المحصول
-
-                , 12.0
-                // كمية السماد الكيميائي بالقرام لكل شتلة
-                , "Chemical",
-                //نوع السماد المستحسن للمحصول الحالي ممكن يتم تسميدو باكثر بالطريقتين
-
-                150.0
-                //كمية السماد العضوي بالقرام لكل شتلة
-                , "الخس، السبانخ، الجرجير، البقدونس، الكزبرة، النعناع، البرسيم، الحلبة، الشوفان (كغطاء أخضر)، الذرة الرفيعة، الدخن، عباد الشمس",
-                "الذرة، القمح، الشعير، الشوفان، العدس، الفول، الحمص، الفاصوليا، البازلاء، البطيخ، الشمام، الخيار، الكوسا، الباذنجان، الفلفل، الطماطم"
-
-                , "الثوم، الكراث، البصل، البطاطا، البطاطس، الفجل، اللفت، الجزر، الشمندر، الكرنب، القرنبيط، البروكلي",
-                "حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.\n" +
-                        "\n" +
-                        "تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.\n" +
-                        "\n" +
-                        "إضافة السماد العضوي المتحلل (بلدي أو كمبوست) بمعدل 4–5 طن للدونم، وخلطه جيدًا بالتربة.\n" +
-                        "\n" +
-                        "لو الأرض ثقيلة، يفضل إضافة رمل أو بيتموس لتحسين التصريف.\n" +
-                        "\n" +
-                        "تأكد إن التربة فيها صرف جيد، لأن الطماطم ما بتحب تجمع المياه.\n" +
-                        "\n" +
-                        "اضبط حموضة التربة (pH) لتكون بين 6 و6.8، لأنها الأنسب للطماطم.\n" +
-                        "\n" +
-                        "أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.\n" +
-                        "\n", "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها."
-
-                , "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها."
-                , "بذور محسنة ومعتمدة.\n" +
-                "\n" +
-                "مقاومة للأمراض الشائعة.\n" +
-                "\n" +
-                "نسبة إنبات عالية.\n" +
-                "\n" +
-                "شراءها من مصدر موثوق."
-                , "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.",
-
-                3,
-                "اختر بذور بصل عالية الجودة ومعتمدة، خالية من الأمراض، وذات حجم متوسط للحصول على نمو متجانس. \uD83E\uDDC5",
-                "قم بنقع البذور في ماء فاتر لمدة 12 ساعة قبل الزراعة، ويمكن تجهيز الشتلات في مشتل لمدة 6 أسابيع قبل النقل. \uD83C\uDF31",
-                "اترك مسافة 10-15 سم بين كل نبات، و30-40 سم بين الخطوط لضمان التهوية الجيدة ونمو البصل بشكل مناسب. \uD83D\uDCCF",
-                "ازرع البذور أو الشتلات على عمق 2-3 سم فقط في التربة لتسهيل الإنبات والنمو. ⛏\uFE0F",
-                "\"بعد الزراعة، اسقِ الأرض مباشرة بريّة غمر خفيفة لتثبيت البذور أو الشتلات في التربة. \uD83D\uDCA7",
-                100, "الابيض ",
-                "الاحمر ",
-                "الاصفر"
-                , 10, 30
-        );
-
-
-//        حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.
-//
-//                تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.
-//
-//                إضافة السماد العضوي المتحلل (بلدي أو كمبوست) بمعدل 4–5 طن للدونم، وخلطه جيدًا بالتربة.
-//
-//                لو الأرض ثقيلة، يفضل إضافة رمل أو بيتموس لتحسين التصريف.
-//
-//                تأكد إن التربة فيها صرف جيد، لأن الطماطم ما بتحب تجمع المياه.
-//
-//        اضبط حموضة التربة (pH) لتكون بين 6 و6.8، لأنها الأنسب للطماطم.
-//
-//                أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.
-//
-//        إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها. بدي الكلام هذا اطبقو في الجافا في مشروع اندرويد تطبيق بس بدي البيانات هذي تتغير بشكل ذكي يعني تكون عبارة عن نص مخزن في ابجكت الطماطم لكن لما بستدعي هذا النص يتم التغيير عليه بناءا على عدة امور منها اضافة السماد الي تم تحديدو اصلا من قبل المزارع في جدول وسيط اس  ويكون ذلك مناسب لاي محصول مش بس الطماطم
-      //  addSampleExperts();
-        //myViewModel.insertCrop(onion);
-        List<Crop> cropsList = new ArrayList<Crop>();
-//        cropsList.add(wheat);
-//        cropsList.add(saffron);
-//        cropsList.add(lentils);
-//        cropsList.add(barley);
-//        cropsList.add(carrot)
-        //cropsList.add(onion);
-//        cropsList.add(pumpkin);
-//        cropsList.add(sunflower);
-//        cropsList.add(broccoli);
-//        cropsList.add(peas);
-//        cropsList.add(alfalfa);
-//        cropsList.add(bellPepper);
-//        cropsList.add(mint);
-//        cropsList.add(cauliflower);
-//        cropsList.add(banana);
-//        cropsList.add(watermelon);
-//        cropsList.add(cucumber);
-//        cropsList.add(garlic);
-//        cropsList.add(potato);
-//        cropsList.add(corn);
-//        cropsList.add(lettuce);
-//        cropsList.add(spinach);
-//        cropsList.add(tomato);
-//        cropsList.add(strawberry);
-//        cropsList.add(eggplant);
-//        cropsList.add(peach);
-//        cropsList.add(zucchini);
-//        cropsList.add(cabbage);
-//        cropsList.add(melon);
-//        cropsList.add(cucumber);
-//        cropsList.add(pumpkin);
-//        cropsList.add(sunflower);
-//        cropsList.add(broccoli);
-//        cropsList.add(peas);
-
-        for (Crop crop : cropsList) {
-            String id = dbRef.push().getKey(); // إنشاء ID تلقائي
-            if (id != null) {
-                dbRef.child(id).setValue(crop).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
-                        Log.d("Firebase", "Crop successfully uploaded");
-
-                    } else {
-                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
-                        Log.e("Firebase", "Error uploading crop: " + task.getException());
-
-                    }
-                });
-            }
-        }
-        Toast.makeText(MainActivity_sign.this, "جاري رفع " + cropsList.size() + " محاصيل...", Toast.LENGTH_SHORT).show();
-//        myViewModelgn.getAllCrops().observe(this, crops -> {
-//        });
-
-
-//        addSampleCrops();
-//        addSampleStepes();
-//        addSampleFarmers();
-
-//            myViewModel.getAllExpert().observe(this, experts -> {
-//                if (experts == null || experts.isEmpty()) {
-        //  addSampleExperts();
-//                }
-//            });
-//
-//            myViewModel.getAllCrop().observe(this, crops -> {
-//                if (crops == null || crops.isEmpty()) {
-//                    addSampleCrops();
-//                }
-//            });
-//
-//
-//            myViewModel.getTotalStepsCount().observe(this, stepCount -> {
-//                if (stepCount == null || stepCount == 0) {
-//                    addSampleStepes();
-//                }
-//            });
-//
-//            myViewModel.getAllFarmer().observe(this, farmers -> {
-//                if (farmers == null || farmers.isEmpty()) {
-//                    addSampleFarmers();
-//                }
-//            });
-
-        binding.exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
-        binding.exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-
-            }
-        });
-        binding.SignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity_sign.this, ActivityMainSignIn.class);
-                startActivity(intent);
-            }
-        });
-        binding.signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity_sign.this, Sign_up.class);
-                startActivity(intent);
-
-            }
-        });
-
-
-    }
-
-    private byte[] convertImageToByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
-
-    private void addSampleStepes() {
-
-        for (int dbId = 1; dbId <= 38; dbId++) {
-            myViewModel.insertCropStep(new CropStep(0, "مقدمة في تصميم ثلاثي الأبعاد", "https://www.youtube.com/watch?v=VG8R7QGdGp8", 10, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تعلم أساسيات النمذجة 3D Max", "https://www.youtube.com/watch?v=3Ic4kF3rdzQ", 12, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "إنشاء مشاهد واقعية في Maya", "https://www.youtube.com/watch?v=FvBqDqsmHzI", 8, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "إضاءة المشاهد   في Cinema 4D", "https://www.youtube.com/watch?v=fsAxSxp88ZQ", 15, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تحريك الشخصيات في Blender", "https://www.youtube.com/watch?v=6dXM8Gocv6k", 13, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تصميم بيئات ثلاثية 3D Max", "https://www.youtube.com/watch?v=2U5M6vI6xzY", 14, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "إضافة مؤثرات خاصة في Maya", "https://www.youtube.com/watch?v=kYgYbEo7HTo", 11, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تصدير النماذج للألعاب", "https://www.youtube.com/watch?v=6MQyZyQDRh4", 9, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "مقدمة في تصميم الشخصيات", "https://www.youtube.com/watch?v=k1pS5lfH2kc", 12, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تقنيات الإكساء في Cinema 4D", "https://www.youtube.com/watch?v=nl5mcYIu7Fk", 16, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تحريك الكاميرا في مشاهد 3D Max", "https://www.youtube.com/watch?v=6dFtkdZTkmE", 17, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "إضافة إضاءة واقعية في Blender", "https://www.youtube.com/watch?v=0RPylvtaHhE", 10, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تصميم مواد واقعية في Maya", "https://www.youtube.com/watch?v=mrctuUwEryo", 8, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "المشاهد الداخلية في 3D Max", "https://www.youtube.com/watch?v=JlxWqg7xeQU", 14, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تحريك الشخصيات في Cinema 4D", "https://www.youtube.com/watch?v=0VZqzxbzXYY", 10, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "إضافة مؤثرات خاصة في Blender", "https://www.youtube.com/watch?v=a4kDk1s5de4", 13, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تصميم بيئات طبيعية في Maya", "https://www.youtube.com/watch?v=pBiv8nq-XGA", 12, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تقنيات الإكساء في 3D Max", "https://www.youtube.com/watch?v=HkVgOlgw9yA", 11, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "تحريك الكائنات في Blender", "https://www.youtube.com/watch?v=c56y_AiEcrE", 10, false, dbId));
-            myViewModel.insertCropStep(new CropStep(0, "مقدمة لتقنيات الـ 3D في الألعاب", "https://www.youtube.com/watch?v=c7Bx6m0bxg8", 9, false, dbId));
-
-        }
-
-
-    }
-
-    private void addSampleCrops() {
+//private void addSampleCrops() {
 //        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.a);
 //        byte[] imageBytes = convertImageToByteArray(bitmap);
 //        Bitmap bitmap1 = BitmapFactory.decodeResource(this.getResources(), R.drawable.s);
@@ -1424,7 +1653,7 @@ public class MainActivity_sign extends AppCompatActivity {
 //        myViewModel.insertCrop(broccoli);
 //        myViewModel.insertCrop(sunflower);
 //        myViewModel.insertCrop(pumpkin);
-        //      myViewModel.insertCrop(pea);
+    //      myViewModel.insertCrop(pea);
 //        myViewModel.insertCrop(cucumber);
 //        myViewModel.insertCrop(melon);
 //        myViewModel.insertCrop(cabbage);
@@ -1441,7 +1670,7 @@ public class MainActivity_sign extends AppCompatActivity {
 //        myViewModel.insertCrop(tomato);
 //        myViewModel.insertCrop(spinach);
 //        myViewModel.insertCrop(lettuce);
-        //myViewModel.insertCrop(barley);
+    //myViewModel.insertCrop(barley);
 //        myViewModel.insertCrop(corn);
 ////        myViewModel.insertCrop(mint);
 //        myViewModel.insertCrop(potato);
@@ -1467,285 +1696,272 @@ public class MainActivity_sign extends AppCompatActivity {
 ////        myViewModel.insertCrop(grapefruit);
 ////        myViewModel.insertCrop(fig);
 ////        myViewModel.insertCrop(lemon);
-    }
+//}
+//private void addSampleStepes() {
+//
+//        for (int dbId = 1; dbId <= 38; dbId++) {
+//            myViewModel.insertCropStep(new CropStep(0, "مقدمة في تصميم ثلاثي الأبعاد", "https://www.youtube.com/watch?v=VG8R7QGdGp8", 10, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تعلم أساسيات النمذجة 3D Max", "https://www.youtube.com/watch?v=3Ic4kF3rdzQ", 12, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "إنشاء مشاهد واقعية في Maya", "https://www.youtube.com/watch?v=FvBqDqsmHzI", 8, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "إضاءة المشاهد   في Cinema 4D", "https://www.youtube.com/watch?v=fsAxSxp88ZQ", 15, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تحريك الشخصيات في Blender", "https://www.youtube.com/watch?v=6dXM8Gocv6k", 13, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تصميم بيئات ثلاثية 3D Max", "https://www.youtube.com/watch?v=2U5M6vI6xzY", 14, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "إضافة مؤثرات خاصة في Maya", "https://www.youtube.com/watch?v=kYgYbEo7HTo", 11, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تصدير النماذج للألعاب", "https://www.youtube.com/watch?v=6MQyZyQDRh4", 9, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "مقدمة في تصميم الشخصيات", "https://www.youtube.com/watch?v=k1pS5lfH2kc", 12, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تقنيات الإكساء في Cinema 4D", "https://www.youtube.com/watch?v=nl5mcYIu7Fk", 16, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تحريك الكاميرا في مشاهد 3D Max", "https://www.youtube.com/watch?v=6dFtkdZTkmE", 17, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "إضافة إضاءة واقعية في Blender", "https://www.youtube.com/watch?v=0RPylvtaHhE", 10, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تصميم مواد واقعية في Maya", "https://www.youtube.com/watch?v=mrctuUwEryo", 8, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "المشاهد الداخلية في 3D Max", "https://www.youtube.com/watch?v=JlxWqg7xeQU", 14, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تحريك الشخصيات في Cinema 4D", "https://www.youtube.com/watch?v=0VZqzxbzXYY", 10, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "إضافة مؤثرات خاصة في Blender", "https://www.youtube.com/watch?v=a4kDk1s5de4", 13, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تصميم بيئات طبيعية في Maya", "https://www.youtube.com/watch?v=pBiv8nq-XGA", 12, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تقنيات الإكساء في 3D Max", "https://www.youtube.com/watch?v=HkVgOlgw9yA", 11, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "تحريك الكائنات في Blender", "https://www.youtube.com/watch?v=c56y_AiEcrE", 10, false, dbId));
+//            myViewModel.insertCropStep(new CropStep(0, "مقدمة لتقنيات الـ 3D في الألعاب", "https://www.youtube.com/watch?v=c7Bx6m0bxg8", 9, false, dbId));
+//
+//        }
+//
+//
+//    }
+//  Crop onion = new Crop();
+//        onion.setCrop_NAME("Onion");
+//        onion.setCategorie("Seasonal crops - Root crops - High-demand crops");
+//        onion.setDescription("البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.");
+//        onion.setExpert_USER_Name("jane_smith");
+//        onion.setPreferredSoil("sandy");
+//        onion.setAllowedSoil("muddy");
+//        onion.setAllowedSoil("rocky");
+//        onion.setPreferredIrrigation("drip");
+//        onion.setAllowedIrrigation("sprinkler");
+//        onion.setForbiddenIrrigation("immersion");
+//        onion.setMinArea(0.3);
+//        onion.setSeason("spring");
+//        onion.setPreferredHumidity("High");
+//        onion.setAllowedHumidity("Low");
+//        onion.setForbiddenHumidity("Moderate");
+//        onion.setPreferredTemp("Cool");
+//        onion.setAllowedTemp("Mild");
+//        onion.setForbiddenTemp("Hot");
+//        onion.setWateringFrequencyDays(3);
+//        onion.setFertilizingFrequencyDays(14);
+//        onion.setWateringInstructions("\uD83D\uDEB0 برنامج الري:\n" +
+//                "\n" +
+//                "مرحلة النمو: ري كل 3 أيام (تجنب تبليل الأوراق)\n" +
+//                "\n" +
+//                "مرحلة الإثمار: ري يومي في الصيف (صباحاً)");
+//
+//        onion.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد:\n" +
+//                "\n" +
+//                "قبل الزراعة: سماد عضوي + سوبر فوسفات\n" +
+//                "\n" +
+//                "بعد 3 أسابيع: NPK (19-19-19)\n" +
+//                "\n" +
+//                "أثناء الإزهار: رش بورون + كالسيوم\n" +
+//                "\n" +
+//                "⚠\uFE0F تحذير: الإفراط في النيتروجين يقلل الإثمار!\n" +
+//                "\n");
+//        onion.setPlantingMethod("\uD83C\uDF31 دليل شامل لزراعة الطماطم: من البذور إلى الحصاد\n" +
+//                "\uD83D\uDCCC 1. اختيار الصنف المناسب\n" +
+//                "\uD83D\uDD39 أصناف محلية: مثل \"هجين ف1 448\" (مقاوم للأمراض)\n" +
+//                "\uD83D\uDD39 أصناف عالمية: مثل \"بيف ستيك\" (للعصير) أو \"تشيري\" (للسلطات)\n" +
+//                "\uD83D\uDD39 اختيار حسب الغرض:\n" +
+//                "\n" +
+//                "\uD83E\uDD6B للعصير: أصناف ذات لب كثيف (سان مارزانو)\n" +
+//                "\n" +
+//
+//                "\uD83E\uDD57 للطازج: أصناف حلوة (هجين 023)\n" +
+//                "\n" +
+//                "\uD83C\uDF3F 2. تحضير التربة\n" +
+//                "✅ المواصفات المثالية:\n" +
+//                "\n" +
+//                "درجة حموضة (pH 6-6.8)\n" +
+//                "\n" +
+//                "تربة جيدة الصرف (مخلوطة بـ 30% رمل)\n" +
+//                "\n" +
+//                "غنية بالمادة العضوية (أضف 10 كجم سماد بلدي/م²)\n" +
+//                "\n" +
+//                "⚠\uFE0F تحذير: تجنب التربة الطينية الثقيلة!\n" +
+//                "\n" +
+//                "\uD83C\uDF31 3. طرق الزراعة\n" +
+//                "الطريقة\tالتفاصيل\tالوقت المناسب\n" +
+//                "البذور\tتنقع في ماء دافئ (24 ساعة) ثم تزرع في أصص\tقبل 6-8 أسابيع من الصقيع الأخير\n" +
+//                "الشتل\tنقل الشتلات عند طول 15-20 سم\tبعد زوال خطر الصقيع\n" +
+//                "الزراعة المباشرة\t3 بذور/جورة بعمق 1 سم\tعندما تصل درجة الحرارة لـ 18°م ليلاً\n" +
+//                "\uD83D\uDD39 مسافات الزراعة:\n" +
+//                "\n" +
+//                "50-60 سم بين النباتات\n" +
+//                "\n" +
+//                "90-100 سم بين الخطوط\n" +
+//                "\n");
+//        onion.setCropProblems("\n" +
+//                "\uD83C\uDF45 مشاكل زراعة الطماطم وحلولها\n" +
+//                "1\uFE0F⃣ مشكلة: تعفن الطرف الزهري (Blossom End Rot)\n" +
+//                "الأعراض:\n" +
+//                "\n" +
+//                "ظهور بقع سوداء أو بنية داكنة عند طرف الثمرة\n" +
+//                "\n" +
+//                "جفاف المنطقة المصابة وتصلبها\n" +
+//                "\n" +
+//                "\uD83D\uDEE0\uFE0F الحلول:\n" +
+//                "✅ التوازن الكالسيومي: أضف الجير الزراعي أو رش نترات الكالسيوم (5 جم/لتر ماء)\n" +
+//                "✅ الري المنتظم: حافظ على رطوبة التربة (لا تجف تمامًا)\n" +
+//                "✅ التسميد المتوازن: تجنب الإفراط في الأسمدة النيتروجينية\n" +
+//                "\n"
+//                + "\uD83D\uDD04 الدورة الزراعية: تغيير المحصول كل موسم\n" +
+//                "\n" +
+//                "\uD83E\uDDEA تحليل التربة: قبل الزراعة لتحديد الاحتياجات\n" +
+//                "\n" +
+//                "\uD83D\uDC1D جذب الملقحات: بزراعة نباتات الزينة حول الحقل\n" +
+//                "\n" +
+//                "\uD83D\uDCC5 الزراعة في موعدها: حسب التقويم الزراعي للمنطقة\n" +
+//                "\n" +
+//                "\uD83D\uDC69\u200D\uD83C\uDF3E المتابعة اليومية: لاكتشاف المشاكل مبكراً\n" +
+//                "\n" +
+//                "\uD83D\uDCA1 إحصائية مهمة: 80% من مشاكل المحاصيل تنتج عن سوء إدارة الري والتسميد!");
+//
+//        onion.setPruning_and_guidance("\uD83D\uDD04  التقليم والتوجيه\n" +
+//                "✂\uFE0F تقليم السرطانات: إزالة الفروع الجانبية تحت أول عنقود زهري\n" +
+//                "\uD83C\uDF3F التدعيم: استخدام أوتاد خشبية أو شباك تعليق\n" +
+//                "\n" +
+//                "طريقة التدلي: لف الساق حول الخيط كل أسبوع\n" +
+//                "\n");
+//
+//        onion.setPreferredAbundance("Available");
+//        onion.setAllowedAbundance("Limited");
+//        onion.setForbiddenAbundance("Unavailable");
+//        onion.setLearnMore("\uD83D\uDC1B 5. المكافحة المتكاملة للآفات\n" +
+//                "الآفة\tالعلاج\tالوقاية\n" +
+//                "الذبابة البيضاء\tرش زيت النيم (2 مل/لتر)\tمصائد صفراء لاصقة\n" +
+//                "التعفن البكتيري\tرش نحاس (كوسيد 101)\tتعقيم الأدوات\n" +
+//                "ديدان الثمار\tBacillus thuringiensis\tتغطية الثمار بأكياس ورقية\n" +
+//                "\uD83C\uDF1E 6. الظروف البيئية المثلى\n" +
+//                "☀\uFE0F الحرارة:\n" +
+//                "\n" +
+//                "النهار: 25-30°م\n" +
+//                "\n" +
+//                "الليل: 15-18°م\n" +
+//                "\n" +
+//                "\uD83D\uDCA1 الإضاءة: 8 ساعات ضوء يومياً على الأقل\n" +
+//                "\n" +
+//                "\uD83C\uDF27\uFE0F الرطوبة: 60-70% (استخدم مراوح في البيوت المحمية إذا زادت)\n" +
+//                "\n" +
+//                "\uD83D\uDED1 8. المشاكل الشائعة وحلولها\n" +
+//                "المشكلة\tالسبب\tالحل\n" +
+//                "تساقط الأزهار\tحرارة >35°م أو رطوبة عالية\tرش هرمون عقد الثمار (NAA)\n" +
+//                "تشقق الثمار\tري غير منتظم\tالري بانتظام + تغطية التربة\n" +
+//                "بقع صفراء على الأوراق\tنقص مغنيسيوم\tرش كبريتات ماغنيسيوم (2 جم/لتر)\n" +
+//                "\uD83D\uDCC5 9. مواعيد الزراعة حسب المناطق\n" +
+//                "المنطقة\tالموعد المثالي\n" +
+//                "المناطق الدافئة\tسبتمبر-أكتوبر\n" +
+//                "المناطق المعتدلة\tفبراير-مارس\n" +
+//                "البيوت المحمية\tطوال العام (مع تحكم بالمناخ)\n" +
+//                "\uD83E\uDDFA 10. الحصاد والتخزين\n" +
+//                "\uD83D\uDCC5 موعد الحصاد: بعد 70-90 يوم من الزراعة\n" +
+//                "\uD83D\uDD39 علامات النضج:\n" +
+//                "\n" +
+//                "لون أحمر متجانس\n" +
+//                "\n" +
+//                "ملمس طري عند الضغط الخفيف\n" +
+//                "\n" +
+//                "❄\uFE0F التخزين:\n" +
+//                "\n" +
+//                "الطازجة: 10-12°م (تجنب الثلاجة!)\n" +
+//                "\n" +
+//                "التجفيف: تقطع شرائح وتجفف بالشمس 3 أيام\n" +
+//                "\n" +
+//                "\uD83C\uDFAF نصائح الخبراء\n" +
+//                "لثمار أكثر حلاوة: أضف ملعقة صغيرة ملح إنجليزي/لتر ماء عند الري\n" +
+//                "\n" +
+//                "لمكافحة النيماتودا: زراعة القطيفة (Marigold) بين الخطوط\n" +
+//                "\n" +
+//                "لزيادة العقد: هز النباتات برفق عند الصباح لنقل اللقاح\n" +
+//                "\n" +
+//                "حقيقة ممتعة: \uD83E\uDDEA الطماطم تنتج هرمون \"الإيثيلين\" الذي يساعد في نضج الفواكه الأخرى!\n" +
+//                "\n" +
+//                "باستخدام هذا الدليل، يمكنك الحصول على إنتاج وفير بجودة عالية \uD83C\uDF1F\uD83C\uDF45."
+//        );
+//        onion.setOptimalHumidity(50);
+//        onion.setOptimalTemperature(20);
+//        onion.setLightRequirements(3);
+//        onion.setNumber_Plant_per_dunum(1500);
+//        onion.setOrganicFertilizer("ارض مكشوفة_بيت بلاستيكي_زراعة مائية_زراعة عضوية");
+//        onion.setOrganicPerPlant(150.0);
+//        onion.setChemicalFertilizer( "حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.\n" +
+//                "\n" +
+//                        "تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.\n" +
+//                        "\n" +
+//                        "إضافة السماد العضوي المتحلل (بلدي أو كمبوست) بمعدل 4–5 طن للدونم، وخلطه جيدًا بالتربة.\n" +
+//                        "\n" +
+//                        "لو الأرض ثقيلة، يفضل إضافة رمل أو بيتموس لتحسين التصريف.\n" +
+//                        "\n" +
+//                        "تأكد إن التربة فيها صرف جيد، لأن الطماطم ما بتحب تجمع المياه.\n" +
+//                        "\n" +
+//                        "اضبط حموضة التربة (pH) لتكون بين 6 و6.8، لأنها الأنسب للطماطم.\n" +
+//                        "\n" +
+//                        "أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.\n" +
+//                        "\n" +
+//                        "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
+//        onion.setChemicalPerPlant(12.0);
+//        onion.setPrevious_crop_preferred("الخس، السبانخ، الجرجير، البقدونس، الكزبرة، النعناع، البرسيم، الحلبة، الشوفان (كغطاء أخضر)، الذرة الرفيعة، الدخن، عباد الشمس");
+//        onion.setPrevious_crop_allowed("الذرة، القمح، الشعير، الشوفان، العدس، الفول، الحمص، الفاصوليا، البازلاء، البطيخ، الشمام، الخيار، الكوسا، الباذنجان، الفلفل، الطماطم");
+//
+//        onion.setPrevious_crop_forbidden( "الثوم، الكراث، البصل، البطاطا، البطاطس، الفجل، اللفت، الجزر، الشمندر، الكرنب، القرنبيط، البروكلي");
+//        onion.setChemicalFertilizer("Chemical");
+//        onion.setSoil_preparation_allowed( "بذور محسنة ومعتمدة.\n" +
+//                "\n" +
+//                "مقاومة للأمراض الشائعة.\n" +
+//                "\n" +
+//                "نسبة إنبات عالية.\n" +
+//                "\n" +
+//                "شراءها من مصدر موثوق.");
+//        onion.setWeight_seeds_per_dunum(3);
+//        onion.setSeedSpecifications("اختر بذور بصل عالية الجودة ومعتمدة، خالية من الأمراض، وذات حجم متوسط للحصول على نمو متجانس. \uD83E\uDDC5");
+//        onion.setSeedlingPreparation("قم بنقع البذور في ماء فاتر لمدة 12 ساعة قبل الزراعة، ويمكن تجهيز الشتلات في مشتل لمدة 6 أسابيع قبل النقل. \uD83C\uDF31");
+//        onion.setPlantingDistance("اترك مسافة 10-15 سم بين كل نبات، و30-40 سم بين الخطوط لضمان التهوية الجيدة ونمو البصل بشكل مناسب. \uD83D\uDCCF");
+//        onion.setPlantingDepth("ازرع البذور أو الشتلات على عمق 2-3 سم فقط في التربة لتسهيل الإنبات والنمو. ⛏\uFE0F");
+//        onion.setInitialIrrigation("\"بعد الزراعة، اسقِ الأرض مباشرة بريّة غمر خفيفة لتثبيت البذور أو الشتلات في التربة. \uD83D\uDCA7");
+//        onion.setDaysToMaturity(100);//عدد الايام حتى النضج
+//        onion.setHigh("ابيض");
+//        onion.setMid("احمر");
+//        onion.setLow("اصفر");
+//        onion.setTemperatureTolerance(10);
+//        onion.setHumidityTolerance(30);
 
-    private void addSampleExperts() {
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
-        byte[] imageBytes = convertImageToByteArray(bitmap);
-        Expert Expert1 = new Expert("jane_smith", "jane_smith", "asdasdasd", "asdasd", imageBytes, "", "", "", 0);
-        Bitmap bitmap2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.te6);
-        byte[] imageBytes2 = convertImageToByteArray(bitmap2);
-        Expert Expert2 = new Expert("bob_white", "bob_white", "asdasdasd", "asdasd", imageBytes2, "", "", "", 0);
-        Bitmap bitmap3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
-        byte[] imageBytes3 = convertImageToByteArray(bitmap3);
-        Expert Expert3 = new Expert("alice_brown", "alice_brown", "asdasdasd", "asdasd", imageBytes3, "", "", "", 0);
-        Bitmap bitmap4 = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
-        byte[] imageBytes4 = convertImageToByteArray(bitmap4);
-        Expert Expert4 = new Expert("john_doe", "john_doe", "asdasdasd", "asdasd", imageBytes4, "", "", "", 0);
-        myViewModel.insertExpert(Expert1);
-        myViewModel.insertExpert(Expert2);
-        myViewModel.insertExpert(Expert3);
-        myViewModel.insertExpert(Expert4);
+
+//
+//
+
+//        myViewModelgn.getAllCrops().observe(this, crops -> {
+//        });
 
 
-    }
+//        addSampleCrops();
+//        addSampleStepes();
+//        addSampleFarmers();
 
-
-    private void addSampleFarmers() {
-
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.unnamed);
-        byte[] imageBytes = convertImageToByteArray(bitmap);
-        Farmer farmer1 = new Farmer("user_1", "password_1", 1234, 1231231211, "Farmer 1", imageBytes, "");
-        myViewModel.insertFarmer(farmer1);
-
-
-        Farmer_Expert farmerExpert1 = new Farmer_Expert(0, "user_1", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert1);
-
-        Farmer farmer2 = new Farmer("user_2", "password_2", 1235, 1231231212, "Farmer 2", null, "");
-        myViewModel.insertFarmer(farmer2);
-        Farmer_Expert farmerExpert2 = new Farmer_Expert(0, "user_2", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert2);
-
-        Farmer farmer3 = new Farmer("user_3", "password_3", 1236, 1231231213, "Farmer 3", null, "");
-        myViewModel.insertFarmer(farmer3);
-        Farmer_Expert farmerExpert3 = new Farmer_Expert(0, "user_3", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert3);
-
-        Farmer farmer4 = new Farmer("user_4", "password_4", 1237, 1231231214, "Farmer 4", null, "");
-        myViewModel.insertFarmer(farmer4);
-        Farmer_Expert farmerExpert4 = new Farmer_Expert(0, "user_4", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert4);
-
-        Farmer farmer5 = new Farmer("user_5", "password_5", 1238, 1231231215, "Farmer 5", null, "");
-        myViewModel.insertFarmer(farmer5);
-        Farmer_Expert farmerExpert5 = new Farmer_Expert(0, "user_5", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert5);
-
-        Farmer farmer6 = new Farmer("user_6", "password_6", 1239, 1231231216, "Farmer 6", null, "");
-        myViewModel.insertFarmer(farmer6);
-        Farmer_Expert farmerExpert6 = new Farmer_Expert(0, "user_6", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert6);
-
-        Farmer farmer7 = new Farmer("user_7", "password_7", 1240, 1231231217, "Farmer 7", null, "");
-        myViewModel.insertFarmer(farmer7);
-        Farmer_Expert farmerExpert7 = new Farmer_Expert(0, "user_7", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert7);
-
-        Farmer farmer8 = new Farmer("user_8", "password_8", 1241, 1231231218, "Farmer 8", null, "");
-        myViewModel.insertFarmer(farmer8);
-        Farmer_Expert farmerExpert8 = new Farmer_Expert(0, "user_8", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert8);
-
-        Farmer farmer9 = new Farmer("user_9", "password_9", 1242, 1231231219, "Farmer 9", null, "");
-        myViewModel.insertFarmer(farmer9);
-        Farmer_Expert farmerExpert9 = new Farmer_Expert(0, "user_9", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert9);
-
-        Farmer farmer10 = new Farmer("user_10", "password_10", 1243, 1231231220, "Farmer 10", null, "");
-        myViewModel.insertFarmer(farmer10);
-        Farmer_Expert farmerExpert10 = new Farmer_Expert(0, "user_10", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert10);
-
-        Farmer farmer11 = new Farmer("user_11", "password_11", 1244, 1231231221, "Farmer 11", null, "");
-        myViewModel.insertFarmer(farmer11);
-        Farmer_Expert farmerExpert11 = new Farmer_Expert(0, "user_11", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert11);
-
-        Farmer farmer12 = new Farmer("user_12", "password_12", 1245, 1231231222, "Farmer 12", null, "");
-        myViewModel.insertFarmer(farmer12);
-        Farmer_Expert farmerExpert12 = new Farmer_Expert(0, "user_12", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert12);
-
-        Farmer farmer13 = new Farmer("user_13", "password_13", 1246, 1231231223, "Farmer 13", null, "");
-        myViewModel.insertFarmer(farmer13);
-        Farmer_Expert farmerExpert13 = new Farmer_Expert(0, "user_13", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert13);
-
-        Farmer farmer14 = new Farmer("user_14", "password_14", 1247, 1231231224, "Farmer 14", null, "");
-        myViewModel.insertFarmer(farmer14);
-        Farmer_Expert farmerExpert14 = new Farmer_Expert(0, "user_14", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert14);
-
-        Farmer farmer15 = new Farmer("user_15", "password_15", 1248, 1231231225, "Farmer 15", null, "");
-        myViewModel.insertFarmer(farmer15);
-        Farmer_Expert farmerExpert15 = new Farmer_Expert(0, "user_15", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert15);
-
-        Farmer farmer16 = new Farmer("user_16", "password_16", 1249, 1231231226, "Farmer 16", null, "");
-        myViewModel.insertFarmer(farmer16);
-        Farmer_Expert farmerExpert16 = new Farmer_Expert(0, "user_16", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert16);
-
-        Farmer farmer17 = new Farmer("user_17", "password_17", 1250, 1231231227, "Farmer 17", null, "");
-        myViewModel.insertFarmer(farmer17);
-        Farmer_Expert farmerExpert17 = new Farmer_Expert(0, "user_17", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert17);
-
-        Farmer farmer18 = new Farmer("user_18", "password_18", 1251, 1231231228, "Farmer 18", null, "");
-        myViewModel.insertFarmer(farmer18);
-        Farmer_Expert farmerExpert18 = new Farmer_Expert(0, "user_18", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert18);
-
-        Farmer farmer19 = new Farmer("user_19", "password_19", 1252, 1231231229, "Farmer 19", null, "");
-        myViewModel.insertFarmer(farmer19);
-        Farmer_Expert farmerExpert19 = new Farmer_Expert(0, "user_19", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert19);
-
-        Farmer farmer20 = new Farmer("user_20", "password_20", 1253, 1231231230, "Farmer 20", null, "");
-        myViewModel.insertFarmer(farmer20);
-        Farmer_Expert farmerExpert20 = new Farmer_Expert(0, "user_20", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert20);
-
-        Farmer farmer21 = new Farmer("user_21", "password_21", 1254, 1231231231, "Farmer 21", null, "");
-        myViewModel.insertFarmer(farmer21);
-        Farmer_Expert farmerExpert21 = new Farmer_Expert(0, "user_21", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert21);
-
-        Farmer farmer22 = new Farmer("user_22", "password_22", 1255, 1231231232, "Farmer 22", null, "");
-        myViewModel.insertFarmer(farmer22);
-        Farmer_Expert farmerExpert22 = new Farmer_Expert(0, "user_22", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert22);
-
-        Farmer farmer23 = new Farmer("user_23", "password_23", 1256, 1231231233, "Farmer 23", null, "");
-        myViewModel.insertFarmer(farmer23);
-        Farmer_Expert farmerExpert23 = new Farmer_Expert(0, "user_23", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert23);
-
-        Farmer farmer24 = new Farmer("user_24", "password_24", 1257, 1231231234, "Farmer 24", null, "");
-        myViewModel.insertFarmer(farmer24);
-        Farmer_Expert farmerExpert24 = new Farmer_Expert(0, "user_24", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert24);
-
-        Farmer farmer25 = new Farmer("user_25", "password_25", 1258, 1231231235, "Farmer 25", null, "");
-        myViewModel.insertFarmer(farmer25);
-        Farmer_Expert farmerExpert25 = new Farmer_Expert(0, "user_25", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert25);
-
-        Farmer farmer26 = new Farmer("user_26", "password_26", 1259, 1231231236, "Farmer 26", null, "");
-        myViewModel.insertFarmer(farmer26);
-        Farmer_Expert farmerExpert26 = new Farmer_Expert(0, "user_26", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert26);
-
-        Farmer farmer27 = new Farmer("user_27", "password_27", 1260, 1231231237, "Farmer 27", null, "");
-        myViewModel.insertFarmer(farmer27);
-        Farmer_Expert farmerExpert27 = new Farmer_Expert(0, "user_27", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert27);
-
-        Farmer farmer28 = new Farmer("user_28", "password_28", 1261, 1231231238, "Farmer 28", null, "");
-        myViewModel.insertFarmer(farmer28);
-        Farmer_Expert farmerExpert28 = new Farmer_Expert(0, "user_28", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert28);
-
-        Farmer farmer29 = new Farmer("user_29", "password_29", 1262, 1231231239, "Farmer 29", null, "");
-        myViewModel.insertFarmer(farmer29);
-        Farmer_Expert farmerExpert29 = new Farmer_Expert(0, "user_29", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert29);
-
-        Farmer farmer30 = new Farmer("user_30", "password_30", 1263, 1231231240, "Farmer 30", null, "");
-        myViewModel.insertFarmer(farmer30);
-        Farmer_Expert farmerExpert30 = new Farmer_Expert(0, "user_30", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert30);
-
-        Farmer farmer31 = new Farmer("user_31", "password_31", 1264, 1231231241, "Farmer 31", null, "");
-        myViewModel.insertFarmer(farmer31);
-        Farmer_Expert farmerExpert31 = new Farmer_Expert(0, "user_31", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert31);
-
-        Farmer farmer32 = new Farmer("user_32", "password_32", 1265, 1231231242, "Farmer 32", null, "");
-        myViewModel.insertFarmer(farmer32);
-        Farmer_Expert farmerExpert32 = new Farmer_Expert(0, "user_32", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert32);
-
-        Farmer farmer33 = new Farmer("user_33", "password_33", 1266, 1231231243, "Farmer 33", null, "");
-        myViewModel.insertFarmer(farmer33);
-        Farmer_Expert farmerExpert33 = new Farmer_Expert(0, "user_33", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert33);
-
-        Farmer farmer34 = new Farmer("user_34", "password_34", 1267, 1231231244, "Farmer 34", null, "");
-        myViewModel.insertFarmer(farmer34);
-        Farmer_Expert farmerExpert34 = new Farmer_Expert(0, "user_34", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert34);
-
-        Farmer farmer35 = new Farmer("user_35", "password_35", 1268, 1231231245, "Farmer 35", null, "");
-        myViewModel.insertFarmer(farmer35);
-        Farmer_Expert farmerExpert35 = new Farmer_Expert(0, "user_35", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert35);
-
-        Farmer farmer36 = new Farmer("user_36", "password_36", 1269, 1231231246, "Farmer 36", null, "");
-        myViewModel.insertFarmer(farmer36);
-        Farmer_Expert farmerExpert36 = new Farmer_Expert(0, "user_36", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert36);
-
-        Farmer farmer37 = new Farmer("user_37", "password_37", 1270, 1231231247, "Farmer 37", null, "");
-        myViewModel.insertFarmer(farmer37);
-        Farmer_Expert farmerExpert37 = new Farmer_Expert(0, "user_37", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert37);
-
-        Farmer farmer38 = new Farmer("user_38", "password_38", 1271, 1231231248, "Farmer 38", null, "");
-        myViewModel.insertFarmer(farmer38);
-        Farmer_Expert farmerExpert38 = new Farmer_Expert(0, "user_38", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert38);
-
-        Farmer farmer39 = new Farmer("user_39", "password_39", 1272, 1231231249, "Farmer 39", null, "");
-        myViewModel.insertFarmer(farmer39);
-        Farmer_Expert farmerExpert39 = new Farmer_Expert(0, "user_39", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert39);
-
-        Farmer farmer40 = new Farmer("user_40", "password_40", 1273, 1231231250, "Farmer 40", null, "");
-        myViewModel.insertFarmer(farmer40);
-        Farmer_Expert farmerExpert40 = new Farmer_Expert(0, "user_40", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert40);
-
-        Farmer farmer41 = new Farmer("user_41", "password_41", 1274, 1231231251, "Farmer 41", null, "");
-        myViewModel.insertFarmer(farmer41);
-        Farmer_Expert farmerExpert41 = new Farmer_Expert(0, "user_41", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert41);
-
-        Farmer farmer42 = new Farmer("user_42", "password_42", 1275, 1231231252, "Farmer 42", null, "");
-        myViewModel.insertFarmer(farmer42);
-        Farmer_Expert farmerExpert42 = new Farmer_Expert(0, "user_42", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert42);
-
-        Farmer farmer43 = new Farmer("user_43", "password_43", 1276, 1231231253, "Farmer 43", null, "");
-        myViewModel.insertFarmer(farmer43);
-        Farmer_Expert farmerExpert43 = new Farmer_Expert(0, "user_43", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert43);
-
-        Farmer farmer44 = new Farmer("user_44", "password_44", 1277, 1231231254, "Farmer 44", null, "");
-        myViewModel.insertFarmer(farmer44);
-        Farmer_Expert farmerExpert44 = new Farmer_Expert(0, "user_44", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert44);
-
-        Farmer farmer45 = new Farmer("user_45", "password_45", 1278, 1231231255, "Farmer 45", null, "");
-        myViewModel.insertFarmer(farmer45);
-        Farmer_Expert farmerExpert45 = new Farmer_Expert(0, "user_45", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert45);
-
-        Farmer farmer46 = new Farmer("user_46", "password_46", 1279, 1231231256, "Farmer 46", null, "");
-        myViewModel.insertFarmer(farmer46);
-        Farmer_Expert farmerExpert46 = new Farmer_Expert(0, "user_46", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert46);
-
-        Farmer farmer47 = new Farmer("user_47", "password_47", 1280, 1231231257, "Farmer 47", null, "");
-        myViewModel.insertFarmer(farmer47);
-        Farmer_Expert farmerExpert47 = new Farmer_Expert(0, "user_47", "john_doe");
-        myViewModel.insertFarmerExpert(farmerExpert47);
-
-        Farmer farmer48 = new Farmer("user_48", "password_48", 1281, 1231231258, "Farmer 48", null, "");
-        myViewModel.insertFarmer(farmer48);
-        Farmer_Expert farmerExpert48 = new Farmer_Expert(0, "user_48", "alice_brown");
-        myViewModel.insertFarmerExpert(farmerExpert48);
-
-        Farmer farmer49 = new Farmer("user_49", "password_49", 1282, 1231231259, "Farmer 49", null, "");
-        myViewModel.insertFarmer(farmer49);
-        Farmer_Expert farmerExpert49 = new Farmer_Expert(0, "user_49", "bob_white");
-        myViewModel.insertFarmerExpert(farmerExpert49);
-
-        Farmer farmer50 = new Farmer("user_50", "password_50", 1283, 1231231260, "Farmer 50", null, "");
-        myViewModel.insertFarmer(farmer50);
-        Farmer_Expert farmerExpert50 = new Farmer_Expert(0, "user_50", "jane_smith");
-        myViewModel.insertFarmerExpert(farmerExpert50);
-
-    }
-}
+//            myViewModel.getAllExpert().observe(this, experts -> {
+//                if (experts == null || experts.isEmpty()) {
+//  addSampleExperts();
+//                }
+//            });
+//
+//            myViewModel.getAllCrop().observe(this, crops -> {
+//                if (crops == null || crops.isEmpty()) {
+//                    addSampleCrops();
+//                }
+//            });
+//
+//
+//            myViewModel.getTotalStepsCount().observe(this, stepCount -> {
+//                if (stepCount == null || stepCount == 0) {
+//                    addSampleStepes();
+//                }
+//            });
+//
+//            myViewModel.getAllFarmer().observe(this, farmers -> {
+//                if (farmers == null || farmers.isEmpty()) {
+//                    addSampleFarmers();
+//                }
+//            });

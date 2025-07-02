@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <!-- From Dialog -->
+        <string name="location">الموقع:</string>
+        <string name="planting_date">تاريخ الزراعة:</string>
+        <string name="season">الموسم:</string>
+        <string name="weather_description">وصف الطقس</string>
+        <string name="temperature">درجة الحرارة:</string>
+        <string name="humidity_level">مستوى الرطوبة:</string>
+        <string name="acceptance">القابلية:</string>
+        <string name="previous_crop">المحصول السابق:</string>
+        <string name="success_rate">نسبة النجاح:</string>
+        <string name="evaluate_planting">تقييم الزراعة</string>
+        <string name="close">إغلاق</string>
+
+        <!-- From details -->
+        <string name="daily_care">العناية اليومية</string>
+        <string name="planting_information">معلومات الزراعة</string>
+        <string name="problems_and_solutions">مشاكل وحلول</string>
+        <string name="valuable_information">معلومات قيمة</string>
+        <string name="ai_tools">أدوات الذكاء الاصطناعي</string>
+        <string name="ai_search">بحث بالذكاء الاصطناعي</string>
+        <string name="image_analysis">تحليل الصور</string>
+        <string name="consult_specialist">استشارة المختص</string>
+        <string name="write_question_hint">اكتب سؤالك هنا...</string>
+        <string name="send">إرسال</string>
+        <string name="upcoming_notifications">الإشعارات القادمة</string>
+        <string name="next_watering_time">موعد الري القادم: غداً الساعة 8 صباحاً</string>
+        <string name="confirm">تأكيد</string>
+        <string name="next_fertilization_time">موعد التسميد القادم: بعد 3 أيام</string>
+
+        <!-- From HomeFragment -->
+        <string name="welcome_message">مرحباً عدنان 👋</string>
+        <string name="search_hint">بحث</string>
+        <string name="welcome_text">مرحباً</string>
+        <string name="name_text">الاسم</string>
+        <string name="top_mentors">أفضل الموجهين</string>
+        <string name="see_all">عرض الكل</string>
+        <string name="crop_category">فئة المحاصيل</string>
+        <string name="all">الكل</string>
+        <string name="vegetable">خضار</string>
+        <string name="root">جذور</string>
+        <string name="bulb">بصلية</string>
+        <string name="business">أعمال</string>
+        <string name="three_d_design">تصميم ثلاثي الأبعاد</string>
+        <string name="art">فن</string>
+        <string name="programming">برمجة</string>
+
+        <!-- From input -->
+        <string name="enter_planting_data">أدخل بيانات الزراعة</string>
+        <string name="soil_type">نوع التربة</string>
+        <string name="select_soil_type">اختر نوع التربة</string>
+        <string name="no_idea_soil_type">لا أعرف نوع التربة</string>
+        <string name="irrigation_system_type">نوع نظام الري</string>
+        <string name="select_irrigation_system">اختر نظام الري</string>
+        <string name="water_availability">توفر المياه</string>
+        <string name="fertilizer_type">نوع السماد</string>
+        <string name="area_hint">أدخل المساحة بالمتر || الدونم = 1000 متر</string>
+        <string name="greenhouse_type">نوع الدفيئة</string>
+        <string name="ventilation_type">نوع التهوية</string>
+        <string name="artificial_lighting">هل يوجد إضاءة صناعية؟</string>
+        <string name="heating">هل يوجد تدفئة؟</string>
+        <string name="previous_crop_type">نوع المحصول السابق</string>
+        <string name="previous_crop_impact">المحصول السابق وتأثيره على المحصول الحالي:</string>
+        <string name="hydroponic_system">نظام الزراعة المائية</string>
+        <string name="nutrient_solution_type">نوع المحلول المغذي</string>
+        <string name="organic_fertilizer_type">نوع السماد العضوي</string>
+        <string name="chemical_fertilizer_type">نوع السماد الكيميائي</string>
+        <string name="organically_certified">هل المنتج معتمد عضوياً؟</string>
+        <string name="cooling_system">هل يوجد نظام تبريد؟</string>
+        <string name="co2_system">هل يوجد نظام CO2؟</string>
+        <string name="system_automation">أتمتة النظام</string>
+        <string name="humidity">الرطوبة: 60%</string>
+
+    الموقع: تاريخ الزراعة: الموسم: وصف الطقس درجة الحرارة: مستوى الرطوبة: القبول: المحصول السابق: نسبة النجاح: قيّم الزراعة إغلاق الرعاية اليومية معلومات الزراعة المشاكل والحلول معلومات قيمة أدوات الذكاء الاصطناعي بحث بالذكاء الاصطناعي تحليل صورة استفسر من المختص اكتب سؤالك هنا... إرسال الإشعارات القادمة موعد الري التالي: غداً 8 صباحاً تأكيد موعد التسميد التالي: بعد 3 أيام أهلًا عدنان 👋 البحث مرحبًا الاسم أفضل المرشدين عرض الكل فئة المحصول الكل خضروات جذور بصليات أعمال تصميم ثلاثي الأبعاد فن برمجة إدخال بيانات الزراعة نوع التربة اختر نوع التربة ليس لدي فكرة عن نوع التربة نوع نظام الري اختر نظام الري وفرة المياه نوع السماد ادخل المساحة بالمتر || الدونوم =1000 متر نوع البيت نوع التهوية هل توجد إضاءة صناعية؟
+</resources>

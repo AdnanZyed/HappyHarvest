@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -23,7 +22,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- عنوان -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,7 +31,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <!-- نوع التربة -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +54,6 @@
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
-            <!-- نظام الري -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +70,6 @@
 
                 />
 
-            <!-- وفرة المياه -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +84,6 @@
 
 
                 />
-            <!-- وفرة المياه -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,7 +125,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="نوع التهوية" />
-            <!-- نظام التهوية -->
             <Spinner
                 android:id="@+id/edit_ventilation"
                 android:layout_width="match_parent"
@@ -139,9 +132,7 @@
                 android:entries="@array/ventilation_types"
 
                 />
-            <!--             إضاءة صناعية -->
 
-            <!--             تدفئة -->
             <CheckBox
                 android:id="@+id/checkbox_lighting"
                 android:layout_width="wrap_content"
@@ -159,7 +150,6 @@
 
 
                 android:text="هل توجد تدفئة؟" />
-            <!-- قسم الزراعة المكشوفة -->
             <LinearLayout
                 android:id="@+id/open_field_section"
                 android:layout_width="match_parent"
@@ -202,7 +192,6 @@
 
             </LinearLayout>
 
-            <!-- قسم الزراعة بدون تربة -->
             <LinearLayout
                 android:id="@+id/hydroponic_section"
                 android:layout_width="match_parent"
@@ -269,7 +258,6 @@
                 android:text="هل المنتج معتمد عضويًا؟" />
 
 
-            <!-- قسم خاص بالبيوت المحمية (يظهر عند الحاجة فقط) -->
             <LinearLayout
                 android:id="@+id/greenhouse_section1"
                 android:layout_width="match_parent"
@@ -300,7 +288,6 @@
                     android:text="أتمتة الأنظمة" />
             </LinearLayout>
 
-            <!-- قسم بيانات الطقس -->
             <LinearLayout
                 android:id="@+id/weather_section"
                 android:layout_width="match_parent"
@@ -316,12 +303,6 @@
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/weather_icon" />
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/text_temp"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginEnd="16dp"-->
-                <!--                    android:text="25°C" />-->
 
                 <TextView
                     android:id="@+id/text_humidity"
@@ -330,7 +311,6 @@
                     android:text="رطوبة: 60%" />
             </LinearLayout>
 
-            <!-- زر التقييم -->
             <Button
                 android:id="@+id/btn_evaluate"
                 android:layout_width="match_parent"
