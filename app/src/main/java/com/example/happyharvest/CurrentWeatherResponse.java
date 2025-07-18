@@ -48,7 +48,6 @@ public class CurrentWeatherResponse {
         return timezoneOffset;
     }
 
-    // Nested Classes
     public static class Coordinates {
         @SerializedName("lat")
         private double latitude;

@@ -36,7 +36,7 @@ public class WeatherManager {
         this.LON=LON;
 
         if (weatherResponse != null) {
-            callback.onWeatherLoaded(weatherResponse); // بيانات موجودة مسبقاً
+            callback.onWeatherLoaded(weatherResponse);
             return;
         }
 
@@ -52,7 +52,7 @@ public class WeatherManager {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    weatherResponse = response.body(); // تخزين البيانات
+                    weatherResponse = response.body();
                     callback.onWeatherLoaded(weatherResponse);
                 } else {
                     callback.onFailure(new Throwable("Empty response"));

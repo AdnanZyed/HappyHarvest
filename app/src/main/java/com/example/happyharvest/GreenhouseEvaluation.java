@@ -28,7 +28,6 @@ public class GreenhouseEvaluation {
     private int successRate;
     private boolean isSuitable;
 
-    // Constructor
     public GreenhouseEvaluation(String farmerUserName, int cropId, String evaluationDate,
                                 String location, String greenhouseType, String soilType,
                                 String irrigationType, String ventilationType, boolean hasHeating,
@@ -54,7 +53,6 @@ public class GreenhouseEvaluation {
         this.isSuitable = isSuitable;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }

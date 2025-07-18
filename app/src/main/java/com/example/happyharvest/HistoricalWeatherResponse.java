@@ -50,7 +50,6 @@ public class HistoricalWeatherResponse {
         @SerializedName("wind_speed")
         private double windSpeed;
 
-        // Getters
         public long getTimestamp() {
             return timestamp;
         }

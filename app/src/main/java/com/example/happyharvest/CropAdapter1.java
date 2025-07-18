@@ -46,7 +46,6 @@ public class CropAdapter1 extends ArrayAdapter<Crops> {
         icon.setImageResource(crop.getIconRes());
         name.setText(crop.getName());
 
-        // تغيير لون الأيقونة حسب النوع
         int iconColor = getColorForType(crop.getType());
         icon.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
 

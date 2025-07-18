@@ -3,6 +3,7 @@
     android:layout_height="wrap_content"
     android:gravity="end"
     android:elevation="3dp"
+    android:background="@color/green"
 
     android:orientation="horizontal"
     android:padding="8dp">
@@ -17,5 +18,5 @@
         android:textSize="22sp"
         android:text="Message"
         android:layout_marginEnd="10dp"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/green" />
 </LinearLayout>

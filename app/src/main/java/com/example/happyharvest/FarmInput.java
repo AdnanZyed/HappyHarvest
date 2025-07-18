@@ -88,7 +88,7 @@ public class FarmInput extends AppCompatActivity {
     private String now_typpe;
     private static final String WEATHER_PREFS = "WeatherPrefs";
     private static final String GREENHOUSE_PREFS = "GreenhousePrefs";
-    private static final String API_KEY = "9e269c7c20355e9e8bba48b0ad2cd52c"; // استبدل بمفتاحك الفعلي
+    private static final String API_KEY = "9e269c7c20355e9e8bba48b0ad2cd52c";
     private ImageView searchIcon;
     private LocationCallback locationCallback;
     @SuppressLint({"CutPasteId", "MissingInflatedId"})
@@ -226,7 +226,6 @@ public class FarmInput extends AppCompatActivity {
                 searchIcon.setVisibility(View.GONE);
             }
         });
-        // إخفاء الأيقونة عند اختيار عنصر
         spinner_previous_crop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -288,13 +287,11 @@ public class FarmInput extends AppCompatActivity {
         setupSpinner(spinner_organic_fertilizer, R.array.Organic_fertilizer_array);
         setupSpinner(spinner_chemical_fertilizer, R.array.Chemical_fertilizer_array);
 
-// تحديد العنصر في السبينر إذا كانت القيمة موجودة
         if (userValue != null && !userValue.isEmpty()) {
             setSpinnerSelection(spinnerSoilType, userValue);
         }
 
 
-        // Fetch Data from ViewModel
         myViewModel.getAllCropsById(CropId).observe(this, crop -> {
             if (crop != null && !crop.isEmpty()) {
                 selectedCrop = new ArrayList<>(crop);
@@ -322,7 +319,6 @@ public class FarmInput extends AppCompatActivity {
     private List<Crops> prepareCropsList() {
         List<Crops> crops = new ArrayList<>();
 
-        // خضروات ورقية
         crops.add(new Crops("لا شيئ للموسم السابق", R.drawable.unnamed, 0));
         crops.add(new Crops("الخس", R.drawable.unnamed, 0));
         crops.add(new Crops("السبانخ", R.drawable.unnamed, 0));
@@ -333,7 +329,6 @@ public class FarmInput extends AppCompatActivity {
         crops.add(new Crops("البرسيم", R.drawable.unnamed, 0));
         crops.add(new Crops("الحلبة", R.drawable.unnamed, 0));
 
-        // حبوب وبقوليات
         crops.add(new Crops("الذرة", R.drawable.unnamed, 1));
         crops.add(new Crops("القمح", R.drawable.unnamed, 1));
         crops.add(new Crops("الشعير", R.drawable.unnamed, 1));
@@ -343,7 +338,6 @@ public class FarmInput extends AppCompatActivity {
         crops.add(new Crops("الحمص", R.drawable.unnamed, 1));
         crops.add(new Crops("الفاصوليا", R.drawable.unnamed, 1));
 
-        // جذور وأبصال
         crops.add(new Crops("الثوم", R.drawable.unnamed, 2));
         crops.add(new Crops("الكراث", R.drawable.unnamed, 2));
         crops.add(new Crops("البصل", R.drawable.unnamed, 2));
@@ -361,7 +355,7 @@ public class FarmInput extends AppCompatActivity {
         lon = location.getLongitude();
 
         fetchWeatherDataWithCheck(lat, lon);
-        fetchHistoricalWeather(lat, lon); // جلب البيانات التاريخية
+        fetchHistoricalWeather(lat, lon);
 
         currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         String season = getSeasonBasedOnDate(currentDate);
@@ -419,7 +413,6 @@ public class FarmInput extends AppCompatActivity {
             if (currentWeather != null && !currentWeather.getWeather().isEmpty()) {
             }
             String Previues = result1;
-            // إنشاء وعرض الدايلوج
             EvaluationResultDialog dialog = new EvaluationResultDialog(
                     FarmInput.this,
                     locationStr,
@@ -430,14 +423,13 @@ public class FarmInput extends AppCompatActivity {
                     acceptanceStr,
                     successStr,
                     resultText,
-                    accepted // showPlantNow button فقط إذا لم يكن مقبولاً
+                    accepted
                     , CropId
                     , farmerUserName
                     , Previues
             );
 
 
-            // إعداد مستمع لزر الزراعة
             dialog.setOnPlantNowListener(() -> {
 //                if (!accepted) {
 //                    btn_Plant_now.setVisibility(VISIBLE);
@@ -472,11 +464,8 @@ public class FarmInput extends AppCompatActivity {
                         record.setPriority_previous_crop(result1);
                         myViewModel.insertFarmerCrop(record);
 
-                        // حفظ السجل
                         //  saveRecordInDatabase(record);
-                        // انتظر 3 ثواني
                         Thread.sleep(4000);
-                        // بعد الانتظار، نفّذ على الـ UI Thread الفتح
                         runOnUiThread(() -> {
                             Intent intent = new Intent(FarmInput.this, CropDetailsActivity1.class);
                             intent.putExtra("USER", farmerUserName);
@@ -495,7 +484,6 @@ public class FarmInput extends AppCompatActivity {
         });
     }
 
-    //ما دخل في التقيم
     private void checkCompatibility() {
 
         myViewModel.getAllCropsById(CropId).observe(this, crops -> {
@@ -504,21 +492,16 @@ public class FarmInput extends AppCompatActivity {
                 return;
             }
 
-            // الحصول على القيم من قاعدة البيانات
             String preferred = crops.get(0).getPrevious_crop_preferred();
             String allowed = crops.get(0).getPrevious_crop_allowed();
             String forbidden = crops.get(0).getPrevious_crop_forbidden();
 
-            // الحصول على المحصول المحدد من السبينر
             String previousCrop = spinner_previous_crop.getSelectedItem().toString();
 
-            // التحقق من التوافق
             String result = determineCompatibility(previousCrop, preferred, allowed, forbidden);
 
-            // عرض النتيجة
             tvResult.setText("النتيجة: " + result);
 
-            // تغيير لون النتيجة حسب الحالة
             switch (result) {
                 case "مرفوض":
                     tvResult.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
@@ -536,7 +519,6 @@ public class FarmInput extends AppCompatActivity {
         });
     }
 
-    // دالة مساعدة لتحديد حالة التوافق
     private String determineCompatibility(String previousCrop, String preferred, String allowed, String forbidden) {
         if (preferred != null && preferred.contains(previousCrop)) {
             return "مفضل";
@@ -564,7 +546,6 @@ public class FarmInput extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Remove location updates when activity is destroyed
         if (fusedLocationClient != null && locationCallback != null) {
             fusedLocationClient.removeLocationUpdates(locationCallback);
         }
@@ -577,7 +558,6 @@ public class FarmInput extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    //ظهور ديالوق الموقع
     public void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -674,7 +654,6 @@ public class FarmInput extends AppCompatActivity {
 
     //استخدمها
     private void fetchHistoricalWeather(double lat, double lon) {
-        // الحصول على تاريخ الشهر الماضي
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
         long timestamp = calendar.getTimeInMillis() / 1000;
@@ -711,11 +690,10 @@ public class FarmInput extends AppCompatActivity {
         });
     }
 
-    //متوسط الحرارة والرطوبة من المعلومات التاريخية
+
     private void processHistoricalWeatherForCurrentSeason(HistoricalWeatherResponse historicalWeather) {
         if (historicalWeather == null || historicalWeather.getData() == null) return;
 
-        // نحصل على فصل السنة الحالي من التاريخ اليومي
         String currentDateStr = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
         String currentSeason = getSeasonBasedOnDate(currentDateStr);
 
@@ -761,11 +739,9 @@ public class FarmInput extends AppCompatActivity {
         float avgHistoricalTemp = prefs.getFloat("avg_historical_temp", currentTemp);
         float avgHistoricalHumidity = prefs.getFloat("avg_historical_humidity", currentHumidity);
 
-        // حساب التعديل بناءً على الانحراف عن المعدل التاريخي
         double tempAdjustment = 1 - (Math.abs(currentTemp - avgHistoricalTemp) / 20);
         double humidityAdjustment = 1 - (Math.abs(currentHumidity - avgHistoricalHumidity) / 50);
 
-        // تطبيق التعديل على النتيجة
         return currentScore * (0.8 + 0.2 * (tempAdjustment + humidityAdjustment) / 2);
     }
 
@@ -820,18 +796,14 @@ public class FarmInput extends AppCompatActivity {
     }
 
 
-    // 4. معالجة الاستجابة الناجحة
     private void handleSuccessfulWeatherResponse(WeatherResponse weather) {
-        // تخزين البيانات الحالية
         currentWeather = weather;
 
-        // تخزين البيانات مؤقتاً
         cacheWeatherData(weather);
 
-        // تحديث واجهة المستخدم
         updateWeatherUI(weather);
 
-        // استخدام البيانات في تقييم المزرعة
+
 //        if (currentLocation != null && selectedCrop != null) {
 //            evaluateFarmWithWeather(
 //                    currentLocation.getLatitude(),
@@ -843,27 +815,22 @@ public class FarmInput extends AppCompatActivity {
     }
 
     private void fetchWeatherData(double lat, double lon) {
-        // إعداد عميل HTTP مع مهلات اتصال
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build();
 
-        // تكوين Retrofit للاتصال بالخادم
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // إنشاء خدمة API
         WeatherApi service = retrofit.create(WeatherApi.class);
 
-        // إعداد طلب API
         Call<WeatherResponse> call = service.getCurrentWeather(
                 lat, lon, API_KEY, "metric", "ar");
 
-        // تنفيذ الطلب بشكل غير متزامن
         call.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
@@ -889,7 +856,6 @@ public class FarmInput extends AppCompatActivity {
         });
     }
 
-    // 5. معالجة أخطاء API
     private void handleWeatherApiError(Response<WeatherResponse> response) {
         try {
             String error = response.errorBody() != null ?
@@ -915,7 +881,6 @@ public class FarmInput extends AppCompatActivity {
         }
     }
 
-    // 6. استخدام البيانات المخزنة عند فشل الاتصال
     private void tryFallbackToCachedData() {
         WeatherResponse cached = getCachedWeatherData();
         if (cached != null) {
@@ -924,26 +889,21 @@ public class FarmInput extends AppCompatActivity {
         }
     }
 
-    // 7. التحقق من صحة بيانات الطقس
 
 
-    // 10. تحديث واجهة المستخدم
     private void updateWeatherUI(WeatherResponse weather) {
         runOnUiThread(() -> {
             try {
-                // 1. تهيئة عناصر الواجهة مع التحقق من null
                 TextView tempView = findViewById(R.id.text_temp);
                 TextView humidityView = findViewById(R.id.text_moisture);
                 TextView descView = findViewById(R.id.text_weather_desc);
                 ImageView iconView = findViewById(R.id.weather_icon_i);
 
-                // 2. التحقق من وجود بيانات الطقس
                 if (weather == null || weather.getMain() == null || weather.getWeather() == null || weather.getWeather().isEmpty()) {
                     Log.w(TAG, "بيانات الطقس غير متوفرة أو ناقصة");
                     return;
                 }
 
-                // 3. عرض البيانات مع التحقق من القيم
                 if (tempView != null) {
                     tempView.setText(String.format(Locale.getDefault(), "%.1f°C", weather.getMain().getTemp()));
                 }
@@ -956,7 +916,6 @@ public class FarmInput extends AppCompatActivity {
                     descView.setText(weather.getWeather().get(0).getDescription());
                 }
 
-                // 4. عرض الأيقونة مع التحقق من وجودها
                 if (iconView != null && !weather.getWeather().isEmpty()) {
                     String iconCode = weather.getWeather().get(0).getIcon();
                     if (iconCode != null) {
@@ -1053,7 +1012,7 @@ public class FarmInput extends AppCompatActivity {
         lon = location.getLongitude();
 
         fetchWeatherDataWithCheck(lat, lon);
-        fetchHistoricalWeather(lat, lon); // جلب البيانات التاريخية
+        fetchHistoricalWeather(lat, lon);
 
         currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
@@ -1067,7 +1026,6 @@ public class FarmInput extends AppCompatActivity {
             return;
         }
 
-        // Collect all data
         String soilType = spinnerSoilType.getSelectedItem().toString();
         String irrigation = spinnerIrrigationType.getSelectedItem().toString();
         String Availability = spinnerWaterAvailability.getSelectedItem().toString();
@@ -1093,7 +1051,6 @@ public class FarmInput extends AppCompatActivity {
         boolean hasAutomation = switchAutomation.isChecked();
         double scoreMoisture = getPoint(categorizeHumidity(avgMoist), selectedCrop.get(0).getPreferredHumidity(), selectedCrop.get(0).getAllowedHumidity(), selectedCrop.get(0).getForbiddenHumidity());
 
-        // Calculate scores
         double scoreStructure = evaluateStructure(greenhouseType);
         double availability = evaluateAvailability(Availability, selectedCrop.get(0));
         double scoreVentilation = evaluateVentilation(ventilation);
@@ -1106,7 +1063,6 @@ public class FarmInput extends AppCompatActivity {
         double scoreAutomation = hasAutomation ? 1.0 : 0.7;
 
 
-        // Calculate weighted total score
         double totalScore = (scoreStructure * 0.15 +
                 scoreVentilation * 0.15 +
                 availability * 0.15 +
@@ -1141,7 +1097,6 @@ public class FarmInput extends AppCompatActivity {
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-        // إنشاء كائن التقييم بدون الحاجة لـ GreenhouseEvaluation
         Farmer_Crops values = new Farmer_Crops();
         values.setFarmer_user_name(farmerUserName);
         values.setCrop_ID(selectedCrop.get(0).getCrop_ID());

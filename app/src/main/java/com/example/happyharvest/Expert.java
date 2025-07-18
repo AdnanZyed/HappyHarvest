@@ -12,7 +12,7 @@ public class Expert {
     private String Education;
     private String Expert_PASSWORD;
     private byte[] Image_expert;
-    private String location; // ممكن نخزنها كنص أو نحط Latitude و Longitude منفصلين
+    private String location;
     private String soilType;
     private String irrigationType;
     private double area;

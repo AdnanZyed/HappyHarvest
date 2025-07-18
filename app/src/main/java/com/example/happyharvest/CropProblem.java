@@ -18,8 +18,8 @@ public class CropProblem {
     private String symptoms;
     private String solution;
     private String preventionMethods;
-    private String severity; // low, medium, high
-    private String imageUrl; // رابط صورة توضيحية للمشكلة
+    private String severity;
+    private String imageUrl;
 
     // Constructor
     public CropProblem(int problemId, int cropId, String problemName,

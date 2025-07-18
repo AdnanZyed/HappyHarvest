@@ -73,7 +73,6 @@ public class Main_Activity_part extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
 
-                // شرح أهمية الإذن للمستخدم قبل طلبه
                 new AlertDialog.Builder(this)
                         .setTitle("إذن الإشعارات")
                         .setMessage("نحتاج إلى إذنك لإرسال تنبيهات التسميد والري المهمة لمحاصيلك")

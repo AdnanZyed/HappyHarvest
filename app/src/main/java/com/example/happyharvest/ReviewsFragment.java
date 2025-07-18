@@ -2,6 +2,7 @@ package com.example.happyharvest;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -131,9 +132,18 @@ public class ReviewsFragment extends Fragment {
 
         imageSend.setOnClickListener(v -> {
             if (!edit_Comment.getText().toString().trim().isEmpty()) {
-                LocalDateTime now = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                String formattedDate = now.format(formatter);
+                LocalDateTime now = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    now = LocalDateTime.now();
+                }
+                DateTimeFormatter formatter = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                }
+                String formattedDate = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    formattedDate = now.format(formatter);
+                }
 
 
                 Crop_Reviews review = new Crop_Reviews(0, bytes, farmer_name, user,

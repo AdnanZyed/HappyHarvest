@@ -44,7 +44,7 @@ public class ActivityMainSignIn extends AppCompatActivity {
 //            Toast.makeText(this, crops.toString(), Toast.LENGTH_SHORT).show();
 //        });
 
-     // myViewModel.syncWithFirebase(); // يُفضل ربطه بزر تحديث
+     // myViewModel.syncWithFirebase();
 
 
 

@@ -34,7 +34,7 @@ public class Farmer_Crops {
     private boolean Paid_subscription; //هل هو مشترك بالنسخة المدفوعة
     private String season;//____________________________للبيت البلاستيكي
     private double Latitude;///////////لما جيب الاي بي اي وافعل الاشعارات بصير اجيب الامطار الرياح الرطوبة الحرارة...وبعدل ع هيك في البيت والبور
-    private double Longitude;///////////لما جيب الاي بي اي وافعل الاشعارات بصير اجيب الامطار الرياح الرطوبة الحرارة...وبعدل ع هيك في البيت والبور
+    private double Longitude;
 
 
     private float averageTemperature;

@@ -13,7 +13,6 @@ public class DailyWeather {
         this.humidity = humidity;
     }
 
-    // Getters
     public Date getDate() { return date; }
     public float getTemperature() { return temperature; }
     public float getHumidity() { return humidity; }

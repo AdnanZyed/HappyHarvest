@@ -28,7 +28,6 @@ public class TabPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                // AboutFragment
                 AboutFragment aboutFragment = new AboutFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("TEACHER_USER_NAME1", expertUserName);

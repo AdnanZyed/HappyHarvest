@@ -38,20 +38,16 @@ public class NotificationReceiver extends BroadcastReceiver {
             return;
         }
 
-        // 2. استخراج البيانات من الـ Intent
         String cropName = intent.getStringExtra("cropName");
         String fertilizerName = intent.getStringExtra("fertilizerName");
         String type = intent.getStringExtra("type");
         double amount = intent.getDoubleExtra("amount", 0);
         int notificationId = intent.getIntExtra("notificationId", 0) + NOTIFICATION_ID_BASE;
 
-        // 3. إنشاء الـ PendingIntent
         PendingIntent pendingIntent = createPendingIntent(context);
 
-        // 4. بناء الإشعار
         Notification notification = buildNotification(context, cropName, fertilizerName, type, amount, pendingIntent);
 
-        // 5. إرسال الإشعار بعد التحقق من الأذونات
         sendNotification(context, notificationId, notification);
     }
 //ينشئ Intent يفتح CropDetailsActivity1 لما المستخدم يضغط على الإشعار.

@@ -41,14 +41,12 @@ public class CropFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_crop, container, false);
         myViewModel = new ViewModelProvider(requireActivity()).get(My_View_Model.class);
 
-        // تهيئة Adapter أولاً
         user = getArguments() != null ? getArguments().getString("USER_NAME_R") : "default_user";
         cropAdapter = new CropAdapter(requireContext(), new ArrayList<>(), user);
          recyclerView = view.findViewById(R.id.rv_Crops);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
 
-        // ثم تحميل البيانات
         loadCrops();
 
 

@@ -86,22 +86,16 @@ public class GreenhouseInput extends AppCompatActivity {
         setContentView(R.layout.activity_farm_input);
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
 
-        // Initialize Views
         initViews();
 
-        // Get User Data from Intent
         getIntentData();
 
-        // Setup Spinners
         setupSpinners();
 
-        // Setup Location Services
         setupLocationServices();
 
-        // Setup Listeners
         setupListeners();
 
-        // Load Saved Preferences
         loadSavedPreferences();
     }
 
@@ -340,7 +334,6 @@ public class GreenhouseInput extends AppCompatActivity {
             return;
         }
 
-        // Collect all data
         String greenhouseType = spinnerGreenhouseType.getSelectedItem().toString();
         String ventilation = spinnerVentilation.getSelectedItem().toString();
         String soilType = spinnerSoilType.getSelectedItem().toString();
@@ -351,7 +344,6 @@ public class GreenhouseInput extends AppCompatActivity {
         boolean hasCO2 = checkboxCO2.isChecked();
         boolean hasAutomation = switchAutomation.isChecked();
 
-        // Calculate scores
         double scoreStructure = evaluateStructure(greenhouseType);
         double scoreVentilation = evaluateVentilation(ventilation);
         double scoreSoil = evaluateSoil(soilType, selectedCrop.get(0));
@@ -361,7 +353,6 @@ public class GreenhouseInput extends AppCompatActivity {
         double scoreCO2 = hasCO2 ? 1.0 : 0.5;
         double scoreAutomation = hasAutomation ? 1.0 : 0.7;
 
-        // Calculate weighted total score
         double totalScore = (scoreStructure * 0.15 +
                 scoreVentilation * 0.15 +
                 scoreSoil * 0.15 +
@@ -374,10 +365,8 @@ public class GreenhouseInput extends AppCompatActivity {
         int successRate = (int)(totalScore * 100);
         boolean isSuitable = successRate >= 70;
 
-        // Show result
         showEvaluationResult(successRate, isSuitable);
 
-        // Save evaluation
         saveEvaluationResult(successRate, isSuitable);
     }
 
@@ -480,7 +469,6 @@ public class GreenhouseInput extends AppCompatActivity {
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-        // إنشاء كائن التقييم بدون الحاجة لـ GreenhouseEvaluation
         ContentValues values = new ContentValues();
         values.put("farmerUserName", farmerUserName);
         values.put("cropId", selectedCrop.get(0).getCrop_ID());
@@ -500,7 +488,6 @@ public class GreenhouseInput extends AppCompatActivity {
         values.put("successRate", successRate);
         values.put("isSuitable", isSuitable);
 
-        // الحفظ باستخدام SQLite مباشرة (بدون Room)
         new Thread(() -> {
             try {
                 SQLiteDatabase db = openOrCreateDatabase("HappyHarvestDB", MODE_PRIVATE, null);

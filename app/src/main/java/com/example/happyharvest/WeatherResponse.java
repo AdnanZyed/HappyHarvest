@@ -14,7 +14,7 @@ public class WeatherResponse {
     public List<ForecastItem> getForecastList() {
         return forecastList;
     }
-    private Wind wind; // ← أضفنا هذا
+    private Wind wind;
 
     public String name;
     public Wind getWind() { // ← Getter الجديد
@@ -63,7 +63,7 @@ public class WeatherResponse {
 
     public static class Weather {
         private String main;
-        private String description; // ← أضفنا هذا
+        private String description;
         private String icon;
 
         public String getMain() {
@@ -71,17 +71,16 @@ public class WeatherResponse {
         }
 
         public String getDescription() {
-            return description; // ← Getter الجديد
+            return description;
         }
 
         public String getIcon() {
             return icon;
         }
     }
-    // ← أضفنا هذا الكلاس الجديد لبيانات الرياح
     public static class Wind {
-        private float speed; // السرعة بالمتر/ثانية
-        private float deg;   // الاتجاه بالدرجات (0-360)
+        private float speed;
+        private float deg;
 
         public float getSpeed() {
             return speed;

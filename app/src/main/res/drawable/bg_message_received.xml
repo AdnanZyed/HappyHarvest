@@ -1,9 +1,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#C5C5C5"/> <!-- لون الخلفية الأبيض -->
-    <corners android:radius="16dp"/> <!-- زوايا مستديرة -->
-    <stroke
-        android:width="1dp"
-        android:color="#DDDDDD"/> <!-- حدود رمادية خفيفة -->
+    <solid android:color="#4EC5C5C5"/>
+    <corners android:bottomLeftRadius="20dp" android:bottomRightRadius="20dp" android:topRightRadius="20dp"/>
+
     <padding
         android:left="8dp"
         android:top="8dp"

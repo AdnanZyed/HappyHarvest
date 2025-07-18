@@ -38,7 +38,6 @@ public class CropDetailsActivity extends AppCompatActivity {
     private String cropUserName;
     private String cropName1;
     private My_View_Model myViewModel;
-//    int cropPrice;
 
 
     @Override

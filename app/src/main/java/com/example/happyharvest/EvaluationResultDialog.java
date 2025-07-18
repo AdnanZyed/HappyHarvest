@@ -49,7 +49,6 @@ public class EvaluationResultDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_result);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        // تهيئة عناصر الواجهة
         TextView textLocation = findViewById(R.id.text_location);
         TextView textDate = findViewById(R.id.text_date);
         TextView textSeason = findViewById(R.id.text_season);
@@ -64,7 +63,6 @@ public class EvaluationResultDialog extends Dialog {
         btnPlantNow = findViewById(R.id.btn_Plant_now);
         btnClose = findViewById(R.id.btn_close);
         getWindow().setWindowAnimations(R.style.DialogAnimation);
-        // تعيين القيم للنصوص
         textLocation.setText("الموقع: " + location);
         textDate.setText("تاريخ الزراعة: " + date);
         textSeason.setText("الموسم: " + season);
@@ -77,7 +75,6 @@ public class EvaluationResultDialog extends Dialog {
         textViewResult.setText(resultText);
 
 
-        // التحكم في ظهور زر الزراعة
         if (showPlantButton) {
             btnPlantNow.setVisibility(View.VISIBLE);
 
@@ -90,11 +87,9 @@ public class EvaluationResultDialog extends Dialog {
 
         }
 
-        // إعداد مستمعين للأزرار
         btnClose.setOnClickListener(v -> dismiss());
 
         btnPlantNow.setOnClickListener(v -> {
-            // تنفيذ الإجراء عند الضغط على زر "قيّم الزراعة"
             if (onPlantNowListener != null) {
                 onPlantNowListener.onPlantNow();
             }
@@ -109,14 +104,12 @@ public class EvaluationResultDialog extends Dialog {
 //        textAcceptance.setTextColor(color);
 //    }
 
-    // عرض/إخفاء شريط التقدم
     public void showProgressBar(boolean show) {
         if (progressBar != null) {
             progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
         }
     }
 
-    // واجهة للاستماع لضغطة زر الزراعة
     private OnPlantNowListener onPlantNowListener;
 
     public interface OnPlantNowListener {

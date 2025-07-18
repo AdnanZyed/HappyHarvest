@@ -61,7 +61,7 @@ public class FarmingMethodBottomSheet extends BottomSheetDialogFragment {
             }
 
             startActivity(intent);
-            dismiss(); // إغلاق البوتوم شيت بعد الانتقال
+            dismiss();
         }
     }
 }

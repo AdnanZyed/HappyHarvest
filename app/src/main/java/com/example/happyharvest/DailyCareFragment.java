@@ -95,8 +95,8 @@ public class DailyCareFragment extends Fragment {
     private String farmerUsername;
     private AlarmManager alarmManager;
     private CheckBox fertCheckbox;
-    private TextView textCountdown; // إضافة TextView للعداد التنازلي
-    private CountDownTimer countDownTimer; // لإدارة العداد التنازلي
+    private TextView textCountdown;
+    private CountDownTimer countDownTimer;
 
     public static DailyCareFragment newInstance(int cropId, String farmerUsername) {
         DailyCareFragment fragment = new DailyCareFragment();
@@ -139,12 +139,12 @@ public class DailyCareFragment extends Fragment {
         textFertilizerInfo = view.findViewById(R.id.text_fertilizer_info);
         //Button btnSchedule = view.findViewById(R.id.btn_schedule);
         fertCheckbox = view.findViewById(R.id.checkbox_fert_done_f);
-        textCountdown = view.findViewById(R.id.text_counter_f); // يجب إضافته في الـ layout
-        line1 = view.findViewById(R.id.line1); // يجب إضافته في الـ layout
-        line2 = view.findViewById(R.id.line2); // يجب إضافته في الـ layout
-        line3 = view.findViewById(R.id.line3); // يجب إضافته في الـ layout
+        textCountdown = view.findViewById(R.id.text_counter_f);
+        line1 = view.findViewById(R.id.line1);
+        line2 = view.findViewById(R.id.line2);
+        line3 = view.findViewById(R.id.line3);
         ProgressBar progressBar = view.findViewById(R.id.circularProgressBar);
-        progressBar.setProgress(70); // مثلًا 70 من 100
+        progressBar.setProgress(50);
         icon1 = view.findViewById(R.id.icon1);
         icon2 = view.findViewById(R.id.icon2);
         icon3 = view.findViewById(R.id.icon3);
@@ -156,7 +156,6 @@ public class DailyCareFragment extends Fragment {
         card_pruning = view.findViewById(R.id.card_pruning);
 
 
-// الحالة الأولى - فقط Soil مفعلة
         icon1.setEnabled(true);
         icon1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
 
@@ -199,14 +198,13 @@ public class DailyCareFragment extends Fragment {
                 new PeriodicWorkRequest.Builder(
                         FertilizerWorker.class,
                         5, TimeUnit.HOURS,
-                        // إضافة فترة مرنة
                         1, TimeUnit.HOURS
                 ).build();
 
 
 
 
-// يجب استخدام WorkManager.getInstance(context) بدلاً من getInstance()
+
         WorkManager.getInstance(requireContext()).enqueue(fertilizerWork);
         return view;
     }
@@ -240,7 +238,6 @@ public class DailyCareFragment extends Fragment {
         }
 
 
-        // ثمّ تحديث الـ Room عبر DAO
         new Thread(() -> {
             myViewModel.updateCropFarmer(farmerCropM);
         }).start();
@@ -260,7 +257,6 @@ public class DailyCareFragment extends Fragment {
                     if (farmerCrops != null && !farmerCrops.isEmpty()) {
                         farmerCropM = (Farmer_Crops) farmerCrops.get(0);
 
-                        // الآن نبدأ تنفيذ العمليات بعد التأكد من جاهزية البيانات
                         requireActivity().runOnUiThread(() -> {
                             if (farmerCropM.isSoil()) {
                                 setStepDone(icon1);
@@ -373,7 +369,7 @@ public class DailyCareFragment extends Fragment {
 
     private int getAdjustedWateringDays(Crop crop, Farmer_Crops farmerCrop) {
         int baseDays = crop.getWateringFrequencyDays();
-        if (baseDays <= 0) return 1; // قيمة افتراضية إذا كانت غير صالحة
+        if (baseDays <= 0) return 1;
 
         float adjustment = 1.0f;
 

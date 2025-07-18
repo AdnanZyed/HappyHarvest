@@ -43,31 +43,31 @@ public class MainActivity_sign extends AppCompatActivity {
         dbRef = database.getReference("crops"); // لازم تعملها قبل push()
 
         Crop onion = new Crop();
-        onion.setCrop_NAME("Onion");
-        onion.setCategorie("Seasonal crops - Root crops - High-demand crops");
-        onion.setDescription("البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.");
-        onion.setExpert_USER_Name("jane_smith");
-        onion.setPreferredSoil("sandy");
-        onion.setAllowedSoil("muddy");
-        onion.setAllowedSoil("rocky");
-        onion.setPreferredIrrigation("drip");
-        onion.setAllowedIrrigation("sprinkler");
-        onion.setForbiddenIrrigation("immersion");
-        onion.setMinArea(0.3);
-        onion.setSeason("spring");
-        onion.setPreferredHumidity("High");
-        onion.setAllowedHumidity("Low");
-        onion.setForbiddenHumidity("Moderate");
-        onion.setPreferredTemp("Cool");
-        onion.setAllowedTemp("Mild");
-        onion.setForbiddenTemp("Hot");
-        onion.setWateringFrequencyDays(3);
-        onion.setFertilizingFrequencyDays(14);
+        onion.setCrop_NAME("Onion");//الاسم
+        onion.setCategorie("Seasonal crops - Root crops - High-demand crops");//التصنيفات
+        onion.setDescription("البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.");//الوصف
+        onion.setExpert_USER_Name("jane_smith");//اسم الخبير
+        onion.setPreferredSoil("sandy");//التربة المفضلة للمحصول
+        onion.setAllowedSoil("muddy");//التربة المسموحة للمحصول
+        onion.setAllowedSoil("rocky");//التربة المرفوضة للمحصول
+        onion.setPreferredIrrigation("drip");//طريقة الري المفضلة للمحصول
+        onion.setAllowedIrrigation("sprinkler");//طريقة الري المسموحة للمحصول
+        onion.setForbiddenIrrigation("immersion");//طريقة الري المرفوضة للمحصول
+        onion.setMinArea(0.3);//اقل مساحة مسموحة للزراعة
+        onion.setSeason("spring");//الفصل المفضل لزراعة المحصول
+        onion.setPreferredHumidity("High");//الرطوبة المفضلة للمحصول
+        onion.setAllowedHumidity("Low");//الرطوبة المسموحة للمحصول
+        onion.setForbiddenHumidity("Moderate");//الرطوبة المرفوضة للمحصول
+        onion.setPreferredTemp("Cool");//درجة الحرارة المفضلة للمحصول
+        onion.setAllowedTemp("Mild");//درجة الحرارة المسموحة للمحصول
+        onion.setForbiddenTemp("Hot");//درجة الحرارة المرفوضة للمحصول
+        onion.setWateringFrequencyDays(3);//عدد ايام دورة الري
+        onion.setFertilizingFrequencyDays(14);//عدد ايام دورة التسميد
         onion.setWateringInstructions("\uD83D\uDEB0 برنامج الري:\n" +
                 "\n" +
                 "مرحلة النمو: ري كل 3 أيام (تجنب تبليل الأوراق)\n" +
                 "\n" +
-                "مرحلة الإثمار: ري يومي في الصيف (صباحاً)");
+                "مرحلة الإثمار: ري يومي في الصيف (صباحاً)");//برنامج الري
 
         onion.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد:\n" +
                 "\n" +
@@ -78,7 +78,7 @@ public class MainActivity_sign extends AppCompatActivity {
                 "أثناء الإزهار: رش بورون + كالسيوم\n" +
                 "\n" +
                 "⚠\uFE0F تحذير: الإفراط في النيتروجين يقلل الإثمار!\n" +
-                "\n");
+                "\n");//برنامج التسميد
         onion.setPlantingMethod("\uD83C\uDF31 دليل شامل لزراعة الطماطم: من البذور إلى الحصاد\n" +
                 "\uD83D\uDCCC 1. اختيار الصنف المناسب\n" +
                 "\uD83D\uDD39 أصناف محلية: مثل \"هجين ف1 448\" (مقاوم للأمراض)\n" +
@@ -111,7 +111,7 @@ public class MainActivity_sign extends AppCompatActivity {
                 "50-60 سم بين النباتات\n" +
                 "\n" +
                 "90-100 سم بين الخطوط\n" +
-                "\n");
+                "\n");//دليل شامل للزراعة
         onion.setCropProblems("\n" +
                 "\uD83C\uDF45 مشاكل زراعة الطماطم وحلولها\n" +
                 "1\uFE0F⃣ مشكلة: تعفن الطرف الزهري (Blossom End Rot)\n" +
@@ -136,18 +136,18 @@ public class MainActivity_sign extends AppCompatActivity {
                 "\n" +
                 "\uD83D\uDC69\u200D\uD83C\uDF3E المتابعة اليومية: لاكتشاف المشاكل مبكراً\n" +
                 "\n" +
-                "\uD83D\uDCA1 إحصائية مهمة: 80% من مشاكل المحاصيل تنتج عن سوء إدارة الري والتسميد!");
+                "\uD83D\uDCA1 إحصائية مهمة: 80% من مشاكل المحاصيل تنتج عن سوء إدارة الري والتسميد!");//المشاكل التي قد تواجه المحصول
 
         onion.setPruning_and_guidance("\uD83D\uDD04  التقليم والتوجيه\n" +
                 "✂\uFE0F تقليم السرطانات: إزالة الفروع الجانبية تحت أول عنقود زهري\n" +
                 "\uD83C\uDF3F التدعيم: استخدام أوتاد خشبية أو شباك تعليق\n" +
                 "\n" +
                 "طريقة التدلي: لف الساق حول الخيط كل أسبوع\n" +
-                "\n");
+                "\n");//التقليم والتوجيه
 
-        onion.setPreferredAbundance("Available");
-        onion.setAllowedAbundance("Limited");
-        onion.setForbiddenAbundance("Unavailable");
+        onion.setPreferredAbundance("Available");//وفرة المياه المفضلة
+        onion.setAllowedAbundance("Limited");//وفرة المياه المسموحة
+        onion.setForbiddenAbundance("Unavailable");//وفرة المياه المرفوضة
         onion.setLearnMore("\uD83D\uDC1B 5. المكافحة المتكاملة للآفات\n" +
                 "الآفة\tالعلاج\tالوقاية\n" +
                 "الذبابة البيضاء\tرش زيت النيم (2 مل/لتر)\tمصائد صفراء لاصقة\n" +
@@ -198,22 +198,22 @@ public class MainActivity_sign extends AppCompatActivity {
                 "حقيقة ممتعة: \uD83E\uDDEA الطماطم تنتج هرمون \"الإيثيلين\" الذي يساعد في نضج الفواكه الأخرى!\n" +
                 "\n" +
                 "باستخدام هذا الدليل، يمكنك الحصول على إنتاج وفير بجودة عالية \uD83C\uDF1F\uD83C\uDF45."
-        );
-        onion.setOptimalHumidity(50);
-        onion.setOptimalTemperature(20);
-        onion.setLightRequirements(3);
-        onion.setNumber_Plant_per_dunum(1500);
+        );//المكافحة المتكاملة للآفات لهذا المحصول
+        onion.setOptimalHumidity(50);//درجة الرطوبة المفضلة
+        onion.setOptimalTemperature(20);//درجة الحرارة المفضلة
+        onion.setLightRequirements(3);//متطلبات الاضاءة  للحمام الشمسي
+        onion.setNumber_Plant_per_dunum(1500);//عدد الشتلات لكل دونوم
         onion.setOrganicFertilizer("ارض مكشوفة_بيت بلاستيكي_زراعة مائية_زراعة عضوية");
 
-        onion.setChemicalPerPlant(12.0);
-        onion.setChemicalFertilizer("Chemical");
-        onion.setOrganicPerPlant(150.0);
+        onion.setChemicalPerPlant(12.0);//كمية السماد الكيميائي لكل شتلة بالغرام
+        onion.setChemicalFertilizer("Chemical");//نوع السماد الكيميائي
+        onion.setOrganicPerPlant(150.0);//كمية السماد العضوي بالغرام
 
-        onion.setPrevious_crop_preferred("الخس، السبانخ، الجرجير، البقدونس، الكزبرة، النعناع، البرسيم، الحلبة، الشوفان (كغطاء أخضر)، الذرة الرفيعة، الدخن، عباد الشمس");
-        onion.setPrevious_crop_allowed("الذرة، القمح، الشعير، الشوفان، العدس، الفول، الحمص، الفاصوليا، البازلاء، البطيخ، الشمام، الخيار، الكوسا، الباذنجان، الفلفل، الطماطم");
+        onion.setPrevious_crop_preferred("الخس، السبانخ، الجرجير، البقدونس، الكزبرة، النعناع، البرسيم، الحلبة، الشوفان (كغطاء أخضر)، الذرة الرفيعة، الدخن، عباد الشمس");//محاصيل سابقة من المفضل زراعة المحصول الحالي بعدها او بعد موسمها
+        onion.setPrevious_crop_allowed("الذرة، القمح، الشعير، الشوفان، العدس، الفول، الحمص، الفاصوليا، البازلاء، البطيخ، الشمام، الخيار، الكوسا، الباذنجان، الفلفل، الطماطم");//محاصيل سابقة من المسموح زراعة المحصول الحالي بعدها او بعد موسمها
 
-        onion.setPrevious_crop_forbidden( "الثوم، الكراث، البصل، البطاطا، البطاطس، الفجل، اللفت، الجزر، الشمندر، الكرنب، القرنبيط، البروكلي");
-        onion.setSoil_preparation_Favorite( "حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.\n" +
+        onion.setPrevious_crop_forbidden("الثوم، الكراث، البصل، البطاطا، البطاطس، الفجل، اللفت، الجزر، الشمندر، الكرنب، القرنبيط، البروكلي");//محاصيل سابقة مرفوض زراعة المحصول الحالي بعدها او بعد موسمها
+        onion.setSoil_preparation_Favorite("حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.\n" +
                 "\n" +
                 "تنظيف الأرض من الحشائش والجذور اللي ممكن تعيق نمو الشتلات.\n" +
                 "\n" +
@@ -227,30 +227,31 @@ public class MainActivity_sign extends AppCompatActivity {
                 "\n" +
                 "أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.\n" +
                 "\n" +
-                "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
-        onion.setPreparing_irrigation_tools_F("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
-        onion.setPreparing_irrigation_tools_P("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
-        onion.setPreparing_irrigation_tools_A("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");
+                "إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");//طريقة تحضير التربة اذا كانت مفضلة
+        onion.setPreparing_irrigation_tools_F("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");//تحضير ادوات الري والزراعة لهذا المحصول اذا كانت التربة مفضلة وبناءا على ما اذا كانت شتلات او بذور
+        onion.setPreparing_irrigation_tools_P("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");// وبناءا على ما اذا كانت شتلات او بذور تحضير ادوات الري والزراعة لهذا المحصول اذا كانت التربة مسموحة
+        onion.setPreparing_irrigation_tools_A("إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها.");//تحضير ادوات الري والزراعة لهذا المحصول اذا كانت التربة مرفوضة  وبناءا على ما اذا كانت شتلات او بذور
 
-        onion.setSoil_preparation_allowed( "بذور محسنة ومعتمدة.\n" +
+        onion.setSoil_preparation_allowed("بذور محسنة ومعتمدة.\n" +
                 "\n" +
                 "مقاومة للأمراض الشائعة.\n" +
                 "\n" +
                 "نسبة إنبات عالية.\n" +
                 "\n" +
-                "شراءها من مصدر موثوق.");
-        onion.setWeight_seeds_per_dunum(3);
+                "شراءها من مصدر موثوق.");//طريقة تحضير التربة اذا كانت مسموحة
+        onion.setWeight_seeds_per_dunum(3);//كمية البذور بالكيلو غرام لدونوم
         onion.setSeedSpecifications("اختر بذور بصل عالية الجودة ومعتمدة، خالية من الأمراض، وذات حجم متوسط للحصول على نمو متجانس. \uD83E\uDDC5");
         onion.setSeedlingPreparation("قم بنقع البذور في ماء فاتر لمدة 12 ساعة قبل الزراعة، ويمكن تجهيز الشتلات في مشتل لمدة 6 أسابيع قبل النقل. \uD83C\uDF31");
         onion.setPlantingDistance("اترك مسافة 10-15 سم بين كل نبات، و30-40 سم بين الخطوط لضمان التهوية الجيدة ونمو البصل بشكل مناسب. \uD83D\uDCCF");
         onion.setPlantingDepth("ازرع البذور أو الشتلات على عمق 2-3 سم فقط في التربة لتسهيل الإنبات والنمو. ⛏\uFE0F");
         onion.setInitialIrrigation("\"بعد الزراعة، اسقِ الأرض مباشرة بريّة غمر خفيفة لتثبيت البذور أو الشتلات في التربة. \uD83D\uDCA7");
         onion.setDaysToMaturity(100);//عدد الايام حتى النضج
-        onion.setHigh("ابيض");
-        onion.setMid("احمر");
-        onion.setLow("اصفر");
-        onion.setTemperatureTolerance(10);
-        onion.setHumidityTolerance(30);
+        onion.setHigh("ابيض");//المحصول الاكثر ملائمة اذا توفر ثلاث انواع مثلا من هذا المحصول
+        onion.setMid("احمر");//المحصول متوسط الملائمة اذا توفر ثلاث انواع مثلا من هذا المحصول
+        onion.setLow("اصفر");//المحصول الاقل ملائمة اذا توفر ثلاث انواع مثلا من هذا المحصول
+        onion.setTemperatureTolerance(10);//فرق الحرارة الذي يتحمله المحصول
+        onion.setHumidityTolerance(30);//فرق الرطوبة الذي يتحمله المحصول
+
 //        Crop onion = new Crop(
 //                0,//دائما صفر
 //                "Onion",//اسم المحصول
@@ -514,16 +515,16 @@ public class MainActivity_sign extends AppCompatActivity {
 //                "الاصفر"
 //                , 10, 30
 //        );
-//       addSampleExperts();
+//        addSampleExperts();
 //        new Thread(() -> {
-//                         myViewModel.insertCrop(onion);
-//                          }).start();
+//            myViewModel.insertCrop(onion);
+//        }).start();
 //
 //        List<Crop> cropsList = new ArrayList<>();
 //        cropsList.add(onion);
 //
 //        for (Crop crop : cropsList) {
-//            String id = dbRef.push().getKey(); // إنشاء ID تلقائي
+//            String id = dbRef.push().getKey();
 //            if (id != null) {
 //                dbRef.child(id).setValue(crop).addOnCompleteListener(task -> {
 //                    if (task.isSuccessful()) {
@@ -541,7 +542,7 @@ public class MainActivity_sign extends AppCompatActivity {
 //
 //        Toast.makeText(MainActivity_sign.this, "جاري رفع " + cropsList.size() + " محاصيل...", Toast.LENGTH_SHORT).show();
 //
-
+//        addSampleFarmers();
 
 
         binding.exit.setOnClickListener(new View.OnClickListener() {
@@ -599,8 +600,6 @@ public class MainActivity_sign extends AppCompatActivity {
 //                أعمل تسوية جيدة للتربة بعد الحراثة حتى تكون الأرض مستوية وسهلة للري والزراعة.
 //
 //        إذا ناوي تزرع شتلات، جهز الخطوط أو الأحواض حسب طريقة الزراعة اللي تستخدمها. بدي الكلام هذا اطبقو في الجافا في مشروع اندرويد تطبيق بس بدي البيانات هذي تتغير بشكل ذكي يعني تكون عبارة عن نص مخزن في ابجكت الطماطم لكن لما بستدعي هذا النص يتم التغيير عليه بناءا على عدة امور منها اضافة السماد الي تم تحديدو اصلا من قبل المزارع في جدول وسيط اس  ويكون ذلك مناسب لاي محصول مش بس الطماطم
-
-
 
 
     private void addSampleExperts() {
@@ -997,14 +996,6 @@ public class MainActivity_sign extends AppCompatActivity {
 //        GenerativeModelFutures model = GenerativeModelFutures.from(ai);
 
 
-
-
-
-
-
-
-
-
 //private void addSampleCrops() {
 //        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.a);
 //        byte[] imageBytes = convertImageToByteArray(bitmap);
@@ -1303,7 +1294,7 @@ public class MainActivity_sign extends AppCompatActivity {
 //                "muddy", "sandy", "rocky", "moist", "dry", "", 0.5, "summer",
 //                "Fresh Water", "Slightly Saline", "Saline Water",
 //                "Medium heat", "High temperature", "Low heat", 0);
-////
+/// /
 //
 //        Crop banana = new Crop(0, "Banana", imageBytes, "Perennial crops - Irrigated crops - Nutrient-rich crops - Fruit crops - High-yield crops - Commercial crops",
 //                "الموز من المحاصيل المثمرة التي تُزرع في المناطق الحارة. يحتاج إلى تربة خصبة وري منتظم. يُستخدم في الطهي والعصائر.",
@@ -1653,7 +1644,7 @@ public class MainActivity_sign extends AppCompatActivity {
 //        myViewModel.insertCrop(broccoli);
 //        myViewModel.insertCrop(sunflower);
 //        myViewModel.insertCrop(pumpkin);
-    //      myViewModel.insertCrop(pea);
+//      myViewModel.insertCrop(pea);
 //        myViewModel.insertCrop(cucumber);
 //        myViewModel.insertCrop(melon);
 //        myViewModel.insertCrop(cabbage);
@@ -1670,7 +1661,7 @@ public class MainActivity_sign extends AppCompatActivity {
 //        myViewModel.insertCrop(tomato);
 //        myViewModel.insertCrop(spinach);
 //        myViewModel.insertCrop(lettuce);
-    //myViewModel.insertCrop(barley);
+//myViewModel.insertCrop(barley);
 //        myViewModel.insertCrop(corn);
 ////        myViewModel.insertCrop(mint);
 //        myViewModel.insertCrop(potato);

@@ -20,7 +20,6 @@ public class AISearchActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(v -> {
             String query = etQuery.getText().toString();
             if (!query.isEmpty()) {
-                // هنا سيتم تنفيذ البحث
                 tvResults.setText("نتائج البحث عن: " + query);
             }
         });
