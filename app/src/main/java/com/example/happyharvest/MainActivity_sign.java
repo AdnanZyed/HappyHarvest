@@ -251,6 +251,37 @@ public class MainActivity_sign extends AppCompatActivity {
         onion.setLow("اصفر");//المحصول الاقل ملائمة اذا توفر ثلاث انواع مثلا من هذا المحصول
         onion.setTemperatureTolerance(10);//فرق الحرارة الذي يتحمله المحصول
         onion.setHumidityTolerance(30);//فرق الرطوبة الذي يتحمله المحصول
+        addSampleExperts();
+
+
+        new Thread(() -> {
+            myViewModel.insertCrop(onion);
+        }).start();
+
+        List<Crop> cropsList = new ArrayList<>();
+        cropsList.add(onion);
+
+        for (Crop crop : cropsList) {
+            String id = dbRef.push().getKey();
+            if (id != null) {
+                dbRef.child(id).setValue(crop).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.d("Firebase", "Crop successfully uploaded");
+
+                    } else {
+                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.e("Firebase", "Error uploading crop: " + task.getException());
+
+                    }
+                });
+            }
+        }
+
+        Toast.makeText(MainActivity_sign.this, "جاري رفع " + cropsList.size() + " محاصيل...", Toast.LENGTH_SHORT).show();
+
+        addSampleFarmers();
+
 
 //        Crop onion = new Crop(
 //                0,//دائما صفر
@@ -515,34 +546,7 @@ public class MainActivity_sign extends AppCompatActivity {
 //                "الاصفر"
 //                , 10, 30
 //        );
-//        addSampleExperts();
-//        new Thread(() -> {
-//            myViewModel.insertCrop(onion);
-//        }).start();
 //
-//        List<Crop> cropsList = new ArrayList<>();
-//        cropsList.add(onion);
-//
-//        for (Crop crop : cropsList) {
-//            String id = dbRef.push().getKey();
-//            if (id != null) {
-//                dbRef.child(id).setValue(crop).addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
-//                        Log.d("Firebase", "Crop successfully uploaded");
-//
-//                    } else {
-//                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
-//                        Log.e("Firebase", "Error uploading crop: " + task.getException());
-//
-//                    }
-//                });
-//            }
-//        }
-//
-//        Toast.makeText(MainActivity_sign.this, "جاري رفع " + cropsList.size() + " محاصيل...", Toast.LENGTH_SHORT).show();
-//
-//        addSampleFarmers();
 
 
         binding.exit.setOnClickListener(new View.OnClickListener() {
@@ -1632,9 +1636,9 @@ public class MainActivity_sign extends AppCompatActivity {
 //        myViewModel.insertCrop(pumpkin);
 //        myViewModel.insertCrop(garlic);
 //        myViewModel.insertCrop(lentils);
-////        myViewModel.insertCrop(saffron);
-////        myViewModel.insertCrop(wheat);
-////        myViewel.insertCrop(onion);
+/// /        myViewModel.insertCrop(saffron);
+/// /        myViewModel.insertCrop(wheat);
+/// /        myViewel.insertCrop(onion);
 //        myViewModel.insertCrop(banana);
 //        myViewModel.insertCrop(cauliflower);
 //        myViewModel.insertCrop(mint);
