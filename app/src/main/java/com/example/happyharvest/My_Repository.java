@@ -67,8 +67,12 @@ public class My_Repository {
 
     }
     public void insertAll(List<Crop> crops) {
-        new Thread(() -> cropDao.insertAll(crops)).start();
+        new Thread(() -> cropDao.insertAll(new ArrayList<>(crops))).start();
     }
+    public void insertAll1(List<Farmer_Crops> farmerCrops) {
+        new Thread(() -> farmerCropDao.insertAll1(new ArrayList<>(farmerCrops))).start();
+    }
+
 
     public LiveData<List<Crop>> getAllCrops() {
         return allCrops;
@@ -271,9 +275,10 @@ public class My_Repository {
         });
 
     }
-    public Farmer_Crops fetchFarmerCrop(String user, int cropId) {
-        return farmerCropDao.getFarmerCrop(user, cropId);
+    public LiveData<List<Farmer_Crops>> getFarmerCrop(String farmerName, int cropId) {
+        return farmerCropDao.getFarmerCrop(farmerName, cropId);
     }
+
 
     public void updateCropStep(CropStep cropStep) {
         My_Database.databaseWriteExecutor.execute(() -> {

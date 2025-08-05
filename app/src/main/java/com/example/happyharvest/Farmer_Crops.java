@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import java.util.Date;
+
 @Entity(
         tableName = "Farmer_Crops",
         primaryKeys = {"Farmer_user_name", "Crop_ID"},
@@ -17,26 +19,28 @@ public class Farmer_Crops {
     @NonNull
     private String Farmer_user_name;
     private int Crop_ID;
+    private String firebaseKey;
     private boolean isBookmark;
     private boolean isRegister;
-    private String startDate;/////////
-    ///
+    private String startDate;
+    /// //////
     private int successRate;
     private boolean isAccepted;
     private String soilType;
-    private String irrigationType;/////////////
-    ///
-    private String waterAvailability;///////////
-    ///
+    private String irrigationType;
+    /// //////////
+    private String waterAvailability;
+    /// ////////
     private double Land_area;
     private String Previous_crop;//المحصول السابق___________________________
     private double Average_humidity;
     private boolean Paid_subscription; //هل هو مشترك بالنسخة المدفوعة
     private String season;//____________________________للبيت البلاستيكي
-    private double Latitude;///////////لما جيب الاي بي اي وافعل الاشعارات بصير اجيب الامطار الرياح الرطوبة الحرارة...وبعدل ع هيك في البيت والبور
+    private double Latitude;
+    /// ////////لما جيب الاي بي اي وافعل الاشعارات بصير اجيب الامطار الرياح الرطوبة الحرارة...وبعدل ع هيك في البيت والبور
     private double Longitude;
 
-
+    private Date NextFertilizingDate;
     private float averageTemperature;
     private boolean isAddCart;
     private int rating;
@@ -53,7 +57,7 @@ public class Farmer_Crops {
     private String ChemicalFertilizer;
     private float humidity; //بتتعدل باستمرار
     private float windSpeed; //بتتعدل باستمرار
-//    private Integer customWateringDays;
+    //    private Integer customWateringDays;
 //    private Integer customFertilizingDays;
     private String Selecting_seeds_or_seedlings;
     private String Priority_previous_crop;
@@ -64,6 +68,9 @@ public class Farmer_Crops {
     private boolean Agriculture;
     private boolean Care;
     private boolean Done;
+    private String FertilizerInfo;
+    private String FertilizingInfo;
+
     // في Farmer_Crops.java
 //    private List<FertilizationRecord> fertilizationHistory;
 //
@@ -117,6 +124,38 @@ public class Farmer_Crops {
     }
 
     public Farmer_Crops() {
+    }
+
+    public String getFirebaseKey() {
+        return firebaseKey;
+    }
+
+    public void setFirebaseKey(String firebaseKey) {
+        this.firebaseKey = firebaseKey;
+    }
+
+    public Date getNextFertilizingDate() {
+        return NextFertilizingDate;
+    }
+
+    public void setNextFertilizingDate(Date nextFertilizingDate) {
+        this.NextFertilizingDate = nextFertilizingDate;
+    }
+
+    public String getFertilizerInfo() {
+        return FertilizerInfo;
+    }
+
+    public void setFertilizerInfo(String fertilizerInfo) {
+        FertilizerInfo = fertilizerInfo;
+    }
+
+    public String getFertilizingInfo() {
+        return FertilizingInfo;
+    }
+
+    public void setFertilizingInfo(String fertilizingInfo) {
+        FertilizingInfo = fertilizingInfo;
     }
 
     public boolean isSoil() {

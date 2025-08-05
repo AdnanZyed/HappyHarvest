@@ -18,10 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 public class AboutFragment extends Fragment {
 
 
-    My_View_Model myViewModel;
-    ImageView Message;
-    TextView description;
-    String FarmerUser;
+    private My_View_Model myViewModel;
+    private ImageView Message;
+    private TextView description;
+    private String FarmerUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

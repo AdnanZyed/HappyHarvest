@@ -84,6 +84,7 @@
 
 
                 />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,6 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="نوع التهوية" />
+
             <Spinner
                 android:id="@+id/edit_ventilation"
                 android:layout_width="match_parent"
@@ -147,9 +149,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="10dp"
-
-
                 android:text="هل توجد تدفئة؟" />
+
             <LinearLayout
                 android:id="@+id/open_field_section"
                 android:layout_width="match_parent"
@@ -222,7 +223,7 @@
                     android:id="@+id/edit_nutrient_solution"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
+                </LinearLayout>
 
             <!-- قسم الزراعة العضوية -->
 
@@ -317,7 +318,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_button"
-                android:backgroundTint="#4CAF50"
+                android:backgroundTint="@color/green"
                 android:padding="12dp"
                 android:text="قيّم الزراعة"
                 android:textAllCaps="false"

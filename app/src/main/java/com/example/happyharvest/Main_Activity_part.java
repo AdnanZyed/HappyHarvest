@@ -1,8 +1,8 @@
-//بدي بس اول مرة بفتح التطبيق بيفح الواجهة هذي
 
 package com.example.happyharvest;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,10 @@ public class Main_Activity_part extends AppCompatActivity {
         setContentView(R.layout.activity_main_h);
 
         viewPager = findViewById(R.id.viewPager);
-        Button btnNext = findViewById(R.id.B_Next);
+        Button B_skip = findViewById(R.id.B_skip);
+
+//        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+//        Button actionButton = findViewById(R.id.actionButton);
         LinearLayout dotsLayout = findViewById(R.id.dots);
 
         List<Part_Item> items = new ArrayList<>();
@@ -50,22 +54,35 @@ public class Main_Activity_part extends AppCompatActivity {
 
         setupDotsIndicator(items.size(), dotsLayout);
 
-
-      //  setupNotificationChannel();
+        //  setupNotificationChannel();
         checkAndRequestNotificationPermission();
-       // setupNotificationChannel();
+        // setupNotificationChannel();
+//        actionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(Main_Activity_part.this,MainActivity_sign.class);
+//                startActivity(intent);اخةث
+//            }
+//        });
 
-
-
-        btnNext.setOnClickListener(v -> {
-            if (viewPager.getCurrentItem() < items.size() - 1) {
-                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-            } else {
-                Intent intent = new Intent(this, MainActivity_sign.class);
+        B_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main_Activity_part.this, MainActivity_sign.class);
                 startActivity(intent);
                 finish();
             }
         });
+
+//        B_skip.setOnClickListener(v -> {
+//            if (viewPager.getCurrentItem() < items.size() - 1) {
+//                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+//            } else {
+//                Intent intent = new Intent(this, MainActivity_sign.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 
     private void checkAndRequestNotificationPermission() {//دالة بتفحص إذا التطبيق يملك إذن إرسال إشعارات (فقط في أندرويد 13 وأعلى):
@@ -97,13 +114,12 @@ public class Main_Activity_part extends AppCompatActivity {
         if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // تم منح الإذن
                 Toast.makeText(this, "شكرًا! سيتم إعلامك بمواعيد التسميد", Toast.LENGTH_SHORT).show();
             } else {
-                // تم رفض الإذن
                 Toast.makeText(this, "لن تتمكن من استقبال تنبيهات التسميد", Toast.LENGTH_LONG).show();
             }
-        }}
+        }
+    }
 
 
 //    private void setupNotificationChannel() {

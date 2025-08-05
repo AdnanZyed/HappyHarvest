@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="15dp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="#1E88E5"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +35,6 @@
 
 
     </androidx.cardview.widget.CardView>
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/Card2"
         android:layout_width="match_parent"
@@ -48,7 +46,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Card1">
-
 
         <TextView
             android:layout_width="wrap_content"

@@ -13,7 +13,6 @@ public class EnvironmentFragment extends Fragment {
             PreferredTemp, AllowedTemp, ForbiddenTemp;
     private EditText Season, OptimalHumidity, OptimalTemperature, TemperatureTolerance,
             HumidityTolerance, LightRequirements;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_environment, container, false);
@@ -30,7 +29,6 @@ public class EnvironmentFragment extends Fragment {
         TemperatureTolerance = view.findViewById(R.id.temperatureTolerance);
         HumidityTolerance = view.findViewById(R.id.humidityTolerance);
         LightRequirements = view.findViewById(R.id.lightRequirements);
-
         return view;
     }
 

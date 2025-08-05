@@ -26,7 +26,7 @@ public class FarmersFragment extends Fragment {
 
     private FarmersAdapter adapter;
 
-    My_View_Model myViewModel;
+    private My_View_Model myViewModel;
 
     @Nullable
     @Override

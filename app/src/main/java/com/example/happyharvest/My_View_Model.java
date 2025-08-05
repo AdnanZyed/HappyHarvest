@@ -11,6 +11,7 @@ import java.util.List;
 
 public class My_View_Model extends AndroidViewModel {
     private LiveData<List<Notification>> allNotifications;
+    private final FirebaseDatabaseHelper firebaseHelper;
 
     private My_Repository repository;
 
@@ -18,8 +19,7 @@ public class My_View_Model extends AndroidViewModel {
 
     private final LiveData<List<Crop_Reviews>> allReviews;
     private final LiveData<List<Expert_Reviews>> allReviewsT;
-   // private final LiveData<List<Crop>> allCrops;
-
+    // private final LiveData<List<Crop>> allCrops;
 
 
     public My_View_Model(@NonNull Application application) {
@@ -28,8 +28,9 @@ public class My_View_Model extends AndroidViewModel {
         allReviews = null;
         allReviewsT = null;
         allNotifications = repository.getAllNotifications();
-     //   allCrops = repository.getAllCrops();
+        //   allCrops = repository.getAllCrops();
         allCrops = repository.getAllCrops();
+        firebaseHelper = FirebaseDatabaseHelper.getInstance();
 
 
     }
@@ -40,16 +41,21 @@ public class My_View_Model extends AndroidViewModel {
     public void syncWithFirebase() {
         repository.fetchCropsFromFirebase();
     }
+
     void insertCrop(Crop crop) {
         repository.insertCrop(crop);
 
 
     }
+
     public void insertAllCrops(List<Crop> crops) {
         repository.insertAll(crops);
     }
+    public void insertAllFarmerCrop(List<Farmer_Crops> farmerCrop) {
+        repository.insertAll1(farmerCrop);
+    }
 
-//    public LiveData<List<Crop>> getAllCrop() {
+    //    public LiveData<List<Crop>> getAllCrop() {
 //        return allCrops;
 //    }
     void updateCrop(Crop crop) {
@@ -101,10 +107,12 @@ public class My_View_Model extends AndroidViewModel {
     public void saveFarmerCrop(Farmer_Crops record) {
         repository.insertFarmerCrop(record);
     }
+
     // في My_View_Model.java
     public LiveData<List<Crop>> getMultipleCrops(List<Integer> cropIds) {
         return repository.getMultipleCrops(cropIds);
     }
+
     public LiveData<List<CropProblem>> getCropProblems(int cropId) {
         return repository.getProblemsByCropId(cropId);
     }
@@ -120,6 +128,7 @@ public class My_View_Model extends AndroidViewModel {
     public void deleteProblem(CropProblem problem) {
         repository.delete(problem);
     }
+
     public LiveData<List<Notification>> getAllNotifications() {
         return allNotifications;
     }
@@ -180,7 +189,9 @@ public class My_View_Model extends AndroidViewModel {
     public void updateCropStep(CropStep cropStep) {
         repository.updateCropStep(cropStep);
     }
-
+    public LiveData<List<Farmer_Crops>> fetchFarmerCrop(String user, int cropId) {
+        return repository.getFarmerCrop(user, cropId);
+    }
     public void deleteCropStep(CropStep cropStep) {
         repository.deleteCropStep(cropStep);
     }
@@ -239,7 +250,6 @@ public class My_View_Model extends AndroidViewModel {
     }
 
 
-
     public LiveData<List<Farmer_Crops>> getBookmarkedCropByFarmer(String farmerUsername) {
         return repository.getBookmarkedCropsByFarmer(farmerUsername);
     }
@@ -269,7 +279,9 @@ public class My_View_Model extends AndroidViewModel {
     public LiveData<Void> deleteFarmerCropByUserAndCrop(String farmerUsername, int cropId) {
         return repository.deleteFarmerCropByUserAndCrop(farmerUsername, cropId);
 
-    }   public LiveData<Void> delete1FarmerCropByUserAndCrop(String farmerUsername, int cropId) {
+    }
+
+    public LiveData<Void> delete1FarmerCropByUserAndCrop(String farmerUsername, int cropId) {
         return repository.delete1FarmerCropByUserAndCrop(farmerUsername, cropId);
     }
 
@@ -302,7 +314,9 @@ public class My_View_Model extends AndroidViewModel {
 
     public void insertFarmerCrop(Farmer_Crops farmerCrop) {
         repository.insertFarmerCrop(farmerCrop);
-    } public void deleteFarmerCrop(Farmer_Crops farmerCrop) {
+    }
+
+    public void deleteFarmerCrop(Farmer_Crops farmerCrop) {
         repository.deleteFarmerCrop(farmerCrop);
     }
 

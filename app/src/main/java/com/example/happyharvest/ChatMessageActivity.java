@@ -19,9 +19,7 @@ public class ChatMessageActivity extends AppCompatActivity {
     private ImageView btnSendMessage;
     private ChatMessageAdapter chatAdapter;
 
-    private String otherUser;
-    private String User;
-    private String name;
+    private String User,otherUser,name;
     private My_View_Model myViewModel;
     private ArrayList<Message> messages1 = new ArrayList<>();
 

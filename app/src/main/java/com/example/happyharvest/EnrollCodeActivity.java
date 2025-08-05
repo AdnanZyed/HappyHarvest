@@ -19,13 +19,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 public class EnrollCodeActivity extends AppCompatActivity {
-    EditText otpDigit1, otpDigit2, otpDigit3, otpDigit4;
-    String userName;
-    int card_num;
-    String expert_USER_Name;
-    int cropId;
-    int otpCodeInt;
-    int price;
+    private EditText otpDigit1, otpDigit2, otpDigit3, otpDigit4;
+    private String expert_USER_Name,userName;
+    private int otpCodeInt,price,cropId,card_num;
     private My_View_Model myViewModel;
 
     @Override
@@ -53,7 +49,7 @@ public class EnrollCodeActivity extends AppCompatActivity {
         price = getIntent().getIntExtra("PRICE", -1);
 
         continueButton.setText("Enroll Crop - $" + price);
-//
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

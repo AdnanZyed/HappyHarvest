@@ -35,7 +35,6 @@ public class CropProblem {
         this.imageUrl = imageUrl;
     }
 
-    // Getters and Setters
     public int getProblemId() {
         return problemId;
     }

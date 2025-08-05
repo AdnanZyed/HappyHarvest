@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:background="@drawable/sign_out"
-        android:layout_margin="60dp" />
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"/>
     <androidx.cardview.widget.CardView
 
         android:id="@+id/iv_expert_image7P"

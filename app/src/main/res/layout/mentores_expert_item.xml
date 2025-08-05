@@ -2,71 +2,63 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card"
+    android:elevation="20dp"
+    android:padding="16dp">
 
-
+    <!-- صورة دائرية -->
     <androidx.cardview.widget.CardView
-
         android:id="@+id/iv_expert_image3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="1000dp"
-        android:layout_margin="15dp"
-        app:cardElevation="0dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-
-
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_expert_image_all"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/RoundedImage"
-            app:strokeColor="@color/black"
-            app:strokeWidth="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Expert Photo"
+            android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
-
-
-
+    <!-- اسم الخبير -->
     <TextView
         android:id="@+id/tv_expert_name_all"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="Expert Name"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Dr. Expert Name"
+        android:textColor="#212121"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/iv_expert_image3"
-        app:layout_constraintTop_toTopOf="@+id/iv_expert_image3" />
+        app:layout_constraintEnd_toStartOf="@id/chat_all"
+        app:layout_constraintStart_toEndOf="@id/iv_expert_image3"
+        app:layout_constraintTop_toTopOf="@id/iv_expert_image3" />
 
+    <!-- التخصص -->
     <TextView
         android:id="@+id/tv_major_all"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="Major "
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/iv_expert_image3"
-        app:layout_constraintTop_toBottomOf="@+id/tv_expert_name_all" />
+        android:layout_marginTop="4dp"
+        android:text="Agriculture Expert"
+        android:textColor="#757575"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_expert_name_all"
+        app:layout_constraintStart_toStartOf="@id/tv_expert_name_all"
+        app:layout_constraintTop_toBottomOf="@id/tv_expert_name_all" />
 
-
-    <ImageView
+    <!-- زر المحادثة -->
+    <ImageButton
         android:id="@+id/chat_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/chat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_expert_name_all"
-
+        app:layout_constraintTop_toTopOf="parent"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,6 @@ public class Tab_profile_Adapter
         switch (position) {
             case 0:
 
-                // AboutFragment
                 CropsProfileFragment cropsProfileFragment = new CropsProfileFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("TEACHER_USER_NAME1", expertUserName);

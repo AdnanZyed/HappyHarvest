@@ -2,6 +2,8 @@ package com.example.happyharvest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,14 +11,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.happyharvest.databinding.ActivityMainSignInBinding;
 
 public class ActivityMainSignIn extends AppCompatActivity {
-    ActivityMainSignInBinding binding;
-    String EUserIn;
-    String EPasswordIn;
-    My_View_Model myViewModel;
-    String farmer_name_user;
-    String farmer_password;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private ActivityMainSignInBinding binding;
+    private String EUserIn,EPasswordIn,farmer_name_user,farmer_password;
+    private My_View_Model myViewModel;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -38,14 +38,11 @@ public class ActivityMainSignIn extends AppCompatActivity {
         }
 
 
-
-
 //        myViewModel.getAllCrops().observe(this, crops -> {
 //            Toast.makeText(this, crops.toString(), Toast.LENGTH_SHORT).show();
 //        });
 
-     // myViewModel.syncWithFirebase();
-
+        // myViewModel.syncWithFirebase();
 
 
         binding.Forgot.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +51,10 @@ public class ActivityMainSignIn extends AppCompatActivity {
                 myViewModel.getAllFarmerByUser(binding.eUserIn.getText().toString()).observe(ActivityMainSignIn.this, farmers -> {
                     if (farmers != null && !farmers.isEmpty() && !binding.eUserIn.getText().toString().isEmpty() && binding.eUserIn.getText().toString() != null && binding.eUserIn.getText().toString() != "") {
 
-                        Intent intent = new Intent(ActivityMainSignIn.this, ForgetPassword1.class);
+                        Intent intent = new Intent(ActivityMainSignIn.this, ForgotPassword.class);
                         intent.putExtra("USER", binding.eUserIn.getText().toString());
                         startActivity(intent);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(ActivityMainSignIn.this, "This user does not exist!", Toast.LENGTH_SHORT).show();
 
                     }
@@ -73,7 +69,8 @@ public class ActivityMainSignIn extends AppCompatActivity {
                 binding.ePasswordIn.setBackgroundResource(R.drawable.shape_non_selected);
 
             }
-        }); binding.ePasswordIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        });
+        binding.ePasswordIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 binding.ePasswordIn.setBackgroundResource(R.drawable.shap_selected);
@@ -81,7 +78,6 @@ public class ActivityMainSignIn extends AppCompatActivity {
 
             }
         });
-
 
 
         binding.SignIn.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +91,15 @@ public class ActivityMainSignIn extends AppCompatActivity {
 
                 if (EUserIn.isEmpty()) {
                     binding.eUserIn.setError("Please enter your username!");
+                    binding.eUserIn.setBackgroundResource(R.drawable.errore);
                     binding.eUserIn.requestFocus();
                     return;
                 }
 
                 if (EPasswordIn.isEmpty()) {
                     binding.ePasswordIn.setError("Please enter password");
+                    binding.ePasswordIn.setBackgroundResource(R.drawable.errore);
+
                     binding.ePasswordIn.requestFocus();
                     return;
                 }
@@ -179,8 +178,24 @@ public class ActivityMainSignIn extends AppCompatActivity {
                 editor.apply();
             }
         });
-    }
+        binding.icEyeOff1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (PasswordTransformationMethod.getInstance().equals(binding.ePasswordIn.getTransformationMethod())) {
+                    binding.ePasswordIn.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.icEyeOff1.setBackgroundResource(R.drawable.ic_eye_off);
+                } else {
+                    binding.ePasswordIn.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.icEyeOff1.setBackgroundResource(R.drawable.eye);
+                }
 
+                binding.ePasswordIn.setSelection(binding.ePasswordIn.getText().length());
+            }
+        });
+
+
+
+    }
 
 }
 

@@ -1,4 +1,5 @@
 package com.example.happyharvest;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -6,7 +7,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +19,7 @@ public class Soil extends AppCompatActivity {
     private TextView resultText;
     private Button detectButton;
     private Button button_suppmet;
-
+    private String soilType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,7 @@ public class Soil extends AppCompatActivity {
         String[] rocks = {"لا يوجد", "قليل", "كثير"};
         String[] clumping = {"لا", "نعم"};
 
-        setupSpinner(colorSpinner, colors);
-        setupSpinner(textureSpinner, textures);
-        setupSpinner(stickinessSpinner, stickiness);
-        setupSpinner(absorptionSpinner, absorption);
-        setupSpinner(rocksSpinner, rocks);
-        setupSpinner(clumpingSpinner, clumping);
+
 
         detectButton.setOnClickListener(v -> {
             Map<String, String> answers = new HashMap<>();
@@ -56,14 +54,22 @@ public class Soil extends AppCompatActivity {
             answers.put("rocks", rocksSpinner.getSelectedItem().toString());
             answers.put("clumping", clumpingSpinner.getSelectedItem().toString());
 
-            String soilType = detectSoilType(answers);
+            soilType = detectSoilType(answers);
             resultText.setText("نوع التربة: " + soilType);
         });
+        setupSpinner(colorSpinner, colors);
+        setupSpinner(textureSpinner, textures);
+        setupSpinner(stickinessSpinner, stickiness);
+        setupSpinner(absorptionSpinner, absorption);
+        setupSpinner(rocksSpinner, rocks);
+        setupSpinner(clumpingSpinner, clumping);
         button_suppmet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Soil.this,FarmInput.class);
-                intent.putExtra("resultText",resultText.getText().toString());
+                Intent intent = new Intent(Soil.this, FarmInput.class);
+                intent.putExtra("resultText", soilType);
+                intent.putExtra("farming_method", "greenhouse");
+
                 startActivity(intent);
             }
         });
@@ -108,6 +114,6 @@ public class Soil extends AppCompatActivity {
         if (sandScore >= clayScore && sandScore >= gravelScore) return "sandy";
         if (gravelScore > clayScore && gravelScore > sandScore) return "rocky";
 
-        return "طميية"; // الافتراضي
+        return "طميية";
     }
 }

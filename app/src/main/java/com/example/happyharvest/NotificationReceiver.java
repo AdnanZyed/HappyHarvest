@@ -50,7 +50,6 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         sendNotification(context, notificationId, notification);
     }
-//ينشئ Intent يفتح CropDetailsActivity1 لما المستخدم يضغط على الإشعار.
     @NonNull
     private PendingIntent createPendingIntent(Context context) {
         Intent mainIntent = new Intent(context, CropDetailsActivity1.class);
@@ -61,7 +60,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
     }
-//يبني الإشعار نفسه، باستخدام NotificationCompat ويدعمه بنص مفصل باستخدام BigTextStyle.
 
     @NonNull
     private Notification buildNotification(Context context, String cropName,
@@ -81,7 +79,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .build();
     }
-//يتحقق من وجود الإذن (POST_NOTIFICATIONS) قبل ما يرسل الإشعار عبر NotificationManagerCompat.
     private void sendNotification(Context context, int notificationId, Notification notification) {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
@@ -89,7 +86,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 == PackageManager.PERMISSION_GRANTED) {
             notificationManager.notify(notificationId, notification);
         } else {
-            // يمكنك تسجيل هذه الحالة للتحليل لاحقاً
+
         }
     }
 }

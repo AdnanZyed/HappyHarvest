@@ -19,15 +19,15 @@ import java.util.List;
 
 public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHolder> {
 
-    public Crop  crop1;
+    public Crop crop1;
     boolean isCompleted;
 
-    private final List<Crop > cropList;
+    private final List<Crop> cropList;
     private final Context context;
     private final My_View_Model viewModel;
     private final String user;
 
-    public CropsAdapter(List<Crop > cropsList, Context context, String user) {
+    public CropsAdapter(List<Crop> cropsList, Context context, String user) {
         this.cropList = cropsList;
         this.context = context;
         this.user = user;
@@ -92,6 +92,7 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
         private final TextView cropName;
         private final TextView cropTime;
         private final ProgressBar progressBar;
+        private  int progress;
         private final TextView stepsNumR;
         private final TextView numStepR;
 
@@ -109,8 +110,8 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Crop selectedCrop = cropList.get(position);
-                    Intent intent = new Intent(context, StepsActivity.class);
-                    intent.putExtra("COURSE_ID", selectedCrop.getCrop_ID());
+                    Intent intent = new Intent(context, CropDetailsActivity1.class);
+                    intent.putExtra("ID", selectedCrop.getCrop_ID());
                     intent.putExtra("USER", user);
                     context.startActivity(intent);
 
@@ -125,38 +126,66 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
 
 
             cropName.setText(crop.getCrop_NAME());
+
+
+
+
 //            if (crop.getImage() != null) {
 //                Bitmap bitmap = BitmapFactory.decodeByteArray(crop.getImage(), 0, crop.getImage().length);
 //                cropImage.setImageBitmap(bitmap);
 //            } else {
 //                cropImage.setImageResource(R.drawable.unnamed);
 //            }
-            viewModel.getTotalStepsCountByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, totalSteps -> {
-                numStepR.setText(String.valueOf(totalSteps));
 
-
-            });
-
-            viewModel.getCompletedStepsCountByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, completedSteps -> {
-                stepsNumR.setText(String.valueOf(completedSteps));
-
-            });
-
-            viewModel.getTotalStepsTimeByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, totalTime -> {
-                cropTime.setText(String.format("%d min", totalTime));
-            });
-
-            viewModel.getTotalStepsCountByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, totalSteps -> {
-                viewModel.getCompletedStepsCountByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, completedSteps -> {
-                    int progress = (totalSteps > 0) ? (completedSteps * 100 / totalSteps) : 0;
-                    progressBar.setProgress(progress);
-
-//                    if (totalSteps == completedSteps) {
-//                        crop.setCompleted(true);
+//            viewModel.getTotalStepsCountByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, totalSteps -> {
+//                numStepR.setText(String.valueOf(totalSteps));
 //
 //
-//                    }
-                });
+//            });
+//
+//            viewModel.getCompletedStepsCountByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, completedSteps -> {
+//                stepsNumR.setText(String.valueOf(completedSteps));
+//
+//            });
+//
+//            viewModel.getTotalStepsTimeByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, totalTime -> {
+//                cropTime.setText(String.format("%d min", totalTime));
+//            });
+
+
+            viewModel.fetchFarmerCrop(user, crop.getCrop_ID()).observe((AppCompatActivity) context, farmerCropList -> {
+                if (farmerCropList != null && !farmerCropList.isEmpty()) {
+                    Farmer_Crops farmerCrops = farmerCropList.get(0);
+                    if (farmerCrops.isDone()) {
+                        progressBar.setProgress(4);
+                        progress=4;
+                    } else if (farmerCrops.isCare()) {
+                        progressBar.setProgress(3);
+                        progress=3;
+
+                    } else if (farmerCrops.isAgriculture()) {
+                        progressBar.setProgress(2);
+                        progress=2;
+
+                    } else if (farmerCrops.isSoil()) {
+                        progressBar.setProgress(1);
+                        progress=1;
+
+                    }
+                } else {
+                }
+                numStepR.setText(String.valueOf(4));
+                stepsNumR.setText(String.valueOf(progress));
+//                viewModel.getCompletedStepsCountByCropId(crop.getCrop_ID()).observe((AppCompatActivity) context, completedSteps -> {
+//                    int progress = (totalSteps > 0) ? (completedSteps * 100 / totalSteps) : 0;
+//                    progressBar.setProgress(progress);
+//
+////                    if (totalSteps == completedSteps) {
+////                        crop.setCompleted(true);
+////
+////
+////                    }
+//                });
             });
 
 

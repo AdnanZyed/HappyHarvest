@@ -87,4 +87,4 @@
             android:text="Choose Image from Gallery"
             android:textColor="@color/blue" />
     </LinearLayout>
-</ScrollView>
+    </ScrollView>

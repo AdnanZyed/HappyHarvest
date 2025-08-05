@@ -23,7 +23,7 @@ public class CropsFragment extends Fragment {
     private My_View_Model viewModel;
 
     private My_Database myDatabase;
-    String farmers_u;
+   private String farmers_u;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

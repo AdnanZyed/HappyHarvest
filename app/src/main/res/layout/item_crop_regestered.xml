@@ -1,114 +1,99 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="5dp"
-
-    android:layout_margin="20dp"
-    android:background="@drawable/shape"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:layout_margin="16dp"
+    android:background="@drawable/bg_card"
+    android:elevation="8dp"
+    android:padding="16dp">
 
     <androidx.cardview.widget.CardView
-
         android:id="@+id/iv_expert_image5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="8dp"
-        app:cardElevation="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
-        >
-
-
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/iv_Crop_imageR"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            app:shapeAppearanceOverlay="@style/RoundedImage"
-            app:strokeColor="@color/black"
-            app:strokeWidth="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:contentDescription="صورة المحصول"
+           />
     </androidx.cardview.widget.CardView>
-
-
 
     <TextView
         android:id="@+id/tv_Crop_nameR"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Crop NameR"
-
-        android:textSize="16sp"
+        android:text="اسم المحصول"
+        android:textSize="18sp"
+        android:textColor="#212121"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/iv_expert_image5"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="@id/iv_expert_image5"
+        app:layout_constraintStart_toEndOf="@id/iv_expert_image5"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="12dp" />
 
     <TextView
         android:id="@+id/time_CropR"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Time"
-        android:textColor="@color/black"
+        android:text="30:00"
+        android:textColor="#757575"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/iv_expert_image5"
-        app:layout_constraintTop_toBottomOf="@id/tv_Crop_nameR" />
+        app:layout_constraintTop_toBottomOf="@id/tv_Crop_nameR"
+        app:layout_constraintStart_toStartOf="@id/tv_Crop_nameR"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:drawableStart="@drawable/timer"
+        android:drawablePadding="6dp"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/steps_numR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="@color/black"
+        android:text="2"
+        android:textColor="#424242"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/slashR"
-        app:layout_constraintEnd_toStartOf="@+id/slashR"
-        app:layout_constraintTop_toTopOf="@+id/slashR" />
+        app:layout_constraintTop_toBottomOf="@id/time_CropR"
+        app:layout_constraintStart_toStartOf="@id/time_CropR"
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/slashR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="/"
-        android:textColor="@color/black"
+        android:textColor="#424242"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/numstepR"
-        app:layout_constraintEnd_toStartOf="@+id/numstepR"
-        app:layout_constraintTop_toTopOf="@+id/numstepR" />
+        app:layout_constraintTop_toTopOf="@id/steps_numR"
+        app:layout_constraintStart_toEndOf="@id/steps_numR"
+        android:layout_marginStart="4dp" />
 
     <TextView
         android:id="@+id/numstepR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="@color/black"
+        android:text="4"
+        android:textColor="#424242"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBarR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressBarR" />
+        app:layout_constraintTop_toTopOf="@id/slashR"
+        app:layout_constraintStart_toEndOf="@id/slashR"
+        android:layout_marginStart="4dp" />
 
     <ProgressBar
         android:id="@+id/progressBarR"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="140dp"
-        android:layout_height="12dp"
-        android:layout_marginTop="24dp"
-        android:max="100"
-        android:progress="0"
-
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:max="4"
         android:progressDrawable="@drawable/custom_progress_bar"
+        app:layout_constraintTop_toBottomOf="@id/numstepR"
+        app:layout_constraintStart_toStartOf="@id/time_CropR"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toEndOf="@+id/iv_expert_image5"
-        app:layout_constraintTop_toBottomOf="@+id/time_CropR"
-        app:layout_goneMarginTop="20dp" />
+        android:layout_marginTop="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,7 @@ public class OngoingFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         if (getArguments() != null) {
-            coursId = getArguments().getInt("COURSE_ID");
+            coursId = getArguments().getInt("ID");
             user = getArguments().getString("USER");
         }
 
@@ -48,29 +48,25 @@ public class OngoingFragment extends Fragment {
     }
 
     private void loadOngoingCrops() {
+
         viewModel.getisRegisterCropsByFarmer1(user).observe(getViewLifecycleOwner(), farmerCrops -> {
             List<Integer> cropIds = new ArrayList<>();
+
             for (Farmer_Crops sc : farmerCrops) {
+               if(!sc.isDone()) {
                 cropIds.add(sc.getCrop_ID());
-            }
+            }}
+
 
             viewModel.getAllCropsByIds(cropIds).observe(getViewLifecycleOwner(), crops -> {
-                List<Crop> tempOngoingCrops = new ArrayList<>();
+               // List<Crop> tempOngoingCrops = new ArrayList<>();
 
                 for (Crop crop : crops) {
-                    viewModel.getTotalStepsCountByCropId(crop.getCrop_ID()).observe(getViewLifecycleOwner(), totalSteps -> {
-                        viewModel.getCompletedStepsCountByCropId(crop.getCrop_ID()).observe(getViewLifecycleOwner(), completedSteps -> {
-                            if (completedSteps != totalSteps) {
-                                tempOngoingCrops.add(crop);
-                            }
 
-                            if (tempOngoingCrops.size() > 0) {
                                 ongoingCrops.clear();
-                                ongoingCrops.addAll(tempOngoingCrops);
+                                ongoingCrops.add(crop);
                                 adapter.notifyDataSetChanged();
-                            }
-                        });
-                    });
+
                 }
             });
         });

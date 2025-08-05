@@ -1,6 +1,7 @@
 package com.example.happyharvest;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -9,14 +10,22 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Add_New_Crop extends AppCompatActivity {
     private My_View_Model myViewModel;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabaseHelper firebaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_crop);
+        firebaseHelper = FirebaseDatabaseHelper.getInstance();
+
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference("crops");
 
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
 
@@ -25,6 +34,7 @@ public class Add_New_Crop extends AppCompatActivity {
 
         Button btnSaveCrop = findViewById(R.id.btn_save_CropA);
         btnSaveCrop.setOnClickListener(v -> {
+
             BasicInfoFragment basicInfoFragment = (BasicInfoFragment) getSupportFragmentManager().findFragmentByTag("f0");
             SoilIrrigationFragment soilIrrigationFragment = (SoilIrrigationFragment) getSupportFragmentManager().findFragmentByTag("f1");
             EnvironmentFragment environmentFragment = (EnvironmentFragment) getSupportFragmentManager().findFragmentByTag("f2");
@@ -53,14 +63,27 @@ public class Add_New_Crop extends AppCompatActivity {
                 return;
             }
 
-            myViewModel.insertCrop(crop);
-            Toast.makeText(this, "The crop has been saved successfully", Toast.LENGTH_SHORT).show();
+            String cropId = databaseReference.push().getKey();
+            if (cropId != null) {
+                databaseReference.child(cropId).setValue(crop)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(this, "The crop has been saved successfully", Toast.LENGTH_SHORT).show();
 
-            myViewModel.addNotification("Today's Special Offers", "You get a special promo today!", R.drawable.offered);
-            myViewModel.addNotification("New Category Crops!", "Now the 3D design crop is available", R.drawable.offered1);
+                                myViewModel.addNotification("Today's Special Offers",
+                                        "You get a special promo today!", R.drawable.offered);
+                                myViewModel.addNotification("New Category Crops!",
+                                        "Now the 3D design crop is available", R.drawable.offered1);
 
-            finish();
+                                finish();
+                            } else {
+                                Toast.makeText(this, "Failed to save crop", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            uploadCrop(crop);
         });
+
         CropPagerAdapter adapter = new CropPagerAdapter(this);
         viewPager.setAdapter(adapter);
 
@@ -84,6 +107,25 @@ public class Add_New_Crop extends AppCompatActivity {
                             break;
                     }
                 }).attach();
+    }
+    private void uploadCrop(Crop crop) {
+        Toast.makeText(this, "جاري رفع المحصول...", Toast.LENGTH_SHORT).show();
+
+        firebaseHelper.addCrop(crop, new FirebaseDatabaseHelper.OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(boolean success, Exception exception) {
+                runOnUiThread(() -> {
+                    if (success) {
+                        Toast.makeText(Add_New_Crop.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.d("Firebase", "Crop successfully uploaded");
+                    } else {
+                        Toast.makeText(Add_New_Crop.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.e("Firebase", "Error uploading crop", exception);
+                    }
+                });
+            }
+        });
+
     }
 
     public My_View_Model getViewModel() {

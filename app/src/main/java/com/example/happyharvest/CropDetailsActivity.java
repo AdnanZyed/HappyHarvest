@@ -24,19 +24,13 @@ public class CropDetailsActivity extends AppCompatActivity {
     private TabPagerAdapter adapter;
     private int cropId;
     private ImageView cropImageView;
-    private TextView Price_dep;
 
     private Button bt_Buy;
-    private TextView cropNameTextView;
-    private TextView cropNameTextView1;
+    private TextView cropNameTextView,priceTextView,cropNameTextView1,Price_dep;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private String cropName;
-    private TextView priceTextView;
-    private String cropDescription;
-    private String catigories;
-    private String cropUserName;
-    private String cropName1;
+    private String cropName,cropDescription,cropName1,cropUserName,catigories;
+
     private My_View_Model myViewModel;
 
 
@@ -63,7 +57,6 @@ public class CropDetailsActivity extends AppCompatActivity {
         cropDescription = getIntent().getStringExtra("COURSE_DESCRIPTION");
         userName = getIntent().getStringExtra("USER");
         cropName1 = getIntent().getStringExtra("COURSE_NAME1");
-//  cropPrice = getIntent().getIntExtra("COURSE_PRICE", 0);
         byte[] cropImage = getIntent().getByteArrayExtra("COURSE_IMAGE");
         String expertName = getIntent().getStringExtra("TEACHER_NAME");
 
@@ -72,7 +65,6 @@ public class CropDetailsActivity extends AppCompatActivity {
         bundle.putInt("COURSE_ID1", cropId);
 
 
-//        bt_Buy.setText("Enroll Crop - $" + cropPrice);
         myViewModel.isFarmerCropExists(userName, cropId, true).observe((this), isHad -> {
             if (isHad) {
                 bt_Buy.setVisibility(View.GONE);

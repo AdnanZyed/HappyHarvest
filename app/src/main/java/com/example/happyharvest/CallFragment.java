@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-
 public class CallFragment extends Fragment {
 
 
     private My_View_Model chatViewModel;
     private CallAdapter chatAdapter;
-    String currentUsername;
+    private String currentUsername;
 
     public CallFragment() {
     }

@@ -2,22 +2,28 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-<!--    <color name="blue">#335ef7</color>-->
+    <!--    <color name="blue">#335ef7</color>-->
     <color name="red">#E20000</color>
     <color name="success_green">#4CAF50</color>
     <color name="warning_yellow">#FFC107</color>
     <color name="error_red">#F44336</color>
-<!--    <color name="dark_blue">#335ef7</color>-->
-<!--    <color name="green">#25750C</color>-->
-    <color name="green_L">#7B25750C</color>
-    <color name="l_green">#EAFFEB</color>
-<!--    <color name="light_blue">#597dfe</color>-->
+    <!--    <color name="dark_blue">#335ef7</color>-->
+    <!--    <color name="green">#25750C</color>-->
+    <color name="green_L">#E5FFE2</color>
+    <color name="l_green">#EEFDEF</color>
+    <color name="primary_dark">#1B5E20</color>
+    <color name="primary_light">#E8F5E9</color>
+    <color name="secondary_text">#757575</color>
+    <!--    <color name="light_blue">#597dfe</color>-->
     <color name="gray">#B0B0B0</color>
     <color name="green_dark">#2E7D32</color>
     <color name="green_primary">#4CAF50</color>
     <color name="text_primary">#212121</color>
-    <color name="green">#012C02</color>
+    <color name="green">#29573d</color>
     <color name="blue">#1E88E5</color>
     <color name="light_blue">#C1DBF1</color>
     <color name="dark_blue">#032747</color>
+    <color name="green_700">#388E3C</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_500">#9E9E9E</color>
 </resources>

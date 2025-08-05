@@ -11,12 +11,13 @@
         android:icon="@drawable/rice"
         tools:ignore="HardcodedText,MenuTitle" />
     <item
+        android:id="@+id/Ai"
+        android:icon="@drawable/ai"
+        tools:ignore="HardcodedText,MenuTitle" />
+
+    <item
         android:id="@+id/inbox"
         android:icon="@drawable/chat1"
-        tools:ignore="HardcodedText,MenuTitle" />
-    <item
-        android:id="@+id/cart"
-        android:icon="@drawable/weather"
         tools:ignore="HardcodedText,MenuTitle" />
 
     <item

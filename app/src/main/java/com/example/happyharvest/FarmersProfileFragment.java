@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.common.base.MoreObjects;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,30 +38,20 @@ import java.util.List;
 public class FarmersProfileFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    private String farmerName;
+    private String user,farmerName,farmerBio,farmers_u,BIO,NAME,PASSWORD;
     private Bitmap bitmap;
-    int CARD;
-    byte[] imageBytes;
-    int PHONE;
-    private String farmerBio;
-    String farmers_u;
-    Button Save;
-    String BIO;
-    private byte[] image;
+    private int CARD,PHONE;
+    private byte[] imageBytes,image;
+    private Button Save;
     private My_View_Model myViewModel;
-    String NAME;
-    String PASSWORD;
-    TextView tvFarmerName;
 
-    ImageView imgFarmerProfile;
-    TextView tvFarmerBio;
-    ImageView BtnEditName;
-    ImageView BtnEditBio;
-    String user;
+    private TextView tvFarmerName,tvFarmerBio;
+
+    private ImageView imgFarmerProfile,BtnEditName,BtnEditBio;
+
     private CropsAdapter adapter;
 
-    EditText etFarmerName;
-    EditText etFarmerBio;
+    private EditText etFarmerName,etFarmerBio;
     private RecyclerView recyclerView;
 
 
@@ -102,11 +95,13 @@ public class FarmersProfileFragment extends Fragment {
             List<Integer> cropIds = new ArrayList<>();
             for (Farmer_Crops sc : farmerCrops) {
                 cropIds.add(sc.getCrop_ID());
+
             }
 
             myViewModel.getAllCropsByIds(cropIds).observe(getViewLifecycleOwner(), crops -> {
                 adapter = new CropsAdapter(crops, requireContext(), user);
                 recyclerView.setAdapter(adapter);
+
 
             });
         });

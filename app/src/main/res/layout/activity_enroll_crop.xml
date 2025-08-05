@@ -220,7 +220,7 @@
             android:id="@+id/c_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTintMode="@color/blue"
+            android:backgroundTintMode="@color/green"
             android:layout_weight="4"
 
             />

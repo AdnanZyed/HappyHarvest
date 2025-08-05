@@ -31,7 +31,6 @@ public class ReviewsFragment extends Fragment {
     ImageView imageView;
     RecyclerView recyclerView;
 
-
     Bundle args;
     int rating;
     String userString;

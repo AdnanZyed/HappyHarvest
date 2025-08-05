@@ -15,11 +15,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ExpertProfileActivity extends AppCompatActivity {
-    String name;
-    String username;
-    String reviews;
-    String farmerUser;
-    String education;
+    private String name;
+    private String username;
+    private String reviews;
+    private String farmerUser;
+    private String education;
     private My_View_Model myViewModel;
 
 

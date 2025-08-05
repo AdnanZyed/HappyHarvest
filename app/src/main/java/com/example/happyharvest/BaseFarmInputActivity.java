@@ -55,7 +55,6 @@ import java.util.List;
 import java.util.Locale;
 
 public abstract class BaseFarmInputActivity extends AppCompatActivity {
-    // Common Views
     protected Spinner spinnerSoilType, spinnerIrrigation;
     protected Button btnEvaluate, btnSaveSettings;
     protected TextView textViewResult, textViewTemp, textViewHumidity;
@@ -70,10 +69,8 @@ public abstract class BaseFarmInputActivity extends AppCompatActivity {
     protected static final String WEATHER_PREFS = "WeatherPrefs";
     protected static final String API_KEY = "9e269c7c20355e9e8bba48b0ad2cd52c";
     protected LocationCallback locationCallback;
-    protected float currentTemp;
-    protected float currentHumidity;
+    protected float currentTemp,currentHumidity;
 
-    // Common Methods
     protected abstract void initSpecificViews();
     protected abstract void evaluateFarmConditions();
 
@@ -221,8 +218,7 @@ public abstract class BaseFarmInputActivity extends AppCompatActivity {
             return;
         }
 
-        // Implement actual weather API call here
-        // This is a mock implementation
+
         currentTemp = 25.0f;
         currentHumidity = 60.0f;
 

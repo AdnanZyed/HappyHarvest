@@ -26,9 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Delete_Crop extends AppCompatActivity {
-    RecyclerView recyclerView;
-    CropAdapter cropAdapter;
-    My_View_Model myViewModel;
+    private RecyclerView recyclerView;
+    private CropAdapter cropAdapter;
+    private My_View_Model myViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

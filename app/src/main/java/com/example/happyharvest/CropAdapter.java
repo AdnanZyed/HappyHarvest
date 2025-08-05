@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.List;
+import java.util.Locale;
 
 public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder> {
     private Context context;
@@ -52,7 +53,17 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
         Crop crop = cropList.get(position);
         holder.tvCropName.setText(crop.getCrop_NAME());
         holder.tvCategorie.setText(crop.getCategorie());
-     //   holder.tvPrice.setText(String.format("$%d", crop.getPrice()));
+        holder.tvCropName.setText(crop.getCrop_NAME());
+        holder.tvCategorie.setText(crop.getCategorie());
+
+        if (crop.getCompatibilityScore() > 0) {
+            holder.tvCompatibility.setText(String.format(Locale.getDefault(),
+                    "نسبة التوافق: %.0f%%", crop.getCompatibilityScore()));
+            holder.tvCompatibility.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvCompatibility.setVisibility(View.GONE);
+        }
+        //   holder.tvPrice.setText(String.format("$%d", crop.getPrice()));
 //        في onBindViewHolder في CropAdapter:
 //        Glide.with(context)
 //                .load(crop.getImageUrl())
@@ -67,28 +78,28 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
 //            holder.ivCropImage.setImageResource(R.drawable.sample_course_image);
 //        }
 
-        viewModel.getBookmarkedCropsByFarmer1(user, crop.getCrop_ID()).observe((AppCompatActivity) context, farmerCrops -> {
+//        viewModel.getBookmarkedCropsByFarmer1(user, crop.getCrop_ID()).observe((AppCompatActivity) context, farmerCrops -> {
+//
+//
+//            if (farmerCrops.isEmpty() || farmerCrops == null) {
+//                holder.BookmarkIcon.setImageResource(R.drawable.bookmark);
+//            } else {
+//                holder.BookmarkIcon.setImageResource(R.drawable.bookmarked);
+//            }
+//        });
 
 
-            if (farmerCrops.isEmpty() || farmerCrops == null) {
-                holder.BookmarkIcon.setImageResource(R.drawable.bookmark);
-            } else {
-                holder.BookmarkIcon.setImageResource(R.drawable.bookmarked);
-            }
-        });
-
-
-        holder.BookmarkIcon.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-
-              //  showCustomDialog(crop, crop.getImage(), crop.getCrop_NAME(), crop.getCategorie(), crop.getPrice());
-
-
-                return true;
-            }
-        });
+//        holder.BookmarkIcon.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//
+//
+//                //  showCustomDialog(crop, crop.getImage(), crop.getCrop_NAME(), crop.getCategorie(), crop.getPrice());
+//
+//
+//                return true;
+//            }
+//        });
 //        holder.BookmarkIcon.setOnClickListener(v -> {
 //            viewModel.isFarmerCropExistsC(user, crop.getCrop_ID(), true).observe((AppCompatActivity) context, isHadc -> {
 //                viewModel.isFarmerCropExistsB(user, crop.getCrop_ID(), true).observe((AppCompatActivity) context, isHadb -> {
@@ -152,17 +163,16 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
     }
 
     static class CropViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCropName, tvPrice, tvCategorie;
-        ImageView ivCropImage, cartIcon, BookmarkIcon;
+        TextView tvCropName, tvCategorie, tvCompatibility;
+        ImageView ivCropImage, BookmarkIcon;
 
         public CropViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCropName = itemView.findViewById(R.id.tv_crop_name);
             tvCategorie = itemView.findViewById(R.id.tv_categorie);
-           // tvPrice = itemView.findViewById(R.id.tv_price);
+            tvCompatibility = itemView.findViewById(R.id.tv_compatibility); // أضف هذا الـ TextView في التخطيط
             ivCropImage = itemView.findViewById(R.id.iv_crop_image);
-            BookmarkIcon = itemView.findViewById(R.id.bookmarkIcon);
-            cartIcon = itemView.findViewById(R.id.cart);
+            //   BookmarkIcon = itemView.findViewById(R.id.bookmarkIcon);
         }
     }
 

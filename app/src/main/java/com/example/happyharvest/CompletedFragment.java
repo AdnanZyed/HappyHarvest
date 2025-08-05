@@ -42,43 +42,36 @@ public class CompletedFragment extends Fragment {
         adapter = new CropsAdapter(ongoingCrops, requireContext(), user);
         recyclerView.setAdapter(adapter);
 
-        loadOngoingCrops();
+        loadCompletedCrops();
 
         return view;
     }
 
-    private void loadOngoingCrops() {
+    private void loadCompletedCrops() {
         viewModel.getisRegisterCropsByFarmer1(user).observe(getViewLifecycleOwner(), farmerCrops -> {
             List<Integer> cropIds = new ArrayList<>();
             for (Farmer_Crops sc : farmerCrops) {
-                cropIds.add(sc.getCrop_ID());
+                if(sc.isDone()) {
+                    cropIds.add(sc.getCrop_ID());                }
+
             }
 
             viewModel.getAllCropsByIds(cropIds).observe(getViewLifecycleOwner(), crops -> {
-                List<Crop> tempOngoingCrops = new ArrayList<>();
 
                 for (Crop crop : crops) {
-                    viewModel.getTotalStepsCountByCropId(crop.getCrop_ID()).observe(getViewLifecycleOwner(), totalSteps -> {
-                        viewModel.getCompletedStepsCountByCropId(crop.getCrop_ID()).observe(getViewLifecycleOwner(), completedSteps -> {
-                            if (completedSteps == totalSteps) {
-                                tempOngoingCrops.add(crop);
-                            }
 
-                            if (tempOngoingCrops.size() > 0) {
-                                ongoingCrops.clear();
-                                ongoingCrops.addAll(tempOngoingCrops);
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                    });
+                    ongoingCrops.clear();
+                    ongoingCrops.add(crop);
+                    adapter.notifyDataSetChanged();
                 }
-            });
-        });
-    }
+
+                });
+                });
+            }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadOngoingCrops();
+        loadCompletedCrops();
     }
 }

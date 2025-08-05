@@ -5,7 +5,7 @@
     android:id="@+id/main_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#FFFFFF"
+    android:background="@color/l_green"
     tools:context=".Sign_up">
 
     <ImageView
@@ -13,11 +13,24 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="40dp"
+
         android:background="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
         />
+
+    <ImageView
+        android:id="@+id/step4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/img_20"
+        android:backgroundTint="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/t_login"
@@ -32,18 +45,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bsck_sing_up" />
+        app:layout_constraintTop_toBottomOf="@+id/step4" />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:padding="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:background="@drawable/shape_non_selected"
+
+        android:layout_marginEnd="20dp"
         android:hint="  Name"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/t_login"
@@ -56,9 +70,10 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-android:layout_marginTop="10dp"
         android:background="@drawable/shape_non_selected"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:hint="  User Name"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,19 +88,19 @@ android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="20dp"
-        android:padding="10dp"
-
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/shape_non_selected"
         android:hint="  Password"
         android:inputType="textPassword"
+
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/e_user"
 
 
-        />
+       />
 
     <ImageView
         android:id="@+id/ic_eye_off"
@@ -107,14 +122,14 @@ android:layout_marginTop="10dp"
         android:id="@+id/Phone"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:padding="10dp"
-
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
         android:background="@drawable/shape_non_selected"
+
+        android:layout_marginEnd="20dp"
         android:hint="  Phone nober"
         android:inputType="phone"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/e_password"
@@ -122,20 +137,20 @@ android:layout_marginTop="10dp"
 
         />
 
-    <CheckBox
-        android:id="@+id/check_box"
+    <!--    <CheckBox-->
+    <!--        android:id="@+id/check_box"-->
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/green"
-        android:text="Remember me"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:tint="#ffffff"
-        app:layout_constraintEnd_toEndOf="@+id/Sign_up"
-        app:layout_constraintStart_toStartOf="@+id/Sign_up"
-        app:layout_constraintTop_toBottomOf="@id/Phone" />
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:backgroundTint="@color/green"-->
+    <!--        android:text="Remember me"-->
+    <!--        android:textColor="#000000"-->
+    <!--        android:textSize="16sp"-->
+    <!--        android:tint="#ffffff"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/Sign_up"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/Sign_up"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/Phone" />-->
 
     <Button
         android:id="@+id/Sign_up"
@@ -147,17 +162,17 @@ android:layout_marginTop="10dp"
         android:text="Sign up"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_box" />
-
+        app:layout_constraintTop_toBottomOf="@+id/Phone" />
 
     <TextView
         android:id="@+id/comon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="or continue with"
+        android:visibility="gone"
+
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -180,12 +195,13 @@ android:layout_marginTop="10dp"
         app:layout_constraintGuide_percent="0.66" />
 
 
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/facebook"
+        android:visibility="gone"
+
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="0.714"
@@ -197,6 +213,7 @@ android:layout_marginTop="10dp"
         android:id="@+id/imageView2"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:visibility="gone"
         android:src="@drawable/google"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@+id/guideline2"
@@ -210,6 +227,7 @@ android:layout_marginTop="10dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/apple"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.254"
@@ -224,6 +242,8 @@ android:layout_marginTop="10dp"
         android:layout_width="100dp"
         android:layout_height="1dp"
         android:background="@color/black"
+        android:visibility="gone"
+
         app:layout_constraintBottom_toBottomOf="@+id/comon"
         app:layout_constraintEnd_toEndOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="1.0"
@@ -235,6 +255,8 @@ android:layout_marginTop="10dp"
         android:layout_width="100dp"
         android:layout_height="1dp"
         android:background="@color/black"
+        android:visibility="gone"
+
         app:layout_constraintBottom_toBottomOf="@+id/comon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -255,7 +277,7 @@ android:layout_marginTop="10dp"
 
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/Sign_up" />
 
     <TextView
         android:id="@+id/Sign_in"

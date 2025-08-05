@@ -13,7 +13,8 @@ import java.util.List;
 @Dao
 public interface Farmer_Crop_Dao {
 
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll1(List<Farmer_Crops> farmerCrops);
     @Query("SELECT COUNT(*) FROM Farmer_Crops WHERE Farmer_user_name = :farmerUsername AND Crop_ID = :cropId  AND  isRegister = :isRegister")
     int isFarmerCropExists(String farmerUsername, int cropId, boolean isRegister);
 
@@ -40,7 +41,7 @@ public interface Farmer_Crop_Dao {
 //    @Query("DELETE FROM Farmer_Crops WHERE Farmer_user_name = :farmerUsername AND Crop_ID = :cropId ")
 //    Farmer_Crops getFarmerCrop(String farmerUsername, int cropId);
     @Query("SELECT * FROM Farmer_Crops WHERE Farmer_user_name = :farmerName AND Crop_ID = :cropId")
-    Farmer_Crops getFarmerCrop(String farmerName, int cropId);
+    LiveData<List<Farmer_Crops>> getFarmerCrop(String farmerName, int cropId);
 
     @Update
     void updateFarmerCrop(Farmer_Crops farmerCrops);
@@ -70,7 +71,7 @@ public interface Farmer_Crop_Dao {
     @Query("SELECT * FROM Farmer_Crops WHERE Farmer_user_name = :farmerUsername AND Crop_ID = :cropId AND rating!=0 OR rating!=NULL")
     LiveData<List<Farmer_Crops>> getisRatingCropsByFarmer1(String farmerUsername, int cropId);
 
-    @Query("SELECT * FROM Farmer_Crops WHERE Farmer_user_name = :farmerUsername   AND isRegister= 1")
+    @Query("SELECT * FROM Farmer_Crops WHERE Farmer_user_name = :farmerUsername ")
     LiveData<List<Farmer_Crops>> getisRegisterCropsByFarmer1(String farmerUsername);
 
     @Query("SELECT * FROM Farmer_Crops WHERE Crop_ID = :cropId")

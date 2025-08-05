@@ -1,12 +1,8 @@
 package com.example.happyharvest;
 
-import static android.content.Intent.getIntent;
-
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -18,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -29,9 +24,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,8 +40,8 @@ public class CropDetailsActivity1 extends AppCompatActivity {
     private static final int REQUEST_IMAGE_GALLERY = 2;
     private static final int CAMERA_PERMISSION_REQUEST = 101;
 
-    private TextView textCropName, textWeatherTemp;
-    private ImageView weatherIcon;
+    private TextView textCropName, textWeatherTemp, textWaterNotification, textFertilizerNotification;
+    private ImageView weatherIcon,back1;
     private WeatherResponse currentWeather;
 
     private ViewPager2 viewPager;
@@ -58,7 +50,6 @@ public class CropDetailsActivity1 extends AppCompatActivity {
     private EditText etQuestion;
     private String farmerUserName;
     private LinearLayout layoutWaterNotification, layoutFertilizerNotification;
-    private TextView textWaterNotification, textFertilizerNotification;
     private My_View_Model myViewModel;
     private int cropId;
     private List<Farmer_Crops> farmerCrop;
@@ -75,7 +66,7 @@ public class CropDetailsActivity1 extends AppCompatActivity {
         initViews();
 
         cropId = getIntent().getIntExtra("ID", 1);
-         farmerUserName = getIntent().getStringExtra("USER");
+        farmerUserName = getIntent().getStringExtra("USER");
         Log.d(TAG, "Received intent extras - ID: " + cropId + ", USER: " + farmerUserName);
 
         loadCropData();
@@ -83,6 +74,15 @@ public class CropDetailsActivity1 extends AppCompatActivity {
         setupTabs();
         setupAIComponents();
         setupExpertChat();
+        back1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(CropDetailsActivity1.this,MainActivity_Main.class);
+                intent.putExtra("USER_NAME2",farmerUserName);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void initViews() {
@@ -91,6 +91,7 @@ public class CropDetailsActivity1 extends AppCompatActivity {
         textWeatherTemp = findViewById(R.id.text_weather_temp);
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
+        back1 = findViewById(R.id.back1);
         btnAISearch = findViewById(R.id.btn_ai_search);
         btnImageAnalysis = findViewById(R.id.btn_image_analysis);
         etQuestion = findViewById(R.id.et_question);
@@ -106,7 +107,7 @@ public class CropDetailsActivity1 extends AppCompatActivity {
             if (crop != null && !crop.isEmpty()) {
                 currentCrop = crop;
                 textCropName.setText(crop.get(0).getCrop_NAME());
-              //  updateNotifications();
+                //  updateNotifications();
             }
         });
     }
@@ -115,14 +116,14 @@ public class CropDetailsActivity1 extends AppCompatActivity {
         myViewModel.getFarmersByCropAndFarmer(farmerUserName, cropId).observe(this, farmerCrop -> {
             if (farmerCrop != null && !farmerCrop.isEmpty()) {
                 this.farmerCrop = farmerCrop;
-              //  updateNotifications();
+                //  updateNotifications();
                 fetchWeatherData();
             }
         });
     }
 
     private void setupTabs() {
-        CropDetailsPagerAdapter pagerAdapter = new CropDetailsPagerAdapter(this, cropId,farmerUserName);
+        CropDetailsPagerAdapter pagerAdapter = new CropDetailsPagerAdapter(this, cropId, farmerUserName);
         viewPager.setAdapter(pagerAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
@@ -201,10 +202,10 @@ public class CropDetailsActivity1 extends AppCompatActivity {
 
         String longitude = String.valueOf(farmerCrop.get(0).getLongitude());
         String latitude = String.valueOf(farmerCrop.get(0).getLatitude());
-       if (longitude==null || latitude==null) return;
+        if (longitude == null || latitude == null) return;
 
 
-        if (longitude.length() != 2||latitude.length() != 2) return;
+        if (longitude.length() != 2 || latitude.length() != 2) return;
 
         try {
             double lat = Double.parseDouble(latitude);

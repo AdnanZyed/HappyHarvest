@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                         android:text="6:30"
                         android:textColor="@color/black"
 
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@+id/clock_w"
                         app:layout_constraintTop_toTopOf="@+id/clock_w" />
@@ -170,7 +170,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="حان وقت التسميد"
+                        android:text="التسميد الان"
                         android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold"
@@ -198,6 +198,8 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_margin="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="35dp"
                         android:background="@drawable/clock"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_fertilizing" />
@@ -217,11 +219,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="6:30"
                         android:textColor="@color/black"
 
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/clock_f"
                         app:layout_constraintStart_toEndOf="@+id/clock_f"
                         app:layout_constraintTop_toTopOf="@+id/clock_f" />
 
@@ -345,7 +347,7 @@
                             android:text="6:30"
                             android:textColor="@color/black"
 
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/clock_e"
                             app:layout_constraintTop_toTopOf="@+id/clock_e" />
@@ -467,7 +469,7 @@
                             android:text="6:30"
                             android:textColor="@color/black"
 
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/clock_pg"
                             app:layout_constraintTop_toTopOf="@+id/clock_pg" />
@@ -586,7 +588,7 @@
                             android:text="6:30"
                             android:textColor="@color/black"
 
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/clock_pn"
                             app:layout_constraintTop_toTopOf="@+id/clock_pn" />
@@ -708,7 +710,7 @@
                             android:text="6:30"
                             android:textColor="@color/black"
 
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/clock_ps"
                             app:layout_constraintTop_toTopOf="@+id/clock_ps" />

@@ -5,8 +5,7 @@
     android:id="@+id/main_3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#FFFFFF"
-    >
+    android:background="@color/l_green">
 
     <ImageView
         android:id="@+id/back_in"
@@ -19,6 +18,17 @@
 
         />
 
+    <ImageView
+        android:id="@+id/step4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/img_20"
+        android:backgroundTint="@color/green"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/t_login"
         android:layout_width="wrap_content"
@@ -40,16 +50,12 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="20dp"
-
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/shape_non_selected"
         android:hint="  User Name"
-
         android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/t_login"
-
-
         />
 
     <EditText
@@ -60,13 +66,22 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/shape_non_selected"
-
         android:hint="  Password"
         android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/e_user_in"
-
-
         />
+    <ImageView
+        android:id="@+id/ic_eye_off1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_eye_off"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/e_password_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/e_password_in"
+        app:layout_constraintVertical_bias="0.478" />
 
     <CheckBox
         android:id="@+id/check_box_in"
@@ -89,44 +104,39 @@
         android:background="@drawable/shape_next"
         android:backgroundTint="@color/green"
         android:elevation="20dp"
-
         android:text="Sign in"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/comon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/check_box_in" />
 
     <TextView
         android:id="@+id/Forgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Forgot the password?"
         android:textColor="@color/green"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Sign_in" />
-
     <TextView
         android:id="@+id/comon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="or continue with"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
+        app:layout_constraintStart_toStartOf="parent" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.33" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
@@ -140,6 +150,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/facebook"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="0.714"
@@ -151,31 +162,33 @@
         android:id="@+id/imageView2"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:visibility="gone"
         android:src="@drawable/google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toEndOf="@+id/guideline1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.935" />
+        app:layout_constraintVertical_bias="0.835" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/apple"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toEndOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.935"
-
         />
 
     <View
         android:layout_width="100dp"
         android:layout_height="1dp"
+        android:visibility="gone"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/comon"
         app:layout_constraintEnd_toEndOf="@+id/guideline1"
@@ -187,6 +200,7 @@
     <View
         android:layout_width="100dp"
         android:layout_height="1dp"
+        android:visibility="gone"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/comon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -205,8 +219,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.405"
-
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

@@ -24,31 +24,35 @@ public class Crop {
     private String Expert_USER_Name;
     //  private byte[] bookmarkIcon;
     private double rating;
+    private double CompatibilityScore;
     private String preferredSoil;
     private String allowedSoil;
     private String forbiddenSoil;//يتم الرفض
-    private String preferredIrrigation;///////////////
+    private String preferredIrrigation;
+    /// ////////////
     private String allowedIrrigation;
     private String forbiddenIrrigation;//يتم الرفض
     private double minArea;
-    private String season;///////////////// //يتم الرفض
+    private String season;
+    /// ////////////// //يتم الرفض
     private String preferredHumidity;
-    private String allowedHumidity;//////////////
+    private String allowedHumidity;
+    /// ///////////
     private String forbiddenHumidity;
     private String preferredTemp;
-    private String allowedTemp;//////////////
+    private String allowedTemp;
+    /// ///////////
     private String forbiddenTemp;
     private int reviews;
     private int wateringFrequencyDays;//أيام تردد الري
     private int fertilizingFrequencyDays;//أيام تردد التسميد
     private String wateringInstructions;//تعليمات الري
-    private String fertilizingInstructions;//تعليمات التسميد
+    private String fertilizingInstructions;//تعليمات التسميد////////////////////////////////
     private String plantingMethod;//طريقة الزراعة
     private String CropProblems;//مشاكل وحلول الزرعة
     private String Pruning_and_guidance;//التقليم والتوجيه
-
     private String preferredAbundance;//وفرة//////////////////////
-    private String allowedAbundance ;//وفرة
+    private String allowedAbundance;//وفرة
     private String forbiddenAbundance;//وفرة //يتم الرفض
 //
 //    private byte[] planting_1;
@@ -79,10 +83,14 @@ public class Crop {
     private float OptimalHumidity;// درجة الحرارة المثالية
     private int LightRequirements;
     private int Number_Plant_per_dunum;//عدد الشتلات لكل دونوم
-    private String organicFertilizer;//سماد عضوي
-    private double organicPerPlant; // غم/شتلة
-    private String chemicalFertilizer;//سماد كيماوي
-    private double chemicalPerPlant; // غم/شتلة
+    private String organicFertilizer;
+    /// ///////////////سماد عضوي
+    private double organicPerPlant;
+    /// ////////////////// غم/شتلة
+    private String chemicalFertilizer;
+    /// //////////////////سماد كيماوي
+    private double chemicalPerPlant;
+    /// ///////////// غم/شتلة
     private String Previous_crop_preferred;
     private String Previous_crop_allowed;
     private String Previous_crop_forbidden;
@@ -92,13 +100,14 @@ public class Crop {
     private String soil_preparation_allowed;
     private String Preparing_irrigation_tools_A;
 
-    private int weight_seeds_per_dunum; //زون البذور لكل دونوم بالقرام
+    private double weight_seeds_per_dunum; //زون البذور لكل دونوم بالقرام
     private String seedSpecifications;//مواصفات البذور
     private String seedlingPreparation;//تحضير الشتلات
     private String plantingDistance;//مسافة الزراعة
     private String plantingDepth;//عمق الزراعة
     private String initialIrrigation;//الري الأولي
-    private int daysToMaturity; // عدد الأيام حتى النضج
+    private int daysToMaturity;
+    /// //////////// عدد الأيام حتى النضج
     private String high;
     private String mid;
     private String low;
@@ -170,6 +179,14 @@ public class Crop {
     }
 
     public Crop() {
+    }
+
+    public double getCompatibilityScore() {
+        return CompatibilityScore;
+    }
+
+    public void setCompatibilityScore(double compatibilityScore) {
+        CompatibilityScore = compatibilityScore;
     }
 
     public String getPreparing_irrigation_tools_P() {
@@ -556,11 +573,11 @@ public class Crop {
         Preparing_irrigation_tools_A = preparing_irrigation_tools_A;
     }
 
-    public int getWeight_seeds_per_dunum() {
+    public double getWeight_seeds_per_dunum() {
         return weight_seeds_per_dunum;
     }
 
-    public void setWeight_seeds_per_dunum(int weight_seeds_per_dunum) {
+    public void setWeight_seeds_per_dunum(double weight_seeds_per_dunum) {
         this.weight_seeds_per_dunum = weight_seeds_per_dunum;
     }
 

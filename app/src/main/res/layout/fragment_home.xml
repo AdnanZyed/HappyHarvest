@@ -4,22 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/l_green"
     tools:context=".HomeFragment">
-    <!--    <androidx.appcompat.widget.Toolbar-->
-    <!--        android:id="@+id/toolbar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="?attr/colorPrimary"-->
-    <!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-    <!--        app:title="أهلًا عدنان 👋"-->
-    <!--        app:titleTextColor="@android:color/white"-->
-    <!--        tools:ignore="MissingConstraints" />-->
+
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp">
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,6 +27,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="30dp"
+
+                android:visibility="invisible"
 
                 app:cardCornerRadius="500dp"
                 app:cardElevation="0dp"
@@ -42,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/RoundedImage"
@@ -80,13 +80,16 @@
 
             <ImageView
                 android:id="@+id/iv_notification_h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/bell"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/notification"
+
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_expert_image11"
-                app:layout_constraintStart_toEndOf="@+id/iv_expert_image11"
-                app:layout_constraintTop_toTopOf="@+id/iv_expert_image11" />
+                app:layout_constraintStart_toEndOf="@+id/tv_seeall"
+                app:layout_constraintTop_toTopOf="@+id/iv_expert_image11"
+                app:tint="@color/green" />
 
             <ImageView
                 android:id="@+id/iv_Bookmark"
@@ -106,33 +109,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="30dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="28dp"
-
-                android:background="@drawable/list"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="26dp"
+                android:background="@drawable/hamburger"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-
-                android:id="@+id/et_searsh"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_non_selected"
-                android:drawableEnd="@drawable/control"
-                android:hint="Searsh"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_expert_image11">
-
-
-            </EditText>
 
 
             <androidx.viewpager2.widget.ViewPager2
@@ -142,14 +124,15 @@
                 android:layout_margin="16dp"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_searsh" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_notification_h" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardCornerRadius="12dp"
+                android:elevation="20dp"
+                app:cardCornerRadius="10dp"
                 app:contentPadding="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewPager2">
@@ -166,8 +149,7 @@
                         android:id="@+id/weather_icon_h"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:layout_marginEnd="16dp"
-                       />
+                        android:layout_marginEnd="16dp" />
 
                     <!-- بيانات الطقس -->
                     <LinearLayout
@@ -236,18 +218,18 @@
 
                 />
 
-            <TextView
-                android:id="@+id/tv_seeall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="See All"
-                android:textColor="@color/green"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager2" />
 
+            <ImageView
+                android:id="@+id/tv_seeall"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/search"
+                android:visibility="invisible"
+
+                app:layout_constraintBottom_toBottomOf="@+id/menu"
+                app:layout_constraintStart_toEndOf="@+id/iv_expert_image11"
+                app:layout_constraintTop_toTopOf="@+id/menu" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_t"
@@ -269,8 +251,6 @@
                 android:text="Crop category"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rv_t" />
 
@@ -308,10 +288,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
+                        android:background="@color/white"
                         android:drawableStart="@drawable/corncrop"
-                        android:drawablePadding="20dp"
-                        android:shadowColor="@color/white"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+
+                        android:paddingEnd="10dp"
+                        android:shadowColor="@color/green"
                         android:text="All"
                         android:textColor="@color/green" />
 
@@ -327,9 +311,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
+                        android:background="@color/white"
                         android:drawableStart="@drawable/vegetable"
-                        android:drawablePadding="20dp"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:text="Vegetable"
                         android:textColor="@color/green" />
 
@@ -339,15 +326,58 @@
                         android:layout_height="2dp"
                         android:background="@color/white" />
 
-
                     <Button
-                        android:id="@+id/btn_fruits"
+                        android:id="@+id/btn_Fruits"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
+                        android:background="@color/white"
                         android:drawableStart="@drawable/fruits"
-                        android:drawablePadding="20dp"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Fruits"
+                        android:textColor="@color/green" />
+
+                    <View
+                        android:id="@+id/underline_fruits"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_Bulb"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="8dp"
+                        android:background="@color/white"
+                        android:drawableStart="@drawable/tulip"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Bulb"
+                        android:textColor="@color/green" />
+
+                    <View
+                        android:id="@+id/underline_Bulb"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_Root"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="8dp"
+                        android:background="@color/white"
+                        android:drawableStart="@drawable/ginger"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:text="Root"
                         android:textColor="@color/green" />
 
@@ -358,91 +388,121 @@
                         android:background="@color/white" />
 
 
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/btn_Bulb"-->
+
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="50dp"-->
+                    <!--                        android:layout_margin="8dp"-->
+                    <!--                        android:backgroundTint="@color/white"-->
+                    <!--                        android:drawableStart="@drawable/rice"-->
+                    <!--                        android:drawablePadding="50dp"-->
+                    <!--                        android:text="Bulb"-->
+                    <!--                        android:textColor="@color/green" />-->
+
+                    <!--                    <View-->
+                    <!--                        android:id="@+id/underline_bulb"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="2dp"-->
+                    <!--                        android:background="@color/white" />-->
+
+
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/btn_business"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="50dp"-->
+                    <!--                        android:layout_margin="8dp"-->
+                    <!--                        android:backgroundTint="@color/white"-->
+                    <!--                        android:drawableStart="@drawable/unnamed"-->
+                    <!--                        android:drawablePadding="20dp"-->
+                    <!--                        android:text="Business"-->
+                    <!--                        android:textColor="@color/green" />-->
+
+                    <!--                    <View-->
+                    <!--                        android:id="@+id/underline_business"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="2dp"-->
+                    <!--                        android:background="@color/white" />-->
+
+
                     <Button
-                        android:id="@+id/btn_Bulb"
+                        android:id="@+id/btn_irrigated"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
-                        android:drawableStart="@drawable/unnamed"
-                        android:drawablePadding="50dp"
-                        android:text="Bulb"
+                        android:background="@color/white"
+                        android:drawableStart="@drawable/wateringplants"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Irrigated"
                         android:textColor="@color/green" />
 
                     <View
-                        android:id="@+id/underline_bulb"
+                        android:id="@+id/underline_Irrigated"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="@color/white" />
 
 
                     <Button
-                        android:id="@+id/btn_business"
+                        android:id="@+id/btn_grain"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
-                        android:drawableStart="@drawable/unnamed"
-                        android:drawablePadding="20dp"
-                        android:text="Business"
+                        android:background="@color/white"
+                        android:drawableStart="@drawable/rice"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Grain"
                         android:textColor="@color/green" />
 
                     <View
-                        android:id="@+id/underline_business"
+                        android:id="@+id/underline_grain"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="@color/white" />
 
 
                     <Button
-                        android:id="@+id/btn_3d_design"
+                        android:id="@+id/btn_seasonal"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
-                        android:drawableStart="@drawable/unnamed"
-                        android:drawablePadding="20dp"
-                        android:text="3D Design"
+                        android:background="@color/white"
+                        android:drawableStart="@drawable/season"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Seasonal"
                         android:textColor="@color/green" />
 
                     <View
-                        android:id="@+id/underline_3d"
+                        android:id="@+id/underline_seasonal"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="@color/white" />
 
-
                     <Button
-                        android:id="@+id/btn_art"
+                        android:id="@+id/btn_Highdemand"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
-                        android:drawableStart="@drawable/unnamed"
-                        android:drawablePadding="20dp"
-                        android:text="Art"
+                        android:background="@color/white"
+                        android:drawableStart="@drawable/tree"
+                        android:drawablePadding="10dp"
+                        android:elevation="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="High demand"
                         android:textColor="@color/green" />
 
                     <View
-                        android:id="@+id/underline_art"
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="@color/white" />
-
-
-                    <Button
-                        android:id="@+id/btn_programming"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_margin="8dp"
-                        android:backgroundTint="@color/white"
-                        android:drawableStart="@drawable/unnamed"
-                        android:drawablePadding="20dp"
-                        android:text="Programming"
-                        android:textColor="@color/green" />
-
-                    <View
-                        android:id="@+id/underline_programming"
+                        android:id="@+id/underline_Highdemand"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="@color/white" />
@@ -457,12 +517,12 @@
                 android:id="@+id/fram_corse"
                 android:layout_width="match_parent"
                 android:layout_height="750dp"
+                android:background="#E3FFE2"
+                android:paddingBottom="80dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll"
-
-
-                />
+                app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

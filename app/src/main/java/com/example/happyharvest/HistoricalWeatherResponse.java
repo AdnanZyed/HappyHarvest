@@ -17,7 +17,6 @@ public class HistoricalWeatherResponse {
     @SerializedName("data")
     private List<HistoricalWeatherData> data;
 
-    // Getters
     public double getLatitude() {
         return latitude;
     }

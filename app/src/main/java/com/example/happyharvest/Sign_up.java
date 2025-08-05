@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -15,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.happyharvest.databinding.ActivitySignUpBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.ArrayList;
@@ -51,6 +55,8 @@ public class Sign_up extends AppCompatActivity {
         activitySignUpBinding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(activitySignUpBinding.getRoot());
 
+        FirebaseAuth.getInstance().getFirebaseAuthSettings()
+                .setAppVerificationDisabledForTesting(false);
 
         activitySignUpBinding.eUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -103,7 +109,7 @@ public class Sign_up extends AppCompatActivity {
             activitySignUpBinding.ePassword.setText(sharedPreferences.getString("password1", ""));
             activitySignUpBinding.name.setText(sharedPreferences.getString("name1", ""));
             activitySignUpBinding.Phone.setText(sharedPreferences.getString("phone1", ""));
-            activitySignUpBinding.checkBox.setChecked(true);
+           // activitySignUpBinding.checkBox.setChecked(true);
         }
 
         activitySignUpBinding.SignUp.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +120,6 @@ public class Sign_up extends AppCompatActivity {
                 PhoneIn = activitySignUpBinding.Phone.getText().toString().trim();
                 nameIn = activitySignUpBinding.name.getText().toString().trim();
                 farmerU = myViewModel.getAllFarmerByUser(eUserIn);
-
 
 
                 activitySignUpBinding.eUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -137,84 +142,132 @@ public class Sign_up extends AppCompatActivity {
                         }
                     }
                 });
+                if (nameIn.isEmpty()) {
+                    activitySignUpBinding.name.setBackgroundResource(R.drawable.errore);
 
+                    activitySignUpBinding.name.setError("Name required");
+                    return;
+                }
 
                 if (eUserIn.isEmpty()) {
                     activitySignUpBinding.eUser.setError("Username required");
+                    activitySignUpBinding.eUser.setBackgroundResource(R.drawable.errore);
+
                     return;
                 }
 
-                if (ePasswordIn.isEmpty()) {
-                    activitySignUpBinding.ePassword.setError("Password required");
-                    return;
-                }
+
 
                 if (eUserIn.length() < 3 || eUserIn.length() > 30) {
                     activitySignUpBinding.eUser.setError("Username must be between 3 and 20 characters");
+                    activitySignUpBinding.eUser.setBackgroundResource(R.drawable.errore);
                     return;
                 }
 
                 if (!eUserIn.matches("^[a-zA-Z0-9@#$%^&+=!_]+$")) {
+                    activitySignUpBinding.eUser.setBackgroundResource(R.drawable.errore);
+
                     activitySignUpBinding.eUser.setError("The user name must contain only letters and numbers");
                     return;
                 }
+                if (ePasswordIn.isEmpty()) {
+                    activitySignUpBinding.ePassword.setError("Password required");
+                    activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.errore);
 
+                    return;
+                }
                 if (ePasswordIn.length() < 8) {
+                    activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.errore);
+
                     activitySignUpBinding.ePassword.setError("Password must be at least 8 characters");
                     return;
                 }
 
                 String passwordPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
                 if (!ePasswordIn.matches(passwordPattern)) {
+                    activitySignUpBinding.ePassword.setError("Password must be at least 8 characters");
+                    activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.errore);
+
                     activitySignUpBinding.ePassword.setError("The password must contain an uppercase and lowercase letter, a number, and a special symbol\n");
                     return;
                 }
 
-                if (nameIn.isEmpty()) {
-                    activitySignUpBinding.name.setError("Name required");
-                    return;
-                }
+
 
                 if (PhoneIn.isEmpty()) {
                     activitySignUpBinding.Phone.setError("Phone number required");
+                    activitySignUpBinding.Phone.setBackgroundResource(R.drawable.errore);
+
                     return;
                 }
 
 
                 if (!PhoneIn.matches("^[0-9]+$")) {
+                    activitySignUpBinding.Phone.setBackgroundResource(R.drawable.errore);
+
                     activitySignUpBinding.Phone.setError("Please enter a valid phone number");
                     return;
                 }
 
                 if (PhoneIn.length() != 10) {
+                    activitySignUpBinding.Phone.setBackgroundResource(R.drawable.errore);
+
                     activitySignUpBinding.Phone.setError("The phone number must consist of 10 digits");
                     return;
                 }
 
-                myViewModel.getAllFarmerByUser(eUserIn).observe(Sign_up.this, farmers -> {
 
+                int phoneIn = Integer.parseInt(PhoneIn);
+                farmer = new Farmer(eUserIn, ePasswordIn, phoneIn, 1234, nameIn, null, "");
 
-                    if ( farmers.isEmpty()) {
-                        int phoneIn = Integer.parseInt(PhoneIn);
-                        farmer = new Farmer(eUserIn, ePasswordIn, phoneIn, 1234, nameIn, null, "");
-                        myViewModel.insertFarmer(farmer);
+                uploadFarmer(farmer);
+//                    // استدعاء الدالة المبسطة
+//                FirebaseDatabaseHelper.getInstance().addFarmer(farmer, new FirebaseDatabaseHelper.OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(boolean success, Exception exception) {
+//                            runOnUiThread(() -> {
+//                                if (success) {
+//                                    Toast.makeText(Sign_up.this, "✅ تم تسجيل المزارع بنجاح", Toast.LENGTH_SHORT).show();
+//                                    Intent intent = new Intent(Sign_up.this, MainActivity_Main.class);
+//                                    intent.putExtra("USER_NAME2", eUserIn);
+//                                    startActivity(intent);
+//                                } else {
+//                                    if (exception instanceof FirebaseAuthWeakPasswordException) {
+//                                        activitySignUpBinding.ePassword.setError("كلمة المرور ضعيفة");
+//                                    } else if (exception instanceof FirebaseAuthUserCollisionException) {
+//                                        activitySignUpBinding.eUser.setError("اسم المستخدم مستخدم بالفعل");
+//                                    } else {
+//                                        Toast.makeText(Sign_up.this, "❌ فشل التسجيل: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            });
+//                        }
+//                    });
 
-
-                        Intent intent = new Intent(Sign_up.this, MainActivity_Main.class);
-                        intent.putExtra("USER_NAME2", eUserIn);
-
-                        startActivity(intent);
-                        myViewModel.addNotification("Account Setup Successful!", "Your account has been created!", R.drawable.created);
-
-
-                    }
-                   else {
-                        activitySignUpBinding.eUser.setError("The username has already been used");
-
-                    }
-
-
-                });
+//                myViewModel.getAllFarmerByUser(eUserIn).observe(Sign_up.this, farmers -> {
+//
+//
+//                    if ( farmers.isEmpty()) {
+//                        int phoneIn1 = Integer.parseInt(PhoneIn);
+//                        farmer = new Farmer(eUserIn, ePasswordIn, phoneIn1, 1234, nameIn, null, "");
+//                        myViewModel.insertFarmer(farmer);
+//
+//
+//                        Intent intent = new Intent(Sign_up.this, MainActivity_Main.class);
+//                        intent.putExtra("USER_NAME2", eUserIn);
+//
+//                        startActivity(intent);
+//                        myViewModel.addNotification("Account Setup Successful!", "Your account has been created!", R.drawable.created);
+//
+//
+//                    }
+//                   else {
+//                        activitySignUpBinding.eUser.setError("The username has already been used");
+//
+//                    }
+//
+//
+//                });
 
             }
 
@@ -236,43 +289,78 @@ public class Sign_up extends AppCompatActivity {
             }
         });
 
-        activitySignUpBinding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) ->
-
-        {
-            if (isChecked) {
-                String username2 = activitySignUpBinding.eUser.getText().toString();
-                String password2 = activitySignUpBinding.ePassword.getText().toString();
-                String phone2 = activitySignUpBinding.ePassword.getText().toString();
-                String name2 = activitySignUpBinding.ePassword.getText().toString();
-
-                if (!username2.isEmpty() && !password2.isEmpty() && !phone2.isEmpty() && !name2.isEmpty()) {
-                    editor.putBoolean("rememberMe1", true);
-                    editor.putString("username1", username2);
-                    editor.putString("password1", password2);
-                    editor.putString("phone1", phone2);
-                    editor.putString("name1", name2);
-                    editor.apply();
-                } else {
-                    activitySignUpBinding.checkBox.setChecked(false);
-                }
-            } else {
-                editor.clear();
-                editor.apply();
-            }
-        });
+//        activitySignUpBinding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) ->
+//
+//        {
+//            if (isChecked) {
+//                String username2 = activitySignUpBinding.eUser.getText().toString();
+//                String password2 = activitySignUpBinding.ePassword.getText().toString();
+//                String phone2 = activitySignUpBinding.ePassword.getText().toString();
+//                String name2 = activitySignUpBinding.ePassword.getText().toString();
+//
+//                if (!username2.isEmpty() && !password2.isEmpty() && !phone2.isEmpty() && !name2.isEmpty()) {
+//                    editor.putBoolean("rememberMe1", true);
+//                    editor.putString("username1", username2);
+//                    editor.putString("password1", password2);
+//                    editor.putString("phone1", phone2);
+//                    editor.putString("name1", name2);
+//                    editor.apply();
+//                } else {
+//                    activitySignUpBinding.checkBox.setChecked(false);
+//                }
+//            } else {
+//                editor.clear();
+//                editor.apply();
+//            }
+//        });
 
         activitySignUpBinding.icEyeOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (activitySignUpBinding.ePassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
                     activitySignUpBinding.ePassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    activitySignUpBinding.icEyeOff.setBackgroundResource(R.drawable.ic_eye);
+                    activitySignUpBinding.icEyeOff.setBackgroundResource(R.drawable.ic_eye_off);
                 } else {
                     activitySignUpBinding.ePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    activitySignUpBinding.icEyeOff.setBackgroundResource(R.drawable.ic_eye_off);
+                    activitySignUpBinding.icEyeOff.setBackgroundResource(R.drawable.eye);
                 }
 
                 activitySignUpBinding.ePassword.setSelection(activitySignUpBinding.ePassword.getText().length());
+            }
+        });
+
+    }
+
+    private void uploadFarmer(Farmer farmer) {
+
+
+        FirebaseDatabaseHelper.getInstance().addFarmer(farmer, new FirebaseDatabaseHelper.OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(boolean success, Exception exception) {
+                runOnUiThread(() -> {
+                    if (success) {
+                        Toast.makeText(Sign_up.this, "✅ تم تسجيل المزارع بنجاح", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Sign_up.this, MainActivity_Main.class);
+                        intent.putExtra("USER_NAME2", eUserIn);
+
+                        myViewModel.insertFarmer(farmer);
+
+                        startActivity(intent);
+                    } else {
+                        if (exception instanceof FirebaseAuthWeakPasswordException) {
+                            activitySignUpBinding.ePassword.setError("كلمة المرور ضعيفة");
+                            activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.errore);
+
+                        } else if (exception instanceof FirebaseAuthUserCollisionException) {
+                            activitySignUpBinding.eUser.setError("اسم المستخدم مستخدم بالفعل");
+                            activitySignUpBinding.eUser.setBackgroundResource(R.drawable.errore);
+
+                        } else {
+                            Toast.makeText(Sign_up.this, "❌ فشل التسجيل: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 

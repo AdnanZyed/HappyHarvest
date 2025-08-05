@@ -3,7 +3,7 @@ package com.example.happyharvest;
 public class Crops {
     private String name;
     private int iconRes;
-    private int type; // 0=خضروات ورقية, 1=حبوب وبقوليات, 2=جذور وأبصال
+    private int type;
 
     public Crops(String name, int iconRes, int type) {
         this.name = name;
@@ -11,8 +11,6 @@ public class Crops {
         this.type = type;
     }
 
-
-    // Getters
 
     public String getName() {
         return name;

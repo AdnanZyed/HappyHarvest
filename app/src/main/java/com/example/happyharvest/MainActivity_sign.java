@@ -27,9 +27,11 @@ import java.util.List;
 
 public class MainActivity_sign extends AppCompatActivity {
     private My_View_Model myViewModel;
-    ActivityMainSignBinding binding;
-    FirebaseDatabase database;
-    DatabaseReference dbRef;
+    private ActivityMainSignBinding binding;
+    private FirebaseDatabase database;
+    private DatabaseReference dbRef;
+    private FirebaseDatabaseHelper firebaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +40,158 @@ public class MainActivity_sign extends AppCompatActivity {
         setContentView(binding.getRoot());
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
 
+//
+//        database = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/");
+//        dbRef = database.getReference("crops"); // لازم تعملها قبل push()
 
-        database = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/");
-        dbRef = database.getReference("crops"); // لازم تعملها قبل push()
+        // الحصول على نسخة Singleton من FirebaseDatabaseHelper
+        firebaseHelper = FirebaseDatabaseHelper.getInstance();
+//        addSampleExperts();
+//        addSampleFarmers();
+        Crop onion = createOnionCrop();
+        Crop tomato = createTomatoCrop();
+        Crop eggplant = createEggplantCrop();
+        Crop garlic = createGarlicCrop();
+        Crop carrot = createCarrotCrop();
 
+
+//        uploadCrop(onion);
+//        uploadCrop(tomato);
+//        uploadCrop(eggplant);
+//        uploadCrop(garlic);
+//        uploadCrop(carrot);
+
+        binding.exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        binding.exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        binding.SignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity_sign.this, ActivityMainSignIn.class);
+                startActivity(intent);
+            }
+        });
+        binding.signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity_sign.this, Sign_up.class);
+                startActivity(intent);
+
+            }
+        });
+        binding.Guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity_sign.this, MainActivity_Main.class);
+                intent.putExtra("USER_NAME2", "GUEST");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private Crop createTomatoCrop() {
+
+        Crop tomato = new Crop();
+        tomato.setCrop_NAME("Tomato");
+        tomato.setCategorie("Irrigated fruits Vegetable seasonal Highdemand");
+        tomato.setDescription("الطماطم من أهم محاصيل الخضر الموسمية، تزرع في المناطق المعتدلة والحارة، تحتاج إلى عناية فائقة في الري والتسميد وتعتبر من المحاصيل عالية القيمة التجارية.");
+        tomato.setExpert_USER_Name("jane_smith");
+        tomato.setPreferredSoil("sandy loam with organic matter");
+        tomato.setAllowedSoil("clay loam with good drainage");
+        tomato.setForbiddenSoil("heavy clay or waterlogged soil");
+        tomato.setPreferredIrrigation("drip irrigation with pressure control");
+        tomato.setAllowedIrrigation("soaker hoses or careful sprinkler");
+        tomato.setForbiddenIrrigation("flood irrigation or overhead sprinklers");
+        tomato.setMinArea(0.25);
+        tomato.setSeason("spring to summer");
+        tomato.setPreferredHumidity("Moderate");
+        tomato.setAllowedHumidity("Low");
+        tomato.setForbiddenHumidity("High");
+        tomato.setPreferredTemp("Cool");
+        tomato.setAllowedTemp("Mild");
+        tomato.setForbiddenTemp("Hot");
+        tomato.setWateringFrequencyDays(2);
+        tomato.setFertilizingFrequencyDays(15);
+        tomato.setWateringInstructions("\uD83D\uDEB0 برنامج الري المتكامل:\n\n"
+                + "1. مرحلة النمو الأولى (0-30 يوم):\n   - الري كل 3 أيام\n   - كمية الماء: 4 لتر/نبات\n\n"
+                + "2. مرحلة الإزهار (30-60 يوم):\n   - الري كل يومين\n   - كمية الماء: 6 لتر/نبات\n\n"
+                + "3. مرحلة الإثمار (60-90 يوم):\n   - الري يوميًا\n   - كمية الماء: 8 لتر/نبات\n\n"
+                + "⚠️ تحذير: تجنب تبليل الأوراق لمنع الأمراض الفطرية");
+
+        tomato.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد الشامل:\n\n"
+                + "الأسبوع 1-3:\n   - سماد نيتروجيني (NPK 20-10-10)\n   - 50 جم/نبات\n\n"
+                + "الأسبوع 4-6:\n   - سماد متوازن (NPK 15-15-15)\n   - 75 جم/نبات\n\n"
+                + "الأسبوع 7-12:\n   - سماد عالي البوتاسيوم (NPK 10-10-30)\n   - 100 جم/نبات\n\n"
+                + "✳️ نصائح:\n   - أضف الكالسيوم لمنع تعفن الطرف الزهري\n   - استخدم المخصبات الحيوية لتحسين الامتصاص");
+
+        tomato.setPlantingMethod("\uD83C\uDF31 دليل الزراعة التفصيلي:\n\n"
+                + "1. إعداد المشتل:\n   - تنقع البذور في ماء دافئ (50°م) لمدة 30 دقيقة\n   - تزرع في أصص صغيرة بعمق 1 سم\n\n"
+                + "2. نقل الشتلات:\n   - عندما تصل لطول 15-20 سم\n   - قبل النقل بأسبوع تخفف ريها للتقسية\n\n"
+                + "3. في الأرض الدائمة:\n   - مسافات الزراعة: 50 سم بين النباتات، 100 سم بين الخطوط\n   - تثبيت الدعامات قبل الزراعة\n\n"
+                + "4. التقليم:\n   - إزالة السرطانات تحت العنقود الزهري الأول\n   - تقليم الأوراق السفلية بعد نضج أول عنقود");
+
+        tomato.setCropProblems("\uD83D\uDC1B المشاكل والحلول المتكاملة:\n\n"
+                + "1. ذبول الفيوزاريوم:\n   - الأعراض: اصفرار الأوراق من الأسفل\n   - العلاج: استخدام أصول مقاومة + تعقيم التربة\n\n"
+                + "2. حشرة الذبابة البيضاء:\n   - الأعراض: تجعد الأوراق ووجود ندوة عسلية\n   - العلاج: مصائد صفراء + زيت النيم\n\n"
+                + "3. تشقق الثمار:\n   - السبب: تذبذب الري\n   - الوقاية: ري منتظم + تغطية التربة\n\n"
+                + "4. تعفن الطرف الزهري:\n   - السبب: نقص الكالسيوم\n   - العلاج: رش نترات الكالسيوم (5 جم/لتر)");
+
+        tomato.setPruning_and_guidance("\uD83D\uDD04 إدارة النبات المتكاملة:\n\n"
+                + "1. التدعيم:\n   - استخدام أوتاد طول 2 متر\n   - ربط الساق كل 20 سم\n\n"
+                + "2. التقليم:\n   - إزالة 2-3 سرطانات أسبوعيًا\n   - تقليم الأوراق الصفراء\n\n"
+                + "3. التلقيح:\n   - هز النباتات صباحًا\n   - استخدام فرشاة ناعمة لنقل اللقاح");
+
+        tomato.setOptimalHumidity(65);
+        tomato.setOptimalTemperature(25);
+        tomato.setLightRequirements(8);
+        tomato.setNumber_Plant_per_dunum(2500);
+        tomato.setOrganicFertilizer("كمبوست + سماد بلدي متحلل + مخلفات نباتية");
+        tomato.setChemicalPerPlant(50.0);
+        tomato.setChemicalFertilizer("NPK + عناصر صغرى");
+        tomato.setOrganicPerPlant(300.0);
+        tomato.setPrevious_crop_preferred("البصل - الثوم - البقوليات");
+        tomato.setPrevious_crop_allowed("الخس - الجزر - السبانخ");
+        tomato.setPrevious_crop_forbidden("البطاطس - الباذنجان - الفلفل");
+        tomato.setSoil_preparation_Favorite("حرث عميق 40 سم + تعقيم شمسي + إضافة 10 طن سماد عضوي للدونم");
+        tomato.setPreparing_irrigation_tools_F("تركيب شبكة ري بالتنقيط مع فلتر رملي + حقن السماد");
+        tomato.setPreparing_irrigation_tools_P("استخدام خراطيم النقع مع موزعات");
+        tomato.setPreparing_irrigation_tools_A("تجنب الرشاشات العلوية");
+        tomato.setSoil_preparation_allowed("حرث سطحى 20 سم + 5 طن سماد عضوي");
+        tomato.setWeight_seeds_per_dunum(0.5);
+        tomato.setSeedSpecifications("بذور هجين F1 معتمدة - نسبة إنبات >90% - خالية من الأمراض");
+        tomato.setSeedlingPreparation("نقع البذور في ماء دافئ + معاملتها بالمبيدات الحيوية قبل الزراعة");
+        tomato.setPlantingDistance("50 سم بين النباتات - 100 سم بين الخطوط - 2000 نبات/دونم");
+        tomato.setPlantingDepth("2-3 سم للبذور - حتى أول ورقة حقيقية للشتلات");
+        tomato.setInitialIrrigation("ري غزير مباشر بعد الزراعة + رية دمك بعد 3 أيام");
+        tomato.setDaysToMaturity(90);
+        tomato.setHigh("صنف هايبرد 6000");
+        tomato.setMid("صنف سوبر ستار");
+        tomato.setLow("صنف محلي");
+        tomato.setTemperatureTolerance(12);
+        tomato.setHumidityTolerance(35);
+        return tomato;
+    }
+
+    private Crop createOnionCrop() {
         Crop onion = new Crop();
         onion.setCrop_NAME("Onion");//الاسم
-        onion.setCategorie("Seasonal crops - Root crops - High-demand crops");//التصنيفات
+        onion.setCategorie("Bulb Vegetable seasonal Highdemand");  //التصنيفاتRoot grain Irrigated fruits Vegetable Bulb seasonal Highdemand
         onion.setDescription("البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.");//الوصف
         onion.setExpert_USER_Name("jane_smith");//اسم الخبير
         onion.setPreferredSoil("sandy");//التربة المفضلة للمحصول
         onion.setAllowedSoil("muddy");//التربة المسموحة للمحصول
-        onion.setAllowedSoil("rocky");//التربة المرفوضة للمحصول
+        onion.setAllowedSoil("rocky");//الت ربة المرفوضة للمحصول
         onion.setPreferredIrrigation("drip");//طريقة الري المفضلة للمحصول
         onion.setAllowedIrrigation("sprinkler");//طريقة الري المسموحة للمحصول
         onion.setForbiddenIrrigation("immersion");//طريقة الري المرفوضة للمحصول
@@ -251,37 +393,299 @@ public class MainActivity_sign extends AppCompatActivity {
         onion.setLow("اصفر");//المحصول الاقل ملائمة اذا توفر ثلاث انواع مثلا من هذا المحصول
         onion.setTemperatureTolerance(10);//فرق الحرارة الذي يتحمله المحصول
         onion.setHumidityTolerance(30);//فرق الرطوبة الذي يتحمله المحصول
-        addSampleExperts();
+        return onion;
+    }
 
+    private Crop createEggplantCrop() {
 
-        new Thread(() -> {
-            myViewModel.insertCrop(onion);
-        }).start();
+        Crop eggplant = new Crop();
+        eggplant.setCrop_NAME("Eggplant");
+        eggplant.setCategorie("Irrigated Vegetable seasonal Highdemand");
+        eggplant.setDescription("الباذنجان من الخضروات الموسمية ذات القيمة الغذائية العالية، يمتاز بتحمله للحرارة ويحتاج إلى موسم نمو طويل ودافئ لإنتاج ثمار عالية الجودة. يُزرع في المناطق المعتدلة والحارة ويعد من المحاصيل ذات العائد الاقتصادي الجيد.");
+        eggplant.setExpert_USER_Name("jane_smith");
+        eggplant.setPreferredSoil("deep sandy loam rich in organic matter");
+        eggplant.setAllowedSoil("clay loam with perfect drainage");
+        eggplant.setForbiddenSoil("heavy clay or saline soils");
+        eggplant.setPreferredIrrigation("drip irrigation with daily monitoring");
+        eggplant.setAllowedIrrigation("soaker hoses or careful sprinkler");
+        eggplant.setForbiddenIrrigation("flood irrigation or overhead sprinklers");
+        eggplant.setMinArea(0.3);
+        eggplant.setSeason("spring to summer (requires 100-140 frost-free days)");
+        eggplant.setPreferredHumidity("Moderate (50-65%) during fruit set");
+        eggplant.setAllowedHumidity("Low (40-50%) in early stages");
+        eggplant.setForbiddenHumidity("High (>80%) especially during flowering");
+        eggplant.setPreferredTemp("Warm (25-32°C day / 18-24°C night)");
+        eggplant.setAllowedTemp("Mild (20-35°C) for limited periods");
+        eggplant.setForbiddenTemp("Cool (<15°C) or extreme heat (>40°C)");
+        eggplant.setWateringFrequencyDays(2);
+        eggplant.setFertilizingFrequencyDays(14);
+        eggplant.setWateringInstructions("\uD83D\uDEB0 برنامج الري المتكامل:\n\n"
+                + "1. مرحلة النمو الخضري (0-40 يوم):\n   - الري كل 3 أيام\n   - كمية الماء: 5 لتر/نبات\n\n"
+                + "2. مرحلة الإزهار والإثمار (40-100 يوم):\n   - الري يومياً\n   - كمية الماء: 7 لتر/نبات\n\n"
+                + "3. مرحلة النضج (100-140 يوم):\n   - تقليل الري تدريجياً\n   - تجنب التذبذب في الري لمنع تساقط الأزهار\n\n"
+                + "⚠️ تحذير: نقص الري أثناء الإزهار يؤدي لسقوط الأزهار وضعف العقد");
 
-        List<Crop> cropsList = new ArrayList<>();
-        cropsList.add(onion);
+        eggplant.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد الشامل:\n\n"
+                + "قبل الزراعة:\n   - 20 طن سماد عضوي متحلل/هكتار\n   - سوبر فوسفات (300 كجم/هكتار)\n\n"
+                + "بعد 3 أسابيع:\n   - نترات الأمونيوم (150 كجم/هكتار)\n\n"
+                + "أثناء الإثمار:\n   - سماد NPK 12-12-17 (250 كجم/هكتار)\n\n"
+                + "✳️ نصائح:\n   - رش أوراق بالكالسيوم أسبوعياً لمنع تعفن الطرف الزهري\n   - إضافة الماغنيسيوم لتحسين لون الثمار");
 
-        for (Crop crop : cropsList) {
-            String id = dbRef.push().getKey();
-            if (id != null) {
-                dbRef.child(id).setValue(crop).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
-                        Log.d("Firebase", "Crop successfully uploaded");
+        eggplant.setPlantingMethod("\uD83C\uDF31 دليل الزراعة التفصيلي:\n\n"
+                + "1. إعداد الشتلات:\n   - زراعة البذور في أصص صغيرة بعمق 1 سم\n   - نقل الشتلات عند وصولها لطول 15-20 سم\n\n"
+                + "2. الزراعة الدائمة:\n   - مسافات الزراعة: 60 سم بين النباتات، 100 سم بين الخطوط\n   - إضافة الأسمدة الأساسية في قاع الجورة\n\n"
+                + "3. العناية:\n   - تركيب دعامات خشبية للنباتات\n   - إزالة الأوراق السفلية بعد نضج أول ثمرة\n\n"
+                + "4. الحصاد:\n   - عند اكتمال حجم الثمار ولمعان القشرة\n   - القص بالسكين مع ترك جزء من الساق");
 
-                    } else {
-                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
-                        Log.e("Firebase", "Error uploading crop: " + task.getException());
+        eggplant.setCropProblems("\uD83D\uDC1B المشاكل والحلول المتكاملة:\n\n"
+                + "1. حشرة المن:\n   - الأعراض: تجعد الأوراق ووجود مادة لزجة\n   - العلاج: صابون زراعي + زيت النيم\n\n"
+                + "2. ذبابة الفاكهة:\n   - الأعراض: ثقوب صغيرة في الثمار\n   - العلاج: مصائد فرمونية + شباك حماية\n\n"
+                + "3. اللفحة المبكرة:\n   - السبب: فطر Alternaria\n   - الوقاية: رش أكسيد النحاس كل أسبوعين\n\n"
+                + "4. تشوه الثمار:\n   - السبب: نقص البورون أو سوء التلقيح\n   - العلاج: رش بوراكس (2 جم/لتر) + هز النباتات صباحاً");
 
-                    }
-                });
-            }
-        }
+        eggplant.setPruning_and_guidance("\uD83D\uDD04 إدارة النبات:\n\n"
+                + "1. التقليم:\n   - إزالة السرطانات الجانبية تحت أول تفرع\n   - تقليم الأوراق الصفراء فقط\n\n"
+                + "2. التدعيم:\n   - استخدام أوتاد طول 1.5 متر\n   - ربط الساق الرئيسية كل 30 سم\n\n"
+                + "3. التغطية:\n   - استخدام القش الأسود للحفاظ على الرطوبة\n   - منع نمو الأعشاب الضارة");
 
-        Toast.makeText(MainActivity_sign.this, "جاري رفع " + cropsList.size() + " محاصيل...", Toast.LENGTH_SHORT).show();
+        eggplant.setPreferredAbundance("Available (6000 m³/season)");
+        eggplant.setAllowedAbundance("Limited (4000 m³/season)");
+        eggplant.setForbiddenAbundance("Unavailable (<2000 m³/season)");
+        eggplant.setLearnMore("تفاصيل إضافية:\n- الأصناف المقاومة للأمراض\n- تقنيات الزراعة بدون تربة\n- معايير الجودة للتصدير");
+        eggplant.setOptimalHumidity(60);
+        eggplant.setOptimalTemperature(28);
+        eggplant.setLightRequirements(8);
+        eggplant.setNumber_Plant_per_dunum(1500);
+        eggplant.setOrganicFertilizer("سماد دواجن + كمبوست + رماد خشب");
+        eggplant.setChemicalPerPlant(25.0);
+        eggplant.setChemicalFertilizer("NPK + عناصر صغرى");
+        eggplant.setOrganicPerPlant(300.0);
+        eggplant.setPrevious_crop_preferred("البقوليات - الذرة - القمح");
+        eggplant.setPrevious_crop_allowed("الخس - السبانخ - الجزر");
+        eggplant.setPrevious_crop_forbidden("الطماطم - الفلفل - البطاطس");
+        eggplant.setSoil_preparation_Favorite("حرث عميق 50 سم + تعقيم بالبخار + 15 طن سماد عضوي/هكتار");
+        eggplant.setPreparing_irrigation_tools_F("شبكة ري بالتنقيط مع فلتر شبكي + مضخة حقن");
+        eggplant.setPreparing_irrigation_tools_P("خراطيم النقع ذات المنقاطات");
+        eggplant.setPreparing_irrigation_tools_A("الرشاشات العلوية أو الري بالغمر");
+        eggplant.setSoil_preparation_allowed("حرث متوسط 30 سم + 10 طن سماد عضوي");
+        eggplant.setWeight_seeds_per_dunum(0.2);
+        eggplant.setSeedSpecifications("بذور هجين F1 معتمدة - نسبة إنبات >90% - مقاومة للذبول");
+        eggplant.setSeedlingPreparation("نقع البذور في ماء دافئ (50°م) لمدة 24 ساعة");
+        eggplant.setPlantingDistance("60 سم بين النباتات - 100 سم بين الخطوط - 16,000 نبات/هكتار");
+        eggplant.setPlantingDepth("1-2 سم للبذور - حتى أول ورقة حقيقية للشتلات");
+        eggplant.setInitialIrrigation("ري غزير بعد الزراعة + رية دمك بعد 3 أيام");
+        eggplant.setDaysToMaturity(100);
+        eggplant.setHigh("صنف Black Beauty");
+        eggplant.setMid("صنف Long Purple");
+        eggplant.setLow("صنف محلي دائري");
+        eggplant.setTemperatureTolerance(12);
+        eggplant.setHumidityTolerance(35);
+        return eggplant;
+    }
 
-        addSampleFarmers();
+    private Crop createGarlicCrop() {
+        Crop garlic = new Crop();
+        garlic.setCrop_NAME("Garlic");
+        garlic.setCategorie("Bulb Vegetable seasonal Highdemand");
+        garlic.setDescription("الثوم من المحاصيل البصلية ذات القيمة الطبية والتجارية العالية، يمتاز بفترة نمو طويلة واحتياجاته الخاصة من البرودة خلال مرحلة التبصير. يعتبر من المحاصيل الإستراتيجية في العديد من الدول بسبب خصائصه المضادة للبكتيريا والفطريات.");
+        garlic.setExpert_USER_Name("jane_smith");
+        garlic.setPreferredSoil("sandy loam with perfect drainage and high organic content");
+        garlic.setAllowedSoil("clay loam with added sand and compost");
+        garlic.setForbiddenSoil("heavy clay or waterlogged soils");
+        garlic.setPreferredIrrigation("drip irrigation with pressure-compensating emitters");
+        garlic.setAllowedIrrigation("low-pressure sprinkler in early morning");
+        garlic.setForbiddenIrrigation("flood irrigation or overhead sprinklers");
+        garlic.setMinArea(0.4);
+        garlic.setSeason("autumn planting (Oct-Nov) for winter chilling requirement");
+        garlic.setPreferredHumidity("Moderate (60-70%) during bulb formation");
+        garlic.setAllowedHumidity("Low (40-50%) in early growth stages");
+        garlic.setForbiddenHumidity("High (>80%) especially near harvest");
+        garlic.setPreferredTemp("Cool (13-24°C) for optimal growth");
+        garlic.setAllowedTemp("Cold (4-30°C) for limited periods");
+        garlic.setForbiddenTemp("Freezing (<-3°C) or extreme heat (>35°C)");
+        garlic.setWateringFrequencyDays(5);
+        garlic.setFertilizingFrequencyDays(21);
+        garlic.setWateringInstructions("\uD83D\uDEB0 برنامج الري المتكامل:\n\n"
+                + "1. مرحلة التأسيس (0-30 يوم):\n   - الري كل 5 أيام\n   - كمية الماء: 3 لتر/نبات\n\n"
+                + "2. مرحلة النمو النشط (30-90 يوم):\n   - الري كل 3 أيام\n   - كمية الماء: 5 لتر/نبات\n\n"
+                + "3. مرحلة النضج (90-150 يوم):\n   - إيقاف الري تماماً قبل 3 أسابيع من الحصاد\n   - ترك التربة تجف تماماً\n\n"
+                + "⚠️ تحذير: الري الزائد في المراحل المتأخرة يقلل من جودة التخزين");
 
+        garlic.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد الشامل:\n\n"
+                + "قبل الزراعة:\n   - 20 طن سماد عضوي متحلل/هكتار\n   - سوبر فوسفات (400 كجم/هكتار)\n\n"
+                + "بعد 6 أسابيع:\n   - نترات الكالسيوم (150 كجم/هكتار)\n\n"
+                + "أثناء تكوين الفصوص:\n   - سلفات البوتاسيوم (300 كجم/هكتار)\n\n"
+                + "✳️ نصائح:\n   - تجنب الأسمدة النيتروجينية بعد مرحلة تكوين الفصوص\n   - إضافة الكبريت الزراعي لتحسين النكهة والخصائص الطبية");
+
+        garlic.setPlantingMethod("\uD83C\uDF31 دليل الزراعة التفصيلي:\n\n"
+                + "1. إعداد الفصوص:\n   - تفكيك الرؤوس إلى فصوص قبل الزراعة بيوم\n   - اختيار الفصوص الكبيرة الخالية من العيوب\n\n"
+                + "2. المعالجة:\n   - نقع الفصوص في ماء دافئ (45°م) + مبيد فطري لمدة 20 دقيقة\n\n"
+                + "3. الزراعة:\n   - عمق الزراعة: 3-5 سم (في التربة الرملية) / 2-3 سم (في التربة الطينية)\n   - المسافات: 10 سم بين النباتات، 30 سم بين الخطوط\n\n"
+                + "4. العناية:\n   - تغطية التربة بالقش للحفاظ على الرطوبة\n   - إزالة الأعشاب يدوياً لتجنب إيذاء الجذور");
+
+        garlic.setCropProblems("\uD83D\uDC1B المشاكل والحلول المتكاملة:\n\n"
+                + "1. عفن العنق الأبيض:\n   - الأعراض: بقع بيضاء على الساق\n   - العلاج: تناوب زراعي + معاملة الفصوص قبل الزراعة\n\n"
+                + "2. حفار ساق الثوم:\n   - الأعراض: أنفاق في الساق\n   - العلاج: مصائد فرمونية + Bacillus thuringiensis\n\n"
+                + "3. الصدأ:\n   - السبب: فطر Puccinia allii\n   - الوقاية: رش مانكوزيب كل أسبوعين\n\n"
+                + "4. صغر حجم الفصوص:\n   - السبب: زراعة فصوص صغيرة أو نقص تغذية\n   - العلاج: استخدام فصوص كبيرة + برنامج تسميد متوازن");
+
+        garlic.setPruning_and_guidance("\uD83D\uDD04 إدارة المحصول:\n\n"
+                + "1. إزالة السويقات:\n   - قطع ساق الزهرة عند ظهورها لتحسين حجم الفصوص\n   - يمكن استخدام السويقات في الطهي\n\n"
+                + "2. التغطية:\n   - استخدام القش أو البلاستيك الأسود\n   - الحفاظ على رطوبة التربة ومنع الأعشاب\n\n"
+                + "3. الحصاد:\n   - عندما تذبل 50% من الأوراق\n   - قلع النباتات في الصباح الباكر");
+
+        garlic.setPreferredAbundance("Available (3500 m³/season)");
+        garlic.setAllowedAbundance("Limited (2500 m³/season)");
+        garlic.setForbiddenAbundance("Unavailable (<1500 m³/season)");
+        garlic.setLearnMore("تفاصيل إضافية:\n- طرق التخزين المثلى (0-1°C ورطوبة 60-70%)\n- معالجة ما بعد الحصاد\n- الأصناف ذات المحتوى العالي من الأليسين");
+        garlic.setOptimalHumidity(65);
+        garlic.setOptimalTemperature(18);
+        garlic.setLightRequirements(10);
+        garlic.setNumber_Plant_per_dunum(50000);
+        garlic.setOrganicFertilizer("سماد بلدي متحلل + كمبوست + رقائق خشب");
+        garlic.setChemicalPerPlant(12.0);
+        garlic.setChemicalFertilizer("NPK + الكبريت + الزنك");
+        garlic.setOrganicPerPlant(150.0);
+        garlic.setPrevious_crop_preferred("البقوليات - القمح - الذرة");
+        garlic.setPrevious_crop_allowed("الخس - السبانخ - الجزر");
+        garlic.setPrevious_crop_forbidden("البصل - الكراث - البطاطس");
+        garlic.setSoil_preparation_Favorite("حرث عميق 40 سم + تعقيم شمسي + 12 طن سماد عضوي/هكتار");
+        garlic.setPreparing_irrigation_tools_F("شبكة ري بالتنقيط مع فلتر دقيق + مضخة حقن");
+        garlic.setPreparing_irrigation_tools_P("خراطيم النقع ذات الضغط المنخفض");
+        garlic.setPreparing_irrigation_tools_A("الرشاشات العلوية أو الري بالغمر");
+        garlic.setSoil_preparation_allowed("حرث متوسط 25 سم + 8 طن سماد عضوي");
+        garlic.setWeight_seeds_per_dunum(200);
+        garlic.setSeedSpecifications("فصوص كبيرة الحجم (5-7 جم) - خالية من الأمراض - من أصناف معتمدة");
+        garlic.setSeedlingPreparation("تقشير الفصوص الخارجية قبل الزراعة بيوم واحد");
+        garlic.setPlantingDistance("10 سم بين النباتات - 30 سم بين الخطوط - 500,000 فص/هكتار");
+        garlic.setPlantingDepth("3-5 سم في التربة الرملية - 2-3 سم في التربة الطينية");
+        garlic.setInitialIrrigation("ري غزير بعد الزراعة مباشرة + رية دمك بعد 5 أيام");
+        garlic.setDaysToMaturity(150);
+        garlic.setHigh("صنف Egyptian White");
+        garlic.setMid("صنف Purple Stripe");
+        garlic.setLow("صنف محلي صغير");
+        garlic.setTemperatureTolerance(15);
+        garlic.setHumidityTolerance(20);
+        return garlic;
+    }
+
+    private Crop createCarrotCrop() {
+
+        Crop carrot = new Crop();
+        carrot.setCrop_NAME("Carrot");
+        carrot.setCategorie("Root Vegetable seasonal Highdemand");
+        carrot.setDescription("الجزر من أهم المحاصيل الجذرية الغنية بالبيتا كاروتين، يمتاز بألوانه المختلفة (أحمر، أصفر، بنفسجي) ويحتاج إلى تربة عميقة خفيفة لضمان نمو جذور مستقيمة. يعتبر من المحاصيل ذات القيمة الغذائية العالية وفترة النمو المتوسطة.");
+        carrot.setExpert_USER_Name("jane_smith");
+        carrot.setPreferredSoil("deep sandy loam free from stones");
+        carrot.setAllowedSoil("loamy sand with good structure");
+        carrot.setForbiddenSoil("heavy clay or rocky soils");
+        carrot.setPreferredIrrigation("low-pressure sprinkler irrigation");
+        carrot.setAllowedIrrigation("drip irrigation with careful management");
+        carrot.setForbiddenIrrigation("flood irrigation or irregular watering");
+        carrot.setMinArea(0.2);
+        carrot.setSeason("autumn spring");
+        carrot.setPreferredHumidity("Moderate");
+        carrot.setAllowedHumidity("Low");
+        carrot.setForbiddenHumidity("High");
+        carrot.setPreferredTemp("Cool");
+        carrot.setAllowedTemp("Mild");
+        carrot.setForbiddenTemp("Hot");
+        carrot.setWateringFrequencyDays(4);
+        carrot.setFertilizingFrequencyDays(21);
+        carrot.setWateringInstructions("\uD83D\uDEB0 برنامج الري المتكامل:\n\n"
+                + "1. مرحلة ما قبل الإنبات (0-10 يوم):\n   - الري الخفيف يومياً\n   - الحفاظ على سطح التربة رطباً\n\n"
+                + "2. مرحلة النمو الخضري (10-50 يوم):\n   - الري كل 3 أيام\n   - كمية الماء: 4 لتر/م²\n\n"
+                + "3. مرحلة تكوين الجذور (50-90 يوم):\n   - الري العميق كل 5 أيام\n   - تقليل الري قبل الحصاد بأسبوعين\n\n"
+                + "⚠️ تحذير: التذبذب في الري يؤدي إلى تشقق الجذور");
+
+        carrot.setFertilizingInstructions("\uD83C\uDF31 برنامج التسميد الشامل:\n\n"
+                + "قبل الزراعة:\n   - 15 طن سماد عضوي متحلل/هكتار\n   - سوبر فوسفات (250 كجم/هكتار)\n\n"
+                + "بعد 4 أسابيع:\n   - نترات البوتاسيوم (150 كجم/هكتار)\n\n"
+                + "أثناء تكوين الجذور:\n   - سماد NPK منخفض النيتروجين (8-12-24)\n\n"
+                + "✳️ نصائح:\n   - تجنب الأسمدة النيتروجينية الزائدة\n   - إضافة البورون لمنع القلب الأسود");
+
+        carrot.setPlantingMethod("\uD83C\uDF31 دليل الزراعة التفصيلي:\n\n"
+                + "1. إعداد التربة:\n   - حراثة عميقة (40-50 سم)\n   - إزالة جميع الحجارة والعوائق\n\n"
+                + "2. الزراعة:\n   - البذر في سطور بعمق 1-1.5 سم\n   - معدل البذر: 3-4 كجم/هكتار\n\n"
+                + "3. الخف:\n   - عند وصول النباتات لطول 5 سم\n   - ترك مسافة 5-7 سم بين النباتات\n\n"
+                + "4. الحصاد:\n   - عندما يصل قطر الجذور لـ 2-3 سم\n   - الحصاد في الصباح الباكر");
+
+        carrot.setCropProblems("\uD83D\uDC1B المشاكل والحلول المتكاملة:\n\n"
+                + "1. ذبابة الجزر:\n   - الأعراض: أنفاق في الجذور\n   - العلاج: شباك حماية + زراعة مبكرة\n\n"
+                + "2. البياض الدقيقي:\n   - الأعراض: بقع بيضاء على الأوراق\n   - العلاج: رش الكبريت الميكروني\n\n"
+                + "3. تشوه الجذور:\n   - السبب: تربة غير مناسبة أو حشرات\n   - الوقاية: تحضير التربة جيداً\n\n"
+                + "4. القلب الأسود:\n   - السبب: نقص البورون\n   - العلاج: رش بوراكس (2 جم/لتر)");
+
+        carrot.setPruning_and_guidance("\uD83D\uDD04 إدارة المحصول:\n\n"
+                + "1. التغطية:\n   - استخدام القش الخفيف\n   - الحفاظ على رطوبة التربة\n\n"
+                + "2. إزالة الأعشاب:\n   - يدوياً أو ميكانيكياً\n   - تجنب الأعشاب الضارة\n\n"
+                + "3. التدرج في الحصاد:\n   - حصاد جزئي لتحسين جودة المنتج");
+
+        carrot.setPreferredAbundance("Available (4000 m³/season)");
+        carrot.setAllowedAbundance("Limited (3000 m³/season)");
+        carrot.setForbiddenAbundance("Unavailable (<2000 m³/season)");
+        carrot.setLearnMore("تفاصيل إضافية:\n- أصناف الجزر المختلفة (نانتس، شانتينيه)\n- تقنيات التعبئة والتخزين\n- القيمة الغذائية للجزر الملون");
+        carrot.setOptimalHumidity(65);
+        carrot.setOptimalTemperature(18);
+        carrot.setLightRequirements(10);
+        carrot.setNumber_Plant_per_dunum(1000000);
+        carrot.setOrganicFertilizer("سماد بلدي متحلل + كمبوست + رمال");
+        carrot.setChemicalPerPlant(8.0);
+        carrot.setChemicalFertilizer("NPK + عناصر صغرى");
+        carrot.setOrganicPerPlant(100.0);
+        carrot.setPrevious_crop_preferred("البقوليات - الذرة - القمح");
+        carrot.setPrevious_crop_allowed("الخس - السبانخ - البصل");
+        carrot.setPrevious_crop_forbidden("البقدونس - الكرفس - الشمندر");
+        carrot.setSoil_preparation_Favorite("حرث عميق 50 سم + تنعيم التربة + 10 طن سماد عضوي/هكتار");
+        carrot.setPreparing_irrigation_tools_F("شبكة ري بالرشاشات الدقيقة");
+        carrot.setPreparing_irrigation_tools_P("خراطيم النقع ذات الضغط المنخفض");
+        carrot.setPreparing_irrigation_tools_A("الري بالغمر أو الأنظمة غير المنتظمة");
+        carrot.setSoil_preparation_allowed("حرث متوسط 30 سم + 7 طن سماد عضوي");
+        carrot.setWeight_seeds_per_dunum(1.5);
+        carrot.setSeedSpecifications("بذور معالجة ومطلية - نسبة إنبات >85% - خالية من الأمراض");
+        carrot.setSeedlingPreparation("نقع البذور في ماء دافئ لمدة 12 ساعة");
+        carrot.setPlantingDistance("5 سم بين النباتات - 30 سم بين الخطوط");
+        carrot.setPlantingDepth("1-1.5 سم في التربة الرملية");
+        carrot.setInitialIrrigation("ري خفيف يومياً حتى الإنبات");
+        carrot.setDaysToMaturity(80);
+        carrot.setHigh("صنف Nantes Superior");
+        carrot.setMid("صنف Chantenay Red Core");
+        carrot.setLow("صنف محلي قصير");
+        carrot.setTemperatureTolerance(10);
+        carrot.setHumidityTolerance(25);
+        return carrot;
+    }
+
+//        addSampleExperts();
+//
+//
+//        new Thread(() -> {
+//            myViewModel.insertCrop(onion);
+//        }).start();
+//
+//        List<Crop> cropsList = new ArrayList<>();
+//        cropsList.add(onion);
+//
+//        for (Crop crop : cropsList) {
+//            String id = dbRef.push().getKey();
+//            if (id != null) {
+//                dbRef.child(id).setValue(crop).addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
+//                        Log.d("Firebase", "Crop successfully uploaded");
+//
+//                    } else {
+//                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
+//                        Log.e("Firebase", "Error uploading crop: " + task.getException());
+//
+//                    }
+//                });
+//            }
+//        }
+//
+//        Toast.makeText(MainActivity_sign.this, "جاري رفع " + cropsList.size() + " محاصيل...", Toast.LENGTH_SHORT).show();
+//
+//        addSampleFarmers();
 
 //        Crop onion = new Crop(
 //                0,//دائما صفر
@@ -478,22 +882,23 @@ public class MainActivity_sign extends AppCompatActivity {
 //                , 20//درجة الحرارة المفضلة
 //                , 50// نسبة الرطوبة المفضلة
 //                , 3//متطلبات الضوء
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                "",
-////                ""
+
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                "",
+    /// /                ""
 //                , 1500
 //                //عدد الشتلات التي يمكن زراعتها في الدونوم الواحد
 //                , "ارض مكشوفة_بيت بلاستيكي_زراعة مائية_زراعة عضوية"
@@ -547,47 +952,31 @@ public class MainActivity_sign extends AppCompatActivity {
 //                , 10, 30
 //        );
 //
-
-
-        binding.exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
-        binding.exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-
-            }
-        });
-        binding.SignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity_sign.this, ActivityMainSignIn.class);
-                startActivity(intent);
-            }
-        });
-        binding.signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity_sign.this, Sign_up.class);
-                startActivity(intent);
-
-            }
-        });
-
-
-    }
-
     private byte[] convertImageToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
 
+    private void uploadCrop(Crop crop) {
+        Toast.makeText(this, "جاري رفع المحصول...", Toast.LENGTH_SHORT).show();
+
+        firebaseHelper.addCrop(crop, new FirebaseDatabaseHelper.OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(boolean success, Exception exception) {
+                runOnUiThread(() -> {
+                    if (success) {
+                        Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.d("Firebase", "Crop successfully uploaded");
+                    } else {
+                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.e("Firebase", "Error uploading crop", exception);
+                    }
+                });
+            }
+        });
+
+    }
 
 //        حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.
 //
@@ -887,12 +1276,13 @@ public class MainActivity_sign extends AppCompatActivity {
     }
 }
 
+
 //        cropsList.add(wheat);
 //        cropsList.add(saffron);
 //        cropsList.add(lentils);
 //        cropsList.add(barley);
 //        cropsList.add(carrot)
-// cropsList.add(onion);
+//        cropsList.add(onion);
 //        cropsList.add(pumpkin);
 //        cropsList.add(sunflower);
 //        cropsList.add(broccoli);
@@ -1657,40 +2047,40 @@ public class MainActivity_sign extends AppCompatActivity {
 //        myViewModel.insertCrop(barley);
 //        myViewModel.insertCrop(eggplant);
 //        myViewModel.insertCrop(strawberry);
-////        myViewModel.insertCrop(pepper);
-////        myViewModel.insertCrop(ginger);
-////        myViewModel.insertCrop(basil);
-////        myViewModel.insertCrop(cabbage);
-////        myViewModel.insertCrop(wheat);
+/// /        myViewModel.insertCrop(pepper);
+/// /        myViewModel.insertCrop(ginger);
+/// /        myViewModel.insertCrop(basil);
+/// /        myViewModel.insertCrop(cabbage);
+/// /        myViewModel.insertCrop(wheat);
 //        myViewModel.insertCrop(tomato);
 //        myViewModel.insertCrop(spinach);
 //        myViewModel.insertCrop(lettuce);
 //myViewModel.insertCrop(barley);
 //        myViewModel.insertCrop(corn);
-////        myViewModel.insertCrop(mint);
+/// /        myViewModel.insertCrop(mint);
 //        myViewModel.insertCrop(potato);
-////        myViewModel.insertCrop(alfalfa);
-////        myViewModel.insertCrop(quinoa);
-////        myViewModel.insertCrop(zucchini);
+/// /        myViewModel.insertCrop(alfalfa);
+/// /        myViewModel.insertCrop(quinoa);
+/// /        myViewModel.insertCrop(zucchini);
 ///       myViewModel.insertCrop(cucumber);
 //        myViewModel.insertCrop(carrot);
 //        myViewModel.insertCrop(garlic);
 //        myViewModel.insertCrop(watermelon);
-////        myViewModel.insertCrop(spinach);
-////        myViewModel.insertCrop(lettuce);
-////        myViewModel.insertCrop(broccoli);
-////        myViewModel.insertCrop(cauliflower);
-////        myViewModel.insertCrop(radish);
-////        myViewModel.insertCrop(artichoke);
-////        myViewModel.insertCrop(pomegranate);
-////        myViewModel.insertCrop(mango);
-////        myViewModel.insertCrop(peach);
-////        myViewModel.insertCrop(apple);
-////        myViewModel.insertCrop(grape);
-////        myViewModel.insertCrop(banana);
-////        myViewModel.insertCrop(grapefruit);
-////        myViewModel.insertCrop(fig);
-////        myViewModel.insertCrop(lemon);
+/// /        myViewModel.insertCrop(spinach);
+/// /        myViewModel.insertCrop(lettuce);
+/// /        myViewModel.insertCrop(broccoli);
+/// /        myViewModel.insertCrop(cauliflower);
+/// /        myViewModel.insertCrop(radish);
+/// /        myViewModel.insertCrop(artichoke);
+/// /        myViewModel.insertCrop(pomegranate);
+/// /        myViewModel.insertCrop(mango);
+/// /        myViewModel.insertCrop(peach);
+/// /        myViewModel.insertCrop(apple);
+/// /        myViewModel.insertCrop(grape);
+/// /        myViewModel.insertCrop(banana);
+/// /        myViewModel.insertCrop(grapefruit);
+/// /        myViewModel.insertCrop(fig);
+/// /        myViewModel.insertCrop(lemon);
 //}
 //private void addSampleStepes() {
 //

@@ -13,7 +13,7 @@ public class FertilizerWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        // هنا كود التحقق من التأخير وإرسال الإشعارات
+        //  كود التحقق من التأخير وإرسال الإشعارات
         return Result.success();
     }
 }

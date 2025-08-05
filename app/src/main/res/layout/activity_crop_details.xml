@@ -68,7 +68,7 @@
                 android:layout_margin="30dp"
                 android:padding="10dp"
                 android:text=""
-                android:textColor="@color/blue"
+                android:textColor="@color/green"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/intro_to" />
@@ -82,7 +82,7 @@
                 android:text="price"
                 android:visibility="gone"
 
-                android:textColor="@color/blue"
+                android:textColor="@color/green"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,8 +111,8 @@
                 android:outlineSpotShadowColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/price_dep"
-                app:tabIndicatorColor="@color/blue"
-                app:tabSelectedTextColor="@color/blue"
+                app:tabIndicatorColor="@color/green"
+                app:tabSelectedTextColor="@color/green"
                 app:tabTextColor="@color/gray" />
 
             <androidx.viewpager2.widget.ViewPager2

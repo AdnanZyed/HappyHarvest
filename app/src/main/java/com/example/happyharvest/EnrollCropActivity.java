@@ -13,11 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class EnrollCropActivity extends AppCompatActivity {
     private My_View_Model myViewModel;
-    String userName;
-    int price;
+    private String userName;
+    private int price;
     private boolean is;
     private boolean is2;
-    int cropd;
+    private int cropd;
 
     @SuppressLint("ResourceAsColor")
     @Override

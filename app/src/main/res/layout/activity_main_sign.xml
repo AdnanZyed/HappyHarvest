@@ -22,125 +22,128 @@
         />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="15dp"
-        android:elevation="1dp"
-        app:cardCornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/t_login">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card"-->
+<!--        android:layout_width="370dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:elevation="1dp"-->
+<!--        app:cardCornerRadius="15dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/t_login">-->
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="50dp"
+<!--        <ImageView-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="50dp"-->
 
-            android:src="@drawable/facebook" />
+<!--            android:src="@drawable/facebook" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cotinue with Facebook"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            android:layout_gravity="center_vertical"
-             android:layout_marginStart="100dp"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Cotinue with Facebook"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="22dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--             android:layout_marginStart="100dp"-->
+<!--            />-->
 
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card2"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
-        android:elevation="1dp"
-        app:cardCornerRadius="15dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card">
+<!--    </androidx.cardview.widget.CardView>-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card2"-->
+<!--        android:layout_width="370dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:elevation="1dp"-->
+<!--        app:cardCornerRadius="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/card">-->
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="4dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="50dp"
+<!--        <ImageView-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:padding="4dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="50dp"-->
 
-            android:src="@drawable/google" />
+<!--            android:src="@drawable/google" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cotinue with Google"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="100dp"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Cotinue with Google"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="22dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="100dp"-->
+<!--            />-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card3"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
-        android:elevation="1dp"
-        app:cardCornerRadius="15dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card2">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card3"-->
+<!--        android:layout_width="370dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:elevation="1dp"-->
+<!--        app:cardCornerRadius="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/card2">-->
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="4dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="50dp"
+<!--        <ImageView-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:padding="4dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="50dp"-->
 
-            android:src="@drawable/apple" />
+<!--            android:src="@drawable/apple" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cotinue with Apple"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="100dp"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Cotinue with Apple"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="22dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="100dp"-->
+<!--            />-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
 
     <ImageView
         android:id="@+id/step4"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/img_20"
+        android:backgroundTint="@color/green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exit" />
 
-    <TextView
-        android:id="@+id/t_login"
+    <Button
+        android:id="@+id/Guest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Lets's  you in"
+        android:background="@drawable/guest"
+        android:backgroundTint="@color/green"
+        android:elevation="20dp"
+        android:text="Sign in with password"
         android:textColor="@color/green"
-        android:textSize="50sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/step4" />
-
+        app:layout_constraintTop_toBottomOf="@+id/Sign_in"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/Sign_in"
@@ -149,13 +152,14 @@
         android:background="@drawable/shape_next"
         android:backgroundTint="@color/green"
         android:elevation="20dp"
+        android:shadowColor="@color/black"
         android:text="Sign in with password"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card3"
+        app:layout_constraintTop_toBottomOf="@+id/step4"
         app:layout_constraintVertical_bias="0.364" />
 
     <TextView
@@ -163,6 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="or"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@+id/view3"
         app:layout_constraintHorizontal_bias="0.514"
@@ -174,6 +179,8 @@
         android:id="@+id/view"
         android:layout_width="100dp"
         android:layout_height="1dp"
+        android:visibility="gone"
+
         android:layout_marginStart="100dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/view3"
@@ -185,6 +192,8 @@
         android:id="@+id/view3"
         android:layout_width="100dp"
         android:layout_height="1dp"
+        android:visibility="gone"
+
         android:layout_marginEnd="104dp"
         android:background="@color/black"
         android:layout_marginBottom="20dp"

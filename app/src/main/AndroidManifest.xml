@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <meta-data
+        android:name="com.google.firebase.auth.package.recaptcha.enterprise.enabled"
+        android:value="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,10 +24,42 @@
         android:theme="@style/Theme.Happy_Harvest"
         tools:targetApi="31">
         <activity
-            android:name=".Pruning"
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".CropsActivityFilter" -->
+        <!-- android:exported="false" /> -->
+        <activity android:name=".Edit_Crop_Activity" />
+        <activity android:name=".FertilizingDetailActivity" />
+        <activity
+            android:name=".FAQS"
             android:exported="false" />
         <activity
-            android:name=".StepFragment"
+            android:name=".ImagesFragmentEdit"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".CareFragmentEdit"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".EnvironmentFragmentEdit"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".SoilIrrigationFragmentEdit"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".BasicInfoFragmentEdit"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".CropPagerAdapter_Edit"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".Pruning"
             android:exported="false" />
         <activity
             android:name=".Soil"
@@ -62,9 +98,6 @@
             android:name=".UpdateCrop"
             android:exported="false" />
         <activity
-            android:name=".UpdateCrop1"
-            android:exported="false" />
-        <activity
             android:name=".StepsActivity"
             android:exported="false" />
         <activity
@@ -100,6 +133,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity_Main"
+
             android:exported="false" />
         <activity
             android:name=".MainActivity_Forgot"

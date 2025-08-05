@@ -66,7 +66,7 @@ public class NewPassword extends AppCompatActivity {
             public void onClick(View v) {
                 if (pass1.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
                     pass1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    eye.setBackgroundResource(R.drawable.ic_eye);
+                    eye.setBackgroundResource(R.drawable.eye);
                 } else {
                     pass1.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     eye.setBackgroundResource(R.drawable.ic_eye_off);
@@ -80,9 +80,8 @@ public class NewPassword extends AppCompatActivity {
             public void onClick(View v) {
                 if (pass2.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
                     pass2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    eye1.setBackgroundResource(R.drawable.ic_eye);
+                    eye1.setBackgroundResource(R.drawable.eye);
                 } else {
-                    // إخفاء كلمة المرور
                     pass2.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     eye1.setBackgroundResource(R.drawable.ic_eye_off);
                 }
@@ -104,7 +103,6 @@ public class NewPassword extends AppCompatActivity {
                     return;
                 }
 
-                // التحقق من قوة كلمة المرور
                 String passwordPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
                 if (!pass1.getText().toString().matches(passwordPattern)) {
                     pass1.setError("The password must contain an uppercase and lowercase letter, a number, and a special symbol\n");
@@ -120,9 +118,9 @@ public class NewPassword extends AppCompatActivity {
                         Farmer farmer = new Farmer(userName, pass1.getText().toString(), farmers.get(0).getPhone_nomber(), farmers.get(0).getCard_Number(), farmers.get(0).getS_name().toString(), farmers.get(0).getS_Image(), farmers.get(0).getBio());
 
                         myViewModel.updateFarmer(farmer);
-//
+
                         Toast.makeText(NewPassword.this, "You've got a new password", Toast.LENGTH_SHORT).show();
-//
+
                         Intent intent = new Intent(NewPassword.this, ActivityMainSignIn.class);
                         startActivity(intent);
                     });

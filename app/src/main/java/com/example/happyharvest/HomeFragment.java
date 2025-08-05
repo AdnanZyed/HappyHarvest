@@ -1,9 +1,11 @@
 package com.example.happyharvest;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,14 @@ import android.widget.TextView;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,47 +32,40 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 public class HomeFragment extends Fragment {
     private List<Button> buttons = new ArrayList<>();
     private Button activeButton = null;
-    Button btnAll;
-    Button Vegetable_Crops;
-    Button btn_fruits;
-    Button Bulb_Crops;
-    int speed;
-    ViewPager2 viewPager;
-    Button btn3DDesign;
-    Bundle args;
-    Bundle bundle;
-    RecyclerView expertRecyclerView;
-    ExpertAdapter expertAdapter;
-    Button btnProgramming;
-    Button btnBusiness;
-    Button btnArt;
-    double lat;
-    double lon;
-    TextView tv_Seeall;
-    TextView tv_Seeall2;
-    TextView tv_Welcom;
-    TextView tv_Name;
-    TextView tv_wind;
-    EditText e_searsh;
-    ImageView Iv_notification;
-    ImageView Iv_Bookmark;
-    String farmers_u;
-    ImageView iv_S;
-    String bio;
-    WeatherResponse weather;
+    private Button Vegetable_Crops, btn_fruits, btnAll, btn_Root, btn_seasonal, Bulb_Crops, btn_Highdemand, btn_irrigated, btn_grain;
+
+    private int speed;
+    private ViewPager2 viewPager;
+    private Bundle args, bundle;
+    private RecyclerView expertRecyclerView;
+    private ExpertAdapter expertAdapter;
+    private double lat, lon;
+    private TextView tv_Seeall2, tv_Welcom, tv_Name, tv_wind, e_searsh, tvLocation, tvTemp, tvCondition, tvHumidity;
+
+
+    private String farmers_u, bio;
+    private ImageView tv_Seeall, iv_S, Iv_Bookmark, weatherIcon, Iv_notification, menu;
+    private WeatherResponse weather;
     private My_View_Model myViewModel;
-    private TextView tvLocation, tvTemp, tvCondition, tvHumidity;
-    private ImageView weatherIcon;
     private Map<Button, View> buttonUnderlineMap = new HashMap<>();
     private final Handler handler = new Handler(Looper.getMainLooper());
+
     @SuppressLint({"ResourceAsColor", "MissingInflatedId"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,53 +86,64 @@ public class HomeFragment extends Fragment {
         bundle = new Bundle();
         bundle.putString("USER_NAME_R", farmers_u);
         btnAll = rootView.findViewById(R.id.btn_all);
+        menu = rootView.findViewById(R.id.menu);
+        btn_Root = rootView.findViewById(R.id.btn_Root);
         Vegetable_Crops = rootView.findViewById(R.id.btn_Vegetable);
         Bulb_Crops = rootView.findViewById(R.id.btn_Bulb);
-        btn_fruits = rootView.findViewById(R.id.btn_fruits);
+        btn_seasonal = rootView.findViewById(R.id.btn_seasonal);
+        btn_fruits = rootView.findViewById(R.id.btn_Fruits);
+        btn_grain = rootView.findViewById(R.id.btn_grain);
+        btn_irrigated = rootView.findViewById(R.id.btn_irrigated);
+        btn_Highdemand = rootView.findViewById(R.id.btn_Highdemand);
         Iv_notification = rootView.findViewById(R.id.iv_notification_h);
         iv_S = rootView.findViewById(R.id.iv_s);
-        e_searsh = rootView.findViewById(R.id.et_searsh);
+     //   e_searsh = rootView.findViewById(R.id.et_searsh);
         Iv_Bookmark = rootView.findViewById(R.id.iv_Bookmark);
         tv_Seeall = rootView.findViewById(R.id.tv_seeall);
         tv_Seeall2 = rootView.findViewById(R.id.tv_seeall2);
         tv_Name = rootView.findViewById(R.id.tv_name);
         tv_Welcom = rootView.findViewById(R.id.tv_welcom);
-        btn3DDesign = rootView.findViewById(R.id.btn_3d_design);
-        btnProgramming = rootView.findViewById(R.id.btn_programming);
+        // btn_Bulb = rootView.findViewById(R.id.btn_Bulb);
         expertRecyclerView = rootView.findViewById(R.id.rv_t);
-        btnBusiness = rootView.findViewById(R.id.btn_business);
-        btnArt = rootView.findViewById(R.id.btn_art);
 
         buttonUnderlineMap.put(btnAll, rootView.findViewById(R.id.underline_all));
+        buttonUnderlineMap.put(btn_Root, rootView.findViewById(R.id.underline_root));
         buttonUnderlineMap.put(Vegetable_Crops, rootView.findViewById(R.id.underline_vegetable));
-        buttonUnderlineMap.put(btn_fruits, rootView.findViewById(R.id.underline_root));
-        buttonUnderlineMap.put(Bulb_Crops, rootView.findViewById(R.id.underline_bulb));
-        buttonUnderlineMap.put(btnBusiness, rootView.findViewById(R.id.underline_business));
-        buttonUnderlineMap.put(btn3DDesign, rootView.findViewById(R.id.underline_3d));
-        buttonUnderlineMap.put(btnArt, rootView.findViewById(R.id.underline_art));
-        buttonUnderlineMap.put(btnProgramming, rootView.findViewById(R.id.underline_programming));
+        buttonUnderlineMap.put(btn_fruits, rootView.findViewById(R.id.underline_fruits));
+        buttonUnderlineMap.put(Bulb_Crops, rootView.findViewById(R.id.underline_Bulb));
+        buttonUnderlineMap.put(btn_seasonal, rootView.findViewById(R.id.underline_Bulb));
+        buttonUnderlineMap.put(btn_Highdemand, rootView.findViewById(R.id.underline_Highdemand));
+        //buttonUnderlineMap.put(btn_Bulb, rootView.findViewById(R.id.underline_bulb));
+        buttonUnderlineMap.put(btn_grain, rootView.findViewById(R.id.underline_grain));
+        buttonUnderlineMap.put(btn_irrigated, rootView.findViewById(R.id.underline_Irrigated));
         CropFragment fragment = (CropFragment) getParentFragmentManager()
                 .findFragmentById(R.id.fram_corse);
-
-
         if (fragment != null) {
             fragment.loadCrops();
             onButtonClicked(btnAll);
         }
 
 
+        new Thread(() -> {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                loadFarmerCrops();
+            }, 3000);
+        }).start();
+
+
         buttons.add(btnAll);
-        buttons.add(btnProgramming);
+        buttons.add(btn_Root);
+        buttons.add(btn_irrigated);
         buttons.add(Vegetable_Crops);
         buttons.add(Bulb_Crops);
         buttons.add(btn_fruits);
-        buttons.add(btn3DDesign);
-        buttons.add(btnBusiness);
-        buttons.add(btnArt);
+        // buttons.add(btn_Bulb);
+        buttons.add(btn_Highdemand);
+        buttons.add(btn_grain);
 
-        Button defaultButton = btnAll;
-//        defaultButton.setBackgroundResource(R.drawable.catigories_btn_selected);
-//        defaultButton.setTextColor(R.color.white);
+        // Button defaultButton = btnAll;
+        //  defaultButton.setBackgroundResource(R.drawable.catigories_btn_selected);
+        //   defaultButton.setTextColor(R.color.white);
         for (Button button : buttons) {
             button.setOnClickListener(v -> onButtonClicked(button));
         }
@@ -149,7 +158,6 @@ public class HomeFragment extends Fragment {
 
         fetchWeatherData();
 
-        // إعادة التحديث كل ساعة
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -157,10 +165,6 @@ public class HomeFragment extends Fragment {
                 handler.postDelayed(this, 3600000); // كل ساعة
             }
         }, 3600000);
-
-
-
-
 
 
         myViewModel.getAllFarmerByUser(farmers_u).observe(getViewLifecycleOwner(), farmers -> {
@@ -185,11 +189,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        e_searsh.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//        e_searsh.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                e_searsh.setBackgroundResource(R.drawable.shap_selected);
+//
+//            }
+//        });
+        menu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                e_searsh.setBackgroundResource(R.drawable.shap_selected);
+            public void onClick(View v) {
 
+                Intent intent = new Intent(requireContext(), SettingActivity.class);
+                startActivity(intent);
             }
         });
         iv_S.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +228,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         Iv_Bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,7 +270,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-        btnArt.setOnClickListener(new View.OnClickListener() {
+        btn_grain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -268,14 +279,32 @@ public class HomeFragment extends Fragment {
                         .findFragmentById(R.id.fram_corse);
 
                 if (fragment != null) {
-                    fragment.loadCrops_Categorie_Art(weather);
-                    onButtonClicked(btnArt);
+                    fragment.loadCrops_Categorie_btn_grain(weather);
+                    onButtonClicked(btn_grain);
 
 
                 }
 
             }
         });
+        btn_Root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                CropFragment fragment = (CropFragment) getFragmentManager()
+                        .findFragmentById(R.id.fram_corse);
+
+                if (fragment != null) {
+                    fragment.loadCrops_Categorie_btn_Root(weather);
+                    onButtonClicked(btn_Root);
+
+
+                }
+
+            }
+        });
+
         Vegetable_Crops.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -309,7 +338,42 @@ public class HomeFragment extends Fragment {
                 }
 
             }
-        }); btn_fruits.setOnClickListener(new View.OnClickListener() {
+        });
+        btn_fruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                CropFragment fragment = (CropFragment) getFragmentManager()
+                        .findFragmentById(R.id.fram_corse);
+
+                if (fragment != null) {
+                    fragment.loadCrops_Categorie_fruits(weather);
+                    onButtonClicked(btn_fruits);
+
+
+                }
+
+            }
+        });
+        btn_seasonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                CropFragment fragment = (CropFragment) getFragmentManager()
+                        .findFragmentById(R.id.fram_corse);
+
+                if (fragment != null) {
+                    fragment.loadCrops_Categorie_btn_seasonal(weather);
+                    onButtonClicked(btn_seasonal);
+
+
+                }
+
+            }
+        });
+        btn_fruits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -327,7 +391,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnBusiness.setOnClickListener(new View.OnClickListener() {
+        btn_Highdemand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -336,8 +400,8 @@ public class HomeFragment extends Fragment {
                         .findFragmentById(R.id.fram_corse);
 
                 if (fragment != null) {
-                    fragment.loadCrops_Categorie_Business(weather);
-                    onButtonClicked(btnBusiness);
+                    fragment.loadCrops_Categorie_btn_Highdemand(weather);
+                    onButtonClicked(btn_Highdemand);
 
 
                 }
@@ -345,7 +409,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnProgramming.setOnClickListener(new View.OnClickListener() {
+        btn_irrigated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -354,8 +418,8 @@ public class HomeFragment extends Fragment {
                         .findFragmentById(R.id.fram_corse);
 
                 if (fragment != null) {
-                    fragment.loadCrops_Categorie_Programming(weather);
-                    onButtonClicked(btnProgramming);
+                    fragment.loadCrops_Categorie_btn_irrigated(weather);
+                    onButtonClicked(btn_irrigated);
 
 
                 }
@@ -363,23 +427,23 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn3DDesign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                CropFragment fragment = (CropFragment) getFragmentManager()
-                        .findFragmentById(R.id.fram_corse);
-
-                if (fragment != null) {
-                    fragment.loadCrops_Categorie_3D_Design(weather);
-                    onButtonClicked(btn3DDesign);
-
-
-                }
-
-            }
-        });
+//        btn_Bulb.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                CropFragment fragment = (CropFragment) getFragmentManager()
+//                        .findFragmentById(R.id.fram_corse);
+//
+//                if (fragment != null) {
+//                    fragment.loadCrops_Categorie_3D_Design(weather);
+//                    onButtonClicked(btn_Bulb);
+//
+//
+//                }
+//
+//            }
+//        });
 
 
         tv_Seeall.setOnClickListener(new View.OnClickListener() {
@@ -402,6 +466,7 @@ public class HomeFragment extends Fragment {
         loadExpert();
         return rootView;
     }
+
     public void loadExpert() {
         myViewModel.getAllExpert().observe(getViewLifecycleOwner(), experts -> {
             LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -413,27 +478,29 @@ public class HomeFragment extends Fragment {
 
         });
     }
-    @SuppressLint("ResourceAsColor")
+
     private void onButtonClicked(Button clickedButton) {
-        for (Map.Entry<Button, View> entry : buttonUnderlineMap.entrySet()) {
-            View underline = entry.getValue();
-            underline.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white));
+        if (clickedButton == null) return;
+
+        for (Button button : buttonUnderlineMap.keySet()) {
+            button.setBackgroundResource(R.drawable.shape_selected_btn);
+
         }
 
-        View selectedUnderline = buttonUnderlineMap.get(clickedButton);
-        if (selectedUnderline != null) {
-            selectedUnderline.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black));
-        }
+        clickedButton.setBackgroundResource(R.drawable.catigories_btn);
 
         activeButton = clickedButton;
     }
+
+
     private void fetchWeatherData() {
         myViewModel.getAllFarmerByUser(farmers_u).observe(getViewLifecycleOwner(), farmers -> {
-             lat=farmers.get(0).getLatitude();
-             lon=farmers.get(0).getLongitude();
+            lat = farmers.get(0).getLatitude();
+            lon = farmers.get(0).getLongitude();
 
         });
-        WeatherManager.getInstance().fetchWeather(getContext(),lat,lon, new WeatherManager.WeatherCallback() {
+
+        WeatherManager.getInstance().fetchWeather(getContext(), lat, lon, new WeatherManager.WeatherCallback() {
             @Override
             public void onWeatherLoaded(WeatherResponse response) {
                 weather = response;
@@ -471,6 +538,65 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Throwable t) {
                 Toast.makeText(requireContext(), "فشل جلب بيانات الطقس", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void loadFarmerCrops() {
+        if (!isAdded() || getContext() == null) return;
+
+        myViewModel.getCropsByFarmer(farmers_u).observe(getViewLifecycleOwner(), localCrops -> {
+            if (localCrops != null && !localCrops.isEmpty()) {
+            } else {
+                loadFarmerCropsForUser(farmers_u);
+
+            }
+        });
+    }
+
+    private void loadFarmerCropsForUser(String userName) {
+        DatabaseReference farmerCropRef = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/")
+                .getReference("farmer_crops");
+
+        Query userQuery = farmerCropRef.orderByChild("farmer_user_name").equalTo(userName);
+
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!isAdded()) return;
+
+                List<Farmer_Crops> userCrops = new ArrayList<>();
+
+                for (DataSnapshot cropSnapshot : dataSnapshot.getChildren()) {
+                    try {
+                        Farmer_Crops farmerCrop = cropSnapshot.getValue(Farmer_Crops.class);
+                        if (farmerCrop != null) {
+                            if (cropSnapshot.getKey() != null) {
+                                farmerCrop.setFirebaseKey(cropSnapshot.getKey());
+                            }
+                            userCrops.add(farmerCrop);
+                        }
+                    } catch (Exception e) {
+                        Log.e("Firebase", "Error parsing crop: " + e.getMessage());
+                    }
+                }
+
+                if (!userCrops.isEmpty()) {
+
+
+                    myViewModel.insertAllFarmerCrop(userCrops);
+                    Toast.makeText(requireContext(), "تم جلب البيانات بنجاح", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Toast.makeText(requireContext(), "//////////////", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase", "Load failed: " + error.getMessage());
             }
         });
     }

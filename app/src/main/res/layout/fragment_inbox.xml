@@ -61,10 +61,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:tabIndicatorColor="@color/blue"
+        app:tabIndicatorColor="@color/green"
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/blue"
+        app:tabSelectedTextColor="@color/green"
         app:tabTextColor="@color/gray"
 
         />

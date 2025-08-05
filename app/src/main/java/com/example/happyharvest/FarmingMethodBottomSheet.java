@@ -13,7 +13,8 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class FarmingMethodBottomSheet extends BottomSheetDialogFragment {
+public class
+FarmingMethodBottomSheet extends BottomSheetDialogFragment {
 
     private int id;
     private String user;
@@ -32,13 +33,11 @@ public class FarmingMethodBottomSheet extends BottomSheetDialogFragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottomsheet_farming_methods, container, false);
 
-        // تعريف العناصر
         CardView cvGreenhouse = view.findViewById(R.id.cv_greenhouse);
         CardView cvOpenField = view.findViewById(R.id.cv_open_field);
         CardView cvHydroponic = view.findViewById(R.id.cv_hydroponic);
         CardView cvOrganic = view.findViewById(R.id.cv_organic);
 
-        // إضافة مستمعين للنقر
         cvGreenhouse.setOnClickListener(v -> navigateToFarmInput("greenhouse"));
         cvOpenField.setOnClickListener(v -> navigateToFarmInput("open_field"));
         cvHydroponic.setOnClickListener(v -> navigateToFarmInput("hydroponic"));
@@ -52,10 +51,8 @@ public class FarmingMethodBottomSheet extends BottomSheetDialogFragment {
             Intent intent = new Intent(getActivity(), FarmInput.class);
             intent.putExtra("USER",user);
             intent.putExtra("ID",id);
-            // إضافة البيانات الإضافية
             intent.putExtra("farming_method", farmingMethod);
 
-            // إذا كنت تحتاج إلى تمرير بيانات أخرى من النشاط الأصلي
             if (getArguments() != null) {
                 intent.putExtras(getArguments());
             }
