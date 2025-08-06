@@ -24,6 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -196,6 +197,7 @@ public class HomeFragment extends Fragment {
 //
 //            }
 //        });
+
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -542,7 +544,11 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
+    }
     public void loadFarmerCrops() {
         if (!isAdded() || getContext() == null) return;
 

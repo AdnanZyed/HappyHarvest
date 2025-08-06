@@ -5,81 +5,106 @@
     android:padding="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="تحليل نوع التربة"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
-        <TextView android:text="لون التربة:"    android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="لون التربة:" />
+
         <Spinner
             android:id="@+id/spinner_color"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView android:text="قوام التربة:"   android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="قوام التربة:" />
+
         <Spinner
             android:id="@+id/spinner_texture"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <TextView android:text="درجة الالتصاق:"    android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="درجة الالتصاق:" />
+
         <Spinner
             android:id="@+id/spinner_stickiness"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView android:text="سرعة امتصاص الماء:"   android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="سرعة امتصاص الماء:" />
+
         <Spinner
             android:id="@+id/spinner_absorption"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView android:text="كمية الحصى:"   android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="كمية الحصى:" />
+
         <Spinner
             android:id="@+id/spinner_rocks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <TextView android:text="هل تتكتل عند الجفاف؟"    android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="هل تتكتل عند الجفاف؟" />
+
         <Spinner
             android:id="@+id/spinner_clumping"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/button_detect"
-            android:text="تحليل التربة"
-            android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/l_green"
+            android:elevation="20dp"
+            android:text="تحليل التربة" />
 
         <TextView
             android:id="@+id/text_result"
-            android:text="النتيجة ستظهر هنا"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="النتيجة"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/button_Suppmet"
-            android:text="اعتماد القيمة"
-            android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/green"
+            android:elevation="20dp"
+            android:text="اعتماد القيمة"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
     </LinearLayout>
 </ScrollView>

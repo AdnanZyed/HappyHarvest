@@ -2,8 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="6:30"
+                        android:text="0:00"
                         android:textColor="@color/black"
 
                         android:textSize="20sp"
@@ -197,9 +196,8 @@
                         android:id="@+id/clock_f"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_margin="10dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="20dp"
                         android:background="@drawable/clock"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_fertilizing" />
@@ -219,8 +217,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:text="0:00"
                         android:textColor="@color/black"
-
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/clock_f"
@@ -344,7 +342,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="6:30"
+                            android:text="0:00"
                             android:textColor="@color/black"
 
                             android:textSize="20sp"
@@ -466,7 +464,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="6:30"
+                            android:text="0:00"
                             android:textColor="@color/black"
 
                             android:textSize="20sp"
@@ -501,7 +499,6 @@
                             app:layout_constraintEnd_toStartOf="@+id/circularProgressBarpg"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/clock_pg" />
-
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -585,7 +582,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="6:30"
+                            android:text="0:00"
                             android:textColor="@color/black"
 
                             android:textSize="20sp"
@@ -707,7 +704,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="6:30"
+                            android:text="0:00"
                             android:textColor="@color/black"
 
                             android:textSize="20sp"
@@ -792,8 +789,7 @@
                     android:src="@drawable/soil1"
                     app:layout_constraintEnd_toEndOf="@+id/icon1"
                     app:layout_constraintStart_toStartOf="@+id/icon1"
-                    app:layout_constraintTop_toTopOf="parent"
-                     />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/line1"
@@ -817,6 +813,7 @@
                     app:layout_constraintStart_toEndOf="@id/line1"
                     app:layout_constraintTop_toBottomOf="@+id/iconA"
                     app:tint="@color/gray" />
+
                 <ImageView
                     android:id="@+id/iconA"
                     android:layout_width="32dp"
@@ -824,8 +821,8 @@
                     android:src="@drawable/planting"
                     app:layout_constraintEnd_toEndOf="@+id/icon2"
                     app:layout_constraintStart_toStartOf="@+id/icon2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <View
                     android:id="@+id/line2"
                     android:layout_width="0dp"
@@ -847,6 +844,7 @@
                     app:layout_constraintStart_toEndOf="@id/line2"
                     app:layout_constraintTop_toBottomOf="@+id/iconC"
                     app:tint="@color/gray" />
+
                 <ImageView
                     android:id="@+id/iconC"
                     android:layout_width="32dp"
@@ -854,8 +852,8 @@
                     android:src="@drawable/care2"
                     app:layout_constraintEnd_toEndOf="@+id/icon3"
                     app:layout_constraintStart_toStartOf="@+id/icon3"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <View
                     android:id="@+id/line3"
                     android:layout_width="0dp"
@@ -913,8 +911,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/icon2"
                     app:layout_constraintStart_toStartOf="@id/icon2"
-                    app:layout_constraintTop_toBottomOf="@id/icon2"
-                     />
+                    app:layout_constraintTop_toBottomOf="@id/icon2" />
 
                 <TextView
                     android:id="@+id/label3"

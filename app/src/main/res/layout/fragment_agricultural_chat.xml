@@ -8,13 +8,6 @@
     android:padding="8dp"
     android:background="@color/white">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/green_700"
-        app:title="المساعد الزراعي"
-        app:titleTextColor="@color/white" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"

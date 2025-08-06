@@ -352,7 +352,7 @@ public class DailyCareFragment extends Fragment {
                 "تعليمات الري:\n%s\n\nالتكرار: كل %d يوم اذا كانت الظروف مثالية\nالموعد التالي: %s",
                 crop.getWateringInstructions(), adjustedDays, nextDate);
 
-        textWatering.setText(text);
+      //  textWatering.setText(text);
         Farmer_Crops farmerCrops1 = new Farmer_Crops();
         farmerCrops1.setWateringFrequencyDays_F(adjustedDays);
         myViewModel.updateCropFarmer(farmerCrops1);
@@ -514,7 +514,7 @@ public class DailyCareFragment extends Fragment {
 
 
     private void updatePruningInfo(Crop crop) {
-        textPruning.setText(String.format("تعليمات التقليم:\n%s", crop.getPruning_and_guidance()));
+    //    textPruning.setText(String.format("تعليمات التقليم:\n%s", crop.getPruning_and_guidance()));
     }
 
     private void updatePestControlInfo(Crop crop) {
@@ -573,7 +573,7 @@ public class DailyCareFragment extends Fragment {
             info += "\n\nمثالي! لا يحتاج تسميد إضافي";
         }
 
-        textPreviousCrop.setText(info);
+    //    textPreviousCrop.setText(info);
     }
 
     private void updateSeedlingsCount(Crop crop, Farmer_Crops farmerCrop) {
@@ -1223,6 +1223,7 @@ public class DailyCareFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         cancelCountdown();
     }
 

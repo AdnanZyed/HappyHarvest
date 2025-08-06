@@ -63,6 +63,17 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
         } else {
             holder.tvCompatibility.setVisibility(View.GONE);
         }
+        if (crop.getCrop_NAME().equals("Onion")) {
+            holder.ivCropImage.setImageResource(R.drawable.onion);
+        }else  if (crop.getCrop_NAME().equals("Tomato")){
+            holder.ivCropImage.setImageResource(R.drawable.tomato);
+        }else  if (crop.getCrop_NAME().equals("Eggplant")){
+            holder.ivCropImage.setImageResource(R.drawable.eggplant);
+        }else  if (crop.getCrop_NAME().equals("Garlic")){
+            holder.ivCropImage.setImageResource(R.drawable.garlic);
+        }else  if (crop.getCrop_NAME().equals("Carrot")){
+            holder.ivCropImage.setImageResource(R.drawable.carrot);
+        }
         //   holder.tvPrice.setText(String.format("$%d", crop.getPrice()));
 //        في onBindViewHolder في CropAdapter:
 //        Glide.with(context)
@@ -172,6 +183,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
             tvCategorie = itemView.findViewById(R.id.tv_categorie);
             tvCompatibility = itemView.findViewById(R.id.tv_compatibility); // أضف هذا الـ TextView في التخطيط
             ivCropImage = itemView.findViewById(R.id.iv_crop_image);
+
             //   BookmarkIcon = itemView.findViewById(R.id.bookmarkIcon);
         }
     }

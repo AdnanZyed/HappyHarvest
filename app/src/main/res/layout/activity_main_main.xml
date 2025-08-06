@@ -8,15 +8,15 @@
     tools:context=".MainActivity_Main"
 
     >
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="@drawable/toolpar"
+        android:elevation="20dp"
         android:gravity="center"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -42,6 +42,7 @@
                     android:id="@+id/iv_s1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/profile"
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -49,25 +50,30 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="2dp" />
             </androidx.cardview.widget.CardView>
+
             <ImageView
                 android:id="@+id/tv_Seeall21"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:background="@drawable/search"
                 android:layout_marginStart="10dp"
+                android:background="@drawable/search"
+                android:backgroundTint="@color/green"
                 app:layout_constraintBottom_toBottomOf="@+id/menu1"
                 app:layout_constraintStart_toEndOf="@+id/iv_expert_image111"
                 app:layout_constraintTop_toTopOf="@+id/menu1" />
+
             <ImageView
                 android:id="@+id/iv_notification_h1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/notification"
+                android:backgroundTint="@color/green"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_expert_image111"
                 app:layout_constraintStart_toEndOf="@+id/tv_Seeall21"
                 app:layout_constraintTop_toTopOf="@+id/iv_expert_image111"
                 app:tint="@color/green" />
+
             <ImageView
                 android:id="@+id/menu1"
                 android:layout_width="30dp"
@@ -75,8 +81,8 @@
                 android:layout_margin="30dp"
                 android:layout_marginTop="26dp"
                 android:layout_marginEnd="26dp"
-
                 android:background="@drawable/hamburger"
+                android:backgroundTint="@color/green"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,6 +94,8 @@
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
+        android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -99,6 +107,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/bottom_nav_bg"
         android:elevation="8dp"
         app:itemIconTint="@color/item_icon_color"
@@ -108,7 +117,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu"
-        android:layout_marginBottom="20dp"
 
         />
 

@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHolder> {
@@ -92,7 +94,7 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
         private final TextView cropName;
         private final TextView cropTime;
         private final ProgressBar progressBar;
-        private  int progress;
+        private int progress;
         private final TextView stepsNumR;
         private final TextView numStepR;
 
@@ -105,7 +107,8 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
             progressBar = itemView.findViewById(R.id.progressBarR);
             stepsNumR = itemView.findViewById(R.id.steps_numR);
             numStepR = itemView.findViewById(R.id.numstepR);
-
+            String Time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            cropTime.setText(Time);
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
@@ -126,8 +129,6 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
 
 
             cropName.setText(crop.getCrop_NAME());
-
-
 
 
 //            if (crop.getImage() != null) {
@@ -158,18 +159,18 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
                     Farmer_Crops farmerCrops = farmerCropList.get(0);
                     if (farmerCrops.isDone()) {
                         progressBar.setProgress(4);
-                        progress=4;
+                        progress = 4;
                     } else if (farmerCrops.isCare()) {
                         progressBar.setProgress(3);
-                        progress=3;
+                        progress = 3;
 
                     } else if (farmerCrops.isAgriculture()) {
                         progressBar.setProgress(2);
-                        progress=2;
+                        progress = 2;
 
                     } else if (farmerCrops.isSoil()) {
                         progressBar.setProgress(1);
-                        progress=1;
+                        progress = 1;
 
                     }
                 } else {

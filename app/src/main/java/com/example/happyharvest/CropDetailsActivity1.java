@@ -79,7 +79,10 @@ public class CropDetailsActivity1 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(CropDetailsActivity1.this,MainActivity_Main.class);
                 intent.putExtra("USER_NAME2",farmerUserName);
+
                 startActivity(intent);
+                DailyCareFragment dailyCareFragment= new DailyCareFragment();
+                dailyCareFragment.onDestroyView();
                 finish();
             }
         });
