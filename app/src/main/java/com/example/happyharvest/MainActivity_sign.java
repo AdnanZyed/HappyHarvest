@@ -94,7 +94,7 @@ public class MainActivity_sign extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity_sign.this, MainActivity_Main.class);
-                intent.putExtra("USER_NAME2", "GUEST");
+                intent.putExtra("USER_NAME2", "");
                 startActivity(intent);
             }
         });

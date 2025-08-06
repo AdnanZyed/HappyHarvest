@@ -39,7 +39,6 @@ public class ImagesFragment extends Fragment {
         btn_select_imageC = view.findViewById(R.id.btn_select_imageC);
         btnLoadImageFromUrl = view.findViewById(R.id.btn_load_image_from_urlA);
         btn_load_image_from_urlC = view.findViewById(R.id.btn_load_image_from_urlC);
-
         btnSelectImage.setOnClickListener(v -> selectImage(REQUEST_CODE_IMAGE_A));
         btn_select_imageC.setOnClickListener(v -> selectImage(REQUEST_CODE_IMAGE_C));
         btnLoadImageFromUrl.setOnClickListener(v -> loadImageFromUrl(etImageUrl, ivCropImage, true));

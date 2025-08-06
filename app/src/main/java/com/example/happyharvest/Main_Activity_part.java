@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,8 @@ public class Main_Activity_part extends AppCompatActivity {
         setContentView(R.layout.activity_main_h);
 
         viewPager = findViewById(R.id.viewPager);
-        Button B_skip = findViewById(R.id.B_skip);
+        ImageView B_skip = findViewById(R.id.B_skip);
+        Button B_next = findViewById(R.id.B_next);
 
 //        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
 //        Button actionButton = findViewById(R.id.actionButton);
@@ -74,15 +76,15 @@ public class Main_Activity_part extends AppCompatActivity {
             }
         });
 
-//        B_skip.setOnClickListener(v -> {
-//            if (viewPager.getCurrentItem() < items.size() - 1) {
-//                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-//            } else {
-//                Intent intent = new Intent(this, MainActivity_sign.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        B_next.setOnClickListener(v -> {
+            if (viewPager.getCurrentItem() < items.size() - 1) {
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+            } else {
+                Intent intent = new Intent(this, MainActivity_sign.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void checkAndRequestNotificationPermission() {//دالة بتفحص إذا التطبيق يملك إذن إرسال إشعارات (فقط في أندرويد 13 وأعلى):

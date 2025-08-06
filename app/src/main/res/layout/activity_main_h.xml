@@ -25,20 +25,33 @@
         app:layout_constraintTop_toBottomOf="@+id/viewPager"
 
         />
-    <Button
+
+    <ImageView
         android:id="@+id/B_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/green"
+        android:elevation="20dp"
+        android:background="@drawable/rightarrow"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/B_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/B_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/shape_next"
         android:backgroundTint="@color/green"
         android:elevation="20dp"
         android:text="Next"
         android:textColor="#FFFFFF"
+android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

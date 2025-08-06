@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
             farmers_u = args.getString("USER_NAME");
         }
         ViewPager2 viewPager2 = rootView.findViewById(R.id.viewPager2);
-        List<Integer> images = Arrays.asList(R.drawable.vp3, R.drawable.vp2, R.drawable.vp1);
+        List<Integer> images = Arrays.asList(R.drawable.dec1, R.drawable.dec2, R.drawable.dec3);
         ImageAdapter adapter = new ImageAdapter(images);
         viewPager2.setAdapter(adapter);
         bundle = new Bundle();
@@ -157,38 +157,46 @@ public class HomeFragment extends Fragment {
         tv_wind = rootView.findViewById(R.id.tv_wind);
         weatherIcon = rootView.findViewById(R.id.weather_icon_h);
 
-        fetchWeatherData();
+        if (farmers_u.equals("")){
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                fetchWeatherData();
-                handler.postDelayed(this, 3600000); // كل ساعة
-            }
-        }, 3600000);
+        }else{
 
+            fetchWeatherData();
 
-        myViewModel.getAllFarmerByUser(farmers_u).observe(getViewLifecycleOwner(), farmers -> {
-            if (farmers != null && !farmers.isEmpty()) {
-                Farmer farmer = farmers.get(0);
-                String farmer_name = farmer.getS_name().toString();
-                bio = farmer.getBio().toString();
-                if (bio.isEmpty()) {
-                    tv_Welcom.setText("Welcom");
-                } else {
-                    tv_Welcom.setText(bio);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    fetchWeatherData();
+                    handler.postDelayed(this, 3600000); // كل ساعة
                 }
-                byte[] bytes = farmer.getS_Image();
-                if (bytes != null) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    iv_S.setImageBitmap(bitmap);
-                } else {
-                    iv_S.setImageResource(R.drawable.profile);
-                }
+            }, 3600000);
 
-                tv_Name.setText(farmer_name);
-            }
-        });
+
+            myViewModel.getAllFarmerByUser(farmers_u).observe(getViewLifecycleOwner(), farmers -> {
+                if (farmers != null && !farmers.isEmpty()) {
+                    Farmer farmer = farmers.get(0);
+                    String farmer_name = farmer.getS_name().toString();
+                    bio = farmer.getBio().toString();
+                    if (bio.isEmpty()) {
+                        tv_Welcom.setText("Welcom");
+                    } else {
+                        tv_Welcom.setText(bio);
+                    }
+                    byte[] bytes = farmer.getS_Image();
+                    if (bytes != null) {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        iv_S.setImageBitmap(bitmap);
+                    } else {
+                        iv_S.setImageResource(R.drawable.profile);
+                    }
+
+                    tv_Name.setText(farmer_name);
+                }
+            });
+            loadExpert();
+
+        }
+
 
 //        e_searsh.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
@@ -465,7 +473,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        loadExpert();
         return rootView;
     }
 
@@ -544,11 +551,7 @@ public class HomeFragment extends Fragment {
         });
 
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
-    }
+
     public void loadFarmerCrops() {
         if (!isAdded() || getContext() == null) return;
 

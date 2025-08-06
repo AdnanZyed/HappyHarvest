@@ -50,7 +50,17 @@ public class CropsAdapter extends RecyclerView.Adapter<CropsAdapter.CropViewHold
         Crop crop = cropList.get(position);
 
         holder.bind(crop);
-
+        if (crop.getCrop_NAME().equals("Onion")) {
+            holder.cropImage.setImageResource(R.drawable.onion);
+        }else  if (crop.getCrop_NAME().equals("Tomato")){
+            holder.cropImage.setImageResource(R.drawable.tomato);
+        }else  if (crop.getCrop_NAME().equals("Eggplant")){
+            holder.cropImage.setImageResource(R.drawable.eggplant);
+        }else  if (crop.getCrop_NAME().equals("Garlic")){
+            holder.cropImage.setImageResource(R.drawable.garlic);
+        }else  if (crop.getCrop_NAME().equals("Carrot")){
+            holder.cropImage.setImageResource(R.drawable.carrot);
+        }
         crop1 = crop;
 
     }

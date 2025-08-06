@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -80,15 +81,29 @@ public class FarmersProfileFragment extends Fragment {
 
         ImageView signOutButton = view.findViewById(R.id.sign_out);
         signOutButton.setOnClickListener(v -> {
-            SharedPreferences preferences = requireActivity().getSharedPreferences("UserPrefs", MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.apply();
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("تسجيل الخروج");
+            builder.setMessage("هل أنت متأكد من رغبتك في تسجيل الخروج؟");
 
-            Intent intent = new Intent(requireActivity(), ActivityMainSignIn.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            requireActivity().finish();
+            builder.setPositiveButton("موافق", (dialog, which) -> {
+                // تنفيذ تسجيل الخروج عند الضغط على موافق
+                SharedPreferences preferences = getActivity().getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+
+                Intent intent = new Intent(requireContext(), ActivityMainSignIn.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            });
+
+            builder.setNegativeButton("إلغاء", (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
         myViewModel.getisRegisterCropsByFarmer1(user).observe(getViewLifecycleOwner(), farmerCrops -> {

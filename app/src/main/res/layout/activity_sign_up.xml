@@ -96,11 +96,47 @@
 
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/e_user"
 
 
-       />
+        app:layout_constraintTop_toBottomOf="@id/e_user" />
+
+
+    <EditText
+        android:id="@+id/e_password1"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/shape_non_selected"
+        android:hint="  Password"
+        android:inputType="textPassword"
+android:layout_marginTop="10dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/e_password" />
+
+
+    <ImageView
+        android:id="@+id/ic_eye_off1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_eye_off"
+        android:padding="10dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/e_password1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/e_password1"
+        app:layout_constraintVertical_bias="0.478" />
 
     <ImageView
         android:id="@+id/ic_eye_off"
@@ -123,16 +159,16 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_non_selected"
-
         android:layout_marginEnd="20dp"
+
+        android:background="@drawable/shape_non_selected"
         android:hint="  Phone nober"
         android:inputType="phone"
         android:padding="10dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/e_password"
+        app:layout_constraintTop_toBottomOf="@+id/e_password1"
 
 
         />

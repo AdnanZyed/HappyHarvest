@@ -17,6 +17,9 @@
     <!--    <color name="light_blue">#597dfe</color>-->
     <color name="gray">#B0B0B0</color>
     <color name="green_dark">#2E7D32</color>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#8BC34A</color>
     <color name="green_primary">#4CAF50</color>
     <color name="text_primary">#212121</color>
     <color name="green">#29573d</color>

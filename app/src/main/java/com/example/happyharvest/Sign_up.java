@@ -33,7 +33,7 @@ public class Sign_up extends AppCompatActivity {
     private String farmer_name_user;
     private Farmer farmer;
     private ArrayList<Farmer> farmers1;
-    private String ePasswordIn;
+    private String ePasswordIn, ePasswordIn1;
     private String PhoneIn;
     private LiveData<List<Farmer>> farmerU;
     private ActivitySignUpBinding activitySignUpBinding;
@@ -63,6 +63,7 @@ public class Sign_up extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 activitySignUpBinding.eUser.setBackgroundResource(R.drawable.shap_selected);
                 activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.shape_non_selected);
+                activitySignUpBinding.ePassword1.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.Phone.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.name.setBackgroundResource(R.drawable.shape_non_selected);
 
@@ -74,6 +75,19 @@ public class Sign_up extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 activitySignUpBinding.eUser.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.shap_selected);
+                activitySignUpBinding.ePassword1.setBackgroundResource(R.drawable.shape_non_selected);
+                activitySignUpBinding.Phone.setBackgroundResource(R.drawable.shape_non_selected);
+                activitySignUpBinding.name.setBackgroundResource(R.drawable.shape_non_selected);
+
+            }
+        });
+
+        activitySignUpBinding.ePassword1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                activitySignUpBinding.eUser.setBackgroundResource(R.drawable.shape_non_selected);
+                activitySignUpBinding.ePassword1.setBackgroundResource(R.drawable.shap_selected);
+                activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.Phone.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.name.setBackgroundResource(R.drawable.shape_non_selected);
 
@@ -84,6 +98,7 @@ public class Sign_up extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 activitySignUpBinding.eUser.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.shape_non_selected);
+                activitySignUpBinding.ePassword1.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.Phone.setBackgroundResource(R.drawable.shap_selected);
                 activitySignUpBinding.name.setBackgroundResource(R.drawable.shape_non_selected);
 
@@ -94,6 +109,7 @@ public class Sign_up extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 activitySignUpBinding.eUser.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.shape_non_selected);
+                activitySignUpBinding.ePassword1.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.Phone.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.name.setBackgroundResource(R.drawable.shap_selected);
 
@@ -107,9 +123,10 @@ public class Sign_up extends AppCompatActivity {
         if (isRemembered) {
             activitySignUpBinding.eUser.setText(sharedPreferences.getString("username1", ""));
             activitySignUpBinding.ePassword.setText(sharedPreferences.getString("password1", ""));
+            activitySignUpBinding.ePassword1.setText(sharedPreferences.getString("password11", ""));
             activitySignUpBinding.name.setText(sharedPreferences.getString("name1", ""));
             activitySignUpBinding.Phone.setText(sharedPreferences.getString("phone1", ""));
-           // activitySignUpBinding.checkBox.setChecked(true);
+            // activitySignUpBinding.checkBox.setChecked(true);
         }
 
         activitySignUpBinding.SignUp.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +134,7 @@ public class Sign_up extends AppCompatActivity {
             public void onClick(View v) {
                 eUserIn = activitySignUpBinding.eUser.getText().toString().trim();
                 ePasswordIn = activitySignUpBinding.ePassword.getText().toString().trim();
+                ePasswordIn1 = activitySignUpBinding.ePassword1.getText().toString().trim();
                 PhoneIn = activitySignUpBinding.Phone.getText().toString().trim();
                 nameIn = activitySignUpBinding.name.getText().toString().trim();
                 farmerU = myViewModel.getAllFarmerByUser(eUserIn);
@@ -157,7 +175,6 @@ public class Sign_up extends AppCompatActivity {
                 }
 
 
-
                 if (eUserIn.length() < 3 || eUserIn.length() > 30) {
                     activitySignUpBinding.eUser.setError("Username must be between 3 and 20 characters");
                     activitySignUpBinding.eUser.setBackgroundResource(R.drawable.errore);
@@ -193,7 +210,6 @@ public class Sign_up extends AppCompatActivity {
                 }
 
 
-
                 if (PhoneIn.isEmpty()) {
                     activitySignUpBinding.Phone.setError("Phone number required");
                     activitySignUpBinding.Phone.setBackgroundResource(R.drawable.errore);
@@ -216,6 +232,12 @@ public class Sign_up extends AppCompatActivity {
                     return;
                 }
 
+                if (!activitySignUpBinding.ePassword.getText().toString().equals(activitySignUpBinding.ePassword1.getText().toString())) {
+
+                    activitySignUpBinding.ePassword1.setError("كلمة المرور غير متطابقة");
+                    activitySignUpBinding.ePassword1.setBackgroundResource(R.drawable.errore);
+
+                }
 
                 int phoneIn = Integer.parseInt(PhoneIn);
                 farmer = new Farmer(eUserIn, ePasswordIn, phoneIn, 1234, nameIn, null, "");
@@ -328,8 +350,23 @@ public class Sign_up extends AppCompatActivity {
                 activitySignUpBinding.ePassword.setSelection(activitySignUpBinding.ePassword.getText().length());
             }
         });
+        activitySignUpBinding.icEyeOff1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (activitySignUpBinding.ePassword1.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    activitySignUpBinding.ePassword1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    activitySignUpBinding.icEyeOff1.setBackgroundResource(R.drawable.ic_eye_off);
+                } else {
+                    activitySignUpBinding.ePassword1.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    activitySignUpBinding.icEyeOff1.setBackgroundResource(R.drawable.eye);
+                }
+
+                activitySignUpBinding.ePassword1.setSelection(activitySignUpBinding.ePassword1.getText().length());
+            }
+        });
 
     }
+
 
     private void uploadFarmer(Farmer farmer) {
 

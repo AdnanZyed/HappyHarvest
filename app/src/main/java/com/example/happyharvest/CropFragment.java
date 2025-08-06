@@ -61,10 +61,16 @@ public class CropFragment extends Fragment {
                             FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
                             sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
                         } else {
-                            Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                            intent.putExtra("ID", crop.getCrop_ID());
-                            intent.putExtra("USER", user);
-                            startActivity(intent);
+                            if (user.equals("")){
+                                NotRegisteredBottomSheet bottomSheet = new NotRegisteredBottomSheet();
+                                bottomSheet.show(getActivity().getSupportFragmentManager(), "NotRegisteredBottomSheet");
+                            }else {
+                                Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                                intent.putExtra("ID", crop.getCrop_ID());
+                                intent.putExtra("USER", user);
+                                startActivity(intent);
+                            }
+
                         }
                     });
                 }

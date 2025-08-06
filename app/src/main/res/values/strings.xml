@@ -11,7 +11,9 @@
     <string name="hydroponic_desc">زراعة بدون تربة</string>
     <string name="organic">زراعة عضوية</string>
     <string name="loading_text">Loading%s</string>
-
+    <string name="nav_header_subtitle">user@example.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_home">Home</string>
     <string name="organic_desc">زراعة عضوية</string>
     <string name="notification_title">موعد تسميد %s</string>
     <string name="notification_content">نوع السماد: %s</string>
