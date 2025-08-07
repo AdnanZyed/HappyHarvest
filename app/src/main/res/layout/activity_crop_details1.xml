@@ -14,44 +14,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/back1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/back"
-                />
+                android:background="@drawable/back" />
+
             <TextView
                 android:id="@+id/text_crop_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/green"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/green"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/weather_icon_d"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/weather_icon"/>
+                android:src="@drawable/weather_icon" />
 
             <TextView
                 android:id="@+id/text_weather_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:layout_marginStart="8dp"
                 android:text="0"
                 android:textColor="@color/black"
-                android:layout_marginStart="8dp"/>
+                android:textSize="18sp" />
         </LinearLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabGravity="start"
             app:tabMode="scrollable">
 
             <com.google.android.material.tabs.TabItem
@@ -65,11 +67,11 @@
                 android:text="معلومات الزراعة" />
 
 
-
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="المشاكل والحلول" />
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,45 +79,44 @@
         </com.google.android.material.tabs.TabLayout>
 
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_marginTop="8dp"
-/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_marginTop="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="16dp"
             android:background="@drawable/shape"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="أدوات الذكاء الاصطناعي"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_ai_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="بحث بالذكاء الاصطناعي"
-                    android:background="@drawable/shape"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:text="بحث بالذكاء الاصطناعي"
 
-               />
+                    />
 
                 <Button
                     android:id="@+id/btn_image_analysis"
@@ -124,117 +125,116 @@
                     android:layout_weight="1"
                     android:background="@drawable/shape"
 
-                    android:text="تحليل صورة"
-                   />
+                    android:text="تحليل صورة" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="16dp"
             android:background="@drawable/shape"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="استفسر من المختص"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:importantForAutofill="no"
                 android:hint="اكتب سؤالك هنا..."
                 android:inputType="textMultiLine"
-                android:minLines="3"/>
+                android:minLines="3" />
 
             <Button
                 android:id="@+id/btn_send_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="إرسال"
-                android:background="@drawable/shape"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape"
+                android:text="إرسال" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="16dp"
             android:background="@drawable/shape"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="الإشعارات القادمة"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/layout_water_notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:visibility="gone"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/wateringplants"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/wateringplants" />
 
                 <TextView
                     android:id="@+id/text_water_notification"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="موعد الري التالي: غداً 8 صباحاً"/>
+                    android:text="موعد الري التالي: غداً 8 صباحاً" />
 
                 <Button
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="تأكيد"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                    android:text="تأكيد" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_fertilizer_notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/fertilizer"
                     android:layout_marginEnd="8dp"
-                    />
+                    android:src="@drawable/fertilizer" />
 
                 <TextView
                     android:id="@+id/text_fertilizer_notification"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="موعد التسميد التالي: بعد 3 أيام"/>
+                    android:text="موعد التسميد التالي: بعد 3 أيام" />
 
                 <Button
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="تأكيد"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                    android:text="تأكيد" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

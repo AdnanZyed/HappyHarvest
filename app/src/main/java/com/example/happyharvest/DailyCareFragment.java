@@ -71,6 +71,7 @@ public class DailyCareFragment extends Fragment {
     private TextView textSoilComparison, textFertilizing,textPreviousCrop, textSeedlingsCount, textFertilizerInfo, fetchWeatherData,textWatering, textCountdown,textPruning, textPestControl;
     private My_View_Model myViewModel;
     private int cropId;
+    public   Call<WeatherResponseOneCall> call1;
     private Crop cropM;
     private ImageView icon1,icon2,icon3,icon4,clock_f;
 
@@ -333,9 +334,9 @@ public class DailyCareFragment extends Fragment {
         /*العرض مع التربة*/
         updateSeedlingsCount(crop, farmerCrop);//تحديد بذور او شتل وتحديد موعد الزراعة بناءا على الطقس
         /*لعرض اليوم المناسب للزراعة */
-        fetchWeatherData();// تحديد موعد الزراعة بناءا على بيانات الطقس اول مرة بس بستدعيها بعد م يحدد خيار التربة
+       // fetchWeatherData();// تحديد موعد الزراعة بناءا على بيانات الطقس اول مرة بس بستدعيها بعد م يحدد خيار التربة
 
-        updateWateringInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
+      //  updateWateringInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
 
         updatePruningInfo(crop);//جدولة اشعارات في الخلفية لاضافة العناصر وذلك بالتعامل مع عدد مرات تقسم على عدد الايام حتى النضج عدد المرات تختلف من محصول لاخر وتوضيح الطريقة ايضا
         updatePestControlInfo(crop);// ايش بي اي يوضح الافة القادمة وبناءا على هيك بنقلو ايش يعمل
@@ -744,6 +745,7 @@ public class DailyCareFragment extends Fragment {
         }
     }
 
+
     private String evaluateParameter(float deviation, String parameterName) { //الانحراف
         if (deviation > 1.0f) {
             return parameterName + " خارج المدى المسموح";
@@ -766,7 +768,7 @@ public class DailyCareFragment extends Fragment {
         double latitude = farmerCropM.getLatitude();
         double longitude = farmerCropM.getLongitude();
 
-        Call<WeatherResponseOneCall> call = service.getSevenDayForecast(
+         call1 = service.getSevenDayForecast(
                 latitude,
                 longitude,
                 "minutely,hourly,current,alerts", // استثني التفاصيل اللي مش محتاجها
@@ -775,7 +777,7 @@ public class DailyCareFragment extends Fragment {
                 API_KEY
         );
 
-        call.enqueue(new Callback<WeatherResponseOneCall>() {
+        call1.enqueue(new Callback<WeatherResponseOneCall>() {
             @Override
             public void onResponse(Call<WeatherResponseOneCall> call, Response<WeatherResponseOneCall> response) {
                 if (response.isSuccessful()) {
@@ -1191,7 +1193,7 @@ public class DailyCareFragment extends Fragment {
     private void startCountdown(long millisInFuture) {
         cancelCountdown();
 
-        countDownTimer = new CountDownTimer(millisInFuture, 1000) {
+        countDownTimer = new CountDownTimer(millisInFuture, 60000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 updateCountdownText(millisUntilFinished);
@@ -1223,9 +1225,11 @@ public class DailyCareFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (call1 != null) call1.cancel();
 
         cancelCountdown();
     }
+
 
     private void updateCountdownText(long millisUntilFinished) {
 
@@ -1240,11 +1244,11 @@ public class DailyCareFragment extends Fragment {
         long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
         long hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 24;
         long minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60;
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60;
+      //  long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60;
 
         String countdownText = String.format(Locale.getDefault(),
-                "%d %02d:%02d:%02d",
-                days, hours, minutes, seconds);
+                "%d %02d:%02d",
+                days, hours, minutes);
 
         textCountdown.setText(countdownText);
         fertCheckbox.setEnabled(false);

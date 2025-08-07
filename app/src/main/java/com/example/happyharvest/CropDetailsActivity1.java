@@ -3,6 +3,7 @@ package com.example.happyharvest;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -41,7 +42,7 @@ public class CropDetailsActivity1 extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST = 101;
 
     private TextView textCropName, textWeatherTemp, textWaterNotification, textFertilizerNotification;
-    private ImageView weatherIcon,back1;
+    private ImageView weatherIcon, back1;
     private WeatherResponse currentWeather;
 
     private ViewPager2 viewPager;
@@ -53,13 +54,16 @@ public class CropDetailsActivity1 extends AppCompatActivity {
     private My_View_Model myViewModel;
     private int cropId;
     private List<Farmer_Crops> farmerCrop;
+    private DailyCareFragment dailyCareFragment1;
     private List<Crop> currentCrop;
+    private Call<WeatherResponse> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_details1);
         Log.d(TAG, "onCreate: Activity started");
+        dailyCareFragment1 = new DailyCareFragment();
 
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
 
@@ -74,18 +78,36 @@ public class CropDetailsActivity1 extends AppCompatActivity {
         setupTabs();
         setupAIComponents();
         setupExpertChat();
+
         back1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(CropDetailsActivity1.this,MainActivity_Main.class);
-                intent.putExtra("USER_NAME2",farmerUserName);
+
+
+                Intent intent = new Intent(CropDetailsActivity1.this, MainActivity_Main.class);
+                intent.putExtra("USER_NAME2", farmerUserName);
+
+                //  dailyCareFragment1.onDestroyView();
 
                 startActivity(intent);
-                DailyCareFragment dailyCareFragment= new DailyCareFragment();
-                dailyCareFragment.onDestroyView();
-                finish();
+                cancelNetworkCallInBackground();
+//                call.cancel();
+//
+//                finish();
             }
         });
+    }
+
+    private void cancelNetworkCallInBackground() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                if (dailyCareFragment1.call1 != null) {
+                    dailyCareFragment1.call1.cancel();
+                }
+                return null;
+            }
+        }.execute();
     }
 
     private void initViews() {
@@ -200,27 +222,24 @@ public class CropDetailsActivity1 extends AppCompatActivity {
                 .show();
     }
 
+
     private void fetchWeatherData() {
         if (farmerCrop == null || farmerCrop.isEmpty()) return;
 
         String longitude = String.valueOf(farmerCrop.get(0).getLongitude());
         String latitude = String.valueOf(farmerCrop.get(0).getLatitude());
         if (longitude == null || latitude == null) return;
-
-
         if (longitude.length() != 2 || latitude.length() != 2) return;
-
         try {
             double lat = Double.parseDouble(latitude);
             double lon = Double.parseDouble(longitude);
-
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.openweathermap.org/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
             WeatherApi weatherApi = retrofit.create(WeatherApi.class);
-            Call<WeatherResponse> call = weatherApi.getCurrentWeather(lat, lon, "9e269c7c20355e9e8bba48b0ad2cd52c", "metric", "ar");
+            call = weatherApi.getCurrentWeather(lat, lon, "9e269c7c20355e9e8bba48b0ad2cd52c", "metric", "ar");
 
             call.enqueue(new Callback<WeatherResponse>() {
                 @Override

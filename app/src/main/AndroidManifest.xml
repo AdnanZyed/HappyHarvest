@@ -72,7 +72,8 @@
             android:label="نتائج تحليل الصورة" />
         <activity
             android:name=".CropDetailsActivity1"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".FarmInput"
             android:exported="false" />

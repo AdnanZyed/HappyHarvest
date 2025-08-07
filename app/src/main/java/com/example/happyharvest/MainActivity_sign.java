@@ -104,7 +104,7 @@ public class MainActivity_sign extends AppCompatActivity {
 
         Crop tomato = new Crop();
         tomato.setCrop_NAME("Tomato");
-        tomato.setCategorie("Irrigated fruits Vegetable seasonal Highdemand");
+        tomato.setCategorie("Irrigated_fruits_Vegetable_seasonal_Highdemand");
         tomato.setDescription("الطماطم من أهم محاصيل الخضر الموسمية، تزرع في المناطق المعتدلة والحارة، تحتاج إلى عناية فائقة في الري والتسميد وتعتبر من المحاصيل عالية القيمة التجارية.");
         tomato.setExpert_USER_Name("jane_smith");
         tomato.setPreferredSoil("sandy loam with organic matter");
@@ -186,7 +186,7 @@ public class MainActivity_sign extends AppCompatActivity {
     private Crop createOnionCrop() {
         Crop onion = new Crop();
         onion.setCrop_NAME("Onion");//الاسم
-        onion.setCategorie("Bulb Vegetable seasonal Highdemand");  //التصنيفاتRoot grain Irrigated fruits Vegetable Bulb seasonal Highdemand
+        onion.setCategorie("Bulb_Vegetable_seasonal_Highdemand");  //التصنيفاتRoot grain Irrigated fruits Vegetable Bulb seasonal Highdemand
         onion.setDescription("البصل من المحاصيل الجذرية ويُزرع في الخريف أو الشتاء ويحتاج إلى تربة جيدة التصريف.");//الوصف
         onion.setExpert_USER_Name("jane_smith");//اسم الخبير
         onion.setPreferredSoil("sandy");//التربة المفضلة للمحصول
@@ -400,7 +400,7 @@ public class MainActivity_sign extends AppCompatActivity {
 
         Crop eggplant = new Crop();
         eggplant.setCrop_NAME("Eggplant");
-        eggplant.setCategorie("Irrigated Vegetable seasonal Highdemand");
+        eggplant.setCategorie("Irrigated_Vegetable_seasonal_Highdemand");
         eggplant.setDescription("الباذنجان من الخضروات الموسمية ذات القيمة الغذائية العالية، يمتاز بتحمله للحرارة ويحتاج إلى موسم نمو طويل ودافئ لإنتاج ثمار عالية الجودة. يُزرع في المناطق المعتدلة والحارة ويعد من المحاصيل ذات العائد الاقتصادي الجيد.");
         eggplant.setExpert_USER_Name("jane_smith");
         eggplant.setPreferredSoil("deep sandy loam rich in organic matter");
@@ -486,7 +486,7 @@ public class MainActivity_sign extends AppCompatActivity {
     private Crop createGarlicCrop() {
         Crop garlic = new Crop();
         garlic.setCrop_NAME("Garlic");
-        garlic.setCategorie("Bulb Vegetable seasonal Highdemand");
+        garlic.setCategorie("Bulb_Vegetable_seasonal_Highdemand");
         garlic.setDescription("الثوم من المحاصيل البصلية ذات القيمة الطبية والتجارية العالية، يمتاز بفترة نمو طويلة واحتياجاته الخاصة من البرودة خلال مرحلة التبصير. يعتبر من المحاصيل الإستراتيجية في العديد من الدول بسبب خصائصه المضادة للبكتيريا والفطريات.");
         garlic.setExpert_USER_Name("jane_smith");
         garlic.setPreferredSoil("sandy loam with perfect drainage and high organic content");
@@ -573,7 +573,7 @@ public class MainActivity_sign extends AppCompatActivity {
 
         Crop carrot = new Crop();
         carrot.setCrop_NAME("Carrot");
-        carrot.setCategorie("Root Vegetable seasonal Highdemand");
+        carrot.setCategorie("Root_Vegetable_seasonal_Highdemand");
         carrot.setDescription("الجزر من أهم المحاصيل الجذرية الغنية بالبيتا كاروتين، يمتاز بألوانه المختلفة (أحمر، أصفر، بنفسجي) ويحتاج إلى تربة عميقة خفيفة لضمان نمو جذور مستقيمة. يعتبر من المحاصيل ذات القيمة الغذائية العالية وفترة النمو المتوسطة.");
         carrot.setExpert_USER_Name("jane_smith");
         carrot.setPreferredSoil("deep sandy loam free from stones");

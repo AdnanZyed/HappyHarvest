@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/l_green"
+    android:elevation="0dp"
     android:gravity="start"
-    android:elevation="3dp"
-android:background="@color/green"
     android:orientation="horizontal"
     android:padding="8dp">
 
@@ -11,11 +11,13 @@ android:background="@color/green"
         android:id="@+id/tvMessageContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="20dp"
         android:background="@drawable/bg_message_received"
         android:padding="8dp"
-        android:textSize="22sp"
-        android:layout_margin="10dp"
+        android:elevation="2dp"
         android:text="Message"
-        android:layout_marginStart="20dp"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/green"
+        android:textSize="22sp"
+         />
 </LinearLayout>

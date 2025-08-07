@@ -10,8 +10,8 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-
         android:layout_height="80dp"
+        android:background="@color/green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-
+            android:elevation="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -39,9 +39,9 @@
                 android:id="@+id/iv_expert_image12"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="20dp"
                 app:cardCornerRadius="500dp"
                 app:cardElevation="0dp"
-                android:layout_marginStart="20dp"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
@@ -68,9 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Farmer Name"
                 android:layout_marginStart="20dp"
-                android:textColor="@android:color/black"
+                android:text="Farmer Name"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -81,9 +81,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="75dp"
             android:layout_weight="1"
             android:background="@drawable/shape_c"
+            android:elevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent">
@@ -95,6 +96,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/more"
+                android:backgroundTint="@color/green"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -105,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/telephone"
+                android:backgroundTint="@color/green"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView10"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,8 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/messageInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <LinearLayout
         android:id="@+id/messageInputLayout"
@@ -137,17 +139,20 @@
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:paddingStart="20dp"
             android:background="@drawable/shape_w"
+            android:elevation="10dp"
             android:hint="Write a message..."
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:paddingStart="20dp" />
 
         <ImageView
             android:id="@+id/btnSendMessage"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_margin="20dp"
-            android:background="@drawable/send_message" />
+            android:background="@drawable/send_message"
+            android:backgroundTint="@color/green"
+            android:elevation="2dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

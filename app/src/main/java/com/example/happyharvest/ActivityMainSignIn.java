@@ -51,7 +51,7 @@ public class ActivityMainSignIn extends AppCompatActivity {
                 myViewModel.getAllFarmerByUser(binding.eUserIn.getText().toString()).observe(ActivityMainSignIn.this, farmers -> {
                     if (farmers != null && !farmers.isEmpty() && !binding.eUserIn.getText().toString().isEmpty() && binding.eUserIn.getText().toString() != null && binding.eUserIn.getText().toString() != "") {
 
-                        Intent intent = new Intent(ActivityMainSignIn.this, ForgotPassword.class);
+                        Intent intent = new Intent(ActivityMainSignIn.this, ForgetPassword1.class);
                         intent.putExtra("USER", binding.eUserIn.getText().toString());
                         startActivity(intent);
                     } else {
