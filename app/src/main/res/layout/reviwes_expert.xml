@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="@+id/iv_expert_image71" />
 
     <Spinner
-        android:id="@+id/rating1"
+        android:id="@+id/rating11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -102,5 +102,5 @@
         app:layout_constraintHorizontal_bias="1.0"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rating1" />
+        app:layout_constraintTop_toBottomOf="@+id/rating11" />
 </androidx.constraintlayout.widget.ConstraintLayout>

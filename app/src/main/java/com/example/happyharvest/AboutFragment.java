@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
-
 public class AboutFragment extends Fragment {
 
 
@@ -27,7 +26,6 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
         myViewModel = new ViewModelProvider(requireActivity()).get(My_View_Model.class);
-
 
         String expertUserName = getArguments().getString("TEACHER_USER_NAME1");
         String CropDescription = getArguments().getString("cropDescription");

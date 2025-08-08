@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,7 +20,7 @@ public class ChatMessageActivity extends AppCompatActivity {
     private ImageView btnSendMessage;
     private ChatMessageAdapter chatAdapter;
 
-    private String User,otherUser,name;
+    private String User, otherUser, name;
     private My_View_Model myViewModel;
     private ArrayList<Message> messages1 = new ArrayList<>();
 
@@ -34,13 +35,17 @@ public class ChatMessageActivity extends AppCompatActivity {
         btnSendMessage = findViewById(R.id.btnSendMessage);
         TextView textView = findViewById(R.id.tvFarmerNameC);
 
+        otherUser = "Adnan@123";
+        name = name;
+        User = "Farmer";
+        String call = null;
+//        otherUser = getIntent().getStringExtra("farmerUsername");
+//        name = getIntent().getStringExtra("farmerName");
+//        User = getIntent().getStringExtra("USER");
+//        String call = getIntent().getStringExtra("CALL");
+//
 
-        otherUser = getIntent().getStringExtra("farmerUsername");
-        name = getIntent().getStringExtra("farmerName");
-        User = getIntent().getStringExtra("USER");
-        String call = getIntent().getStringExtra("CALL");
 
-        textView.setText(name);
         chatAdapter = new ChatMessageAdapter(messages1, User);
         recyclerViewMessages.setAdapter(chatAdapter);
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));

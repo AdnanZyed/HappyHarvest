@@ -20,11 +20,13 @@ public class CareFragmentEdit extends Fragment {
     private My_View_Model myViewModel;
 
     private Spinner OrganicFertilizer, ChemicalFertilizer;
+    private int id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_care, container, false);
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
+        id = getArguments().getInt("ID");
 
         WateringFrequencyDays = view.findViewById(R.id.wateringFrequencyDays);
         FertilizingFrequencyDays = view.findViewById(R.id.fertilizingFrequencyDays);
@@ -56,7 +58,7 @@ public class CareFragmentEdit extends Fragment {
     }
 
     private void loadCurrentData() {
-        myViewModel.getAllCropsById(1).observe(requireActivity(), currentCrop -> {
+        myViewModel.getAllCropsById(id).observe(requireActivity(), currentCrop -> {
 
             WateringFrequencyDays.setText(String.valueOf(currentCrop.get(0).getWateringFrequencyDays()));
             FertilizingFrequencyDays.setText(String.valueOf(currentCrop.get(0).getFertilizingFrequencyDays()));

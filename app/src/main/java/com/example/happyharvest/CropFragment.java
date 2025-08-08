@@ -61,10 +61,10 @@ public class CropFragment extends Fragment {
                             FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
                             sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
                         } else {
-                            if (user.equals("")){
+                            if (user.equals("")) {
                                 NotRegisteredBottomSheet bottomSheet = new NotRegisteredBottomSheet();
                                 bottomSheet.show(getActivity().getSupportFragmentManager(), "NotRegisteredBottomSheet");
-                            }else {
+                            } else {
                                 Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
                                 intent.putExtra("ID", crop.getCrop_ID());
                                 intent.putExtra("USER", user);
@@ -125,73 +125,21 @@ public class CropFragment extends Fragment {
     }
 
     public void loadCrops() {
-        if (!isAdded() || getContext() == null) return;
+        if (!isAdded() || getContext() == null || myViewModel == null) {
+            Log.e("CropFragment", "Fragment not attached or ViewModel is null");
+            return;
+        }
 
         myViewModel.getAllCrop().observe(getViewLifecycleOwner(), localCrops -> {
             if (localCrops != null && !localCrops.isEmpty()) {
-                // البيانات موجودة بالفعل، لا تقم بتحميلها من Firebase
                 cropAdapter.setCropList(localCrops);
                 recyclerView.setAdapter(cropAdapter);
-                setCropClickListener();  // تابع لتعيين click listener
+                setCropClickListener();
             } else {
-                // البيانات غير موجودة، حملها من Firebase
                 loadCropsFromFirebase();
             }
         });
     }
-
-//    public void loadCrops1() {
-//        // 1. التحقق من اتصال Fragment بالنشاط
-//        if (!isAdded() || getContext() == null) {
-//            Log.w("CropFragment", "Fragment not attached to activity");
-//            return;
-//        }        dbRef = database.getReference("crops"); // لازم تعملها قبل push()
-
-//
-//        // 2. الحصول على مرجع قاعدة البيانات
-//        dbRef = FirebaseDatabase.getInstance().getReference("crops");
-//
-//        // 3. إضافة مستمع للبيانات
-//        dbRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (!isAdded() || getContext() == null) return;
-//
-//                Log.d("FirebaseData", "DataSnapshot: " + dataSnapshot.toString());
-//
-//                if (!dataSnapshot.exists()) {
-//                    Log.w("FirebaseData", "No data available at crops node");
-//                    Toast.makeText(getContext(), "لا توجد محاصيل متاحة", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                List<Crop> cropList = new ArrayList<>();
-//                for (DataSnapshot cropSnapshot : dataSnapshot.getChildren()) {
-//                    try {
-//                        Crop crop = cropSnapshot.getValue(Crop.class);
-//                        if (crop != null) {
-//                        //    crop.setFirebaseKey(cropSnapshot.getKey()); // حفظ المفتاح إذا لزم الأمر
-//                            cropList.add(crop);
-//                            Log.d("FirebaseData", "Loaded crop: " + crop.getCrop_NAME());
-//                        }
-//                    } catch (Exception e) {
-//                        Log.e("FirebaseError", "Error parsing crop at key: " + cropSnapshot.getKey(), e);
-//                    }
-//                }
-//
-//                updateCropList(cropList);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.e("FirebaseError", "Failed to read value: " + error.getMessage() +
-//                        "\nDetails: " + error.getDetails());
-//                if (isAdded() && getContext() != null) {
-//                    Toast.makeText(getContext(), "خطأ في جلب البيانات", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
 
     private void updateCropList(List<Crop> crops) {
         if (getActivity() == null || cropAdapter == null) {
@@ -228,24 +176,13 @@ public class CropFragment extends Fragment {
                     }
                 });
 
-                // إضافة البيانات بشكل آمن
-//                if (crop.getCrop_ID() != null)
-//                    intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                if (user != null)
-//                    intent.putExtra("USER", user);
-//                if (crop.getExpert_USER_Name() != null)
-//                    intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-                // ... باقي البيانات بنفس الطريقة
 
-//                startActivity(intent);
             } catch (Exception e) {
                 Log.e("IntentError", "Failed to start activity", e);
             }
         });
     }
 
-    // باقي الدوال (loadCropsByUserExpert, loadCrops_Categorie_XXX) تبقى كما هي بدون تغيير
-    // ...
 
     @Override
     public void onDestroyView() {
@@ -256,107 +193,6 @@ public class CropFragment extends Fragment {
         }
     }
 
-
-//    public void loadCrops() {
-//        // 1. التحقق من اتصال Fragment بالنشاط
-//        if (!isAdded() || getContext() == null) {
-//            return;
-//        }
-//
-//        DatabaseReference dbRef = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/").getReference("crops");
-//
-//        // 2. استخدام ListenerForSingleValueEvent للقراءة لمرة واحدة
-//        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (!isAdded()) return; // التأكد من أن Fragment لا يزال مضافًا
-//
-//                if (!dataSnapshot.exists()) {
-//                    Toast.makeText(getContext(), "مشكلة في الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//
-//                List<Crop> cropList = new ArrayList<>();
-//                for (DataSnapshot cropSnapshot : dataSnapshot.getChildren()) {
-//                    try {
-//                        Crop crop = cropSnapshot.getValue(Crop.class);
-//                        if (crop != null) {
-//
-//                            cropList.add(crop);
-//                            myViewModel.insertAllCrops(cropList);
-//                            //Toast.makeText(requireContext(), "cropList"+cropList, Toast.LENGTH_SHORT).show();
-//                        }
-//
-//
-//                    } catch (Exception e) {
-//                        Log.e("Firebase", "Error parsing crop: " + e.getMessage());
-//                    }
-//                }
-//                if (!cropList.isEmpty()) {
-//                    myViewModel.insertAllCrops(cropList);
-//                }
-//                // 3. تحديث UI على main thread
-////                if (getActivity() != null) {
-////                    getActivity().runOnUiThread(() -> {
-//                myViewModel.getAllCrop().observe(getViewLifecycleOwner(), crops -> {
-//                    cropAdapter.setCropList(crops);
-//                    recyclerView.setAdapter(cropAdapter); // يجب تعيين Adapter هنا قبل loadCrops()
-//
-//                });
-//                if (cropAdapter != null) {
-//
-//                    cropAdapter.setOnCropClickListener(crop -> {
-//                        if (isAdded() && getContext() != null) {
-//
-//                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-//
-//
-//                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-//
-//                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-//                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-//
-//                                } else {
-//
-//                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-//                                    intent.putExtra("ID", crop.getCrop_ID());
-//                                    intent.putExtra("USER", user);
-//                                    startActivity(intent);
-//
-//                                }
-//                            });
-////                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(),user);
-////                                    sheet.show(getSupportFragmentManager(), "FarmingMethodSheet");
-////                                    Intent intent = new Intent(getContext(), CropDetailsActivity.class);
-////                                    intent.putExtra("COURSE_ID", crop.getCrop_ID());
-////                                    intent.putExtra("USER", user);
-////                                    intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-////                                    intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-////                                    intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-////                                    intent.putExtra("COURSE_CATEGORIES", crop.getCategorie());
-////                                    intent.putExtra("COURSE_IMAGE", crop.getImage());
-//                            //   intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//                            //     startActivity(intent);
-//                        }
-//                    });
-//                } else {
-//                    Log.e("Firebase", "Adapter is null");
-//                }
-
-    /// /                    });
-    /// /                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.e("Firebase", "Failed to read value: " + error.getMessage());
-//                if (isAdded() && getContext() != null) {
-//                    Toast.makeText(getContext(), "خطأ في جلب البيانات", Toast.LENGTH_SHORT).show();
-//                }
-//           }
-//        });
-//    }
 
     // 3. دالة منفصلة لتحديث الواجهة
     private void updateUI(List<Crop> crops) {
@@ -408,20 +244,7 @@ public class CropFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//                intent.putExtra("USER", user);
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//
-//                //intent.putExtra("COURSE_PRICE", crop.getPrice());
-//           //     intent.putExtra("COURSE_IMAGE", crop.getImage());
-//              //  intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
+
             });
 
         });
@@ -454,343 +277,220 @@ public class CropFragment extends Fragment {
 
         });
     }
-                public void loadCrops_Categorie_btn_grain (WeatherResponse weatherResponse){
 
+    public void loadCrops_Categorie_btn_grain(WeatherResponse weatherResponse) {
 
-                    myViewModel.getCropsByCategory("grain").observe(getViewLifecycleOwner(), crops -> {
 
-                        cropAdapter.setCropList(crops);
+        myViewModel.getCropsByCategory("grain").observe(getViewLifecycleOwner(), crops -> {
 
-                        cropAdapter.setOnCropClickListener(crop -> {
-                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-
-
-                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-                                } else {
-
-                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                                    intent.putExtra("ID", crop.getCrop_ID());
-                                    intent.putExtra("USER", user);
-                                    intent.putExtra("weather", (CharSequence) weatherResponse);
-                                    startActivity(intent);
-                                }
-                            });
-
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//              //  intent.putExtra("COURSE_PRICE", crop.getPrice());
-//             //   intent.putExtra("COURSE_IMAGE", crop.getImage());
-//                intent.putExtra("USER", user);
-//
-//            //    intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
-                        });
+            cropAdapter.setCropList(crops);
 
-                    });
-                }
+            cropAdapter.setOnCropClickListener(crop -> {
+                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
 
-                public void loadCrops_Categorie_btn_irrigated (WeatherResponse weatherResponse){
 
+                    if (farmerCrops.isEmpty() || farmerCrops == null) {
+                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+                    } else {
 
-                    myViewModel.getCropsByCategory("Irrigated").observe(getViewLifecycleOwner(), crops -> {
+                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                        intent.putExtra("ID", crop.getCrop_ID());
+                        intent.putExtra("USER", user);
+                        intent.putExtra("weather", (CharSequence) weatherResponse);
+                        startActivity(intent);
+                    }
+                });
 
-                        cropAdapter.setCropList(crops);
 
-                        cropAdapter.setOnCropClickListener(crop -> {
-                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-                                } else {
+            });
 
-                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                                    intent.putExtra("ID", crop.getCrop_ID());
-                                    intent.putExtra("USER", user);
-                                    intent.putExtra("weather", (CharSequence) weatherResponse);
-
-                                    startActivity(intent);
-                                }
-                            });
-
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//              //  intent.putExtra("COURSE_PRICE", crop.getPrice());
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//                intent.putExtra("USER", user);
-//              //  intent.putExtra("COURSE_IMAGE", crop.getImage());
-//              //  intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
-                        });
+        });
+    }
 
-                    });
-                }
+    public void loadCrops_Categorie_btn_irrigated(WeatherResponse weatherResponse) {
 
-                public void loadCrops_Categorie_fruits (WeatherResponse weatherResponse){
 
+        myViewModel.getCropsByCategory("Irrigated").observe(getViewLifecycleOwner(), crops -> {
 
-                    myViewModel.getCropsByCategory("fruits").observe(getViewLifecycleOwner(), crops -> {
+            cropAdapter.setCropList(crops);
 
-                        cropAdapter.setCropList(crops);
+            cropAdapter.setOnCropClickListener(crop -> {
+                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
+                    if (farmerCrops.isEmpty() || farmerCrops == null) {
+                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+                    } else {
 
-                        cropAdapter.setOnCropClickListener(crop -> {
-                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
+                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                        intent.putExtra("ID", crop.getCrop_ID());
+                        intent.putExtra("USER", user);
+                        intent.putExtra("weather", (CharSequence) weatherResponse);
 
+                        startActivity(intent);
+                    }
+                });
 
-                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-                                } else {
 
-                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                                    intent.putExtra("ID", crop.getCrop_ID());
-                                    intent.putExtra("USER", user);
-                                    intent.putExtra("weather", (CharSequence) weatherResponse);
-
-                                    startActivity(intent);
-                                }
-                            });
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//              //  intent.putExtra("COURSE_PRICE", crop.getPrice());
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//                intent.putExtra("USER", user);
-//             //   intent.putExtra("COURSE_IMAGE", crop.getImage());
-//              //  intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
-
-                            FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                            sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-
-                        });
+            });
 
-                    });
-                }
-
-                public void loadCrops_Categorie_Vegetable_Crops (WeatherResponse weatherResponse){
+        });
+    }
 
+    public void loadCrops_Categorie_fruits(WeatherResponse weatherResponse) {
 
-                    myViewModel.getCropsByCategory("Vegetable").observe(getViewLifecycleOwner(), crops -> {
-
-                        cropAdapter.setCropList(crops);
 
-                        cropAdapter.setOnCropClickListener(crop -> {
-                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-
-
-                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-                                } else {
-
-                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                                    intent.putExtra("ID", crop.getCrop_ID());
-                                    intent.putExtra("USER", user);
-                                    intent.putExtra("weather", (CharSequence) weatherResponse);
-
-                                    startActivity(intent);
-                                }
-                            });
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//              //  intent.putExtra("COURSE_PRICE", crop.getPrice());
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//                intent.putExtra("USER", user);
-//             //   intent.putExtra("COURSE_IMAGE", crop.getImage());
-//             //   intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
-                        });
+        myViewModel.getCropsByCategory("Fruit").observe(getViewLifecycleOwner(), crops -> {
 
-                    });
-                }
-
-                public void loadCrops_Categorie_Bulb_Crops (WeatherResponse weatherResponse){
-
-
-                    myViewModel.getCropsByCategory("Bulb").observe(getViewLifecycleOwner(), crops -> {
-
-                        cropAdapter.setCropList(crops);
-
-                        cropAdapter.setOnCropClickListener(crop -> {
-
-                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-
-
-                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-                                } else {
-
-                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                                    intent.putExtra("ID", crop.getCrop_ID());
-                                    intent.putExtra("USER", user);
-                                    intent.putExtra("weather", (CharSequence) weatherResponse);
-
-                                    startActivity(intent);
-                                }
-                            });
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//              //  intent.putExtra("COURSE_PRICE", crop.getPrice());
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//                intent.putExtra("USER", user);
-//              //  intent.putExtra("COURSE_IMAGE", crop.getImage());
-//             //   intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
-                        });
-
-                    });
-                }
-                public void loadCrops_Categorie_btn_seasonal (WeatherResponse weatherResponse){
-
-
-                    myViewModel.getCropsByCategory("seasonal").observe(getViewLifecycleOwner(), crops -> {
-
-                        cropAdapter.setCropList(crops);
-
-                        cropAdapter.setOnCropClickListener(crop -> {
-
-                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-
-
-                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-                                } else {
-
-                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                                    intent.putExtra("ID", crop.getCrop_ID());
-                                    intent.putExtra("USER", user);
-                                    intent.putExtra("weather", (CharSequence) weatherResponse);
-
-                                    startActivity(intent);
-                                }
-                            });
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//              //  intent.putExtra("COURSE_PRICE", crop.getPrice());
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//                intent.putExtra("USER", user);
-//              //  intent.putExtra("COURSE_IMAGE", crop.getImage());
-//             //   intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
-                        });
-
-                    });
-                }
-
-                public void loadCrops_Categorie_btn_Highdemand (WeatherResponse weatherResponse){
-
-
-                    myViewModel.getCropsByCategory("Highdemand").observe(getViewLifecycleOwner(), crops -> {
-
-                        cropAdapter.setCropList(crops);
-
-                        cropAdapter.setOnCropClickListener(crop -> {
-                            myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-
-
-                                if (farmerCrops.isEmpty() || farmerCrops == null) {
-                                    FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-                                    sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-                                } else {
-
-                                    Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-                                    intent.putExtra("ID", crop.getCrop_ID());
-                                    intent.putExtra("USER", user);
-                                    intent.putExtra("weather", (CharSequence) weatherResponse);
-
-                                    startActivity(intent);
-                                }
-                            });
-
-//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-//
-//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-//               // intent.putExtra("COURSE_PRICE", crop.getPrice());
-//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-//
-//              //  intent.putExtra("COURSE_IMAGE", crop.getImage());
-//           //     intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-//
-//
-//                startActivity(intent);
-                        });
-
-                    });
-                }
-
-//    public void loadCrops_Categorie_3D_Design(WeatherResponse weatherResponse) {
-//
-//
-//        myViewModel.getCropsByCategory("3D Design").observe(getViewLifecycleOwner(), crops -> {
-//
-//            cropAdapter.setCropList(crops);
-//
-//            cropAdapter.setOnCropClickListener(crop -> {
-//                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
-//
-//
-//                    if (farmerCrops.isEmpty() || farmerCrops == null) {
-//                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
-//                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
-//                    } else {
-//
-//                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
-//                        intent.putExtra("ID", crop.getCrop_ID());
-//                        intent.putExtra("USER", user);
-//                        intent.putExtra("weather", (CharSequence) weatherResponse);
-//
-//                        startActivity(intent);
-//                    }
-//                });
-////                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-////                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-////                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-////               // intent.putExtra("COURSE_PRICE", crop.getPrice());
-////                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-////
-////             //   intent.putExtra("COURSE_IMAGE", crop.getImage());
-////             //   intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-////
-////
-////
-//            });
-//
-//        });
-//    }
-            }
+            cropAdapter.setCropList(crops);
+
+            cropAdapter.setOnCropClickListener(crop -> {
+                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
+
+
+                    if (farmerCrops.isEmpty() || farmerCrops == null) {
+                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+                    } else {
+
+                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                        intent.putExtra("ID", crop.getCrop_ID());
+                        intent.putExtra("USER", user);
+                        intent.putExtra("weather", (CharSequence) weatherResponse);
+
+                        startActivity(intent);
+                    }
+                });
+
+
+                FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+
+            });
+
+        });
+    }
+
+    public void loadCrops_Categorie_Vegetable_Crops(WeatherResponse weatherResponse) {
+
+
+        myViewModel.getCropsByCategory("Vegetable").observe(getViewLifecycleOwner(), crops -> {
+
+            cropAdapter.setCropList(crops);
+
+            cropAdapter.setOnCropClickListener(crop -> {
+                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
+
+
+                    if (farmerCrops.isEmpty() || farmerCrops == null) {
+                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+                    } else {
+
+                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                        intent.putExtra("ID", crop.getCrop_ID());
+                        intent.putExtra("USER", user);
+                        intent.putExtra("weather", (CharSequence) weatherResponse);
+
+                        startActivity(intent);
+                    }
+                });
+
+            });
+
+        });
+    }
+
+    public void loadCrops_Categorie_Bulb_Crops(WeatherResponse weatherResponse) {
+
+
+        myViewModel.getCropsByCategory("Bulb").observe(getViewLifecycleOwner(), crops -> {
+
+            cropAdapter.setCropList(crops);
+
+            cropAdapter.setOnCropClickListener(crop -> {
+
+                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
+
+
+                    if (farmerCrops.isEmpty() || farmerCrops == null) {
+                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+                    } else {
+
+                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                        intent.putExtra("ID", crop.getCrop_ID());
+                        intent.putExtra("USER", user);
+                        intent.putExtra("weather", (CharSequence) weatherResponse);
+
+                        startActivity(intent);
+                    }
+                });
+
+            });
+
+        });
+    }
+
+    public void loadCrops_Categorie_btn_seasonal(WeatherResponse weatherResponse) {
+
+
+        myViewModel.getCropsByCategory("seasonal").observe(getViewLifecycleOwner(), crops -> {
+
+            cropAdapter.setCropList(crops);
+
+            cropAdapter.setOnCropClickListener(crop -> {
+
+                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
+
+
+                    if (farmerCrops.isEmpty() || farmerCrops == null) {
+                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+                    } else {
+
+                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                        intent.putExtra("ID", crop.getCrop_ID());
+                        intent.putExtra("USER", user);
+                        intent.putExtra("weather", (CharSequence) weatherResponse);
+
+                        startActivity(intent);
+                    }
+                });
+
+            });
+
+        });
+    }
+
+    public void loadCrops_Categorie_btn_Highdemand(WeatherResponse weatherResponse) {
+
+
+        myViewModel.getCropsByCategory("Highdemand").observe(getViewLifecycleOwner(), crops -> {
+
+            cropAdapter.setCropList(crops);
+
+            cropAdapter.setOnCropClickListener(crop -> {
+                myViewModel.getFarmersByCropAndFarmer(user, crop.getCrop_ID()).observe(getViewLifecycleOwner(), farmerCrops -> {
+
+
+                    if (farmerCrops.isEmpty() || farmerCrops == null) {
+                        FarmingMethodBottomSheet sheet = new FarmingMethodBottomSheet(crop.getCrop_ID(), user);
+                        sheet.show(getActivity().getSupportFragmentManager(), "FarmingMethodSheet");
+                    } else {
+
+                        Intent intent = new Intent(requireContext(), CropDetailsActivity1.class);
+                        intent.putExtra("ID", crop.getCrop_ID());
+                        intent.putExtra("USER", user);
+                        intent.putExtra("weather", (CharSequence) weatherResponse);
+
+                        startActivity(intent);
+                    }
+                });
+
+            });
+
+
+        });
+    }
+}

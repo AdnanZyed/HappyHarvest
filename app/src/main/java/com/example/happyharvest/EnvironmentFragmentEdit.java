@@ -15,11 +15,13 @@ public class EnvironmentFragmentEdit extends Fragment {
     private EditText Season, OptimalHumidity, OptimalTemperature, TemperatureTolerance,
             HumidityTolerance, LightRequirements;
     private My_View_Model myViewModel;
+    private int id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_environment, container, false);
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
+        id = getArguments().getInt("ID");
 
         PreferredHumidity = view.findViewById(R.id.sp_preferredHumidity);
         AllowedHumidity = view.findViewById(R.id.sp_allowedHumidity);
@@ -40,7 +42,7 @@ public class EnvironmentFragmentEdit extends Fragment {
     }
 
     private void loadCurrentData() {
-        myViewModel.getAllCropsById(1).observe(requireActivity(), currentCrop -> {
+        myViewModel.getAllCropsById(id).observe(requireActivity(), currentCrop -> {
 
             setSpinnerSelection(PreferredHumidity, currentCrop.get(0).getPreferredHumidity());
             setSpinnerSelection(AllowedHumidity, currentCrop.get(0).getAllowedHumidity());

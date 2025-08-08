@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,11 +14,13 @@ public class BasicInfoFragmentEdit extends Fragment {
     private EditText etCropName, etDescription, etExpertUsername;
     private Spinner spCategory;
     private My_View_Model myViewModel;
+    private int id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_basic_info, container, false);
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
+         id = getArguments().getInt("ID");
 
         etCropName = view.findViewById(R.id.et_Crop_nameA);
         etDescription = view.findViewById(R.id.et_Crop_descriptionA);
@@ -30,7 +33,7 @@ public class BasicInfoFragmentEdit extends Fragment {
     }
 
     private void loadCurrentData() {
-        myViewModel.getAllCropsById(1).observe(requireActivity(), crop -> {
+        myViewModel.getAllCropsById(id).observe(requireActivity(), crop -> {
             etCropName.setText(crop.get(0).getCrop_NAME());
             etDescription.setText(crop.get(0).getDescription());
             etExpertUsername.setText(crop.get(0).getExpert_USER_Name());
@@ -39,10 +42,9 @@ public class BasicInfoFragmentEdit extends Fragment {
                 if (spCategory.getItemAtPosition(i).toString().equals(crop.get(0).getCategorie())) {
                     spCategory.setSelection(i);
                     break;
-                }}
+                }
+            }
         });
-
-
 
 
     }

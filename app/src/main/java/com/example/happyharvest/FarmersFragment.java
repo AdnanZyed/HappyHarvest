@@ -41,28 +41,34 @@ public class FarmersFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewFarmers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
-        String expertUserName = getArguments().getString("TEACHER_USER_NAME1");
+        String expertUserName = getArguments().getString("EXPERT_USER_NAME1");
 
 
-        myViewModel.getFarmersByExpert(expertUserName).observe((LifecycleOwner) requireContext(), farmerExperts -> {
-            if (farmerExperts != null && !farmerExperts.isEmpty()) {
-                farmersList1.clear();
+//        myViewModel.getFarmersByExpert("jane_smith").observe((LifecycleOwner) requireContext(), farmerExperts -> {
+//            if (farmerExperts != null && !farmerExperts.isEmpty()) {
+//                farmersList1.clear();
+//
+//                for (Farmer_Expert farmerExpert : farmerExperts) {
+//                    myViewModel.getAllFarmerByUser(farmerExpert.getFarmerUserName()).observe((LifecycleOwner) requireContext(), farmer2 -> {
+//                        if (farmer2 != null && !farmer2.isEmpty()) {
+//                            farmersList1.addAll(farmer2);
+//
+//                            if (farmersList1.size() == farmerExperts.size()) {
+//                                adapter = new FarmersAdapter(farmersList1, requireContext());
+//                                recyclerView.setAdapter(adapter);
+//                            }
+//                        }
+//                    });
+//                }
+//            } else {
+//                Toast.makeText(requireContext(), "No farmers found", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+                  myViewModel.getAllFarmer().observe((LifecycleOwner) requireContext(), farmer2 -> {
 
-                for (Farmer_Expert farmerExpert : farmerExperts) {
-                    myViewModel.getAllFarmerByUser(farmerExpert.getFarmerUserName()).observe((LifecycleOwner) requireContext(), farmer2 -> {
-                        if (farmer2 != null && !farmer2.isEmpty()) {
-                            farmersList1.addAll(farmer2);
+                      adapter = new FarmersAdapter(farmer2, requireContext());
+                            recyclerView.setAdapter(adapter);
+                  });
 
-                            if (farmersList1.size() == farmerExperts.size()) {
-                                adapter = new FarmersAdapter(farmersList1, requireContext());
-                                recyclerView.setAdapter(adapter);
-                            }
-                        }
-                    });
-                }
-            } else {
-                Toast.makeText(requireContext(), "No farmers found", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

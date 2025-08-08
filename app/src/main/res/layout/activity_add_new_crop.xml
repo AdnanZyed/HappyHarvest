@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs1"
@@ -12,7 +13,7 @@
         app:tabMode="scrollable" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager1"
+        android:id="@+id/view_pager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

@@ -28,27 +28,27 @@ public class Tab_profile_Adapter
 
                 CropsProfileFragment cropsProfileFragment = new CropsProfileFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("TEACHER_USER_NAME1", expertUserName);
+                bundle.putString("EXPERT_USER_NAME1", expertUserName);
                 cropsProfileFragment.setArguments(bundle);
                 return cropsProfileFragment;
 
             case 1:
                 FarmersFragment farmersFragment = new FarmersFragment();
                 Bundle bundle2 = new Bundle();
-                bundle2.putString("TEACHER_USER_NAME1", expertUserName);
+                bundle2.putString("EXPERT_USER_NAME1", expertUserName);
                 farmersFragment.setArguments(bundle2);
                 return farmersFragment;
             case 2:
                 ReviewsExpertFragment reviewsExpertFragment = new ReviewsExpertFragment();
                 Bundle bundle3 = new Bundle();
-                bundle3.putString("TEACHER_USER_NAME1", expertUserName);
+                bundle3.putString("EXPERT_USER_NAME1", expertUserName);
                 bundle3.putString("STUDENT_USER_NAME1", user);
                 reviewsExpertFragment.setArguments(bundle3);
                 return reviewsExpertFragment;
             default:
                 CropsProfileFragment cropsProfileFragment1 = new CropsProfileFragment();
                 Bundle bundle1 = new Bundle();
-                bundle1.putString("TEACHER_USER_NAME1", expertUserName);
+                bundle1.putString("EXPERT_USER_NAME1", expertUserName);
                 cropsProfileFragment1.setArguments(bundle1);
                 return cropsProfileFragment1;
         }

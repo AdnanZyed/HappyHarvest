@@ -65,14 +65,18 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
         }
         if (crop.getCrop_NAME().equals("Onion")) {
             holder.ivCropImage.setImageResource(R.drawable.onion);
-        }else  if (crop.getCrop_NAME().equals("Tomato")){
+        } else if (crop.getCrop_NAME().equals("Tomato")) {
             holder.ivCropImage.setImageResource(R.drawable.tomato);
-        }else  if (crop.getCrop_NAME().equals("Eggplant")){
+        } else if (crop.getCrop_NAME().equals("Eggplant")) {
             holder.ivCropImage.setImageResource(R.drawable.eggplant);
-        }else  if (crop.getCrop_NAME().equals("Garlic")){
+        } else if (crop.getCrop_NAME().equals("Garlic")) {
             holder.ivCropImage.setImageResource(R.drawable.garlic);
-        }else  if (crop.getCrop_NAME().equals("Carrot")){
+        } else if (crop.getCrop_NAME().equals("Carrot")) {
             holder.ivCropImage.setImageResource(R.drawable.carrot);
+        } else if (crop.getCrop_NAME().equals("Watermelon")) {
+            holder.ivCropImage.setImageResource(R.drawable.watermelon);
+        } else if (crop.getCrop_NAME().equals("Wheat")) {
+            holder.ivCropImage.setImageResource(R.drawable.wheat);
         }
         //   holder.tvPrice.setText(String.format("$%d", crop.getPrice()));
 //        في onBindViewHolder في CropAdapter:

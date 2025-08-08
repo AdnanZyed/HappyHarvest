@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -54,9 +55,10 @@ public class MainActivity_Main extends AppCompatActivity
 
     private Toolbar toolbar;
     private InboxFragment inboxFragment = new InboxFragment();
+    private FloatingActionButton fabAdd;
 
 
-    @SuppressLint("UseSupportActionBar")
+    @SuppressLint({"UseSupportActionBar", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +69,23 @@ public class MainActivity_Main extends AppCompatActivity
         Intent intent = getIntent();
         userName = intent.getStringExtra("USER_NAME2");
 
+
         HomeFragment homeFragment = new HomeFragment();
         CropsFragment cropsFragment1 = new CropsFragment();
         iv_S1 = findViewById(R.id.iv_s1);
         tv_Seeall21 = findViewById(R.id.tv_Seeall21);
+
+        fabAdd = findViewById(R.id.fab_add);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent1 = new Intent(MainActivity_Main.this, ExpertProfileActivity.class);
+                intent1.putExtra("USER","jane_smith");
+                intent1.putExtra("USERF",userName);
+                startActivity(intent1);
+            }
+        });
         //   toolbar = findViewById(R.id.toolbar);
         menu1 = findViewById(R.id.menu1);
         iv_notification_h1 = findViewById(R.id.iv_notification_h1);
@@ -190,6 +205,7 @@ public class MainActivity_Main extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Fragment selectedFragment = null;
@@ -286,23 +302,23 @@ public class MainActivity_Main extends AppCompatActivity
 //                    .replace(R.id.flFragment, homeFragment)
 //                    .commit();
 //            activeFragment = homeFragment;
-////            if (showCustomNav) {
-////                bottomNavigationView.setSelectedItemId(R.id.crops1);
-////            } else {
-////
-////                bottomNavigationView.setSelectedItemId(R.id.home1);
-////
-////            }
+
+    /// /            if (showCustomNav) {
+    /// /                bottomNavigationView.setSelectedItemId(R.id.crops1);
+    /// /            } else {
+    /// /
+    /// /                bottomNavigationView.setSelectedItemId(R.id.home1);
+    /// /
+    /// /            }
 //        } else {
 //            super.onBackPressed();
 //        }
 //    }
-
-
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+
     private void showNotificationSettings() {
         View bottomSheetView = LayoutInflater.from(this)
                 .inflate(R.layout.notification_settings_sheet, null);

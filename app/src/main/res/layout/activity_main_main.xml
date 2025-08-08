@@ -19,7 +19,6 @@
             android:id="@+id/flFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
             android:backgroundTint="@color/green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,19 +53,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center">
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/iv_expert_image111"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
                 android:layout_margin="30dp"
-
                 app:cardCornerRadius="500dp"
                 app:cardElevation="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
 
                 <ImageView
                     android:id="@+id/iv_s1"
@@ -121,6 +116,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Add"
+        android:elevation="20dp"
+        android:src="@drawable/peasant"
+        android:backgroundTint="@color/green"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

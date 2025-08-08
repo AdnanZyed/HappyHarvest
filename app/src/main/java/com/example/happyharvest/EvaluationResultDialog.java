@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,14 +73,12 @@ public class EvaluationResultDialog extends Dialog {
             dismiss();
             return;
         }
+        viewModel = new ViewModelProvider(activity).get(My_View_Model.class);
 
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         getWindow().setWindowAnimations(R.style.DialogAnimation);
 
-        // تهيئة ViewModel
-        viewModel = new ViewModelProvider(activity).get(My_View_Model.class);
 
-        // تهيئة العناصر
         initViews();
         setupData();
         setupButtons();
@@ -131,11 +132,12 @@ public class EvaluationResultDialog extends Dialog {
         AppCompatActivity activity = activityRef.get();
         if (activity == null || activity.isFinishing()) return;
 
-        try {
-            int moistureValue = Integer.parseInt(moisture);
-            int tempValue = Integer.parseInt(temp);
+        My_View_Model sharedViewModel = new ViewModelProvider(activity).get(My_View_Model.class);
 
-            viewModel.getAllCrop().observe(activity, allCrops -> {
+        try {
+            int moistureValue = 53;
+            int tempValue = 24;
+            sharedViewModel.getAllCrop().observe(activity, allCrops -> {
                 if (allCrops == null || allCrops.isEmpty()) {
                     Toast.makeText(activity, "لا توجد محاصيل متاحة", Toast.LENGTH_SHORT).show();
                     return;
@@ -150,7 +152,7 @@ public class EvaluationResultDialog extends Dialog {
                 }
             });
         } catch (NumberFormatException e) {
-            Toast.makeText(activity, "خطأ في تحويل البيانات الرقمية", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "قيم الرطوبة أو الحرارة غير صالحة", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -105,7 +105,7 @@ public class ActivityMainSignIn extends AppCompatActivity {
                 }
 
                 if (EUserIn.equals("admin") && EPasswordIn.equals("admin")) {
-                    Intent intent = new Intent(ActivityMainSignIn.this, MainActivity_Admin.class);
+                    Intent intent = new Intent(ActivityMainSignIn.this, UpdateCrop.class);
                     startActivity(intent);
 
                 }

@@ -51,10 +51,8 @@ public class Sign_up extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
-
         activitySignUpBinding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(activitySignUpBinding.getRoot());
-
         FirebaseAuth.getInstance().getFirebaseAuthSettings()
                 .setAppVerificationDisabledForTesting(false);
 
@@ -85,6 +83,7 @@ public class Sign_up extends AppCompatActivity {
         activitySignUpBinding.ePassword1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+
                 activitySignUpBinding.eUser.setBackgroundResource(R.drawable.shape_non_selected);
                 activitySignUpBinding.ePassword1.setBackgroundResource(R.drawable.shap_selected);
                 activitySignUpBinding.ePassword.setBackgroundResource(R.drawable.shape_non_selected);

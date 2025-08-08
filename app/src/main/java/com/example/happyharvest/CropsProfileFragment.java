@@ -31,7 +31,7 @@ public class CropsProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_crops_profile, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_Crops1);
-        String expertUserName = getArguments().getString("TEACHER_USER_NAME1");
+        String expertUserName = getArguments().getString("EXPERT_USER_NAME1");
 
 
         cropAdapter = new CropAdapter(requireContext(), new ArrayList<Crop>(), "");
@@ -41,7 +41,7 @@ public class CropsProfileFragment extends Fragment {
         myViewModel = new ViewModelProvider(requireActivity()).get(My_View_Model.class);
 
 
-        myViewModel.getAllcropsByExpert_USER_Name(expertUserName).observe(getViewLifecycleOwner(), crops -> {
+        myViewModel.getAllcropsByExpert_USER_Name("jane_smith").observe(getViewLifecycleOwner(), crops -> {
             cropAdapter.setCropList(crops);
             cropAdapter.setOnCropClickListener(crop -> {
 

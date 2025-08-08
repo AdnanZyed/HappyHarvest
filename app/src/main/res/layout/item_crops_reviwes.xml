@@ -66,8 +66,8 @@
         android:background="@drawable/catigories_btn"
         android:entries="@array/rating_array"
         android:paddingStart="20dp"
-        android:paddingEnd="10dp"
         android:paddingTop="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,6 +114,7 @@
         android:layout_marginEnd="30dp"
 
         android:background="@drawable/star"
+        android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="@+id/rating1"
         app:layout_constraintEnd_toEndOf="@+id/rating1"
         app:layout_constraintStart_toStartOf="@+id/rating1"

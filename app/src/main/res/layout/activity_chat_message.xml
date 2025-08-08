@@ -81,9 +81,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="75dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_c"
+            android:layout_gravity="center"
             android:elevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/toolbar"
@@ -96,7 +96,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/more"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/telephone"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView10"
                 app:layout_constraintStart_toStartOf="parent"

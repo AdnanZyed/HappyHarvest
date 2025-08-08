@@ -79,6 +79,8 @@ public class CropDetailsActivity1 extends AppCompatActivity {
         setupAIComponents();
         setupExpertChat();
 
+//        String string = String.valueOf(farmerCrop.get(0).isSoil());
+//        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
         back1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

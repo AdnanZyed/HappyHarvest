@@ -1,21 +1,26 @@
 package com.example.happyharvest;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 public class Edit_Crop_Activity extends AppCompatActivity {
-    
+
     private My_View_Model myViewModel;
     private DatabaseReference databaseReference;
     private String cropId;
     private Crop currentCrop;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,24 +35,34 @@ public class Edit_Crop_Activity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("crops");
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
         loadCurrentCropData();
-        ViewPager2 viewPager = findViewById(R.id.view_pager1);
+        ViewPager2 viewPager = findViewById(R.id.view_pager2);
         TabLayout tabLayout = findViewById(R.id.tabs1);
         Button btnUpdateCrop = findViewById(R.id.btn_save_CropA);
         btnUpdateCrop.setText("Update Crop");
         btnUpdateCrop.setBackgroundResource(R.drawable.btn_update);
         btnUpdateCrop.setOnClickListener(v -> updateCrop());
 
-        CropPagerAdapter_Edit adapter = new CropPagerAdapter_Edit(this);
+        CropPagerAdapter_Edit adapter = new CropPagerAdapter_Edit(this,id);
         viewPager.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     switch (position) {
-                        case 0: tab.setText("Basic Info"); break;
-                        case 1: tab.setText("Soil & Irrigation"); break;
-                        case 2: tab.setText("Environment"); break;
-                        case 3: tab.setText("Care"); break;
-                        case 4: tab.setText("Images"); break;
+                        case 0:
+                            tab.setText("Basic Info");
+                            break;
+                        case 1:
+                            tab.setText("Soil & Irrigation");
+                            break;
+                        case 2:
+                            tab.setText("Environment");
+                            break;
+                        case 3:
+                            tab.setText("Care");
+                            break;
+                        case 4:
+                            tab.setText("Images");
+                            break;
                     }
                 }).attach();
     }

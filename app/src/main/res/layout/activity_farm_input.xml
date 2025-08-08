@@ -103,12 +103,14 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/Germination_method" />
 
+
             <EditText
                 android:id="@+id/space"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="ادخل المساحة بالمتر || الدونوم =1000 متر" />
+                android:hint="ادخل المساحة بالمتر || الدونوم =1000 متر"
+                />
 
             <TextView
                 android:layout_width="match_parent"

@@ -28,12 +28,14 @@ public class ImagesFragmentEdit extends Fragment {
     private Button btnSelectImage, btn_select_imageC, btnLoadImageFromUrl, btn_load_image_from_urlC;
     private byte[] cropImageBytes;
     private byte[] cropImageBytesC;
+    private int id;
     private My_View_Model myViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_images, container, false);
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
+        id = getArguments().getInt("ID");
 
         etImageUrl = view.findViewById(R.id.et_image_urlA);
         et_image_urlC = view.findViewById(R.id.et_image_urlC);
@@ -49,7 +51,35 @@ public class ImagesFragmentEdit extends Fragment {
         btnLoadImageFromUrl.setOnClickListener(v -> loadImageFromUrl(etImageUrl, ivCropImage, true));
         btn_load_image_from_urlC.setOnClickListener(v -> loadImageFromUrl(et_image_urlC, iv_crop_imageC, false));
 
+        btnLoadImageFromUrl.setBackgroundResource(R.drawable.update_btn);
+        btnSelectImage.setBackgroundResource(R.drawable.update_btn);
+        btn_load_image_from_urlC.setBackgroundResource(R.drawable.update_btn);
+        btn_select_imageC.setBackgroundResource(R.drawable.update_btn);
+
+
     //  loadCurrentImages();
+        myViewModel.getAllCropsById(id).observe(requireActivity(), currentCrop -> {
+
+           String name= currentCrop.get(0).getCrop_NAME();
+            if (name.equals("Onion")) {
+                iv_crop_imageC.setImageResource(R.drawable.onion);
+                ivCropImage.setImageResource(R.drawable.onion);
+            }else  if (name.equals("Tomato")){
+                iv_crop_imageC.setImageResource(R.drawable.tomato);
+                ivCropImage.setImageResource(R.drawable.tomato);
+            }else  if (name.equals("Eggplant")){
+                iv_crop_imageC.setImageResource(R.drawable.eggplant);
+                ivCropImage.setImageResource(R.drawable.eggplant);
+            }else  if (name.equals("Garlic")){
+                iv_crop_imageC.setImageResource(R.drawable.garlic);
+                ivCropImage.setImageResource(R.drawable.garlic);
+            }else  if (name.equals("Carrot")){
+                iv_crop_imageC.setImageResource(R.drawable.carrot);
+                ivCropImage.setImageResource(R.drawable.carrot);
+            }
+
+
+        });
 
         return view;
     }

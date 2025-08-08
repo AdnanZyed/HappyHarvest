@@ -129,9 +129,7 @@
         <activity
             android:name=".Add_New_Crop"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity_Admin"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity_Main"
 

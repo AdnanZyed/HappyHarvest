@@ -29,7 +29,7 @@ public class Add_New_Crop extends AppCompatActivity {
 
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
 
-        ViewPager2 viewPager = findViewById(R.id.view_pager1);
+        ViewPager2 viewPager = findViewById(R.id.view_pager2);
         TabLayout tabLayout = findViewById(R.id.tabs1);
 
         Button btnSaveCrop = findViewById(R.id.btn_save_CropA);

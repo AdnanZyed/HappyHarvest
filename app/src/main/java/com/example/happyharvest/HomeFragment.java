@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
             farmers_u = args.getString("USER_NAME");
         }
         ViewPager2 viewPager2 = rootView.findViewById(R.id.viewPager2);
-        List<Integer> images = Arrays.asList(R.drawable.dec1, R.drawable.dec2, R.drawable.dec3);
+        List<Integer> images = Arrays.asList(R.drawable.dec3, R.drawable.dec2, R.drawable.dec1);
         ImageAdapter adapter = new ImageAdapter(images);
         viewPager2.setAdapter(adapter);
         bundle = new Bundle();
@@ -119,9 +119,13 @@ public class HomeFragment extends Fragment {
         buttonUnderlineMap.put(btn_irrigated, rootView.findViewById(R.id.underline_Irrigated));
         CropFragment fragment = (CropFragment) getParentFragmentManager()
                 .findFragmentById(R.id.fram_corse);
-        if (fragment != null) {
-            fragment.loadCrops();
-            onButtonClicked(btnAll);
+        if (fragment != null && isAdded()) {
+            try {
+                fragment.loadCrops();
+                onButtonClicked(btnAll);
+            } catch (Exception e) {
+                Log.e("HomeFragment", "Error loading crops", e);
+            }
         }
 
 
@@ -597,9 +601,6 @@ public class HomeFragment extends Fragment {
                     myViewModel.insertAllFarmerCrop(userCrops);
                     Toast.makeText(requireContext(), "تم جلب البيانات بنجاح", Toast.LENGTH_SHORT).show();
 
-                } else {
-
-                    Toast.makeText(requireContext(), "//////////////", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -25,5 +25,10 @@
         android:id="@+id/btnClose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="إغلاق"/>
+        android:text="إغلاق"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@drawable/delete_btn"
+        />
+
 </LinearLayout>

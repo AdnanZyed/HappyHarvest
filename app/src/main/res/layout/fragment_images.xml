@@ -28,7 +28,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_add"
             android:text="Load Image from URL"
-            android:textColor="@color/blue" />
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/iv_Crop_imageA"
@@ -46,7 +46,9 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/btn_add"
             android:text="Choose Image from Gallery"
-            android:textColor="@color/blue" />
+            android:textColor="#39424B"
+
+            />
 
         <EditText
             android:id="@+id/et_image_urlC"
@@ -67,7 +69,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_add"
             android:text="Load Image from URL"
-            android:textColor="@color/blue" />
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/iv_Crop_imageC"
@@ -85,6 +87,6 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/btn_add"
             android:text="Choose Image from Gallery"
-            android:textColor="@color/blue" />
+            android:textColor="@color/black" />
     </LinearLayout>
     </ScrollView>

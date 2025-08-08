@@ -17,11 +17,13 @@ public class SoilIrrigationFragmentEdit extends Fragment {
     private EditText MinArea, Soil_preparation_Favorite, Preparing_irrigation_tools_P,
             Preparing_irrigation_tools_A, Preparing_irrigation_tools_F, Soil_preparation_allowed;
     private My_View_Model myViewModel;
+    private int id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_soil_irrigation, container, false);
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
+        id = getArguments().getInt("ID");
 
         PreferredSoil = view.findViewById(R.id.sp_preferredSoil);
         AllowedSoil = view.findViewById(R.id.sp_allowedSoil);
@@ -48,7 +50,7 @@ public class SoilIrrigationFragmentEdit extends Fragment {
     }
 
     private void loadCurrentData() {
-        myViewModel.getAllCropsById(1).observe(requireActivity(), currentCrop -> {
+        myViewModel.getAllCropsById(id).observe(requireActivity(), currentCrop -> {
 
             setSpinnerSelection(PreferredSoil, currentCrop.get(0).getPreferredSoil());
             setSpinnerSelection(AllowedSoil, currentCrop.get(0).getAllowedSoil());

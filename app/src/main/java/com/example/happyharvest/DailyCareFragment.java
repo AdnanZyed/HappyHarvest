@@ -1,6 +1,8 @@
 package com.example.happyharvest;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -44,9 +46,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+
 import com.example.happyharvest.Crop;
 import com.example.happyharvest.My_View_Model;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -58,6 +62,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,16 +73,16 @@ public class DailyCareFragment extends Fragment {
     private static final String ARG_CROP_ID = "crop_id";
     private static final String ARG_FARMER_USERNAME = "farmer_username";
     private static final String CHANNEL_ID = "fertilizer_channel";
-    private TextView textSoilComparison, textFertilizing,textPreviousCrop, textSeedlingsCount, textFertilizerInfo, fetchWeatherData,textWatering, textCountdown,textPruning, textPestControl;
+    private TextView textSoilComparison, textFertilizing, textPreviousCrop, textSeedlingsCount, textFertilizerInfo, fetchWeatherData, textWatering, textCountdown, textPruning, textPestControl;
     private My_View_Model myViewModel;
     private int cropId;
-    public   Call<WeatherResponseOneCall> call1;
+    public Call<WeatherResponseOneCall> call1;
     private Crop cropM;
-    private ImageView icon1,icon2,icon3,icon4,clock_f;
+    private ImageView icon1, icon2, icon3, icon4, clock_f;
 
-    private View line1,line2,line3;
+    private View line1, line2, line3;
 
-    private CardView card_elements,card_irrigation,card_fertilizing,card_pruning;
+    private CardView card_elements, card_irrigation, card_fertilizing, card_pruning;
     private final String API_KEY = "001bfc6226ca41a7c7b095524a7cf212";
     private Farmer_Crops farmerCropM;
     private NotificationManagerCompat notificationManager;
@@ -144,7 +149,6 @@ public class DailyCareFragment extends Fragment {
         card_fertilizing = view.findViewById(R.id.card_fertilizing);
         card_pruning = view.findViewById(R.id.card_pruning);
 
-
         icon1.setEnabled(true);
         icon1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green));
 
@@ -165,8 +169,8 @@ public class DailyCareFragment extends Fragment {
                 String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 farmerCropM.setLastFertilizerDate(currentDate);
                 myViewModel.updateCropFarmer(farmerCropM);
-               // textFertilizerInfo.setText(updateFertilizerInfo(cropM, farmerCropM));
-              textFertilizing.setText(updateFertilizingInfo(cropM, farmerCropM));
+                // textFertilizerInfo.setText(updateFertilizerInfo(cropM, farmerCropM));
+                textFertilizing.setText(updateFertilizingInfo(cropM, farmerCropM));
 
                 scheduleNextFertilization(cropM, farmerCropM);
             }
@@ -185,9 +189,9 @@ public class DailyCareFragment extends Fragment {
         card_fertilizing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent=new Intent(requireContext(), FertilizingDetailActivity.class);
-                intent.putExtra("USER",farmerCropM.getFarmer_user_name());
-                intent.putExtra("ID",cropM.getCrop_ID());
+                Intent intent = new Intent(requireContext(), FertilizingDetailActivity.class);
+                intent.putExtra("USER", farmerCropM.getFarmer_user_name());
+                intent.putExtra("ID", cropM.getCrop_ID());
                 startActivity(intent);
             }
         });
@@ -334,9 +338,9 @@ public class DailyCareFragment extends Fragment {
         /*العرض مع التربة*/
         updateSeedlingsCount(crop, farmerCrop);//تحديد بذور او شتل وتحديد موعد الزراعة بناءا على الطقس
         /*لعرض اليوم المناسب للزراعة */
-       // fetchWeatherData();// تحديد موعد الزراعة بناءا على بيانات الطقس اول مرة بس بستدعيها بعد م يحدد خيار التربة
+        // fetchWeatherData();// تحديد موعد الزراعة بناءا على بيانات الطقس اول مرة بس بستدعيها بعد م يحدد خيار التربة
 
-      //  updateWateringInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
+        //  updateWateringInfo(crop, farmerCrop);//التحديث المستمر لتغير تردد الايام واظهار الاشعار
 
         updatePruningInfo(crop);//جدولة اشعارات في الخلفية لاضافة العناصر وذلك بالتعامل مع عدد مرات تقسم على عدد الايام حتى النضج عدد المرات تختلف من محصول لاخر وتوضيح الطريقة ايضا
         updatePestControlInfo(crop);// ايش بي اي يوضح الافة القادمة وبناءا على هيك بنقلو ايش يعمل
@@ -353,7 +357,7 @@ public class DailyCareFragment extends Fragment {
                 "تعليمات الري:\n%s\n\nالتكرار: كل %d يوم اذا كانت الظروف مثالية\nالموعد التالي: %s",
                 crop.getWateringInstructions(), adjustedDays, nextDate);
 
-      //  textWatering.setText(text);
+        //  textWatering.setText(text);
         Farmer_Crops farmerCrops1 = new Farmer_Crops();
         farmerCrops1.setWateringFrequencyDays_F(adjustedDays);
         myViewModel.updateCropFarmer(farmerCrops1);
@@ -515,7 +519,7 @@ public class DailyCareFragment extends Fragment {
 
 
     private void updatePruningInfo(Crop crop) {
-    //    textPruning.setText(String.format("تعليمات التقليم:\n%s", crop.getPruning_and_guidance()));
+        //    textPruning.setText(String.format("تعليمات التقليم:\n%s", crop.getPruning_and_guidance()));
     }
 
     private void updatePestControlInfo(Crop crop) {
@@ -574,7 +578,7 @@ public class DailyCareFragment extends Fragment {
             info += "\n\nمثالي! لا يحتاج تسميد إضافي";
         }
 
-    //    textPreviousCrop.setText(info);
+        //    textPreviousCrop.setText(info);
     }
 
     private void updateSeedlingsCount(Crop crop, Farmer_Crops farmerCrop) {
@@ -632,7 +636,7 @@ public class DailyCareFragment extends Fragment {
         if (farmerCrop.getOrganicFertilizer().equals("لا شيئ") && farmerCrop.getChemicalFertilizer().equals("لا شيئ")) {
             info.append("لم يتم تحديد نوع السماد");
         }
-        Farmer_Crops farmerCrops=new Farmer_Crops();
+        Farmer_Crops farmerCrops = new Farmer_Crops();
         farmerCrops.setFertilizerInfo(info.toString());
         myViewModel.updateCropFarmer(farmerCrops);
         return info.toString();
@@ -768,7 +772,7 @@ public class DailyCareFragment extends Fragment {
         double latitude = farmerCropM.getLatitude();
         double longitude = farmerCropM.getLongitude();
 
-         call1 = service.getSevenDayForecast(
+        call1 = service.getSevenDayForecast(
                 latitude,
                 longitude,
                 "minutely,hourly,current,alerts", // استثني التفاصيل اللي مش محتاجها
@@ -1165,7 +1169,7 @@ public class DailyCareFragment extends Fragment {
                 "تعليمات التسميد:\n%s\n\nالتكرار: كل %d يوم\nالموعد التالي: %s",
                 crop.getFertilizingInstructions(), adjustedDays, nextDate);
 
-        Farmer_Crops farmerCrops=new Farmer_Crops();
+        Farmer_Crops farmerCrops = new Farmer_Crops();
         farmerCrops.setFertilizingInfo(text);
 
         myViewModel.updateCropFarmer(farmerCrops);
@@ -1237,6 +1241,7 @@ public class DailyCareFragment extends Fragment {
             fertCheckbox.setEnabled(true);
             fertCheckbox.setVisibility(VISIBLE);
             clock_f.setVisibility(GONE);
+            textCountdown.setVisibility(GONE);
 
 
             return;
@@ -1244,17 +1249,17 @@ public class DailyCareFragment extends Fragment {
         long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
         long hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 24;
         long minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60;
-      //  long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60;
+        //  long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60;
 
         String countdownText = String.format(Locale.getDefault(),
                 "%d %02d:%02d",
                 days, hours, minutes);
+        textCountdown.setVisibility(VISIBLE);
 
         textCountdown.setText(countdownText);
         fertCheckbox.setEnabled(false);
         fertCheckbox.setVisibility(GONE);
         clock_f.setVisibility(VISIBLE);
-
 
 
     }

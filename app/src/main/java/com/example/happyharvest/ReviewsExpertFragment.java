@@ -45,14 +45,14 @@ public class ReviewsExpertFragment extends Fragment {
         imageView = view.findViewById(R.id.image_farmer1);
         edit_Comment = view.findViewById(R.id.edit_comment1);
 
-        ratingSpinner = view.findViewById(R.id.rating1);
+        ratingSpinner = view.findViewById(R.id.rating11);
         imageSend = view.findViewById(R.id.send1);
 
         recyclerView = view.findViewById(R.id.rv_review1);
-        String expertUserName = getArguments().getString("TEACHER_USER_NAME1");
+        String expertUserName = getArguments().getString("EXPERT_USER_NAME1");
         String user = getArguments().getString("STUDENT_USER_NAME1");
 
-        myViewModel.getAllFarmerByUser(user).observe(getViewLifecycleOwner(), farmers -> {
+        myViewModel.getAllFarmerByUser("Adnan@123").observe(getViewLifecycleOwner(), farmers -> {
 
             Farmer farmer = farmers.get(0);
             farmer_name = farmer.getS_name().toString();
@@ -68,7 +68,7 @@ public class ReviewsExpertFragment extends Fragment {
 
 
         });
-        myViewModel.getAllReviewsByCropIdT(expertUserName).observe(requireActivity(), reviews -> {
+        myViewModel.getAllReviewsByCropIdT("jane_smith").observe(requireActivity(), reviews -> {
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -96,7 +96,7 @@ public class ReviewsExpertFragment extends Fragment {
                     imageSend.setImageResource(R.drawable.send);
                     imageSend.setEnabled(false);
                 } else {
-                    imageSend.setImageResource(R.drawable.unnamed);
+                    imageSend.setImageResource(R.drawable.message);
                     imageSend.setEnabled(true);
                 }
             }
@@ -125,7 +125,7 @@ public class ReviewsExpertFragment extends Fragment {
 
                 Expert_Reviews review = new Expert_Reviews(0, bytes, farmer_name, user,
                         edit_Comment.getText().toString(),
-                        formattedDate, 0, expertUserName, rating_spinner, false);
+                        formattedDate, 0, "jane_smith", rating_spinner, false);
                 myViewModel.insertReviewT(review);
 
                 edit_Comment.setText(null);

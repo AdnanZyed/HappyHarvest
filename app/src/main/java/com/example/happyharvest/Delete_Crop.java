@@ -35,10 +35,8 @@ public class Delete_Crop extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_crop);
         myViewModel = new ViewModelProvider(this).get(My_View_Model.class);
-
         recyclerView = findViewById(R.id.rv_Crops_delete);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         cropAdapter = new CropAdapter(Delete_Crop.this, new ArrayList<>(), "");
         recyclerView.setAdapter(cropAdapter);
 

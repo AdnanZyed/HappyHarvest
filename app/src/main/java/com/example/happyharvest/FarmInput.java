@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
@@ -292,7 +293,16 @@ public class FarmInput extends AppCompatActivity {
 
 
         btnEvaluate.setOnClickListener(v -> {
-            checkLocationPermission();
+                if (space.getText()==null||space.getText().isEmpty()){
+                    space.setError("يجب ادخال قيمة مساحة الارض");
+
+
+
+            }else {
+
+                checkLocationPermission();
+
+            }
         });
         SelectPrevious();
 
@@ -444,13 +454,13 @@ public class FarmInput extends AppCompatActivity {
         String water = spinnerWaterAvailability.getSelectedItem().toString();
         //String GreenhouseType = spinnerWaterAvailability.getSelectedItem().toString();
 
-        float avgTemp = (float) avgTemp1;
-        double avgMoist = avgHumidity1;
+        float avgTemp = 30;
+        double avgMoist = 50 /100.0;
 
-//        if (currentWeather != null) {
-//            avgTemp = currentWeather.getMain().getTemp();
-//            avgMoist = currentWeather.getMain().getHumidity() / 100.0;
-//        }
+        if (currentWeather != null) {
+              avgTemp = currentWeather.getMain().getTemp();
+             avgMoist = currentWeather.getMain().getHumidity() / 100.0;
+        }
         double scoreSoil = getPoint(soil, selectedCrop.get(0).getPreferredSoil(), selectedCrop.get(0).getAllowedSoil(), selectedCrop.get(0).getForbiddenSoil());
         double scoreIrr = getPoint(irrig, selectedCrop.get(0).getPreferredIrrigation(), selectedCrop.get(0).getAllowedIrrigation(), selectedCrop.get(0).getForbiddenIrrigation());
         double scoreWater = getPoint(water, selectedCrop.get(0).getPreferredAbundance(), selectedCrop.get(0).getAllowedAbundance(), selectedCrop.get(0).getForbiddenAbundance());
@@ -747,6 +757,7 @@ public class FarmInput extends AppCompatActivity {
         int count = 0;
 
         for (HistoricalWeatherResponse.HistoricalWeatherData data : historicalWeather.getData()) {
+
             long timestamp = data.getTimestamp();
             String dateStr = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(timestamp * 1000));
 

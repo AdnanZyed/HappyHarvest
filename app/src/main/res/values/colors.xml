@@ -22,7 +22,8 @@
     <color name="colorAccent">#8BC34A</color>
     <color name="green_primary">#4CAF50</color>
     <color name="text_primary">#212121</color>
-    <color name="green">#29573d</color>
+    <color name="green">#25750C</color>
+<!--    29573d-->
     <color name="blue">#1E88E5</color>
     <color name="light_blue">#C1DBF1</color>
     <color name="dark_blue">#032747</color>

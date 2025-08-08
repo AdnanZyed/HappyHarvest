@@ -1,0 +1,15 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/green" /> <!-- لون الخلفية عند التحديد -->
+            <corners android:radius="8dp" /> <!-- زوايا مدورة إذا أردت -->
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" /> <!-- لون الخلفية العادي -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>
