@@ -44,19 +44,19 @@ public class CropsProfileFragment extends Fragment {
         myViewModel.getAllcropsByExpert_USER_Name("jane_smith").observe(getViewLifecycleOwner(), crops -> {
             cropAdapter.setCropList(crops);
             cropAdapter.setOnCropClickListener(crop -> {
-
-                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
-
-                intent.putExtra("COURSE_ID", crop.getCrop_ID());
-                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
-                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
-              //  intent.putExtra("COURSE_IMAGE", crop.getImage());
-              //  intent.putExtra("TEACHER_NAME", crop.getExpert_name());
-                intent.putExtra("COURSE_CATEGORIES", crop.getCategorie());
-                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
-
-
-                startActivity(intent);
+//
+//                Intent intent = new Intent(requireContext(), CropDetailsActivity.class);
+//
+//                intent.putExtra("COURSE_ID", crop.getCrop_ID());
+//                intent.putExtra("TEACHER_USER_NAME", crop.getExpert_USER_Name());
+//                intent.putExtra("COURSE_NAME", crop.getCrop_NAME());
+//              //  intent.putExtra("COURSE_IMAGE", crop.getImage());
+//              //  intent.putExtra("TEACHER_NAME", crop.getExpert_name());
+//                intent.putExtra("COURSE_CATEGORIES", crop.getCategorie());
+//                intent.putExtra("COURSE_DESCRIPTION", crop.getDescription());
+//
+//
+//                startActivity(intent);
             });
 
         });

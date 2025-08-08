@@ -20,12 +20,11 @@ import java.util.concurrent.Executors;
 
 public class My_Repository {
 
-    private FarmerStepDao farmerStepDao;
+   // private FarmerStepDao farmerStepDao;
 
     private Farmer_Crop_Dao farmerCropDao;
     private Farmer_Expert_Dao farmerExpertDao;
     private Expert_Dao expertDao;
-    private CropProblem_Dao cropProblemDao;
 
     private Farmer_Dao farmerDao;
     private Crop_Dao cropDao;
@@ -57,10 +56,9 @@ public class My_Repository {
         cropStepsDao = db.cropStepsDao();
         messageDao = db.messageDao();
         executorService = Executors.newSingleThreadExecutor();
-        this.farmerStepDao = db.farmerStepDao();
+     //   this.farmerStepDao = db.farmerStepDao();
         notificationDao = db.notificationDao();
         allNotifications = notificationDao.getAllNotifications();
-        cropProblemDao = db.cropProblemDao();
         firebaseRef = FirebaseDatabase.getInstance().getReference("crops");
         allCrops = cropDao.getAllCrops(); // لازم تكون دالة getAllCrops موجودة في DAO
 
@@ -172,27 +170,6 @@ public class My_Repository {
 //        return cropDao.getBookmarkedCrops();
 //    }
 
-    public LiveData<List<CropProblem>> getProblemsByCropId(int cropId) {
-        return cropProblemDao.getProblemsByCropId(cropId);
-    }
-
-    public void insert(CropProblem problem) {
-        My_Database.databaseWriteExecutor.execute(() -> {
-            cropProblemDao.insertCropProblem(problem);
-        });
-    }
-
-    public void update(CropProblem problem) {
-        My_Database.databaseWriteExecutor.execute(() -> {
-            cropProblemDao.updateCropProblem(problem);
-        });
-    }
-
-    public void delete(CropProblem problem) {
-        My_Database.databaseWriteExecutor.execute(() -> {
-            cropProblemDao.deleteCropProblem(problem);
-        });
-    }
     public LiveData<List<Notification>> getAllNotifications() {
         return allNotifications;
     }
@@ -200,28 +177,28 @@ public class My_Repository {
     public void insert(Notification notification) {
         executorService.execute(() -> notificationDao.insert(notification));
     }
-
-    public void insertFarmerStep(FarmerStep farmerStep) {
-        My_Database.databaseWriteExecutor.execute(() -> {
-            farmerStepDao.insertFarmerStep(farmerStep);
-        });
-    }
-
-    public void deleteFarmerStep(String farmerUserName, int stepId) {
-        My_Database.databaseWriteExecutor.execute(() -> {
-            farmerStepDao.deleteFarmerStep(farmerUserName, stepId);
-        });
-    }
-
-    public void updateCompletionStatus(String farmerUserName, int stepId, boolean completed) {
-        My_Database.databaseWriteExecutor.execute(() -> {
-            farmerStepDao.updateCompletionStatus(farmerUserName, stepId, completed);
-        });
-    }
-
-    public LiveData<List<FarmerStep>> getCompletedStepsForFarmer(String farmerUserName) {
-        return farmerStepDao.getCompletedStepsForFarmer(farmerUserName);
-    }
+//
+//    public void insertFarmerStep(FarmerStep farmerStep) {
+//        My_Database.databaseWriteExecutor.execute(() -> {
+//            farmerStepDao.insertFarmerStep(farmerStep);
+//        });
+//    }
+//
+//    public void deleteFarmerStep(String farmerUserName, int stepId) {
+//        My_Database.databaseWriteExecutor.execute(() -> {
+//            farmerStepDao.deleteFarmerStep(farmerUserName, stepId);
+//        });
+//    }
+//
+//    public void updateCompletionStatus(String farmerUserName, int stepId, boolean completed) {
+//        My_Database.databaseWriteExecutor.execute(() -> {
+//            farmerStepDao.updateCompletionStatus(farmerUserName, stepId, completed);
+//        });
+//    }
+//
+//    public LiveData<List<FarmerStep>> getCompletedStepsForFarmer(String farmerUserName) {
+//        return farmerStepDao.getCompletedStepsForFarmer(farmerUserName);
+//    }
 
 
     public void insertMessage(Message message) {

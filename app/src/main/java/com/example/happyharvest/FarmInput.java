@@ -319,7 +319,7 @@ public class FarmInput extends AppCompatActivity {
 
         List<Crops> crops = prepareCropsList();
 
-        CropAdapter1 adapter1 = new CropAdapter1(this, crops);
+        CropPrevious adapter1 = new CropPrevious(this, crops);
         spinner_previous_crop.setAdapter(adapter1);
 
         spinner_previous_crop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

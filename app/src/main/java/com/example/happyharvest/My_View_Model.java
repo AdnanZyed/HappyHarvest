@@ -113,22 +113,6 @@ public class My_View_Model extends AndroidViewModel {
         return repository.getMultipleCrops(cropIds);
     }
 
-    public LiveData<List<CropProblem>> getCropProblems(int cropId) {
-        return repository.getProblemsByCropId(cropId);
-    }
-
-    public void insertProblem(CropProblem problem) {
-        repository.insert(problem);
-    }
-
-    public void updateProblem(CropProblem problem) {
-        repository.update(problem);
-    }
-
-    public void deleteProblem(CropProblem problem) {
-        repository.delete(problem);
-    }
-
     public LiveData<List<Notification>> getAllNotifications() {
         return allNotifications;
     }
@@ -137,21 +121,21 @@ public class My_View_Model extends AndroidViewModel {
         repository.insert(new Notification(title, message, iconResId));
     }
 
-    public void insertFarmerStep(FarmerStep farmerStep) {
-        repository.insertFarmerStep(farmerStep);
-    }
+//    public void insertFarmerStep(FarmerStep farmerStep) {
+//        repository.insertFarmerStep(farmerStep);
+//    }
+//
+//    public LiveData<List<FarmerStep>> getCompletedStepsForFarmer(String farmerUserName) {
+//        return repository.getCompletedStepsForFarmer(farmerUserName);
+//    }
 
-    public LiveData<List<FarmerStep>> getCompletedStepsForFarmer(String farmerUserName) {
-        return repository.getCompletedStepsForFarmer(farmerUserName);
-    }
-
-    public void updateCompletionStatus(String farmerUserName, int stepId, boolean completed) {
-        repository.updateCompletionStatus(farmerUserName, stepId, completed);
-    }
-
-    public void deleteFarmerStep(String farmerUserName, int stepId) {
-        repository.deleteFarmerStep(farmerUserName, stepId);
-    }
+//    public void updateCompletionStatus(String farmerUserName, int stepId, boolean completed) {
+//        repository.updateCompletionStatus(farmerUserName, stepId, completed);
+//    }
+//
+//    public void deleteFarmerStep(String farmerUserName, int stepId) {
+//        repository.deleteFarmerStep(farmerUserName, stepId);
+//    }
 
     public void insertMessage(Message message) {
         repository.insertMessage(message);

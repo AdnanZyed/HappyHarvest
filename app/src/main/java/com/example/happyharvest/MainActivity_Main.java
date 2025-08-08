@@ -1,5 +1,8 @@
 package com.example.happyharvest;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -216,6 +219,8 @@ public class MainActivity_Main extends AppCompatActivity
                 Bundle bundle4 = new Bundle();
                 bundle4.putString("USER_NAME", userName);
                 prophileFragment.setArguments(bundle4);
+                fabAdd.setVisibility(VISIBLE);
+
                 selectedFragment = prophileFragment;
                 break;
 
@@ -223,6 +228,8 @@ public class MainActivity_Main extends AppCompatActivity
                 Bundle bundle = new Bundle();
                 bundle.putString("USER_NAME", userName);
                 homeFragment.setArguments(bundle);
+                fabAdd.setVisibility(VISIBLE);
+
                 selectedFragment = homeFragment;
                 break;
 
@@ -230,12 +237,16 @@ public class MainActivity_Main extends AppCompatActivity
                 Bundle bundle1 = new Bundle();
                 bundle1.putString("USER_NAME", userName);
                 cropsFragment.setArguments(bundle1);
+                fabAdd.setVisibility(VISIBLE);
+
                 selectedFragment = cropsFragment;
                 break;
 
             case R.id.Ai:
                 Bundle bundle2 = new Bundle();
                 bundle2.putString("USER_NAME", userName);
+                fabAdd.setVisibility(GONE);
+
                 agriculturalChatFragment.setArguments(bundle2);
                 selectedFragment = agriculturalChatFragment;
                 break;
@@ -244,6 +255,8 @@ public class MainActivity_Main extends AppCompatActivity
                 Bundle bundle3 = new Bundle();
                 bundle3.putString("USER_NAME", userName);
                 inboxFragment.setArguments(bundle3);
+                fabAdd.setVisibility(VISIBLE);
+
                 selectedFragment = inboxFragment;
                 break;
 
@@ -252,7 +265,7 @@ public class MainActivity_Main extends AppCompatActivity
                 break;
 
             case R.id.nav_profile:
-                startActivity(new Intent(this, CropsProfileFragment.class));
+                startActivity(new Intent(this, FarmersProfileFragment.class));
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
 

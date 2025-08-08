@@ -132,11 +132,11 @@ public class EnrollCodeActivity extends AppCompatActivity {
                            // myViewModel.insertFarmerCrop(farmerCrop);
                             Farmer_Expert farmerExpert = new Farmer_Expert(0, userName, expert_USER_Name);
                             myViewModel.insertFarmerExpert(farmerExpert);
-                            Intent intent=new Intent(EnrollCodeActivity.this,StepsActivity.class);
-                            intent.putExtra("COURSE_ID",cropId);
-                            intent.putExtra("USER",userName);
-
-                            startActivity(intent);
+//                            Intent intent=new Intent(EnrollCodeActivity.this,StepsActivity.class);
+//                            intent.putExtra("COURSE_ID",cropId);
+//                            intent.putExtra("USER",userName);
+//
+//                            startActivity(intent);
                             Toast.makeText(this, "Purchase completed successfully.", Toast.LENGTH_SHORT).show();
                             myViewModel.addNotification("Payment Successful!", "You have made a crop payment", R.drawable.connected_card);
 

@@ -15,9 +15,9 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-public class CropAdapter1 extends ArrayAdapter<Crops> {
+public class CropPrevious extends ArrayAdapter<Crops> {
 
-    public CropAdapter1(Context context, List<Crops> crops) {
+    public CropPrevious(Context context, List<Crops> crops) {
         super(context, R.layout.item_crop, crops);
     }
 

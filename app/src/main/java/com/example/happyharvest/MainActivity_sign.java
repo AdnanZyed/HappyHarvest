@@ -57,8 +57,8 @@ public class MainActivity_sign extends AppCompatActivity {
 //                new Thread(() -> addSampleFarmers()).start();
 //            }
 //        });
-//        addSampleExperts();
-//        addSampleFarmers();
+        addSampleExperts();
+        addSampleFarmers();
 
 //        uploadCrop(createOnionCrop());
 //        uploadCrop(createTomatoCrop());

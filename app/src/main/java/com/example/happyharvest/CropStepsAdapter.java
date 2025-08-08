@@ -63,8 +63,8 @@ public class CropStepsAdapter extends RecyclerView.Adapter<CropStepsAdapter.Step
 
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(step.getS_url()));
                     holder.itemView.getContext().startActivity(intent);
-                    FarmerStep farmerStep1 = new FarmerStep(user, step.getS_id(), true);
-                    myViewModel.insertFarmerStep(farmerStep1);
+//                    FarmerStep farmerStep1 = new FarmerStep(user, step.getS_id(), true);
+//                    myViewModel.insertFarmerStep(farmerStep1);
 
                     step.setS_completed(true);
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {

@@ -22,10 +22,9 @@
             android:backgroundTint="@color/green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+    />
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
@@ -124,6 +123,7 @@
         android:layout_margin="16dp"
         android:contentDescription="Add"
         android:elevation="20dp"
+        android:layout_marginBottom="90dp"
         android:src="@drawable/peasant"
         android:backgroundTint="@color/green"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"

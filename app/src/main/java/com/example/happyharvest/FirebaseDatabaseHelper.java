@@ -107,38 +107,5 @@ public class FirebaseDatabaseHelper {
         }
     }
 
-//    public void addFarmer(Farmer farmer, OnCompleteListener<Void> listener) {
-//        mAuth.createUserWithEmailAndPassword(farmer.getFarmer_user_name(), farmer.getFarmer_Password())
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        // حفظ البيانات في Realtime Database
-//                        dbRef.child(farmer.getFarmer_user_name().replace(".", ","))
-//                                .setValue(farmer)
-//                                .addOnCompleteListener(dbTask -> {
-//                                    if (dbTask.isSuccessful()) {
-//                                        listener.onComplete(true, null);
-//                                    } else {
-//                                        // حذف الحساب إذا فشل حفظ البيانات
-//                                        mAuth.getCurrentUser().delete();
-//                                        listener.onComplete(false, dbTask.getException());
-//                                    }
-//                                });
-//                    } else {
-//                        listener.onComplete(false, task.getException());
-//                    }
-//                });
-//    }
-    public void checkUserExists(String email, OnCompleteListener<Boolean> listener) {
-        mAuth.fetchSignInMethodsForEmail(email)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        boolean exists = !task.getResult().getSignInMethods().isEmpty();
-                        listener.onComplete(exists, null);
-                    } else {
-                        listener.onComplete(false, task.getException());
-                    }
-                });
-    }
-
 
 }

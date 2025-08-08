@@ -317,11 +317,9 @@ android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:text="Dpnt't have account?"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.405"
 
 
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/comon"
         app:layout_constraintTop_toBottomOf="@+id/Sign_up" />
 
     <TextView
