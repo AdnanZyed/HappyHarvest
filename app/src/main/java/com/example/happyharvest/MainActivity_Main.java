@@ -84,8 +84,8 @@ public class MainActivity_Main extends AppCompatActivity
             public void onClick(View v) {
 
                 Intent intent1 = new Intent(MainActivity_Main.this, ExpertProfileActivity.class);
-                intent1.putExtra("USER","jane_smith");
-                intent1.putExtra("USERF",userName);
+                intent1.putExtra("USER", "jane_smith");
+                intent1.putExtra("USERF", userName);
                 startActivity(intent1);
             }
         });

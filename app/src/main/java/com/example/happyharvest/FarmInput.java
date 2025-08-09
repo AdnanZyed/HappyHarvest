@@ -64,7 +64,7 @@ import java.util.concurrent.TimeUnit;
 public class FarmInput extends AppCompatActivity {
     private Spinner spinnerGreenhouseType, spinnerVentilation, spinnerSoilType, spinnerIrrigationType, spinnerWaterAvailability, spinnerFertilizerType, spinner_hydroponic_system, spinner_previous_crop, spinner_organic_fertilizer, spinner_chemical_fertilizer, germination_method;
     private String now_typpe, currentDate, result1, farmerUserName, userValue, greenhouse, open_field;
-    private double avgTemp1, avgHumidity1,lat,lon;
+    private double avgTemp1, avgHumidity1, lat, lon;
     private My_View_Model myViewModel;
     private Button btnSaveSettings, btnEvaluate;
     private TextView tvResult, edit_nutrient_solution_TV, Type_of_organic_fertilizer, Type_of_chemical_fertilizer, spinner_hydroponic_system_TV, soiltype, textViewResult, textViewTemp, textViewHumidity;
@@ -152,7 +152,7 @@ public class FarmInput extends AppCompatActivity {
         }
         if (getIntent().hasExtra("farming_method")) {
             open_field = getIntent().getStringExtra("farming_method");
-            if (open_field.equals("open_field")||!userValue.isEmpty()) {
+            if (open_field.equals("open_field") || !userValue.isEmpty()) {
                 spinnerGreenhouseType.setVisibility(View.GONE);
                 spinnerVentilation.setVisibility(View.GONE);
                 checkboxLighting.setVisibility(View.GONE);
@@ -176,31 +176,30 @@ public class FarmInput extends AppCompatActivity {
         setupSpinner(spinnerVentilation, R.array.ventilation_types);
         setupSpinner(spinner_organic_fertilizer, R.array.Organic_fertilizer_array);
         setupSpinner(spinner_chemical_fertilizer, R.array.Chemical_fertilizer_array);
-
-        locationCallback = new LocationCallback() {
-
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    Toast.makeText(FarmInput.this, "لا يمكن الحصول على الموقع", Toast.LENGTH_SHORT).show();
-                    return;
-
-                }
-                for (Location location : locationResult.getLocations()) {
-                    currentLocation = location;
-                    evaluateFarm(location);
-                    Toast.makeText(FarmInput.this, "111111111111111111111111111", Toast.LENGTH_SHORT).show();
-//                    if (now_typpe.equals("open_field") ) {
-//                        evaluateFarm(location);
-//                    } else if (now_typpe.equals("greenhouse") ) {
-//                        evaluateGreenhouse(location);
 //
-//                    }
-
-                }
-                fusedLocationClient.removeLocationUpdates(this);
-            }
-        };
+//        locationCallback = new LocationCallback() {
+//
+//            @Override
+//            public void onLocationResult(LocationResult locationResult) {
+//                if (locationResult == null) {
+//                    Toast.makeText(FarmInput.this, "لا يمكن الحصول على الموقع", Toast.LENGTH_SHORT).show();
+//                    return;
+//
+//                }
+//                for (Location location : locationResult.getLocations()) {
+//                    currentLocation = location;
+//                    evaluateFarm(location);
+////                    if (now_typpe.equals("open_field") ) {
+////                        evaluateFarm(location);
+////                    } else if (now_typpe.equals("greenhouse") ) {
+////                        evaluateGreenhouse(location);
+////
+////                    }
+//
+//                }
+//                fusedLocationClient.removeLocationUpdates(this);
+//            }
+//        };
 
 
 //        locationCallback = new LocationCallback() {
@@ -231,9 +230,6 @@ public class FarmInput extends AppCompatActivity {
 //                fusedLocationClient.removeLocationUpdates(this);
 //            }
 //        };
-
-
-
 
 
         checkCompatibility();
@@ -276,7 +272,6 @@ public class FarmInput extends AppCompatActivity {
         );
 
 
-
         myViewModel.getAllCropsById(CropId).observe(this, crop -> {
             String previousCrop = spinner_previous_crop.getSelectedItem().toString();
 
@@ -291,14 +286,12 @@ public class FarmInput extends AppCompatActivity {
         });
 
 
-
         btnEvaluate.setOnClickListener(v -> {
-                if (space.getText()==null||space.getText().isEmpty()){
-                    space.setError("يجب ادخال قيمة مساحة الارض");
+            if (space.getText() == null || space.getText().isEmpty()) {
+                space.setError("يجب ادخال قيمة مساحة الارض");
 
 
-
-            }else {
+            } else {
 
                 checkLocationPermission();
 
@@ -307,14 +300,15 @@ public class FarmInput extends AppCompatActivity {
         SelectPrevious();
 
 
-
     }
+
     private void setupSpinner(Spinner spinner, int arrayResourceId) {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 arrayResourceId, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
+
     private void SelectPrevious() {
 
         List<Crops> crops = prepareCropsList();
@@ -331,7 +325,7 @@ public class FarmInput extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getApplicationContext(), "اختر محصولك السابق(الموسم السابق): " , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "اختر محصولك السابق(الموسم السابق): ", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -361,6 +355,7 @@ public class FarmInput extends AppCompatActivity {
             }
         });
     }
+
     private void checkCompatibility() {
 
         myViewModel.getAllCropsById(CropId).observe(this, crops -> {
@@ -395,6 +390,7 @@ public class FarmInput extends AppCompatActivity {
             }
         });
     }
+
     private List<Crops> prepareCropsList() {
         List<Crops> crops = new ArrayList<>();
 
@@ -428,6 +424,7 @@ public class FarmInput extends AppCompatActivity {
 
         return crops;
     }
+
     private String determineCompatibility(String previousCrop, String preferred, String allowed, String forbidden) {
         if (preferred != null && preferred.contains(previousCrop)) {
             return "مفضل";
@@ -439,6 +436,7 @@ public class FarmInput extends AppCompatActivity {
             return "لا توجد بيانات لهذا المحصول";
         }
     }
+
     private void evaluateFarm(Location location) {
 
         lat = location.getLatitude();
@@ -455,11 +453,11 @@ public class FarmInput extends AppCompatActivity {
         //String GreenhouseType = spinnerWaterAvailability.getSelectedItem().toString();
 
         float avgTemp = 30;
-        double avgMoist = 50 /100.0;
+        double avgMoist = 50 / 100.0;
 
         if (currentWeather != null) {
-              avgTemp = currentWeather.getMain().getTemp();
-             avgMoist = currentWeather.getMain().getHumidity() / 100.0;
+            avgTemp = currentWeather.getMain().getTemp();
+            avgMoist = currentWeather.getMain().getHumidity() / 100.0;
         }
         double scoreSoil = getPoint(soil, selectedCrop.get(0).getPreferredSoil(), selectedCrop.get(0).getAllowedSoil(), selectedCrop.get(0).getForbiddenSoil());
         double scoreIrr = getPoint(irrig, selectedCrop.get(0).getPreferredIrrigation(), selectedCrop.get(0).getAllowedIrrigation(), selectedCrop.get(0).getForbiddenIrrigation());
@@ -586,9 +584,6 @@ public class FarmInput extends AppCompatActivity {
     }
 
 
-
-
-
     private void setSpinnerSelection(Spinner spinner, String value) {
         ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinner.getAdapter();
         if (adapter != null) {
@@ -602,7 +597,6 @@ public class FarmInput extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -610,7 +604,6 @@ public class FarmInput extends AppCompatActivity {
             fusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
-
 
 
     public void checkLocationPermission() {
@@ -1014,6 +1007,8 @@ public class FarmInput extends AppCompatActivity {
     private void showToast(String message) {
         runOnUiThread(() -> Toast.makeText(FarmInput.this, message, Toast.LENGTH_SHORT).show());
     }
+
+
 //
 //
 
@@ -1376,49 +1371,6 @@ public class FarmInput extends AppCompatActivity {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // في FarmInput.java

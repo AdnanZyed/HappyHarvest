@@ -30,7 +30,7 @@ import java.util.List;
 public class Main_Activity_part extends AppCompatActivity {
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1001;
 
-    public static final String FERTILIZER_CHANNEL_ID = "HappyHarvestChannel";
+    //public static final String FERTILIZER_CHANNEL_ID = "HappyHarvestChannel";
     private ViewPager2 viewPager;
     private Part_Adapter adapter;
 
@@ -87,7 +87,7 @@ public class Main_Activity_part extends AppCompatActivity {
         });
     }
 
-    private void checkAndRequestNotificationPermission() {//دالة بتفحص إذا التطبيق يملك إذن إرسال إشعارات (فقط في أندرويد 13 وأعلى):
+    private void checkAndRequestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -106,11 +106,10 @@ public class Main_Activity_part extends AppCompatActivity {
         }
     }
 
-    // معالجة نتيجة طلب الإذن
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {//هذي في كل الاحوال سيتم استدعائها لكن انا هنا بس حددت ايش يبعثلو لما يوافق او يرفض
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {

@@ -31,10 +31,9 @@ import java.util.List;
 public class MainActivity_sign extends AppCompatActivity {
     private My_View_Model myViewModel;
     private ActivityMainSignBinding binding;
-    private FirebaseDatabase database;
-    private DatabaseReference dbRef;
+    // private FirebaseDatabase database;
+    //  private DatabaseReference dbRef;
     private FirebaseDatabaseHelper firebaseHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +45,11 @@ public class MainActivity_sign extends AppCompatActivity {
 
         firebaseHelper = FirebaseDatabaseHelper.getInstance();
 
-        myViewModel.getAllExpert().observe(this, count -> {
-            if (count.isEmpty()) {
-                new Thread(() -> addSampleExperts()).start();  // تشغيل في ثريد منفصل
-            }
-        });
+//        myViewModel.getAllExpert().observe(this, count -> {
+//            if (count.isEmpty()) {
+//                new Thread(() -> addSampleExperts()).start();  // تشغيل في ثريد منفصل
+//            }
+//        });
 
 //        myViewModel.getAllFarmer().observe(this, count1 -> {
 //            if (count1.isEmpty()) {
@@ -58,15 +57,15 @@ public class MainActivity_sign extends AppCompatActivity {
 //            }
 //        });
         addSampleExperts();
-        addSampleFarmers();
+    //    addSampleFarmers();
 
 //        uploadCrop(createOnionCrop());
 //        uploadCrop(createTomatoCrop());
 //        uploadCrop(createEggplantCrop());
 //        uploadCrop(createGarlicCrop());
 //        uploadCrop(createCarrotCrop());
-//       uploadCrop(createWatermelonCrop());
-        //  uploadCrop(createWheatCrop());
+//        uploadCrop(createWatermelonCrop());
+//        uploadCrop(createWheatCrop());
 
 
         binding.exit.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +125,26 @@ public class MainActivity_sign extends AppCompatActivity {
                         Toast.makeText(MainActivity_sign.this, "❌ فشل التسجيل: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
+                });
+            }
+        });
+
+    }
+
+    private void uploadCrop(Crop crop) {
+        //    Toast.makeText(this, "جاري رفع المحصول...", Toast.LENGTH_SHORT).show();
+
+        firebaseHelper.addCrop(crop, new FirebaseDatabaseHelper.OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(boolean success, Exception exception) {
+                runOnUiThread(() -> {
+                    if (success) {
+                        //   Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.d("Firebase", "Crop successfully uploaded");
+                    } else {
+                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
+                        Log.e("Firebase", "Error uploading crop", exception);
+                    }
                 });
             }
         });
@@ -796,25 +815,6 @@ public class MainActivity_sign extends AppCompatActivity {
         return stream.toByteArray();
     }
 
-    private void uploadCrop(Crop crop) {
-        //    Toast.makeText(this, "جاري رفع المحصول...", Toast.LENGTH_SHORT).show();
-
-        firebaseHelper.addCrop(crop, new FirebaseDatabaseHelper.OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(boolean success, Exception exception) {
-                runOnUiThread(() -> {
-                    if (success) {
-                        //   Toast.makeText(MainActivity_sign.this, "✅ تم رفع المحصول", Toast.LENGTH_SHORT).show();
-                        Log.d("Firebase", "Crop successfully uploaded");
-                    } else {
-                        Toast.makeText(MainActivity_sign.this, "❌ فشل في رفع المحصول", Toast.LENGTH_SHORT).show();
-                        Log.e("Firebase", "Error uploading crop", exception);
-                    }
-                });
-            }
-        });
-
-    }
 
 //        حرث الأرض مرتين على الأقل بعمق 25–30 سم، حتى تهوي التربة وتتفتت الكتل.
 //

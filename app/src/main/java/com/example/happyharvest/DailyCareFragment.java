@@ -171,7 +171,6 @@ public class DailyCareFragment extends Fragment {
                 myViewModel.updateCropFarmer(farmerCropM);
                 // textFertilizerInfo.setText(updateFertilizerInfo(cropM, farmerCropM));
                 textFertilizing.setText(updateFertilizingInfo(cropM, farmerCropM));
-
                 scheduleNextFertilization(cropM, farmerCropM);
             }
         });
@@ -439,6 +438,7 @@ public class DailyCareFragment extends Fragment {
                 cal.add(Calendar.DAY_OF_YEAR, frequencyDays);
                 farmerCropM.setNextFertilizingDate(cal.getTime());
                 myViewModel.updateCropFarmer(farmerCropM);
+                //الاضافة على الجدول
                 return sdf.format(cal.getTime());
             }
         } catch (Exception e) {
@@ -463,24 +463,23 @@ public class DailyCareFragment extends Fragment {
         }
 
         if (farmerCrop.getHumidity() > 80) {
-            adjustment *= 1.1f; // امتصاص السماد أبطأ
+            adjustment *= 1.1f;
         }
 
 
         if (farmerCrop.getWindSpeed() > 30) {
-            adjustment *= 1.05f; // توزيع السماد قد يتأثر
+            adjustment *= 1.05f;
         }
 
 
         // Adjust based on soil type
-        List<String> lessSuitableSoils = Arrays.asList("رملية", "صخرية");
+        List<String> lessSuitableSoils = Arrays.asList("رملية","صخرية");
         if (!crop.getPreferredSoil().equalsIgnoreCase(farmerCrop.getSoilType()) &&
                 lessSuitableSoils.contains(farmerCrop.getSoilType())) {
             adjustment *= 0.8f;
         }
 
         // Adjust based on crop growth stage
-        //بدي اخزن متغير في كروب وهو عدد االايام حتى النضج ليتم تقسيم هذا العمل على ثلاث مراحل بناءا على نوع المحصول
         long daysSincePlanting = getDaysSince(farmerCrop.getStartDate());
         if (daysSincePlanting > 0) {
             int maturity = crop.getDaysToMaturity();
@@ -881,90 +880,90 @@ public class DailyCareFragment extends Fragment {
     }
 
 
-    private void scheduleFertilizingNotifications(Crop crop, Farmer_Crops farmerCrop) {/*حساب كل ايام التسميد معالجة التأخير التناوب*/
-        Context context = getContext();
-        if (context == null) return;
-        try {
-            int AdjustedFertilizingDays = getAdjustedFertilizingDays(crop, farmerCrop); // عدد الأيام بعد التعديل
-
-            // تحديد تاريخ البداية: إما آخر تسميد أو تاريخ الزراعة
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Date startDate = (farmerCrop.getLastFertilizerDate() != null && !farmerCrop.getLastFertilizerDate().isEmpty())
-                    ? sdf.parse(farmerCrop.getLastFertilizerDate())
-                    : sdf.parse(farmerCrop.getStartDate());
-
-            if (startDate == null) return;
-
-            Calendar baseCalendar = Calendar.getInstance();
-            baseCalendar.setTime(startDate);
-
-            // معالجة التأخير إن وجد
-            if (startDate.before(new Date()) && !isFertilizationDone(farmerCrop)) {/*   الدالة بترجع هل اخر يوم تسميد هو اليوم يعني لو تاريخ البداية قبل اليوم يعني فات وتاريخ اليوم لا يساوي اخر يوم تسميد*/
-                sendDelayNotification(crop);
-                long daysLate = TimeUnit.MILLISECONDS.toDays(new Date().getTime() - startDate.getTime());
-                baseCalendar.add(Calendar.DAY_OF_YEAR, (int) daysLate);//اذا تأخر بيبدأمن اليوم
-            } else {
-                baseCalendar.setTime(new Date()); // نبدأ من اليوم اذا اليوم اخر يوم تسميد
-            }
-
-            for (int i = 0; i < crop.getDaysToMaturity() / crop.getFertilizingFrequencyDays(); i++) {/* عمل لوب على ايام التسميد ككل بناءا على الفترة الكلية حتى النضج ومعرفة تاريخ كل عملية تسميد لارسال اشعار*/
-                Calendar eventCalendar = (Calendar) baseCalendar.clone();
-                eventCalendar.add(Calendar.DAY_OF_YEAR, AdjustedFertilizingDays * (i + 1));
-
-                if (eventCalendar.after(Calendar.getInstance())) {//
-                    boolean isOrganic = (i % 2 == 0); // تناوب بين عضوي وكيميائي الطريقة غير فعالة وغير منطقية لازم اعرف متغير يدل على فترة او مرات للعضوي وكذلك متغير اخر للكيماوي اذا الاثنين مع بعض يقسمهم ع2
-                    scheduleNotification(
-                            crop.getCrop_NAME(),
-                            isOrganic ? crop.getOrganicFertilizer() : crop.getChemicalFertilizer(),
-                            isOrganic ? FertilizerType.ORGANIC : FertilizerType.CHEMICAL,
-                            isOrganic ? crop.getOrganicPerPlant() : crop.getChemicalPerPlant(),
-                            eventCalendar.getTimeInMillis(),
-                            i
-                    );
-                }
-            }
-
-            // تنبيه التسميد القادم فقط (أول إشعار)
-            Calendar nextFertilizingDate = Calendar.getInstance();
-            nextFertilizingDate.setTime(new Date());//التسميد التالي بعطيه قيمة التاريخ الحالية
-            nextFertilizingDate.add(Calendar.DAY_OF_YEAR, AdjustedFertilizingDays);//وبضيف عدد الايام على القيمة الحالية
-
-
-        } catch (Exception e) {
-            Log.e("Notification", "Error scheduling", e);
-        }
-    }
-
-
-    private boolean isFertilizationDone(Farmer_Crops farmerCrop) {//التاريخ الحالي هل يساوي اخر يوم تسميد يعني اليوم سمد؟
-        if (farmerCrop == null) return false;
-
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Date lastFertDate = sdf.parse(farmerCrop.getLastFertilizerDate());
-            if (lastFertDate == null) {
-                lastFertDate = sdf.parse(farmerCrop.getStartDate());
-            }
-
-            Calendar cal1 = Calendar.getInstance();
-            cal1.setTime(lastFertDate);
-            cal1.set(Calendar.HOUR_OF_DAY, 0);
-            cal1.set(Calendar.MINUTE, 0);
-            cal1.set(Calendar.SECOND, 0);
-            cal1.set(Calendar.MILLISECOND, 0);
-
-            Calendar cal2 = Calendar.getInstance(); // اليوم الحالي
-            cal2.set(Calendar.HOUR_OF_DAY, 0);
-            cal2.set(Calendar.MINUTE, 0);
-            cal2.set(Calendar.SECOND, 0);
-            cal2.set(Calendar.MILLISECOND, 0);
-
-            return cal1.equals(cal2);
-        } catch (Exception e) {
-            Log.e("DateCheck", "Error parsing dates", e);
-            return false;
-        }
-    }
+//    private void scheduleFertilizingNotifications(Crop crop, Farmer_Crops farmerCrop) {/*حساب كل ايام التسميد معالجة التأخير التناوب*/
+//        Context context = getContext();
+//        if (context == null) return;
+//        try {
+//            int AdjustedFertilizingDays = getAdjustedFertilizingDays(crop, farmerCrop); // عدد الأيام بعد التعديل
+//
+//            // تحديد تاريخ البداية: إما آخر تسميد أو تاريخ الزراعة
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//            Date startDate = (farmerCrop.getLastFertilizerDate() != null && !farmerCrop.getLastFertilizerDate().isEmpty())
+//                    ? sdf.parse(farmerCrop.getLastFertilizerDate())
+//                    : sdf.parse(farmerCrop.getStartDate());
+//
+//            if (startDate == null) return;
+//
+//            Calendar baseCalendar = Calendar.getInstance();
+//            baseCalendar.setTime(startDate);
+//
+//            // معالجة التأخير إن وجد
+//            if (startDate.before(new Date()) && !isFertilizationDone(farmerCrop)) {/*   الدالة بترجع هل اخر يوم تسميد هو اليوم يعني لو تاريخ البداية قبل اليوم يعني فات وتاريخ اليوم لا يساوي اخر يوم تسميد*/
+//                sendDelayNotification(crop);
+//                long daysLate = TimeUnit.MILLISECONDS.toDays(new Date().getTime() - startDate.getTime());
+//                baseCalendar.add(Calendar.DAY_OF_YEAR, (int) daysLate);//اذا تأخر بيبدأمن اليوم
+//            } else {
+//                baseCalendar.setTime(new Date()); // نبدأ من اليوم اذا اليوم اخر يوم تسميد
+//            }
+//
+//            for (int i = 0; i < crop.getDaysToMaturity() / crop.getFertilizingFrequencyDays(); i++) {/* عمل لوب على ايام التسميد ككل بناءا على الفترة الكلية حتى النضج ومعرفة تاريخ كل عملية تسميد لارسال اشعار*/
+//                Calendar eventCalendar = (Calendar) baseCalendar.clone();
+//                eventCalendar.add(Calendar.DAY_OF_YEAR, AdjustedFertilizingDays * (i + 1));
+//
+//                if (eventCalendar.after(Calendar.getInstance())) {//
+//                    boolean isOrganic = (i % 2 == 0); // تناوب بين عضوي وكيميائي الطريقة غير فعالة وغير منطقية لازم اعرف متغير يدل على فترة او مرات للعضوي وكذلك متغير اخر للكيماوي اذا الاثنين مع بعض يقسمهم ع2
+//                    scheduleNotification(
+//                            crop.getCrop_NAME(),
+//                            isOrganic ? crop.getOrganicFertilizer() : crop.getChemicalFertilizer(),
+//                            isOrganic ? FertilizerType.ORGANIC : FertilizerType.CHEMICAL,
+//                            isOrganic ? crop.getOrganicPerPlant() : crop.getChemicalPerPlant(),
+//                            eventCalendar.getTimeInMillis(),
+//                            i
+//                    );
+//                }
+//            }
+//
+//            // تنبيه التسميد القادم فقط (أول إشعار)
+//            Calendar nextFertilizingDate = Calendar.getInstance();
+//            nextFertilizingDate.setTime(new Date());//التسميد التالي بعطيه قيمة التاريخ الحالية
+//            nextFertilizingDate.add(Calendar.DAY_OF_YEAR, AdjustedFertilizingDays);//وبضيف عدد الايام على القيمة الحالية
+//
+//
+//        } catch (Exception e) {
+//            Log.e("Notification", "Error scheduling", e);
+//        }
+//    }
+//
+//
+//    private boolean isFertilizationDone(Farmer_Crops farmerCrop) {//التاريخ الحالي هل يساوي اخر يوم تسميد يعني اليوم سمد؟
+//        if (farmerCrop == null) return false;
+//
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//            Date lastFertDate = sdf.parse(farmerCrop.getLastFertilizerDate());
+//            if (lastFertDate == null) {
+//                lastFertDate = sdf.parse(farmerCrop.getStartDate());
+//            }
+//
+//            Calendar cal1 = Calendar.getInstance();
+//            cal1.setTime(lastFertDate);
+//            cal1.set(Calendar.HOUR_OF_DAY, 0);
+//            cal1.set(Calendar.MINUTE, 0);
+//            cal1.set(Calendar.SECOND, 0);
+//            cal1.set(Calendar.MILLISECOND, 0);
+//
+//            Calendar cal2 = Calendar.getInstance(); // اليوم الحالي
+//            cal2.set(Calendar.HOUR_OF_DAY, 0);
+//            cal2.set(Calendar.MINUTE, 0);
+//            cal2.set(Calendar.SECOND, 0);
+//            cal2.set(Calendar.MILLISECOND, 0);
+//
+//            return cal1.equals(cal2);
+//        } catch (Exception e) {
+//            Log.e("DateCheck", "Error parsing dates", e);
+//            return false;
+//        }
+//    }
 
 
     @SuppressLint("MissingPermission")
@@ -1133,6 +1132,8 @@ public class DailyCareFragment extends Fragment {
                         isOrganic ? crop.getOrganicPerPlant() : crop.getChemicalPerPlant(),
                         nextFertCalendar.getTimeInMillis(),
                         0
+                        //تمكين العملية بحساب الوقت المنقضي بناءا على تاريخ التسجيل والتاريخ الحالي وبدئ الحساب والعد في حال اشتغال التطبيق
+
 
                 );
             }

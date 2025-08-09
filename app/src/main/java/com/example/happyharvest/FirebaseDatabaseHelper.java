@@ -15,7 +15,7 @@ public class FirebaseDatabaseHelper {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://happy-harvest-2271a-default-rtdb.europe-west1.firebasedatabase.app/");
         dbRef = database.getReference("crops");
        // dbRef = database.getReference("farmers");
-        mAuth = FirebaseAuth.getInstance();
+        // mAuth = FirebaseAuth.getInstance();
        //dbRef = FirebaseDatabase.getInstance().getReference("users");
     }
 
@@ -25,6 +25,7 @@ public class FirebaseDatabaseHelper {
         }
         return instance;
     }
+
     public interface OnCompleteListener<T> {
         void onComplete(boolean success, Exception exception);
     }
@@ -33,7 +34,7 @@ public class FirebaseDatabaseHelper {
     public void addCrop(Crop crop, OnCompleteListener<Void> listener) {
         String id = dbRef.push().getKey();
         if (id != null) {
-            dbRef.child(id).setValue(crop)
+           /*مسار جديدي لمحصول جديد*/ dbRef.child(id).setValue(crop)
                     .addOnCompleteListener(task -> {
                         if (listener != null) {
                             if (task.isSuccessful()) {
